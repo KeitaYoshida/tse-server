@@ -20,3 +20,6 @@ Route::get('/', function () {
 Route::get('/aaa/', function () {
   return view('welcome');
 });
+
+Route::resource('articles', 'ArticlesController');
+Route::resource('processMst', 'ProcessMstController');

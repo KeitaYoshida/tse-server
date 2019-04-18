@@ -9,6 +9,22 @@ require('./bootstrap');
 // window.Vue = require('vue');
 import Vue from 'vue'
 
+import Vuetify from 'vuetify'
+import colors from 'vuetify/es5/util/colors'
+
+Vue.use(Vuetify, {
+    theme: {
+        primary: colors.indigo.base,
+        secondary: colors.blue.base,
+        accent: colors.amber.base,
+    }
+});
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
+// Vue-Router
+import router from './router'
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,6 +37,7 @@ import Vue from 'vue'
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('make-comp', require('./components/MakeComp.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,5 +46,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router
 });

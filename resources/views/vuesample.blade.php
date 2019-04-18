@@ -15,6 +15,7 @@
      <div id="app">
          <!--デフォルトでappの要素中でvue.jsが有効になっている-->
          <example-component></example-component>
+         <make-comp></make-comp>
 
      </div>
 
