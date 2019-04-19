@@ -12,14 +12,27 @@
 */
 
 Route::get('/', function () {
-  // return view('welcome');
+  return view('home');
+  // });
+})->middleware('auth');
 
-  return view('vuesample');
+Route::resource(
+  'processMst',
+  'ProcessMstController'
+)->middleware('auth');
+
+Route::get('sample/mailable/preview', function () {
+  return new App\Mail\MailNotification();
 });
 
-Route::get('/aaa/', function () {
-  return view('welcome');
-});
+Route::get('mail/send/info', 'MailController@MailNotification');
 
-Route::resource('articles', 'ArticlesController');
-Route::resource('processMst', 'ProcessMstController');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+// Auth::routes();
+
+Route::get('/{any}', function () {
+  return view('home');
+})->middleware('auth')->where('any', '.*');
