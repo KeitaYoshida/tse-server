@@ -12,9 +12,14 @@
 */
 
 Route::get('/', function () {
-  return view('home');
+  return view('vueapp');
   // });
 })->middleware('auth');
+
+Route::resource(
+  'constOrderData',
+  'ConstOrderDataController'
+)->middleware('auth');
 
 Route::resource(
   'processMst',
@@ -34,5 +39,5 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 // Auth::routes();
 
 Route::get('/{any}', function () {
-  return view('home');
+  return view('vueapp');
 })->middleware('auth')->where('any', '.*');

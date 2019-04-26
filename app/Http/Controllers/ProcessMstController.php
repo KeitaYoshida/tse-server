@@ -14,6 +14,7 @@ class ProcessMstController extends Controller
    */
   public function index()
   {
+    // $processMst = ProcessMst::with('author:id, model, orderConstCode, num_Order, num_Recept, itemCode')->get();
     $processMst = ProcessMst::all();
     return $processMst;
   }

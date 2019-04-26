@@ -39,5 +39,6 @@
         "vue-template-compiler": "^2.6.10",
         "vuetify": "^1.5.11",
         "webpack": "^4.30.0"
-    }
+    },
+    "dependencies": {}
 }

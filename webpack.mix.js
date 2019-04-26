@@ -21,5 +21,6 @@ mix.js('resources/js/app.js', 'public/js')
                 test: /\.pug$/,
                 loader: 'pug-plain-loader'
             }],
-        }
+        },
+        devtool: 'inline-source-map'
     });

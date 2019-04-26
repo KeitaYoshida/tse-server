@@ -29,7 +29,7 @@
 </head>
 <body>
   <div id="app">
-    <example-component test="GET DATA: {{ $id }}" logout="{{ route('logout') }}"></example-component>
+    <example-component logout="{{ route('logout') }}"></example-component>
   </div>
   <script src=" {{ mix('js/app.js') }} "></script>
 </body>
