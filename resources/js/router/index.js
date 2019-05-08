@@ -12,6 +12,7 @@ Vue.component('r-link', r_link)
 
 import home from '../components/HomeComponent.vue'
 import item_list from '../components/ItemList.vue'
+import vide_test from '../components/VideoTest.vue'
 
 export default new Router({
     mode: 'history',
@@ -27,6 +28,14 @@ export default new Router({
         path: '/data_table/:page_id',
         name: 'data_table',
         component: item_list,
+        meta: {
+            name: '部材リスト',
+            icon: ''
+        }
+    }, {
+        path: '/video_test',
+        name: 'video_test',
+        component: vide_test,
         meta: {
             name: '部材リスト',
             icon: ''

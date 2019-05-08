@@ -1,6 +1,3 @@
-<?php
-  $id = isset($_GET['AAA']) ? htmlspecialchars($_GET['AAA']) : null;
-?>
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>

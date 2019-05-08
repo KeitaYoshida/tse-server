@@ -18,6 +18,9 @@
         <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="aggregate_etc"></common-cards>
         </v-flex>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="video_test"></common-cards>
+        </v-flex>
       </v-layout>
       <!-- <v-layout class="gadget" row wrap>
         <v-flex xs6>

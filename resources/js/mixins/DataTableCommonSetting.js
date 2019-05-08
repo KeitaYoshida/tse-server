@@ -55,7 +55,6 @@ const _data_table_common_setting = {
             }
         ],
     }
-
 }
 export default {
     data() {

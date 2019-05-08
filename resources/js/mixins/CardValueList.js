@@ -65,6 +65,16 @@ const _card_data = {
         links: "/data_table",
         button: false,
         button_text: BUTON_TEXT
+    },
+    video_test: {
+        title: "video test",
+        class_text: COLOR_DEF,
+        color: TEXT_COLOR,
+        text: ["棚卸等の集計作業を行う", "（その他・残物品）"],
+        details: ["部材の検索、残数、工事割当数、手配・受入済み数量の確認ができます"].join(""),
+        links: "",
+        button: false,
+        button_text: BUTON_TEXT
     }
 }
 
