@@ -7,10 +7,10 @@
           <common-cards card_name="item_list"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
-          <common-cards card_name="accepted"></common-cards>
+          <common-cards card_name="equipStartCheck"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
-          <common-cards card_name="marshalling"></common-cards>
+          <common-cards card_name="petition"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="aggregate_const"></common-cards>
@@ -21,12 +21,10 @@
         <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="video_test"></common-cards>
         </v-flex>
-      </v-layout>
-      <!-- <v-layout class="gadget" row wrap>
-        <v-flex xs6>
-          <v-calendar></v-calendar>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="make_qr"></common-cards>
         </v-flex>
-      </v-layout>-->
+      </v-layout>
     </v-container>
   </v-app>
 </template>
@@ -40,34 +38,6 @@ export default {
   }
 };
 </script>
-
-<style lang='scss'>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-.container .layout .flex {
-  padding: 4px;
-}
-a:hover {
-  text-decoration: none;
-}
-.v-card {
-  .headline {
-    text-align: center;
-  }
-  p {
-    font-size: 18px;
-    text-align: center;
-  }
-  div {
-    width: 100%;
-  }
-}
-</style>
 
 <style lang="scss" scoped>
 h1 {

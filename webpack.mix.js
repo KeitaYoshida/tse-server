@@ -1,7 +1,15 @@
 const mix = require('laravel-mix');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
+// require('laravel-mix-bundle-analyzer');
+// if (!mix.isWatching()) {
+//   mix.bundleAnalyzer({
+//     analyzerMode: "static"
+//   });
+// }
 require('laravel-mix-eslint');
 require('laravel-mix-stylelint');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -14,13 +22,18 @@ require('laravel-mix-stylelint');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .webpackConfig({
-        module: {
-            rules: [{
-                test: /\.pug$/,
-                loader: 'pug-plain-loader'
-            }],
-        },
-        devtool: 'inline-source-map'
-    });
+  .sass('resources/sass/app.scss', 'public/css')
+  .webpackConfig({
+    module: {
+      rules: [{
+      }],
+    },
+    devtool: 'inline-source-map',
+    plugins: [
+      new VuetifyLoaderPlugin()
+    ]
+  })
+  .babelConfig({
+    "presets": ["@babel/preset-env"],
+    "plugins": ["@babel/plugin-syntax-dynamic-import"]
+  });

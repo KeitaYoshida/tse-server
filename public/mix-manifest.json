@@ -1,4 +1,12 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/equip_start_check.js": "/equip_start_check.js",
+    "/est_kokuin.js": "/est_kokuin.js",
+    "/item_data.js": "/item_data.js",
+    "/item_list.js": "/item_list.js",
+    "/petition_menu.js": "/petition_menu.js",
+    "/vendors~est_kokuin~item_data.js": "/vendors~est_kokuin~item_data.js",
+    "/vendors~item_list.js": "/vendors~item_list.js",
+    "/vide_test.js": "/vide_test.js"
 }

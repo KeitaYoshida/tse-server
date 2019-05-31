@@ -11,20 +11,55 @@
 |
 */
 
-Route::get('/', function () {
-  return view('vueapp');
-  // });
-})->middleware('auth');
+Route::get('/userinfo', function () {
+  if (Auth::check()) {
+    return Auth::user();
+  } else {
+    return 'GUEST';
+  }
+});
 
-Route::resource(
-  'constOrderData',
-  'ConstOrderDataController'
-)->middleware('auth');
+Route::get('/work/equipStartCheck/{code}/{date}', function ($c, $date) {
+  $checkdata = App\Checkdata::where('workcode', $c)->where('workday', $date)->get();
+  foreach ($checkdata as $chk) {
+    $chk->error;
+  }
+  return $checkdata;
+});
 
-Route::resource(
-  'processMst',
-  'ProcessMstController'
-)->middleware('auth');
+
+Route::get('/data/cnt_orders/item_to_cntlist', 'CntOrderCtrl@item_to_cntlist');
+
+Route::post('/checkdata', 'CheckdataController@store')->middleware('auth');
+Route::post('/checkdata/upid', 'CheckdataController@upid');
+Route::get('/checkdata/day/{date}', 'CheckdataController@daylist');
+
+Route::post('/errordata', 'ErrorDataDailyController@store')->middleware('auth');
+
+Route::get('/items/itemlist', 'ItemsCtrl@itemlist');
+Route::get('/items/iteminfo/{id}/{rev}', 'ItemsCtrl@iteminfo');
+Route::get('/items/item_inv_his/{id}/{rev}', 'ItemCountHistoryCtrl@history');
+Route::get('/items/up_item_num_inv/{id}/{rev}/{num}/{order}/{assy}', 'ItemsCtrl@up_item_num_inv')->middleware('auth');
+
+Route::get('/items/constorder/{id}/{rev}', 'CntOrderCtrl@item_to_cntlist');
+Route::get('/items/cnt_order_ins_etc/{id}/{rev}/{price}', 'CntOrderCtrl@ins_etc_row');
+
+Route::get('/adduser/{id}/{name}/{password}', function ($id, $name, $ps) {
+  DB::table('users')->insert(
+    [
+      [
+        'name' => $name,
+        'loginid' => $id,
+        'password' => Hash::make($ps),
+      ]
+    ]
+  );
+});
+
+// Route::get('/vendors', function () {
+//   $d = new App\Model\MVendorItem;
+//   return $d->with('vendname')->where('item_code', 'AUA30720003000')->get();
+// });
 
 Route::get('sample/mailable/preview', function () {
   return new App\Mail\MailNotification();
@@ -34,13 +69,12 @@ Route::get('mail/send/info', 'MailController@MailNotification');
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::get('/get-text', function () {
-  return view('gettext');
-})->middleware('auth');
-// Auth::routes();
+Route::post('/logout', function () {
+  Session::flush();
+  $com = new Auth\LoginController;
+  $com->logout();
+})->name('logout');
 
 Route::get('/{any}', function () {
   return view('vueapp');
-})->middleware('auth')->where('any', '.*');
+})->where('any', '.*');

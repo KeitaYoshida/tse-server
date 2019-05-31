@@ -10667,5 +10667,135 @@ a.text-dark:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+body {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+h1.page-title {
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+h1.page-title .v-icon {
+  vertical-align: baseline;
+  margin-right: 0.8rem;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.container .layout .flex {
+  padding: 4px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.v-card h2,
+.v-card .headline {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.v-card .v-card__text {
+  font-size: 1.5rem;
+}
+
+.v-card p {
+  font-size: 18px;
+  text-align: center;
+}
+
+.v-card div {
+  width: 100%;
+}
+
+table.center td {
+  text-align: center;
+}
+
+table#chk_info,
+table#error_set,
+table.torks_com {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+table#chk_info td,
+table#error_set td,
+table.torks_com td {
+  padding: 0.8rem;
+  border-bottom: 0.1px dashed #ccc;
+  font-size: 1.4rem;
+}
+
+table#chk_info .index,
+table#error_set .index,
+table.torks_com .index {
+  text-align: center;
+  max-width: 2rem;
+  width: 5%;
+}
+
+table#chk_info .chk_name,
+table#error_set .chk_name,
+table.torks_com .chk_name {
+  text-align: center;
+  min-width: 12rem;
+  width: 30%;
+}
+
+table#chk_info .chk_how,
+table#error_set .chk_how,
+table.torks_com .chk_how {
+  min-width: 20rem;
+  width: 55%;
+}
+
+table#chk_info .chk_val,
+table#error_set .chk_val,
+table.torks_com .chk_val {
+  text-align: center;
+  min-width: 4rem;
+  width: 10%;
+}
+
+table#chk_info .chk_er,
+table#error_set .chk_er,
+table.torks_com .chk_er {
+  width: 65%;
+}
+
+table#chk_info .title,
+table#error_set .title,
+table.torks_com .title {
+  min-width: 7rem;
+  width: 25%;
+}
+
+table#chk_info .icon,
+table#error_set .icon,
+table.torks_com .icon {
+  text-align: center;
+  min-width: 2.2rem;
+  width: 4%;
+}
+
+table#chk_info .value,
+table#error_set .value,
+table.torks_com .value {
+  width: 71%;
+}
+
 
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIvY3NzL2FwcC5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
   <title>torks web</title>
 
   <!-- Fonts -->
@@ -18,7 +20,6 @@
     background-color: #fff;
     color: #636b6f;
     font-family: 'Nunito', sans-serif;
-    font-weight: 200;
     height: 100vh;
     margin: 0;
   }

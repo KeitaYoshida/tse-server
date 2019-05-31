@@ -38,6 +38,22 @@ class LoginController extends Controller
   }
 
   /**
+   * Show the application's login form.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function showLoginForm()
+  {
+    // if(isset($_SERVER['HTTP_REFERER']])) {
+    session(
+      ['url.intended' => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : NULL]
+    ); // この行を追加
+
+    // }
+    return view('auth.login');
+  }
+
+  /**
    * Get the login username to be used by the controller.
    *
    * @return string
