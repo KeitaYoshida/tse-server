@@ -3,10 +3,19 @@
     "/css/app.css": "/css/app.css",
     "/equip_start_check.js": "/equip_start_check.js",
     "/est_kokuin.js": "/est_kokuin.js",
+    "/inventory.js": "/inventory.js",
     "/item_data.js": "/item_data.js",
+    "/item_data~readfile.js": "/item_data~readfile.js",
     "/item_list.js": "/item_list.js",
+    "/model_mst.js": "/model_mst.js",
+    "/petition_kyuka.js": "/petition_kyuka.js",
     "/petition_menu.js": "/petition_menu.js",
-    "/vendors~est_kokuin~item_data.js": "/vendors~est_kokuin~item_data.js",
+    "/product_list.js": "/product_list.js",
+    "/readfile.js": "/readfile.js",
+    "/readfile~recept_list.js": "/readfile~recept_list.js",
+    "/recept_list.js": "/recept_list.js",
+    "/vendors~inventory~recept_list.js": "/vendors~inventory~recept_list.js",
+    "/vendors~item_data~readfile.js": "/vendors~item_data~readfile.js",
     "/vendors~item_list.js": "/vendors~item_list.js",
-    "/vide_test.js": "/vide_test.js"
+    "/vendors~readfile.js": "/vendors~readfile.js"
 }

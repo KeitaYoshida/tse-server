@@ -8,6 +8,47 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@page {
+  size: A4;
+  margin: 0;
+}
+
+.a4 {
+  display: block;
+  background: white; /* 背景を白く */
+  width: 210mm !important;
+  height: 296mm !important; /* 1mm余裕をもたせる */
+  page-break-after: always;
+}
+
+.a4-back {
+  background: #555;
+}
+
+.a4-area {
+  margin:0 auto;
+  width: 210mm !important;
+  .row {
+    margin: 0 auto;
+  }
+  .page_index {
+    font-size: 0.5rem;
+  }
+}
+
+.tyuzan_view_selector {
+  label {
+    margin-bottom: 0;
+  }
+  .v-input__slot,
+  .v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
+    margin-bottom: 0;
+  }
+  .v-input--selection-controls {
+    margin-top: 0;
+  }
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -47,13 +88,12 @@ a:hover {
   .v-card__text {
     font-size: 1.5rem;
   }
-  p {
-    font-size: 18px;
-    text-align: center;
-  }
-  div {
-    width: 100%;
-  }
+}
+.v-date-picker-table.v-date-picker-table--date > table > tbody tr td:nth-child(7) .v-btn__content {
+    color:blue
+}
+.v-date-picker-table.v-date-picker-table--date > table > tbody tr td:nth-child(1) .v-btn__content {
+    color:red
 }
 table {
   &.center {

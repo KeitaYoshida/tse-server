@@ -20,7 +20,7 @@ Vue.use(Vuetify, {
     accent: colors.amber.base,
   }
 });
-import 'vuetify/dist/vuetify.min.css'
+// import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 // import VueHtmlToPaper from 'vue-html-to-paper';
@@ -46,6 +46,69 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 // Vue-Router
 import router from './router'
 
+Array.prototype.divide = function (n) {
+  var ary = this;
+  var idx = 0;
+  var results = [];
+  var length = ary.length;
+
+  while (idx + n < length) {
+    var result = ary.slice(idx, idx + n);
+    results.push(result);
+    idx = idx + n;
+  }
+
+  var rest = ary.slice(idx, length + 1);
+  results.push(rest);
+  return results;
+};
+
+String.prototype.trim = function () {
+  return this.replace(/^\s+|\s+$/g, "");
+}
+String.prototype.ltrim = function () {
+  return this.replace(/^\s+/, "");
+}
+String.prototype.rtrim = function () {
+  return this.replace(/\s+$/, "");
+}
+String.prototype.revToNum = function () {
+  return this.replace('-', "").num();
+}
+String.prototype.num = function () {
+  return Number(this);
+}
+String.prototype.minStr = function (num) {
+  let s = this;
+  if (s.length > num) {
+    s = s.slice(0, num) + '…'
+  }
+  return s;
+}
+Number.prototype.numToRev = function () {
+  let val = ("0000" + this).slice(-4);
+  return val.slice(0, 2) + '-' + val.slice(2, 4);
+}
+Number.prototype.lotToText = function () {
+  switch (this) {
+    case -1:
+      return "通常手配";
+    case -2:
+      return "支給品";
+    default:
+      return this;
+  }
+}
+Number.prototype.comHyphen = function () {
+  if (this === -1) {
+    return '-'
+  } else {
+    return this;
+  }
+}
+
+import html2pdf from "html2pdf.js";
+import { numberTypeAnnotation } from 'babel-types';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -80,6 +143,13 @@ Vue.mixin({
     get__username: () => document.getElementById('username').innerText,
     get__workcode: function () { return this.get__hankaku(document.getElementById('kanri-no').innerText) },
     get__worktime: () => new Date(),
+    get__orderway: (lot, mini) => {
+      if (lot === -1) {
+        return '通常手配'
+      } else {
+        return 'LOT手配[' + lot + '個 (' + mini + ' 以下で手配 )]'
+      }
+    },
     get__hankaku: (str) => {
       var hankaku = '';
       String(str).split('').forEach(function (s) {
@@ -92,6 +162,37 @@ Vue.mixin({
         }
       });
       return hankaku;
+    },
+    print__pdf: (id) => {
+      let element = document.getElementById(id);
+      let opt = {
+        margin: 0,
+        filename: "myfile.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait", x: 0, y: 0, scrollX: 0, scrollY: 0 }
+      };
+      let pdf = html2pdf()
+        .from(element)
+        .set(opt)
+        .save();
+    },
+    rt__up_data_items(ob, item_id = false) {
+      let post = {};
+      ob.forEach(ar => {
+        if (typeof ar.value === String) {
+          if (ar.value === null) {
+            ar.value = '';
+          }
+          post[ar.name] = ar.value.rtrim();
+        } else {
+          post[ar.name] = ar.value;
+        }
+      });
+      if (item_id) {
+        post["item_id"] = item_id;
+      }
+      return post;
     }
   },
 })

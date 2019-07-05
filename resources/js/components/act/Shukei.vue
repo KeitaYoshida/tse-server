@@ -35,6 +35,7 @@
             :item_data="item_data"
             :main="main"
             :his="inv_his"
+            @init="init"
             v-if="item_data && cnt_data"
           ></Wariate>
           <div id="etc-button" v-if="etcrow">
@@ -93,7 +94,7 @@ export default {
         });
       });
       await axios.get("/items/item_inv_his/" + req).then(res => {
-        this.inv_his = res.data;
+        this.inv_his = res.data.reverse();
       });
     },
     add_etc_row() {

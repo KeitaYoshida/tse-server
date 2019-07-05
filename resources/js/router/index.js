@@ -7,10 +7,15 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import home from '../components/HomeComponent.vue';
 const item_list = () => import(/* webpackChunkName: "item_list" */ '../components/ItemList.vue');
 const item_data = () => import(/* webpackChunkName: "item_data" */ '../components/ItemData.vue');
-const vide_test = () => import(/* webpackChunkName: "vide_test" */ '../components/VideoTest.vue');
+const readfile = () => import(/* webpackChunkName: "readfile" */ '../components/ReadFile/ReadFile.vue');
 const equip_start_check = () => import(/* webpackChunkName: "equip_start_check" */ '../components/equipStartCheck.vue');
 const est_kokuin = () => import(/* webpackChunkName: "est_kokuin" */ '../components/equipStartCheck/estKokuin.vue');
 const petition_menu = () => import(/* webpackChunkName: "petition_menu" */ '../components/petition/menu.vue');
+const petition_kyuka = () => import(/* webpackChunkName: "petition_kyuka" */ '../components/petition/Kyuka.vue');
+const inventory = () => import(/* webpackChunkName: "inventory" */ '../components/Inventory/index.vue');
+const model_mst = () => import(/* webpackChunkName: "model_mst" */ '../components/ModelMst/index.vue');
+const recept_list = () => import(/* webpackChunkName: "recept_list" */ '../components/ReceptList/index.vue');
+const product_list = () => import(/* webpackChunkName: "product_list" */ '../components/Product/index.vue');
 
 let Auth = {
   login: async function () {
@@ -47,7 +52,7 @@ let router = new Router({
     component: est_kokuin,
     meta: { requiresAuth: true }
   }, {
-    path: '/data_table/:page_id',
+    path: '/data_table/:page_id/',
     name: 'data_table',
     component: item_list,
   }, {
@@ -55,9 +60,29 @@ let router = new Router({
     name: 'petition',
     component: petition_menu,
   }, {
-    path: '/video_test',
-    name: 'video_test',
-    component: vide_test,
+    path: '/petition/kyuka',
+    name: 'kyuka',
+    component: petition_kyuka,
+  }, {
+    path: '/inventory',
+    name: 'inventory',
+    component: inventory
+  }, {
+    path: '/readfile',
+    name: 'readfile',
+    component: readfile,
+  }, {
+    path: '/model_mst',
+    name: 'model_mst',
+    component: model_mst,
+  }, {
+    path: '/recept_list',
+    name: 'recept_list',
+    component: recept_list,
+  }, {
+    path: '/product_list',
+    name: 'product_list',
+    component: product_list,
   }, {
     path: '/*',
     name: 'j-home',

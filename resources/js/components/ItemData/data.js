@@ -6,7 +6,8 @@ export default {
           shukei: false,
           henshu: false,
           ukeire: false,
-          shiyo: false
+          shiyo: false,
+          image: false,
         },
         config: [
           {
@@ -21,6 +22,10 @@ export default {
             name: '使用',
             code: 'shiyo',
             icon: 'fas fa-play'
+          }, {
+            name: '画像',
+            code: 'image',
+            icon: 'far fa-image'
           }, {
             name: '編集',
             code: 'henshu',

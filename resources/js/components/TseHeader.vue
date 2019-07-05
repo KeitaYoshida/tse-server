@@ -4,6 +4,7 @@
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title class="white--text">Torks Web</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-text-field clearable name="memo" label="memo" id="memo"></v-text-field>
       <router-link to="/">
         <v-btn :color="color.icon" depressed>
           <v-icon>fas fa-home</v-icon>

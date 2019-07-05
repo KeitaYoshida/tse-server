@@ -13,16 +13,19 @@
           <common-cards card_name="petition"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
-          <common-cards card_name="aggregate_const"></common-cards>
+          <common-cards card_name="inventory"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
-          <common-cards card_name="aggregate_etc"></common-cards>
+          <common-cards card_name="readfile"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
-          <common-cards card_name="video_test"></common-cards>
+          <common-cards card_name="model_mst"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
-          <common-cards card_name="make_qr"></common-cards>
+          <common-cards card_name="recept_list"></common-cards>
+        </v-flex>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="product_list"></common-cards>
         </v-flex>
       </v-layout>
     </v-container>

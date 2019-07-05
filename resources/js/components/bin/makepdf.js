@@ -35,7 +35,7 @@ interface PdfProps {
  * HTMLからPDFを生成
  * @param {HTMLElement} element
  */
-export async function createPdfFromHtml(element) {
+export default async function createPdfFromHtml(element) {
   const pdfProps = await createPdfProps(element);
   createPdf(pdfProps);
 }

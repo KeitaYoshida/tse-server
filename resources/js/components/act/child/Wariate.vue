@@ -23,9 +23,7 @@
     </tr>
   </table>
 </template>
-
 <script>
-import { assertExpressionStatement } from "babel-types";
 export default {
   props: ["items", "item_data", "main", "his"],
   data: function() {
@@ -73,7 +71,6 @@ export default {
       url = url + tarNum + m;
       url = url + item.cnt_order_code + m;
       url = url + item.assy_code;
-      let his = this.his;
       await axios
         .get(url)
         .then(res => {})
@@ -83,8 +80,7 @@ export default {
       await axios
         .get("/items/item_inv_his/" + info.item_code + "/" + info.item_rev)
         .then(res => {
-          his = res.data;
-          console.log(his);
+          this.$emit("init");
         });
     }
   }

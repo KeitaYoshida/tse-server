@@ -2,23 +2,27 @@ const TEXT_COLOR = 'white--text';
 // const COLOR_TEAL_CLASS_2 = 'blue lighten-2';
 const BUTON_TEXT = 'VIEW';
 const COLOR_DEF = 'blue lighten-2'
+const COLOR_MST = 'green lighten-2'
+const COLOR_FILE = "indigo lighten-2"
+const COLOR_WORK = "deep-orange lighten-2"
+const COLOR_WORK_LESS = 'teal lighten-2'
 
 const _card_data = {
   item_list: {
-    title: "部材リスト",
-    class_text: COLOR_DEF,
+    title: "部材",
+    class_text: COLOR_MST,
     color: TEXT_COLOR,
-    text: '部材リストの一覧を表示',
+    text: '部材・図面一覧リスト',
     details: ["部材の検索、残数、工事割当数、手配・受入済み数量の確認ができます"].join(""),
     links: "/data_table",
     button: false,
     button_text: BUTON_TEXT
   },
   equipStartCheck: {
-    title: "始業時点検",
+    title: "点検",
     class_text: COLOR_DEF,
     color: TEXT_COLOR,
-    text: "各種工具・治工具・設備の始業時点検内容を登録する",
+    text: "工具・設備の始業時点検",
     details: [
       "手配した工事を元に受入処理を行えます。",
       "対象の手配工事を選択すると手配一覧リストが表示されます。",
@@ -38,7 +42,7 @@ const _card_data = {
     ]
   },
   petition: {
-    title: "各種申請",
+    title: "申請",
     class_text: COLOR_DEF,
     color: TEXT_COLOR,
     text: "休暇・残業・etcの申請を行う",
@@ -48,58 +52,52 @@ const _card_data = {
     button: false,
     button_text: BUTON_TEXT
   },
-  marshalling: {
-    title: "マーシャリング",
-    class_text: COLOR_DEF,
+  inventory: {
+    title: "棚卸し",
+    class_text: COLOR_WORK_LESS,
     color: TEXT_COLOR,
-    text: "部材のマーシャリングを行う",
+    text: "部材・その他・工事・履歴",
     details: [
-      "手配した工事を元にマーシャリング処理を行えます。",
-      "対象の手配工事を選択すると手配一覧リストが表示されます。",
-      "表示されたリストよりマーシャリングする部材をチェックし、",
-      "画面下部の決定ボタンを押下してください。",
-      "受入数量の変更がある場合は、リスト右部の編集コマンドを押してください。"
     ].join(""),
-    links: "/data_table",
-    button: false,
-    button_text: BUTON_TEXT
-  },
-  aggregate_const: {
-    title: "集計 - 工事",
-    class_text: COLOR_DEF,
-    color: TEXT_COLOR,
-    text: ["棚卸等の集計作業を行う", "（工事）"],
-    details: ["部材の検索、残数、工事割当数、手配・受入済み数量の確認ができます"].join(""),
-    links: "/data_table",
-    button: false,
-    button_text: BUTON_TEXT
-  },
-  aggregate_etc: {
-    title: "集計 - その他・残物品",
-    class_text: COLOR_DEF,
-    color: TEXT_COLOR,
-    text: ["棚卸等の集計作業を行う", "（その他・残物品）"],
-    details: ["部材の検索、残数、工事割当数、手配・受入済み数量の確認ができます"].join(""),
-    links: "/data_table",
-    button: false,
-    button_text: BUTON_TEXT
-  },
-  video_test: {
-    title: "video test",
-    class_text: COLOR_DEF,
-    color: TEXT_COLOR,
-    text: ["棚卸等の集計作業を行う", "（その他・残物品）"],
-    details: ["部材の検索、残数、工事割当数、手配・受入済み数量の確認ができます"].join(""),
     links: "",
     button: false,
     button_text: BUTON_TEXT
   },
-  make_qr: {
-    title: "make qr",
-    class_text: COLOR_DEF,
+  readfile: {
+    title: "読取",
+    class_text: COLOR_FILE,
     color: TEXT_COLOR,
-    text: ["make qr code"],
-    details: ["make qr and print qr list pdf"].join(""),
+    text: ["TSデータ（CSV形式）"],
+    details: ["ファイル読み込み"].join(""),
+    links: "",
+    button: false,
+    button_text: BUTON_TEXT
+  },
+  model_mst: {
+    title: "形式",
+    class_text: COLOR_MST,
+    color: TEXT_COLOR,
+    text: ["形式リスト・構成データ更新・部材登録・手配・点検・確認"],
+    details: [""].join(""),
+    links: "",
+    button: false,
+  },
+  recept_list: {
+    title: "受注",
+    class_text: COLOR_WORK_LESS,
+    color: TEXT_COLOR,
+    text: ["注残・製造データ作成"],
+    details: [""].join(""),
+    links: "",
+    button: false,
+    button_text: BUTON_TEXT
+  },
+  product_list: {
+    title: "製造データ",
+    class_text: COLOR_WORK_LESS,
+    color: TEXT_COLOR,
+    text: ["手配・起工・納品"],
+    details: [""].join(""),
     links: "",
     button: false,
     button_text: BUTON_TEXT

@@ -15,9 +15,16 @@ class ItemsCtrl extends Controller
     return Item::all();
   }
 
-  public function iteminfo($id, $rev)
+  public function up_item_data(Request $req, $id)
   {
-    return Item::with('vendor.vendname')->where(['item_code' => $id, 'item_rev' => $rev])->get();
+    $item = new Item;
+    $item->where(['item_id' => $id])->update($req->all());
+    // return $item->where(['item_id' => $id])->get();
+  }
+
+  public function iteminfo($code, $rev)
+  {
+    return Item::with('vendor.vendname')->where(['item_code' => $code, 'item_rev' => $rev])->get();
   }
 
   public function up_item_num_inv($id, $rev, $num, $order, $assy)
@@ -29,4 +36,7 @@ class ItemsCtrl extends Controller
       ['item_code' => $id, 'item_rev' => $rev, 'user_name' => $user, 'const_code' => $order, 'count_num' => $num, 'assy_code' => $assy]
     );
   }
+
+  public function item_order_price($id)
+  { }
 }

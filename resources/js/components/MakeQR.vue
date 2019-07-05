@@ -1,5 +1,5 @@
 <template>
-  <qriously :value="config" :size="200"/>
+  <qriously :value="config"/>
 </template>
 
 <script>

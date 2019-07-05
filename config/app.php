@@ -28,6 +28,8 @@ return [
 
   'env' => env('APP_ENV', 'production'),
 
+  'tama_key' => env('TAMA_TEBAKO_KEY', 'password'),
+
   /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -227,5 +229,4 @@ return [
     'View' => Illuminate\Support\Facades\View::class,
 
   ],
-
 ];

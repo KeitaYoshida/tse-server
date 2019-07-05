@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MVendorItem extends Model
 {
   protected $table = 'm_vendor_price';
-  protected $primaryKey = ['item_code', 'item_rev', 'vendor_code'];
+  protected $primaryKey = ['item_id', 'vendor_code'];
   protected $guarded = array();
   public $incrementing = false;
   function vendname()

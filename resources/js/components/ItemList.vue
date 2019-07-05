@@ -3,10 +3,17 @@
     <v-container v-if="!nodata">
       <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <br>
-      <v-toolbar color="teal lighten-3" dark>
+      <v-toolbar color="blue lighten-2" dark>
         <v-toolbar-title>{{ setting.page_title }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-icon v-on:click="sheet = !sheet">fas fa-question-circle</v-icon>
+        <v-btn flat v-on:click="a4 = !a4">
+          <v-icon left>far fa-sticky-note</v-icon>
+          <span>QR FILE</span>
+        </v-btn>
+        <v-btn flat v-on:click="sheet = !sheet">
+          <v-icon left>fas fa-question-circle</v-icon>
+          <span>INFO</span>
+        </v-btn>
       </v-toolbar>
       <v-data-table
         :headers="setting.headers"
@@ -16,7 +23,7 @@
         :loading="loading"
         :class="setting.page_class"
       >
-        <template slot="items" slot-scope="props">
+        <template v-slot:items="props">
           <tr>
             <td class="text-xs-center">{{ props.item.item_code }}</td>
             <td class="text-xs-center">{{ get__rev(props.item.item_rev) }}</td>
@@ -24,50 +31,14 @@
             <td class="text-xs-center">{{ props.item.item_model }}</td>
             <td class="text-xs-center">{{ props.item.last_num === -1 ? '未集計': props.item.last_num }}</td>
             <td class="align-center justify-center layout px-0">
-              <v-btn icon flat>
-                <v-icon
-                  color="blue darken-1"
-                  v-on:click.stop="addQrcode(props.item)"
-                  class="icon-qr"
-                >fas fa-qrcode</v-icon>
-              </v-btn>
+              <QrButton @act="addQrcode" :rowdata="props"></QrButton>
               <router-link :to="'/item/' + props.item.item_code + '/' + props.item.item_rev">
-                <v-btn icon flat>
-                  <v-icon color="orange darken-1" class="icon-edit">fas fa-edit</v-icon>
-                </v-btn>
+                <v-icon color="orange darken-1" class="icon-edit">fas fa-edit</v-icon>
               </router-link>
             </td>
           </tr>
         </template>
-        <v-alert
-          slot="no-results"
-          :value="true"
-          color="error"
-          icon="warning"
-          outline
-        >"{{ search }}" の検索結果なし</v-alert>
       </v-data-table>
-      <template v-if="config.length!==0">
-        <div id="qr-code">
-          <v-toolbar color="teal lighten-3" dark>
-            <v-toolbar-title>QRコード発行</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-icon @click="download">fas fa-download</v-icon>
-          </v-toolbar>
-          <v-layout row wrap id="qrlist" ref="qrlist">
-            <v-flex v-for="(qrlist, index) in config" v-bind:key="index" d-flex xs3>
-              <item_qr :qrlist="qrlist"></item_qr>
-            </v-flex>
-          </v-layout>
-        </div>
-        <div id="qr-print" ref="print" class="printout">
-          <v-layout row wrap id="qrlist_print">
-            <v-flex v-for="(qrlist, index) in config" v-bind:key="index" d-flex xs3>
-              <item_qr :qrlist="qrlist"></item_qr>
-            </v-flex>
-          </v-layout>
-        </div>
-      </template>
       <v-bottom-sheet v-model="sheet">
         <v-list>
           <v-subheader>detail</v-subheader>
@@ -78,6 +49,38 @@
           </v-container>
         </v-list>
       </v-bottom-sheet>
+      <v-dialog
+        v-model="a4"
+        scrollable
+        persistent
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <v-card>
+          <v-toolbar dark color="primary">
+            <v-btn icon dark @click="a4 = !a4">
+              <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title>Settings</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items>
+              <v-btn dark flat @click="print__pdf('makepdf')">ＰＲＩＮＴ</v-btn>
+            </v-toolbar-items>
+          </v-toolbar>
+          <v-card-text class="a4-back">
+            <div id="makepdf" class="a4-area">
+              <div class="a4" v-for="(row, rownum) in configs" :key="rownum">
+                <v-layout row wrap align-start class="r2v5">
+                  <v-flex v-for="(item, index) in row" v-bind:key="index" xs6 class="qr-item">
+                    <item_qr :qrlist="item"></item_qr>
+                  </v-flex>
+                </v-layout>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </v-container>
   </v-app>
 </template>
@@ -85,12 +88,13 @@
 <script>
 import mix_com from "../mixins/DataTableCommonSetting.js";
 import item_qr from "./item/item_qr";
-import { createPdfFromHtml } from "./bin/makepdf.js";
+import QrButton from "./ItemList/QrButton";
 
 export default {
   mixins: [mix_com],
   components: {
-    item_qr
+    item_qr,
+    QrButton
   },
   data: function() {
     return {
@@ -102,7 +106,9 @@ export default {
       setting: null,
       nodata: false,
       config: [],
-      output: null
+      configs: [],
+      output: null,
+      a4: false
     };
   },
   created: function() {
@@ -125,38 +131,20 @@ export default {
       });
   },
   methods: {
-    addQrcode(d) {
-      if (this.config.length < 16) {
-        this.config.push({
-          value: "http://192.168.13.103:8000/item/" + d.itemCode,
-          id: d.itemCode,
-          name: d.itemName,
-          model: d.itemModelName
-        });
-      } else {
-        this.download();
-        this.config = [];
-        this.config.push({
-          value: "http://192.168.13.103:8000/item/" + d.itemCode,
-          id: d.itemCode,
-          name: d.itemName,
-          model: d.itemModelName
-        });
-      }
-    },
-    download() {
-      // console.log(this.$refs.print);
-      // createPdfFromHtml(this.$refs.data);
-      createPdfFromHtml(this.$refs.print);
+    addQrcode(p) {
+      let d = p.item;
+      this.config.push({
+        value:
+          "http://192.168.13.103:8000/item/" + d.item_code + "/" + d.item_rev,
+        id: d.item_code,
+        name: d.item_name,
+        model: d.item_model
+      });
+      this.configs = this.config.divide(10);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.printout {
-  position: fixed;
-  height: 200vh;
-  padding: 10px;
-}
 </style>
