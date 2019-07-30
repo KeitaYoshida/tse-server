@@ -68,7 +68,7 @@
     </v-flex>
     <v-flex xs6 md4 lg3 class="pa-3 tyumon_order">
       <v-card class="add_button" flat height="100%">
-        <v-btn outline dark large @click="selectModel=!selectModel">部材発注</v-btn>
+        <v-btn outline dark large @click="selectModel=!selectModel">構成部材発注</v-btn>
       </v-card>
     </v-flex>
     <v-dialog

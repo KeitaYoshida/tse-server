@@ -14,7 +14,7 @@
                 prepend-icon="fas fa-sitemap"
                 readonly
                 clearable
-                @click="model_select"
+                @click="model_select()"
               ></v-text-field>
             </v-flex>
             <v-flex xs6 class="mt-2">
@@ -61,9 +61,58 @@
       </v-layout>
       <v-card-actions class="text-xs-center">
         <v-btn color="primary" flat class="action" @click="setOrder()" disabled>セット手配</v-btn>
-        <v-btn color="primary" flat class="action" @click="cmptOrder()">部材指定手配</v-btn>
+        <v-btn color="primary" flat class="action" v-if="p_class!=='部品'" @click="cmptOrder()">部材指定手配</v-btn>
+        <v-btn color="primary" flat class="action" v-else @click="itemOrder()">部材手配</v-btn>
       </v-card-actions>
     </v-card-text>
+    <v-dialog
+      v-model="selecter_item"
+      scrollable
+      :overlay="false"
+      width="600px"
+      transition="dialog-transition"
+      v-if="item_data"
+    >
+      <v-card>
+        <v-card-text>
+          <v-layout wrap>
+            <v-flex xs10 offset-xs1>
+              <v-text-field name="item_list_search" label="部材検索" v-model="search" clearable></v-text-field>
+            </v-flex>
+            <v-flex xs12 class="rightView text-xs-center">
+              <v-data-table
+                :headers="headers_item"
+                :items="item_data"
+                pagination.sync="pagination"
+                dark
+                item-key="item_id"
+                :search="search"
+              >
+                <template v-slot:items="props">
+                  <tr @click="select_item(props.item)">
+                    <td class="text-xs-center">
+                      <p class="model_name">{{ props.item.item_code }}</p>
+                      <p class="mini">
+                        <nobr>{{ props.item.order_code }} {{ props.item.item_rev.numToRev() }}</nobr>
+                      </p>
+                    </td>
+                    <td class="text-xs-center">
+                      <p>{{ props.item.item_name }}</p>
+                      <p>{{ props.item.item_model }}</p>
+                    </td>
+                    <td class="text-xs-center">
+                      <p class="mini">残数:{{ props.item.last_num }}</p>
+                      <p class="mini">予約数:{{ props.item.appo_num }}</p>
+                      <p class="mini">発注数:{{ props.item.order_num }}</p>
+                    </td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </v-flex>
+          </v-layout>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     <v-dialog
       v-model="selecter"
       scrollable
@@ -125,6 +174,10 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale("ja");
+
 import CmptOrderList from "./CmptOrderList";
 import CalendarText from "./../../com/CalendarText";
 
@@ -148,10 +201,18 @@ export default {
       },
       order_class: null,
       selecter: false,
+      selecter_item: false,
       warning: false,
       tar_model: null,
       search: "",
       p_class: "",
+      item_data: null,
+      item_dtail: null,
+      headers_item: [
+        { text: "品目コード", value: "item_code", align: "center" },
+        { text: "品目形式", value: "item_model", align: "center" },
+        { text: "数量情報", value: "last_num", align: "center" }
+      ],
       headers: [
         { text: "形式", value: "model_code", align: "center" },
         { text: "型式名", value: "model_name", align: "center" },
@@ -181,6 +242,18 @@ export default {
       this.fm.num = this.target.all_num;
       this.p_class = this.target.pdct_class;
       this.fm.pdct_id = this.target.pdct_id;
+      await axios.get("/items/itemlist").then(res => {
+        this.item_data = res.data;
+      });
+    },
+    async select_item(item) {
+      this.selecter_item = !this.selecter_item;
+      this.fm.model = item.item_code;
+      await axios
+        .get("items/iteminfo/" + item.item_code + "/" + item.item_rev)
+        .then(res => {
+          this.item_dtail = res.data;
+        });
     },
     async select_model(item) {
       this.selecter = !this.selecter;
@@ -205,6 +278,50 @@ export default {
       if (this.modelCheck()) return;
       this.cmpt_order = true;
     },
+    itemOrder() {
+      if (this.modelCheck()) return;
+      let i = this.item_dtail[0];
+      let fm = this.fm;
+      let od = {
+        ol: {
+          cnt_model: fm.model,
+          cnt_model_rev: fm.rev,
+          cnt_order_code: fm.code,
+          cnt_status: 0,
+          cnt_order_list_status: fm.order_class,
+          pdct_id: fm.pdct_id,
+          order_price: 0,
+          user_yoyaku: fm.user
+        },
+        o: [
+          [
+            {
+              cnt_order_code: fm.code,
+              order_key: 999,
+              item_id: i.item_id,
+              num_order: fm.num
+            }
+          ]
+        ],
+        op: [[[]]]
+      };
+      let price = 0;
+      i.vendor.forEach((ar, n) => {
+        od.op[0][0][n] = {
+          vendor_code: ar.vendor_code,
+          price: Number(ar.vendor_item_price),
+          order_day: dayjs(fm.order_day)
+            .add(ar.order_add_date, "days")
+            .format("YYYY-MM-DD")
+        };
+        price = price + Number(ar.vendor_item_price) * Number(fm.num);
+      });
+      od.ol.order_price = price;
+      axios.post("/db/order/yoyaku/set", od).then(res => {
+        this.reload("/product_list");
+        console.log(res.data);
+      });
+    },
     modelCheck() {
       if (this.fm.model === "") {
         this.warning = true;
@@ -214,6 +331,10 @@ export default {
       }
     },
     model_select() {
+      if (this.p_class === "部品") {
+        this.selecter_item = !this.selecter_item;
+        return;
+      }
       this.selecter = !this.selecter;
       this.tar_model = null;
     }

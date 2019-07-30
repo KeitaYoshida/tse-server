@@ -310,9 +310,7 @@ export default {
         o: dCntOrders,
         op: dCntPrice
       };
-      console.log(d);
       axios.post("/db/order/yoyaku/set", d).then(res => {
-        console.log(res.data);
         this.reload("/product_list");
       });
     },
