@@ -53,8 +53,12 @@ Route::post('/db/model_entry/', 'ModelCtrl@ModelEntry');
 Route::get('/db/r_cmpt_item/swich/order/flg/{cid}/{iid}/{val}', 'ModelCtrl@SwitchOrderFlg');
 Route::get('/db/r_cmpt_item/delete/item/{cid}/{iid}', 'ModelCtrl@DeleteCmptItems');
 Route::post('/db/r_cmpt_item/add/item/', 'ModelCtrl@AddCmptItems');
+Route::get('/db/items/add/item/{iid}/{irev}', 'ItemsCtrl@AddItem');
 Route::get('/db/items/delete/item/{iid}/{irev}', 'ModelCtrl@DeleteItem');
+Route::get('/db/items/class/list', 'ItemsCtrl@ClassList');
+Route::get('/db/items/class/set/{cid}/{iid}', 'ItemsCtrl@ClassSet');
 Route::get('/db/model_mst/list', 'ModelCtrl@ModelList');
+Route::get('/db/model_mst/data/{id}', 'ModelCtrl@ModelData');
 Route::post('/db/recept/hatyu/data/list', 'ReceptCtrl@DataList');
 Route::post('/db/recept/hatyu/data/set/{setTime}/{type}', 'ReceptCtrl@SetData');
 Route::get('/db/csv/type/setting/{type}', 'ReceptCtrl@CheckType');
@@ -63,12 +67,26 @@ Route::post('/db/recept/unknown/data/', 'ReceptCtrl@UpUnknownData');
 Route::post('/db/recept/tyuzan/up/', 'ReceptCtrl@TyuzanUp');
 Route::get('/db/recept/tyuzan/data/', 'ReceptCtrl@Tyuzan');
 Route::get('/db/recept/oneupdate/{id}/{col}/{val}', 'ReceptCtrl@OneColumnUpdate');
-Route::get('/db/pdct/list/from/model/{id}', 'PdctCtrl@PdctListFromModel');
+
 Route::post('/db/pdct/create/{rid}', 'PdctCtrl@CreatePdct');
+Route::get('/db/pdct/list/from/model/{id}', 'PdctCtrl@PdctListFromModel');
 Route::get('/db/pdct/add/rcpt/{code}/{rid}', 'PdctCtrl@AddRecept');
 Route::get("/db/pdct/is/this/{code}", 'PdctCtrl@CheckDup');
 Route::get("/db/pdct/list/live", 'PdctCtrl@ProductList');
 Route::get("/db/pdct/nolink/{id}", 'PdctCtrl@NoLinkUpdate');
+
+Route::get("/db/user_info/all", 'UserCtrl@RtUserInfoAll');
+Route::post("/db/user_info/shonin_relation/{uid}", 'UserCtrl@MakeShoninRelation');
+Route::get("/db/user_info/shonin/child/{uid}", 'UserCtrl@RtShoninChild');
+
+Route::post("/db/order/yoyaku/set", 'CntOrderCtrl@OrderYoyakuTouroku');
+Route::get("/db/order/class", 'CntOrderCtrl@OrderClass');
+Route::get("/db/order/yoyaku/gaiyou", 'CntOrderCtrl@YoyakuListGaiyou');
+Route::get("/db/order/list/one/{ccode}", 'CntOrderCtrl@OrderListOne');
+Route::get("/db/order/data/one/{ccode}", 'CntOrderCtrl@OrderDataOne');
+Route::get("/db/order/list/col/up/{id}/{col}/{val}", 'CntOrderCtrl@OrderListColUp');
+Route::post("/db/order/list/orderd/", 'CntOrderCtrl@OrderListOrderd');
+Route::get("/db/order/list/yoyaku", 'CntOrderCtrl@OrderListYoyaku');
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 
@@ -79,6 +97,7 @@ Route::get('/inventory/order-list-one/{id}', 'InventoryData@OrderListOne');
 Route::get('/inventory/buzai-inv-his', 'InventoryData@BuzaiInvHis');
 
 Route::get('/TamaTebako/test', 'TamaTebako@test');
+Route::post('/Firebase/test', 'TamaTebako@fire');
 
 Route::post('/upload/items/image', 'Uploader@upload');
 Route::post('/upload/check/items', 'Uploader@get_image');

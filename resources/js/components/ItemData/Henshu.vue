@@ -1,7 +1,11 @@
 <template v-if="item_data">
   <v-card id="henshu">
     <v-card-title class="headline">
-      <v-icon>fas fa-edit</v-icon>
+      <v-chip
+        outline
+        v-if="i"
+        :class="'chip ' + i.item_class_val.custom"
+      >{{ i.item_class_val.value }}</v-chip>
       <span id="item_code">{{ item_code }}</span>
       <span id="item_rev" class="mini">{{ Number(item_rev).numToRev() }}</span>
       <v-spacer></v-spacer>
@@ -16,23 +20,23 @@
         </v-btn>
       </template>
     </v-card-title>
-    <v-container grid-list-xs>
+    <v-container fluid>
       <v-tabs v-model="tab" slider-color="primary" fixed-tabs class="menu">
         <v-tab>基本情報</v-tab>
         <v-tab>手配方法</v-tab>
         <v-tab>金額</v-tab>
         <v-tab>画像</v-tab>
         <v-tab-item>
-          <Base :item_data="item_data" :item_id="item_id" v-if="item_data" @up="up" @pass="pass"/>
+          <Base :item_data="item_data" :item_id="item_id" v-if="item_data" @up="up" @pass="pass" />
         </v-tab-item>
         <v-tab-item>
-          <OrderWay :lot_data="lot_data" :item_id="item_id" v-if="lot_data" @pass="pass"/>
+          <OrderWay :lot_data="lot_data" :item_id="item_id" v-if="lot_data" @pass="pass" />
         </v-tab-item>
         <v-tab-item>
           <OrderPrice :item_id="item_id" :vendor="vendor" @pass="pass"></OrderPrice>
         </v-tab-item>
         <v-tab-item>
-          <ImageUpload :item_code="item_code" :item_rev="item_rev"/>
+          <ImageUpload :item_code="item_code" :item_rev="item_rev" />
         </v-tab-item>
       </v-tabs>
     </v-container>
@@ -105,8 +109,9 @@ export default {
     async up(ob, id) {
       let d = this.rt__up_data_items(ob, id);
       delete d.order_prices;
-      this.$emit("pass", { type: "base_data", data: d });
-      await axios.post("/items/update/post/" + id, d);
+      await axios.post("/items/update/post/" + id, d).then(res => {
+        this.$emit("pass", { type: "base_data", data: d });
+      });
     },
     pass(d) {
       this.$emit("pass", d);
@@ -137,15 +142,7 @@ export default {
     margin-bottom: 1rem;
   }
   .edit {
-    .v-input {
-      margin: 0 auto;
-      width: 80%;
-      .v-input__prepend-inner {
-        width: auto;
-      }
-    }
-    button,
-    .layout {
+    button {
       margin: 0 auto;
       width: 80%;
     }

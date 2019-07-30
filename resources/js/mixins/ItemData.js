@@ -1,6 +1,7 @@
 export default {
   data() {
     return {
+      i: null,
       item_data: null,
       vendor: [],
     }
@@ -12,6 +13,7 @@ export default {
       await axios
         .get("/items/iteminfo/" + this.item_code + "/" + this.item_rev)
         .then(response => {
+          this.i = response.data[0];
           this.item_data = [
             {
               icon: "fas fa-barcode",
@@ -36,12 +38,6 @@ export default {
               title: "手配コード",
               name: 'order_code',
               value: response.data[0].order_code
-            },
-            {
-              icon: "fas fa-info",
-              title: "部材区分",
-              name: 'item_class',
-              value: response.data[0].item_class
             },
             {
               icon: "fas fa-id-badge",

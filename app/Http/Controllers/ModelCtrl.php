@@ -78,14 +78,33 @@ class ModelCtrl extends Controller
     $rci_id = $rci->create($chkdata)->r_ci_id;
     return $rci->where('r_ci_id', $rci_id)->with('items.vendor.vendname')->get();
   }
+
   public function DeleteItem($iid, $irev)
   {
     $im = new Item;
     $im->where('item_code', $iid)->where('item_rev', $irev)->delete();
   }
+
   public function ModelList()
   {
     $m = new Models;
     return $m->with('cmpt')->get();
+  }
+
+  public function ModelData($id)
+  {
+    $m = new Models;
+    return $m->where('model_id', $id)->with('cmpt.item_use.items.vendor.vendname')->get();
+  }
+
+  public function ModelListForOrder()
+  {
+    $m = new Models;
+    return $m->with(array('cmpt.item_use.items' => function ($q) {
+      $q->where('item_class', '<>', '図面')->where('item_class', '<>', 'CHIP品');
+    }))->get();
+    // return $m->whereHas('cmpt.item_use.items', function ($q) {
+    //   $q->where('item_class', '<>', '図面')->where('item_class', '<>', 'CHIP品');
+    // })->with('cmpt.item_use.items')->get();
   }
 }

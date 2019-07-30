@@ -1,5 +1,5 @@
 <template>
-  <v-layout align-space-around justify-center fill-height>
+  <v-layout align-space-around justify-center fill-height class="cover">
     <v-flex xs12 class="loading">
       <div class="inner">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
@@ -18,6 +18,9 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+.cover {
+  height: 90%;
+}
 @keyframes Flash1 {
   50% {
     opacity: 0;

@@ -19,4 +19,8 @@ class Production extends Model
   {
     return $this->hasOne('App\Model\PdctStatus', 'pdct_status', 'pdct_status');
   }
+  public function orders()
+  {
+    return $this->hasMany('App\Model\CntOrderList', 'pdct_id', 'pdct_id');
+  }
 }

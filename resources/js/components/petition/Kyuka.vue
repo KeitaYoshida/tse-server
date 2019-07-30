@@ -17,20 +17,14 @@
         <TimeDay></TimeDay>
       </template>
     </v-container>
-    <v-bottom-nav :active.sync="bottomNav" :value="true" fixed color="transparent">
-      <v-btn color="teal" flat value="recent">
-        <span>Recent</span>
-        <v-icon>history</v-icon>
+    <v-bottom-nav fixed value="value" active.sync="value">
+      <v-btn flat color="primary" to="/petition">
+        <span>戻る</span>
+        <v-icon>fas fa-chevron-circle-left</v-icon>
       </v-btn>
-
-      <v-btn color="teal" flat value="favorites">
-        <span>Favorites</span>
-        <v-icon>favorite</v-icon>
-      </v-btn>
-
-      <v-btn color="teal" flat value="nearby">
-        <span>Nearby</span>
-        <v-icon>place</v-icon>
+      <v-btn flat color="primary" @click="make()">
+        <span>申請</span>
+        <v-icon>fas fa-check-circle</v-icon>
       </v-btn>
     </v-bottom-nav>
   </v-app>

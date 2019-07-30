@@ -1,29 +1,31 @@
 <template>
-  <v-container grid-list-xs>
-    <h1 class="page-title">
-      <v-icon>fas fa-check-square</v-icon>始業時点検
-    </h1>
-    <table id="chk_info">
-      <tr class="title">
-        <td>項目名</td>
-        <td>状況</td>
-        <td>作業者</td>
-        <td>確認日</td>
-        <td>表示</td>
-      </tr>
-      <tr v-for="(item, index) in d" :key="index">
-        <td class="title">{{ item.title }}</td>
-        <td class="check" v-html="rt_check(item.check)"></td>
-        <td class="user">{{ item.workuser }}</td>
-        <td class="day">{{ item.workday }}</td>
-        <td class="link">
-          <v-btn flat light :to="'/work/equipStartCheck/' + item.pagecode">
-            <v-icon>fas fa-edit</v-icon>
-          </v-btn>
-        </td>
-      </tr>
-    </table>
-  </v-container>
+  <v-app>
+    <v-container grid-list-xs>
+      <h1 class="page-title">
+        <v-icon>fas fa-check-square</v-icon>始業時点検
+      </h1>
+      <table id="chk_info">
+        <tr class="title">
+          <td>項目名</td>
+          <td>状況</td>
+          <td>作業者</td>
+          <td>確認日</td>
+          <td>表示</td>
+        </tr>
+        <tr v-for="(item, index) in d" :key="index">
+          <td class="title">{{ item.title }}</td>
+          <td class="check" v-html="rt_check(item.check)"></td>
+          <td class="user">{{ item.workuser }}</td>
+          <td class="day">{{ item.workday }}</td>
+          <td class="link">
+            <v-btn flat light :to="'/work/equipStartCheck/' + item.pagecode">
+              <v-icon>fas fa-edit</v-icon>
+            </v-btn>
+          </td>
+        </tr>
+      </table>
+    </v-container>
+  </v-app>
 </template>
 
 <script>

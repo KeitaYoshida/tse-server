@@ -41,13 +41,13 @@
               <td>{{ items.item_ren}}</td>
               <td>
                 {{ items.items.item_code.rtrim() }}
-                <br>
+                <br />
                 <span class="mini">{{ items.items.item_rev.numToRev() }}</span>
               </td>
               <td>{{ put_order_code(items.items.item_code.rtrim(), items.items.order_code.rtrim())}}</td>
               <td>
                 {{ items.items.item_name !== null ? items.items.item_name.slice(0,16): '' }}
-                <br>
+                <br />
                 {{ items.items.item_model !== null ? items.items.item_model.slice(0, 20): '' }}
               </td>
               <td>
@@ -55,7 +55,7 @@
                 <template
                   v-if="items.items.lot_num >= 0"
                 >({{ items.items.minimum_set.comHyphen() }})</template>
-                <br>
+                <br />
                 {{ Number(items.items.read_time).comHyphen() }}
               </td>
               <td>

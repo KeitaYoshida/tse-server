@@ -1,24 +1,27 @@
 <template>
-  <v-form v-if="item_data" class="edit" @submit.prevent="submit" id="item_data" ref="item_data">
-    <span v-for="(item, index) in item_data" :key="index">
-      <v-text-field
-        :name="item.name"
-        :prepend-inner-icon="item.icon"
-        :label="item.title"
-        :id="item.name"
-        :disabled="item.edit"
-        v-model="item.value"
-      ></v-text-field>
-    </span>
+  <v-form v-if="item_data" class="edit" id="item_data" ref="item_data">
+    <v-layout wrap>
+      <v-flex xs6 class="px-4" v-for="(item, index) in item_data" :key="index">
+        <v-text-field
+          :name="item.name"
+          :prepend-inner-icon="item.icon"
+          :label="item.title"
+          :id="item.name"
+          :disabled="item.edit"
+          v-model="item.value"
+          small
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
     <v-btn
       color="success"
-      type="submit"
       form="item_data"
       flat
       large
       block
       outline
       class="submit"
+      @click="submit()"
     >{{ submit_text }}</v-btn>
   </v-form>
 </template>
@@ -39,3 +42,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.edit {
+  .v-icon {
+    font-size: 12px;
+  }
+}
+</style>

@@ -1,43 +1,45 @@
 <template>
-  <v-container grid-list-xs>
-    <h1 class="page-title">
-      <v-icon>fas fa-edit</v-icon>刻印機 - 始業点検記録
-    </h1>
-    <ul>
-      <li class="infomation">
-        管理番号：
-        <span id="kanri-no">ＴＳ２−３９</span>
-      </li>
-      <li class="infomation">
-        日付：
-        <span id="work-day">{{ get__hiduke() }}</span>
-      </li>
-      <li class="infomation">
-        作業者：
-        <span id="work-user">{{ check_list.work_user }}</span>
-      </li>
-    </ul>
-    <table id="chk_info">
-      <tr v-for="(item, index) in check_list.nomal" :key="index" @click="ckeck_equip(item)">
-        <td class="index">{{ item.index }}</td>
-        <td class="chk_name">{{ item.chk_name }}</td>
-        <td class="chk_how">{{ item.chk_how }}</td>
-        <td class="chk_val">{{ rt_check(item.chk_val) }}</td>
-      </tr>
-    </table>
-    <v-form v-if="check_list.error_flg">
-      <h3>不良項目：{{ check_list.error_title }}</h3>
-      <v-text-field
-        v-for="(item, index) in check_list.error"
-        :key="index"
-        v-model="item.chk_val"
-        :counter="50"
-        :label="item.chk_name"
-        required
-      ></v-text-field>
-    </v-form>
-    <bottomNav :btn_nav="btn_nav" v-on:pflag="buttomMenu"></bottomNav>
-  </v-container>
+  <v-app>
+    <v-container grid-list-xs>
+      <h1 class="page-title">
+        <v-icon>fas fa-edit</v-icon>刻印機 - 始業点検記録
+      </h1>
+      <ul>
+        <li class="infomation">
+          管理番号：
+          <span id="kanri-no">ＴＳ２−３９</span>
+        </li>
+        <li class="infomation">
+          日付：
+          <span id="work-day">{{ get__hiduke() }}</span>
+        </li>
+        <li class="infomation">
+          作業者：
+          <span id="work-user">{{ check_list.work_user }}</span>
+        </li>
+      </ul>
+      <table id="chk_info">
+        <tr v-for="(item, index) in check_list.nomal" :key="index" @click="ckeck_equip(item)">
+          <td class="index">{{ item.index }}</td>
+          <td class="chk_name">{{ item.chk_name }}</td>
+          <td class="chk_how">{{ item.chk_how }}</td>
+          <td class="chk_val">{{ rt_check(item.chk_val) }}</td>
+        </tr>
+      </table>
+      <v-form v-if="check_list.error_flg">
+        <h3>不良項目：{{ check_list.error_title }}</h3>
+        <v-text-field
+          v-for="(item, index) in check_list.error"
+          :key="index"
+          v-model="item.chk_val"
+          :counter="50"
+          :label="item.chk_name"
+          required
+        ></v-text-field>
+      </v-form>
+      <bottomNav :btn_nav="btn_nav" v-on:pflag="buttomMenu"></bottomNav>
+    </v-container>
+  </v-app>
 </template>
 
 <script>

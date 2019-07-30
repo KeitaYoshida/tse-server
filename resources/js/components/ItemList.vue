@@ -1,20 +1,16 @@
 <template>
-  <v-app id="itemList">
+  <v-app>
     <v-container v-if="!nodata">
-      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-      <br>
-      <v-toolbar color="blue lighten-2" dark>
-        <v-toolbar-title>{{ setting.page_title }}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn flat v-on:click="a4 = !a4">
-          <v-icon left>far fa-sticky-note</v-icon>
-          <span>QR FILE</span>
-        </v-btn>
-        <v-btn flat v-on:click="sheet = !sheet">
-          <v-icon left>fas fa-question-circle</v-icon>
-          <span>INFO</span>
-        </v-btn>
-      </v-toolbar>
+      <h1>部材</h1>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        @change="searchChange()"
+        single-line
+        hide-details
+      ></v-text-field>
+      <br />
       <v-data-table
         :headers="setting.headers"
         :items="items"
@@ -42,13 +38,16 @@
       <v-bottom-sheet v-model="sheet">
         <v-list>
           <v-subheader>detail</v-subheader>
-          <hr>
+          <hr />
           <v-container grid-list-xs>
             手配工事を元に受入処理を行えます。対象の手配工事を選択すると手配一覧リストが表示されます。
             表示されたリストより受け入れる部材をチェックし、画面下部の受入ボタンを押下してください。受入数量の変更がある場合は、リスト右部の編集コマンドを押してください。
           </v-container>
         </v-list>
       </v-bottom-sheet>
+      <v-dialog v-model="additem" transition="dialog-transition" width="36%">
+        <AddItem :data="dialog_data" @rt="rtAdd" v-if="additem"></AddItem>
+      </v-dialog>
       <v-dialog
         v-model="a4"
         scrollable
@@ -82,10 +81,25 @@
         </v-card>
       </v-dialog>
     </v-container>
+    <v-bottom-nav value="value" active.sync="value" fixed>
+      <v-btn @click="additem=!additem">
+        <span>New Item</span>
+        <v-icon>fas fa-plus-square</v-icon>
+      </v-btn>
+      <v-btn @click="a4 = !a4">
+        <span>QR FILE</span>
+        <v-icon>far fa-sticky-note</v-icon>
+      </v-btn>
+      <v-btn @click="sheet = !sheet">
+        <span>INFO</span>
+        <v-icon>fas fa-question-circle</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-app>
 </template>
 
 <script>
+import AddItem from "./com/ComFormDialog";
 import mix_com from "../mixins/DataTableCommonSetting.js";
 import item_qr from "./item/item_qr";
 import QrButton from "./ItemList/QrButton";
@@ -94,7 +108,8 @@ export default {
   mixins: [mix_com],
   components: {
     item_qr,
-    QrButton
+    QrButton,
+    AddItem
   },
   data: function() {
     return {
@@ -108,7 +123,30 @@ export default {
       config: [],
       configs: [],
       output: null,
-      a4: false
+      a4: false,
+      additem: false,
+      dialog_data: {
+        title: "部材登録",
+        message: "",
+        data: [
+          {
+            name: "item_code",
+            label: "品目コード",
+            id: "item_code",
+            hint: "",
+            value: "",
+            type: ""
+          },
+          {
+            name: "item_rev",
+            label: "品目ＲＥＶ",
+            id: "item_rev",
+            hint: "ハイフン(-)を除いた整数値を入力してください　例 01-03 → 103",
+            value: "0",
+            type: "number"
+          }
+        ]
+      }
     };
   },
   created: function() {
@@ -141,6 +179,20 @@ export default {
         model: d.item_model
       });
       this.configs = this.config.divide(10);
+    },
+    rtAdd(d) {
+      let iid = d.data[0].value;
+      let irev = d.data[1].value;
+      this.search = iid;
+      this.additem = !this.additem;
+      this.items.push({
+        item_code: iid,
+        item_rev: irev
+      });
+      axios.get("/db/items/add/item/" + iid + "/" + irev);
+    },
+    searchChange() {
+      this.dialog_data.data[0].value = this.search;
     }
   }
 };

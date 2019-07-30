@@ -1,5 +1,5 @@
 <template>
-  <v-app id="main">
+  <v-app>
     <v-container grid-list-xs>
       <transition name="fade">
         <Loading v-if="loading"></Loading>

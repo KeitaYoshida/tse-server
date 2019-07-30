@@ -75,14 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-</style>
-
-<style lang="scss" scoped>
 .v-icon {
   margin-right: 10px;
 }

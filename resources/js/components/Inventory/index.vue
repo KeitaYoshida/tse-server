@@ -7,9 +7,9 @@
         <v-tab>集計履歴</v-tab>
         <v-tabs-items>
           <transition name="fade" mode="out-in">
-            <BuzaiList v-if="tab === 0"/>
-            <OrderList v-if="tab === 1"/>
-            <InvHistory v-if="tab === 2"/>
+            <BuzaiList v-if="tab === 0" />
+            <OrderList v-if="tab === 1" />
+            <InvHistory v-if="tab === 2" />
           </transition>
         </v-tabs-items>
       </v-tabs>

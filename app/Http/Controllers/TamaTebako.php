@@ -34,7 +34,22 @@ class TamaTebako extends Controller
         'allow_redirects' => true,
       ]
     );
-    $response_body = (string)$response->getBody();
+    $response_body = (string) $response->getBody();
     return $response_body;
+  }
+
+  public function fire(Request $req)
+  {
+    $client = new \GuzzleHttp\Client([
+      // 'base_uri' => 'https://us-central1-tse-order.cloudfunctions.net/hello',
+    ]);
+    $res = $client->request(
+      'POST',
+      'https://us-central1-tse-order.cloudfunctions.net/orderData',
+      [
+        $req
+      ]
+    );
+    return $res;
   }
 }

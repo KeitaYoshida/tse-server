@@ -38,7 +38,6 @@
 
 <script>
 import DataTable from "./../../com/DataTable";
-import { assertExpressionStatement } from "babel-types";
 
 export default {
   components: {
@@ -60,7 +59,6 @@ export default {
         { text: "構成形式", value: "cmpt_code", align: "center" },
         { text: "品目コード", value: "item_code", align: "center" },
         { text: "REV", value: "item_rev", align: "center" },
-        { text: "区分", value: "item_class", align: "center" },
         { text: "品名", value: "item_name", align: "center" },
         { text: "品目形式", value: "item_model", align: "center" },
         { text: "引数", value: "item_use", align: "center" }
@@ -116,13 +114,13 @@ export default {
 
         let item_class = "";
         if (ar[item_unit_row] === "PR") {
-          item_class = "図面";
+          item_class = "1";
         } else if (
           ar[item_name_row].rtrim().slice(-3) === "ﾈｼﾞ" ||
           ar[item_name_row].rtrim().slice(-3) === "ﾅｯﾄ" ||
           ar[item_name_row].rtrim().slice(-3) === "ｶﾞﾈ"
         ) {
-          item_class = "ネジ・スペーサ";
+          item_class = "5";
         } else {
           switch (ar[item_name_row].rtrim()) {
             case "ｶﾊﾞｰ":
@@ -133,16 +131,16 @@ export default {
             case "ﾄﾘﾂｹｶﾅｸﾞ":
             case "ﾎｳﾈﾂﾊﾞﾝ":
             case "ﾋｰﾄｼﾝｸ":
-              item_class = "板金";
+              item_class = "4";
               break;
             case "ﾁｯﾌﾟｺﾃｲﾃｲｺｳ":
-              item_class = "CHIP品";
+              item_class = "6";
               break;
             case "ｽﾍﾟｰｻ":
-              item_class = "ネジ・スペーサ";
+              item_class = "5";
               break;
             default:
-              item_class = "部材";
+              item_class = "2";
           }
         }
 

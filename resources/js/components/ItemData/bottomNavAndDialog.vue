@@ -6,7 +6,6 @@
       v-on:click="$emit('pflag', item.code)"
       color="primary"
       flat
-      dark
     >
       <span>{{ item.name }}</span>
       <v-icon>{{ item.icon }}</v-icon>

@@ -12,7 +12,7 @@
           prepend-inner-icon="far fa-building"
         ></v-select>
       </v-flex>
-      <v-flex xs4>
+      <v-flex xs4 class="pl-3">
         <v-text-field
           name="price"
           label="金額"
@@ -21,7 +21,7 @@
           prepend-inner-icon="fas fa-money-bill-wave"
         ></v-text-field>
       </v-flex>
-      <v-flex xs2>
+      <v-flex xs2 class="pl-3">
         <v-text-field
           name="add_date"
           label="調整日数"

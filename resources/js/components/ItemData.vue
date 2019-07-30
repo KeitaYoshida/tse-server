@@ -1,5 +1,5 @@
 <template>
-  <v-app id="ItemData">
+  <v-app>
     <main>
       <v-container grid-list-xs>
         <v-toolbar color="teal lighten-3" dark v-if="!view">
@@ -20,7 +20,7 @@
     <v-dialog v-model="btn_nav.view.image" @input="close" id="item_dialog" dark>
       <ItemImg v-if="btn_nav.view.image" :path="img_path" col="xs6"></ItemImg>
     </v-dialog>
-    <v-dialog v-model="btn_nav.view.henshu" width="80%" @input="close" overflow>
+    <v-dialog v-model="btn_nav.view.henshu" width="700px" @input="close" overflow>
       <Henshu v-if="btn_nav.view.henshu" :item_code="item_code" :item_rev="item_rev"></Henshu>
     </v-dialog>
   </v-app>

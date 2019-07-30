@@ -42,12 +42,12 @@ class PdctCtrl extends Controller
   public function NoLinkUpdate($id)
   {
     $pd = new Production;
-    $pd->where('pdct_id', $id)->update('pdct_status', 9);
+    $pd->where('pdct_id', $id)->update(['pdct_status' => 9]);
   }
 
   public function ProductList()
   {
     $pd = new Production;
-    return $pd->where('pdct_status', '<', 10)->with('status')->with('child')->get();
+    return $pd->where('pdct_status', '<', 10)->with('status')->with('child')->with(['orders.status', 'orders.order_status'])->get();
   }
 }

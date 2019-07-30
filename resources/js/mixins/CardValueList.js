@@ -101,6 +101,16 @@ const _card_data = {
     links: "",
     button: false,
     button_text: BUTON_TEXT
+  },
+  user_info: {
+    title: "作業者情報",
+    class_text: COLOR_DEF,
+    color: TEXT_COLOR,
+    text: ["作業者情報更新"],
+    details: [""].join(""),
+    links: "",
+    button: false,
+    button_text: BUTON_TEXT
   }
 }
 

@@ -1,16 +1,15 @@
 <template>
-  <v-app id="modelMst">
+  <v-app>
     <v-container>
       <h1>形式マスタ</h1>
       <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
-      <br>
+      <br />
       <v-data-table
         :headers="headers"
         :items="items"
         :search="search"
         :rows-per-page-items="view_row_setting"
         :loading="loading"
-        :expand="expand"
         item-key="model_id"
         class="model"
       >
@@ -80,8 +79,7 @@ export default {
           value: -1
         }
       ],
-      loading: true,
-      expand: false
+      loading: true
     };
   },
   created: function() {
@@ -90,7 +88,6 @@ export default {
   methods: {
     init() {
       axios.get("/db/model_mst/list").then(res => {
-        console.log(res.data);
         this.items = res.data;
         this.loading = false;
       });
