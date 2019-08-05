@@ -28,9 +28,11 @@
 <body>
   <div id="app">
     <tse-header logout="{{ route('logout') }}"></tse-header>
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <div id="main-content">
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
   </div>
   <script src=" {{ mix('js/app.js') }} "></script>
 </body>

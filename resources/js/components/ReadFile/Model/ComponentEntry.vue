@@ -90,16 +90,18 @@
     <v-dialog v-model="delitem" transition="dialog-transition" width="36%">
       <DelCmptItem :data="dialog_data" @rt="rtDel" v-if="delitem"></DelCmptItem>
     </v-dialog>
-    <v-bottom-nav fixed value="value">
-      <v-btn flat @click="back">
-        <span>戻る</span>
-        <v-icon>fas fa-backward</v-icon>
-      </v-btn>
-      <v-btn flat @click="next">
-        <span>次へ</span>
-        <v-icon>fas fa-forward</v-icon>
-      </v-btn>
-    </v-bottom-nav>
+    <template v-if="upmode!==true">
+      <v-bottom-nav fixed value="value">
+        <v-btn flat @click="back">
+          <span>戻る</span>
+          <v-icon>fas fa-backward</v-icon>
+        </v-btn>
+        <v-btn flat @click="next">
+          <span>次へ</span>
+          <v-icon>fas fa-forward</v-icon>
+        </v-btn>
+      </v-bottom-nav>
+    </template>
   </main>
 </template>
 
@@ -109,7 +111,7 @@ import AddCmptItem from "./../../com/ComFormDialog";
 import DelCmptItem from "./../../com/ComCheckDialog";
 
 export default {
-  props: ["modelData"],
+  props: ["modelData", "upmode"],
   components: {
     Henshu,
     AddCmptItem,

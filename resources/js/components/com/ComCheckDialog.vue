@@ -12,7 +12,7 @@
             <v-flex xs6 class="mb-2" :key="'column' + index">{{ item[1] }}</v-flex>
           </template>
           <v-flex xs8 offset-xs2 class="mt-4">
-            <v-btn color="warning" class="submit-btn" outline @click="submit()">決定</v-btn>
+            <v-btn color="warning" class="submit-btn" outline @click="submit()">OK</v-btn>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -22,7 +22,19 @@
 
 <script>
 export default {
-  props: ["data"],
+  props: {
+    data: {
+      type: Object,
+      default: {
+        title: "タイトル",
+        message: "",
+        data_v2: [["title", "value"]]
+      }
+    }
+  },
+  created: function() {
+    console.log(this.data);
+  },
   methods: {
     submit() {
       this.$emit("rt", this.data, true);

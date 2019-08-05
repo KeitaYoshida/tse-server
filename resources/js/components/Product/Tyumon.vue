@@ -60,7 +60,7 @@
               <v-btn flat small class="caption" :to="'/order_list/' + item.cnt_order_code">手配</v-btn>
             </v-flex>
             <v-flex xs6>
-              <v-btn flat small class="caption" color="warning">取消</v-btn>
+              <v-btn flat small class="caption" color="warning" @click="del(item.cnt_order_code)">取消</v-btn>
             </v-flex>
           </v-layout>
         </v-card-actions>
@@ -145,6 +145,11 @@ export default {
           return "cTehaiEtc";
           break;
       }
+    },
+    del(ocd) {
+      axios.get("/db/order/torikeshi/" + ocd).then(res => {
+        this.reload("/product_list");
+      });
     }
   }
 };

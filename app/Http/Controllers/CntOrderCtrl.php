@@ -81,25 +81,43 @@ class CntOrderCtrl extends Controller
     return $ol->where('cnt_status', 0)->orWhere('cnt_status', 8)->with(['status', 'order_status'])->get();
   }
 
+  public function OrderTorikeshi($ocode)
+  {
+    $col = new CntOrderList;
+    $co = new CntOrder;
+    $it = new Item;
+
+    $ol = $co->where('cnt_order_code', $ocode)->get();
+    foreach ($ol as $v) {
+      $it->where('item_id', $v['item_id'])->decrement('appo_num', $v['num_order']);
+      $it->where('item_id', $v['item_id'])->decrement('order_num', $v['num_order']);
+    }
+    $col->where('cnt_order_code', $ocode)->delete();
+  }
+
+  public function OrderUkeireCntList()
+  {
+    $col = new CntOrderList;
+    return $col->where('cnt_status', 1)->with(['status'])->get();
+  }
+
   public function OrderYoyakuTouroku(Request $req)
   {
     $co = new CntOrder;
     $col = new CntOrderList;
     $cp = new CntOrderPrice;
     $it = new Item;
-    /* ----------------------
-      部材予約数加算機能追加
-      部材手配数加算機能追加
-    ---------------------- */
 
     $list = $req->ol;
     $order = $req->o;
     $price = $req->op;
     $list_code = $col->create($list)->cnt_orderlist_id;
     $i = 0;
-    foreach ($order as $k1 => $v1) {
-      foreach ($v1 as $k2 => $v2) {
+    foreach ((array) $order as $k1 => $v1) {
+      foreach ((array) $v1 as $k2 => $v2) {
         if (is_null($v2)) continue;
+        $it->where('item_id', $v2['item_id'])->increment('appo_num', $v2['num_order']);
+        $it->where('item_id', $v2['item_id'])->increment('order_num', $v2['num_order']);
         $order_id = $co->create($v2)->cnt_order_id;
         $i = $i + 1;
         if (isset($price[$k1][$k2])) {

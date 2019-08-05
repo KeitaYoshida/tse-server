@@ -61,12 +61,15 @@ Route::get('/db/model_mst/list', 'ModelCtrl@ModelList');
 Route::get('/db/model_mst/data/{id}', 'ModelCtrl@ModelData');
 Route::post('/db/recept/hatyu/data/list', 'ReceptCtrl@DataList');
 Route::post('/db/recept/hatyu/data/set/{setTime}/{type}', 'ReceptCtrl@SetData');
+
 Route::get('/db/csv/type/setting/{type}', 'ReceptCtrl@CheckType');
 Route::post('/db/csv/type/setting/', 'ReceptCtrl@UpdateType');
+
 Route::post('/db/recept/unknown/data/', 'ReceptCtrl@UpUnknownData');
 Route::post('/db/recept/tyuzan/up/', 'ReceptCtrl@TyuzanUp');
 Route::get('/db/recept/tyuzan/data/', 'ReceptCtrl@Tyuzan');
 Route::get('/db/recept/oneupdate/{id}/{col}/{val}', 'ReceptCtrl@OneColumnUpdate');
+Route::post('/db/recept/nohin/list/', 'ReceptCtrl@GetNohinList');
 
 Route::post('/db/pdct/create/{rid}', 'PdctCtrl@CreatePdct');
 Route::get('/db/pdct/list/from/model/{id}', 'PdctCtrl@PdctListFromModel');
@@ -87,6 +90,13 @@ Route::get("/db/order/data/one/{ccode}", 'CntOrderCtrl@OrderDataOne');
 Route::get("/db/order/list/col/up/{id}/{col}/{val}", 'CntOrderCtrl@OrderListColUp');
 Route::post("/db/order/list/orderd/", 'CntOrderCtrl@OrderListOrderd');
 Route::get("/db/order/list/yoyaku", 'CntOrderCtrl@OrderListYoyaku');
+Route::get("/db/order/torikeshi/{ocode}", 'CntOrderCtrl@OrderTorikeshi');
+Route::get("/db/order/ukeire/cnt/list", 'CntOrderCtrl@OrderUkeireCntList');
+
+Route::get("/db/vendor/list", 'VendorCtrl@vendor_list');
+Route::get("/db/vendor/update/one/col/{vid}/{col}/{val}", 'VendorCtrl@VendorUpOne');
+Route::get("/db/vendor/togo/{mid}/{sid}", 'VendorCtrl@VendorTogo');
+Route::get("/db/vendor/del/{vid}", 'VendorCtrl@VendorDel');
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 

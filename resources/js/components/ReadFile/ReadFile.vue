@@ -5,6 +5,7 @@
       <Model v-if="mode==='model_entry'" :csv="csv" @clear="clear"></Model>
       <Hatyu v-if="mode==='hatyu_entry'" :csv="csv" :type="type" @clear="clear"></Hatyu>
       <Tyuzan v-if="mode==='tyuzan'" :tyuzan="csv" :type="type" :col="col" @clear="clear"></Tyuzan>
+      <Nohin v-if="mode==='nohin_entry'" :csv="csv"></Nohin>
     </v-container>
   </v-app>
 </template>
@@ -19,13 +20,15 @@ import CsvRead from "../CsvRead/CsvRead";
 import Model from "./Model/Step";
 import Hatyu from "./Hatyu/Step";
 import Tyuzan from "./Tyuzan/Tyuzan";
+import Nohin from "./Nohin/nohin";
 
 export default {
   components: {
     Drag,
     Model,
     Hatyu,
-    Tyuzan
+    Tyuzan,
+    Nohin
   },
   data: function() {
     return {
@@ -61,6 +64,7 @@ export default {
         return;
       } else if (expansion !== "csv") {
         console.log("file type error: we need csv file");
+        return;
       }
       let reader = new FileReader();
 
@@ -108,6 +112,10 @@ export default {
           this.type = "1502";
         } else {
           switch (colNum) {
+            case 11:
+              this.csv = csv;
+              this.mode = "nohin_entry";
+              break;
             case 36:
               //data type edp
               this.csv = csv;

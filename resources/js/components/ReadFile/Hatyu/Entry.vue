@@ -87,7 +87,9 @@ export default {
       await axios.post("/db/recept/hatyu/data/list", selectIni).then(res => {
         res.data.forEach(ar => {
           let d = data[ar[key]];
-          if (
+          if (ar.rcpt_status > 2) {
+            d.all.rcpt_status = ar.rcpt_status;
+          } else if (
             Number(d.all.ts_update_day) + Number(d.all.ts_update_time) ===
             Number(ar.ts_update_day) + Number(ar.ts_update_time)
           ) {
@@ -113,6 +115,9 @@ export default {
             break;
           case 2:
             entry_data.cng.push(value);
+            break;
+          default:
+            entry_data.nocng.push(value);
             break;
         }
       }
@@ -160,6 +165,8 @@ export default {
         rcpt_status: up_key
       });
       this.unknown.splice(index, 1);
+      axios.post("/db/recept/unknown/data/", this.unknown_up);
+      this.unknown_up = [];
     },
     fin() {
       this.unknown.forEach((ar, index, or) => {

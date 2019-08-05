@@ -87,17 +87,19 @@ export default {
         let cstm_list = [];
         let ol = (this.view_list = this.order_list = res.data);
         console.log(this.order_list);
-        ol.forEach((ar, n) => {
-          if (cmpt_list.indexOf(ar.cmpt.cmpt_code) === -1) {
-            cmpt_list.push(ar.cmpt.cmpt_code);
-          }
-          let tmp = ar.price;
-          tmp.forEach(vendor => {
-            if (cstm_list.indexOf(vendor.vname.com_name) === -1) {
-              cstm_list.push(vendor.vname.com_name);
+        if (ol[0].cmpt !== null) {
+          ol.forEach((ar, n) => {
+            if (cmpt_list.indexOf(ar.cmpt.cmpt_code) === -1) {
+              cmpt_list.push(ar.cmpt.cmpt_code);
             }
+            let tmp = ar.price;
+            tmp.forEach(vendor => {
+              if (cstm_list.indexOf(vendor.vname.com_name) === -1) {
+                cstm_list.push(vendor.vname.com_name);
+              }
+            });
           });
-        });
+        }
         this.cmpt_list = cmpt_list;
         this.cstm_list = cstm_list;
         this.mode = mode;
@@ -111,6 +113,7 @@ export default {
           ccode.push(od.cnt_order_code);
         }
         od.price.forEach((cm, nn) => {
+          console.log(cm);
           let com_id = cm.vendor_code;
           if (com_id in list === false) {
             list[com_id] = [];
@@ -120,7 +123,6 @@ export default {
             od.item.order_code !== ""
               ? od.item.order_code
               : od.item.item_code;
-
           list[com_id].push({
             com_id: com_id,
             com_name: cm.vname.com_name,
@@ -132,13 +134,14 @@ export default {
             order_key: od.order_key,
             day_sitei: cm.order_day,
             item_code: order_cd,
-            order_cmpt: od.cmpt.cmpt_code,
+            order_cmpt: od.cmpt !== null ? od.cmpt.cmpt_code : "",
             item_model: od.item.item_model,
             item_name: od.item.item_name,
             item_rev: od.item.item_rev,
             item_rev_flg: od.item.item_rev_flg,
             order_num: od.num_order,
             tanka: cm.price,
+            kako: cm.kako,
             order_price: od.num_order * cm.price,
             answer_day: "",
             send_flg: "",
@@ -149,8 +152,8 @@ export default {
       var csv =
         "com_id,com_name,order_model,shinsei_sha,shonin_sha,order_code,";
       csv = csv + "order_id,order_key,day_sitei,item_code,order_cmpt,";
-      csv = csv + "item_model,item_name,item_rev,item_rev_flg,";
-      csv = csv + "order_num,tanka,order_price,answer_day,send_flg,send_day\n";
+      csv = csv + "item_model,item_name,item_rev,item_rev_flg,order_num,";
+      csv = csv + "tanka,kako,order_price,answer_day,send_flg,send_day\n";
       for (let key of Object.keys(list)) {
         list[key].forEach(ar => {
           let line = "";

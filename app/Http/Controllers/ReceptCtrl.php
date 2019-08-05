@@ -95,4 +95,37 @@ class ReceptCtrl extends Controller
       $i = $i + 1;
     }
   }
+
+  public function GetNohinList(Request $req)
+  {
+    $rc = new Reception;
+    foreach ($req->all() as $val) {
+      $row = $rc->where('detail_code', $val['detail_code'])->get()[0];
+      $set_num = $val['nohin_num'];
+      $set_day = $val['last_nohin_day'];
+      $order_num = $row['order_num'];
+      $nohin_num = $row['nohin_num'];
+      $last_nohin_day = $row['last_nohin_day'];
+      $submit_num = 0;
+      $submit_day = 0;
+      if ($last_nohin_day === 0) {
+        $submit_num = $set_num;
+        $submit_day = $set_day;
+      } elseif ($set_day <=  $last_nohin_day) {
+        continue;
+      } else {
+        $submit_num = $nohin_num + $set_num;
+        $submit_day = $set_day;
+      }
+      if ($submit_num >= $order_num) {
+        $order_flg = 5;
+      } else {
+        $order_flg = 3;
+      }
+      $rc->where('detail_code', $val['detail_code'])->update(
+        ['nohin_num' => $submit_num, 'last_nohin_day' => $submit_day, 'rcpt_status' => $order_flg]
+      );
+    }
+    return $row;
+  }
 }

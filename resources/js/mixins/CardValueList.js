@@ -111,6 +111,26 @@ const _card_data = {
     links: "",
     button: false,
     button_text: BUTON_TEXT
+  },
+  ukeire: {
+    title: "受入",
+    class_text: COLOR_WORK_LESS,
+    color: TEXT_COLOR,
+    text: ["発注部材受け入れ"],
+    details: [""].join(""),
+    links: "",
+    button: false,
+    button_text: BUTON_TEXT
+  },
+  tehaisaki: {
+    title: "手配先",
+    class_text: COLOR_WORK_LESS,
+    color: TEXT_COLOR,
+    text: ["統合・登録・削除・更新"],
+    details: [""].join(""),
+    links: "",
+    button: false,
+    button_text: BUTON_TEXT
   }
 }
 

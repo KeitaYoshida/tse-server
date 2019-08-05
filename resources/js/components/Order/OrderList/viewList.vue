@@ -48,8 +48,8 @@
           <p>{{ props.item.listdata.cnt_order_code }}</p>
         </td>
         <td class="text-xs-center">
-          <p>{{ props.item.cmpt.cmpt_code }}</p>
-          <p>
+          <p v-if="props.item.cmpt">{{ props.item.cmpt.cmpt_code }}</p>
+          <p v-if="props.item.cmpt">
             <span class="rev">{{ props.item.cmpt.cmpt_rev.numToRev() }}</span>
             <span class="ren">{{ props.item.assy_num }}</span>
           </p>

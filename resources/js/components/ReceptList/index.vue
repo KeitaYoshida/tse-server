@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container grid-list-xs>
+    <v-container grid-list-xs class="mb-5">
       <transition name="fade">
         <Loading v-if="loading"></Loading>
         <div v-else>
@@ -130,10 +130,20 @@
     >
       <MakePdct :target="target" v-if="make" @createPdct="createPdct"></MakePdct>
     </v-dialog>
+    <v-bottom-nav fixed value="value" active.sync="value">
+      <v-btn flat @click="getCsv()">
+        <span>GET CSV</span>
+        <v-icon>fas fa-file-csv</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-app>
 </template>
 
 <script>
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale("ja");
+var iconv = require("iconv-lite");
 import Loading from "./../com/Loading";
 import ReceptDetail from "./../ReadFile/ReceptDetail";
 import PriceInfo from "./PriceInfo";
@@ -300,6 +310,83 @@ export default {
     monthSelectView(item) {
       this.item = item;
       this.month = !this.month;
+    },
+    getCsv() {
+      let list = "";
+      var csv = "";
+      csv = csv + "顧客,明細NO,発注予定NO,工事番号,受注形式,受注名,";
+      csv = csv + "受注数,単位CD,受注区分,受注残,発注単価,金額,";
+      csv = csv + "依頼日(発注日),納入指定日(予定日)";
+      list = csv + "\n";
+      this.items.forEach((ar, n) => {
+        list = list + (ar.customer === null ? "" : ar.customer) + ",";
+        list = list + (ar.detail_code === null ? "" : ar.detail_code) + ",";
+        list = list + (ar.order_code === null ? "" : ar.order_code) + ",";
+        list = list + (ar.const_code === null ? "" : ar.const_code) + ",";
+        list = list + (ar.recept_code === null ? "" : ar.recept_code) + ",";
+        list = list + (ar.recept_name === null ? "" : ar.recept_name) + ",";
+        list = list + (ar.order_num === null ? "" : ar.order_num) + ",";
+        list = list + (ar.order_ea === null ? "" : ar.order_ea) + ",";
+        list = list + (ar.rcpt_class === null ? "" : ar.rcpt_class) + ",";
+        list =
+          list +
+          (ar.nohin_num === null ? "" : ar.order_num - ar.nohin_num) +
+          ",";
+        list =
+          list + (ar.order_price_one === null ? "" : ar.order_price_one) + ",";
+        list =
+          list +
+          (ar.order_price_one === null
+            ? ""
+            : ar.order_price_one * ar.order_num) +
+          ",";
+        list =
+          list +
+          (ar.day3_irai === null ? ar.day5nonyu_yotei : ar.day3_irai) +
+          ",";
+        list =
+          list +
+          (ar.day3_nonyu_shitei === null
+            ? ar.day5hatyu
+            : ar.day3_nonyu_shitei) +
+          "\n";
+
+        // list = list + (ar.recept_id === null ? "" : ar.recept_id) + ",";
+        // list = list + (ar.rcpt_status === null ? "" : ar.rcpt_status) + ",";
+        // list = list + (ar.pdct_id === null ? "" : ar.pdct_id) + ",";
+        // list = list + (ar.nohin_num === null ? "" : ar.nohin_num) + ",";
+        // list =
+        //   list + (ar.last_nohin_day === null ? "" : ar.last_nohin_day) + ",";
+        // list = list + (ar.nyuka_num === null ? "" : ar.nyuka_num) + ",";
+        // list = list = list + (ar.ym === null ? "" : ar.ym) + ",";
+        // list = list + (ar.day3_irai === null ? "" : ar.day3_irai) + ",";
+        // list =
+        //   list +
+        //   (ar.day3_nonyu_shitei === null ? "" : ar.day3_nonyu_shitei) +
+        //   ",";
+        // list = list + (ar.day5hatyu === null ? "" : ar.day5hatyu) + ",";
+        // list =
+        //   list + (ar.day5nonyu_yotei === null ? "" : ar.day5nonyu_yotei) + ",";
+        // list = list + (ar.memo_bikou1 === null ? "" : ar.memo_bikou1) + ",";
+        // list = list + (ar.memo_bikou2 === null ? "" : ar.memo_bikou2) + ",";
+        // list = list + (ar.shiyo === null ? "" : ar.shiyo) + ",";
+        // list = list + (ar.tekiyo === null ? "" : ar.tekiyo) + ",";
+        // list =
+        //   list + (ar.set_update_time === null ? "" : ar.set_update_time) + ",";
+        // list = list + (ar.ts_update_day === null ? "" : ar.ts_update_day) + ",";
+        // list =
+        //   list + (ar.ts_update_time === null ? "" : ar.ts_update_time) + "\n";
+      });
+      list = iconv.encode(list, "Shift_JIS");
+      let blob = new Blob([list], { type: "text/csv" });
+      let link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      let day = dayjs().format("YYYYMMDDHHmmss");
+      let daynum = Number(day);
+      let day16 = daynum.toString(16);
+      let csv_name = "TSE_ORDER_LIST_" + day16 + ".csv";
+      link.download = csv_name;
+      link.click();
     }
   }
 };

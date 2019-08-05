@@ -10,6 +10,8 @@ class MVendorItem extends Model
   protected $primaryKey = ['item_id', 'vendor_code'];
   protected $guarded = array();
   public $incrementing = false;
+  public $timestamps = false;
+
   function vendname()
   {
     return $this->hasOne('App\Model\Vendor', 'vendor_code', 'vendor_code');

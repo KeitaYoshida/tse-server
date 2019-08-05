@@ -2,7 +2,7 @@
   <v-container grid-list-xs class="edit dowble" v-if="vend_list">
     <v-btn color="primary" flat large block outline @click="add">追加</v-btn>
     <v-layout row wrap v-for="(item, index) in vendor" :key="index" mt-5 mb-5>
-      <v-flex xs5>
+      <v-flex xs3>
         <v-select
           :items="vend_list"
           item-text="com_name"
@@ -12,7 +12,10 @@
           prepend-inner-icon="far fa-building"
         ></v-select>
       </v-flex>
-      <v-flex xs4 class="pl-3">
+      <v-flex xs3>
+        <v-text-field v-model="item.kako" label="加工内容"></v-text-field>
+      </v-flex>
+      <v-flex xs3 class="pl-3">
         <v-text-field
           name="price"
           label="金額"
@@ -50,6 +53,7 @@ export default {
     return { vend_list: null, submit_text: "決定" };
   },
   created: async function() {
+    console.log(this.vendor);
     await axios.get("/vendor/list").then(res => {
       this.vend_list = res.data;
     });
@@ -71,10 +75,13 @@ export default {
           item_id: ar.item_id,
           vendor_code: ar.vendor_code,
           vendor_item_price: ar.vendor_item_price,
-          order_add_date: ar.order_add_date
+          order_add_date: ar.order_add_date,
+          kako: ar.kako
         };
       });
       axios.post("/vendor-item/up/" + this.item_id, f).then(res => {
+        console.log(res.data);
+        return;
         this.submit_text = "更新済み";
         this.$emit("pass", { type: "order_price", data: res.data });
       });

@@ -295,6 +295,7 @@ export default {
               dCntPrice[x][n][nn] = {
                 vendor_code: arr.vendor_code,
                 price: arr.vendor_item_price,
+                kako: arr.kako,
                 order_day: dayjs(fm.order_day)
                   .add(arr.order_add_date, "days")
                   .format("YYYY-MM-DD")
@@ -310,6 +311,7 @@ export default {
         o: dCntOrders,
         op: dCntPrice
       };
+      console.log(d);
       axios.post("/db/order/yoyaku/set", d).then(res => {
         this.reload("/product_list");
       });

@@ -122,6 +122,12 @@
         <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="user_info"></common-cards>
         </v-flex>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="ukeire"></common-cards>
+        </v-flex>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="tehaisaki"></common-cards>
+        </v-flex>
       </v-layout>
     </v-container>
   </v-app>

@@ -310,6 +310,7 @@ export default {
         od.op[0][0][n] = {
           vendor_code: ar.vendor_code,
           price: Number(ar.vendor_item_price),
+          kako: ar.kako,
           order_day: dayjs(fm.order_day)
             .add(ar.order_add_date, "days")
             .format("YYYY-MM-DD")

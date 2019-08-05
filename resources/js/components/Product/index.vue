@@ -94,7 +94,7 @@
         transition="dialog-bottom-transition"
         width="550px"
       >
-        <MakeOrder :target="target" v-if="make_order" @crOrder="crOrder"></MakeOrder>
+        <MakeOrder :target="target" v-if="make_order" @crOrder="crOrder" @init="init"></MakeOrder>
       </v-dialog>
     </v-container>
   </v-app>
@@ -119,7 +119,7 @@ export default {
       headers: [
         { text: "区分", value: "pdct_class", align: "center" },
         { text: "形式", value: "model_id", align: "center" },
-        { text: "製造コード", value: "pdct_code", align: "center" },
+        { text: "製造コード", value: "const_code", align: "center" },
         { text: "総受注数", value: "all_num", align: "center" },
         { text: "受注・手配金額", value: "all_price", align: "center" },
         { text: "処理", value: "none", align: "center" }

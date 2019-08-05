@@ -22,16 +22,17 @@
             </td>
             <td class="text-xs-center">{{ props.item.model_name }}</td>
             <td class="align-center justify-center layout px-0">
-              <router-link :to="'/item/' + props.item.item_code + '/' + props.item.item_rev">
-                <v-btn color="deep-orange lighten-2" outline small>
-                  <v-icon small left class="icon-edit">far fa-list-alt</v-icon>手配
-                </v-btn>
-              </router-link>
-              <router-link :to="'/item/' + props.item.item_code + '/' + props.item.item_rev">
-                <v-btn color="success" outline small>
-                  <v-icon small left class="icon-edit">fas fa-edit</v-icon>構成
-                </v-btn>
-              </router-link>
+              <v-btn
+                color="deep-orange lighten-2"
+                outline
+                small
+                @click.stop="viewCmptSetting(props.item.model_id)"
+              >
+                <v-icon small left class="icon-edit">far fa-list-alt</v-icon>部材構成
+              </v-btn>
+              <v-btn color="success" outline small>
+                <v-icon small left class="icon-edit">fas fa-edit</v-icon>工程登録
+              </v-btn>
             </td>
           </tr>
         </template>
@@ -51,23 +52,62 @@
                   <p class="cmpt_rev">{{ item.cmpt_rev.numToRev() }}</p>
                   <p class="cmpt_name">{{ item.cmpt_name }}</p>
                 </v-card-text>
+                <v-card-actions>
+                  <v-layout wrap>
+                    <v-flex xs6>
+                      <v-btn color="success" outline>工程登録</v-btn>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-btn color="warning" outline>削除</v-btn>
+                    </v-flex>
+                  </v-layout>
+                </v-card-actions>
               </v-card>
             </v-flex>
           </v-layout>
         </template>
       </v-data-table>
     </v-container>
+    <v-dialog
+      v-model="cmptview"
+      fullscreen
+      persistent
+      hide-overlay
+      transition="dialog-bottom-transition"
+      v-if="cmptview"
+    >
+      <v-card>
+        <v-toolbar color="primary" dark>
+          構成情報
+          <v-spacer></v-spacer>
+          <v-btn flat @click="cmptview=!cmptview">close</v-btn>
+        </v-toolbar>
+        <v-container grid-list-xs>
+          <v-card-text>
+            <CmptData :modelData="target" :upmode="true" v-if="target"></CmptData>
+          </v-card-text>
+        </v-container>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
 <script>
+import CmptData from "./../ReadFile/Model/ComponentEntry";
+
 export default {
+  components: {
+    CmptData
+  },
   data: function() {
     return {
       items: [],
+      target: null,
+      cmptview: false,
       headers: [
         { text: "形式", value: "model_code", align: "center" },
-        { text: "形式名", value: "model_name", align: "center" }
+        { text: "形式名", value: "model_name", align: "center" },
+        { text: "処理", value: "", align: "center" }
       ],
       search: "",
       view_row_setting: [
@@ -90,6 +130,12 @@ export default {
       axios.get("/db/model_mst/list").then(res => {
         this.items = res.data;
         this.loading = false;
+      });
+    },
+    viewCmptSetting(id) {
+      axios.get("/db/model_mst/data/" + id).then(res => {
+        this.target = res.data;
+        this.cmptview = true;
       });
     }
   }

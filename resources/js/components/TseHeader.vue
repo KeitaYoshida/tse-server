@@ -1,6 +1,6 @@
 <template>
   <header>
-    <v-toolbar dark :color="color.base">
+    <v-toolbar dark :color="color.base" fixed>
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title class="white--text">Torks Web</v-toolbar-title>
       <v-spacer></v-spacer>

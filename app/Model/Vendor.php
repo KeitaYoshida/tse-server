@@ -10,4 +10,5 @@ class Vendor extends Model
   protected $primaryKey = 'vendoer_code';
   protected $guarded = array();
   public $incrementing = false;
+  public $timestamps = false;
 }
