@@ -116,7 +116,8 @@ class CntOrderCtrl extends Controller
     foreach ((array) $order as $k1 => $v1) {
       foreach ((array) $v1 as $k2 => $v2) {
         if (is_null($v2)) continue;
-        $it->where('item_id', $v2['item_id'])->increment('appo_num', $v2['num_order']);
+        $it->where('item_id', $v2['item_id'])->increment('appo_num', $v2['appo_num']);
+        if ($v2['num_order'] === 0) continue;
         $it->where('item_id', $v2['item_id'])->increment('order_num', $v2['num_order']);
         $order_id = $co->create($v2)->cnt_order_id;
         $i = $i + 1;

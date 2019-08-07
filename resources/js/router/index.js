@@ -17,6 +17,7 @@ const inventory = () => import( /* webpackChunkName: "inventory" */ "../componen
 const model_mst = () => import( /* webpackChunkName: "model_mst" */ "../components/ModelMst/index.vue");
 const recept_list = () => import( /* webpackChunkName: "recept_list" */ "../components/ReceptList/index.vue");
 const product_list = () => import( /* webpackChunkName: "product_list" */ "../components/Product/index.vue");
+const order = () => import( /* webpackChunkName: "order" */ "../components/Product/Tyumon/CmptOrderList.vue");
 const user_info = () => import( /* webpackChunkName: "user_info" */ "../components/UserInfo/index.vue");
 const order_list = () => import( /* webpackChunkName: "order_list" */ "../components/Order/OrderList/order_list.vue");
 const ukeire = () => import(/* webpackChunkName: "order_list" */ "../components/Ukeire/ukeire.vue")
@@ -104,6 +105,12 @@ let router = new Router({
       path: "/product_list",
       name: "product_list",
       component: product_list
+    },
+    {
+      path: "/product_list/order/",
+      name: "order",
+      component: order,
+      props: true
     },
     {
       path: "/order_list/:cnt_order_code",

@@ -52,6 +52,12 @@
             <v-flex xs7>
               <span>{{ item.order_price === null ? 0 : item.order_price.toLocaleString() }}</span>
             </v-flex>
+            <v-flex xs7>
+              <span class="mini">手配（セット）数：</span>
+            </v-flex>
+            <v-flex xs5>
+              <span>{{ item.cnt_order_num }}</span>
+            </v-flex>
           </v-layout>
         </v-card-text>
         <v-card-actions class="pt-0 text-xs-center">

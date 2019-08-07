@@ -1,168 +1,170 @@
 <template>
-  <v-card>
-    <v-toolbar dark color=" green lighten-1 " flat>
-      <v-btn icon dark @click="close_cmpt()">
-        <v-icon>close</v-icon>
-      </v-btn>
-      <span class="t model">{{ fm.model }}</span>
-      <span class="t rev">{{ fm.rev.numToRev() }}</span>
-      <span class="t num">
-        {{ fm.num }}
-        <span class="mini">EA</span>
-      </span>
-      <span class="t code">{{ fm.code }}</span>
-      <span class="t day">{{ fm.order_day }}</span>
-    </v-toolbar>
-    <v-card-text>
-      <v-container fluid v-if="view">
-        <v-tabs fixed-tabs show-arrows v-model="tabs">
-          <v-tabs-slider color="yellow"></v-tabs-slider>
-          <v-tab
-            v-for="(cmpt, index) in tar_model.cmpt"
-            :key="index"
-          >{{ cmpt.cmpt_code.slice(0, -3) }}</v-tab>
-          <v-tab-item v-for="(cmpt, index) in tar_model.cmpt" :key="index" class="mt-5">
-            <v-data-table
-              v-model="selected[index]"
-              :headers="headers"
-              :items="cmpt.item_use"
-              pagination.sync="pagination"
-              hide-actions
-              select-all
-              item-key="item_id"
-            >
-              <template v-slot:items="props">
-                <tr v-if="view_data_checker(props.item.items.item_class)">
-                  <td>
-                    <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
-                  </td>
-                  <td class="text-xs-center">
-                    <p>
-                      <v-chip
-                        :class="props.item.items.item_class_val.custom + ' chip ren'"
-                        large
-                        outline
-                        @click="change_item_class(props)"
-                      >
-                        {{ props.item.items.item_class_val.value === "ネジ・スペーサ" ? "ネジ他" : props.item.items.item_class_val.value}}
-                        <br />
-                        {{ props.item.item_ren }}
-                      </v-chip>
-                    </p>
-                  </td>
-                  <td class="text-xs-center">
-                    <p class="item_code_area">
-                      <nobr>
-                        <v-btn flat icon small color="primary" @click="henshu(props.item)">
-                          <v-icon small>far fa-edit</v-icon>
-                        </v-btn>
-                        <span class="item_code">{{ props.item.items.item_code }}</span>
+  <v-app>
+    <v-card v-if="tar_model && fm">
+      <v-toolbar color="transparent" flat>
+        <v-btn icon dark :to="{name: 'product_list'}">
+          <v-icon>back</v-icon>
+        </v-btn>
+        <v-chip color="primary" outline x-large>{{ fm.model }}</v-chip>
+        <v-chip color="primary" outline large>
+          {{ fm.num }}
+          <span class="mini">EA</span>
+        </v-chip>
+        <v-chip color="primary" outline large>{{ fm.rev.numToRev() }}</v-chip>
+        <v-chip color="primary" outline large>{{ fm.code }}</v-chip>
+        <v-chip color="primary" outline large>{{ fm.order_day }}</v-chip>
+      </v-toolbar>
+      <v-card-text>
+        <v-container fluid v-if="view">
+          <v-tabs fixed-tabs show-arrows v-model="tabs">
+            <v-tabs-slider color="yellow"></v-tabs-slider>
+            <v-tab
+              v-for="(cmpt, index) in tar_model.cmpt"
+              :key="index"
+            >{{ cmpt.cmpt_code.slice(0, -3) }}</v-tab>
+            <v-tab-item v-for="(cmpt, index) in tar_model.cmpt" :key="index" class="mt-5">
+              <v-data-table
+                v-model="selected[index]"
+                :headers="headers"
+                :items="cmpt.item_use"
+                pagination.sync="pagination"
+                hide-actions
+                select-all
+                item-key="item_id"
+              >
+                <template v-slot:items="props">
+                  <tr v-if="view_data_checker(props.item.items.item_class)">
+                    <td>
+                      <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
+                    </td>
+                    <td class="text-xs-center">
+                      <p>
+                        <v-chip
+                          :class="props.item.items.item_class_val.custom + ' chip ren'"
+                          large
+                          outline
+                          @click="change_item_class(props)"
+                        >
+                          {{ props.item.items.item_class_val.value === "ネジ・スペーサ" ? "ネジ他" : props.item.items.item_class_val.value}}
+                          <br />
+                          {{ props.item.item_ren }}
+                        </v-chip>
+                      </p>
+                    </td>
+                    <td class="text-xs-center">
+                      <p class="item_code_area">
+                        <nobr>
+                          <v-btn flat icon small color="primary" @click="henshu(props.item)">
+                            <v-icon small>far fa-edit</v-icon>
+                          </v-btn>
+                          <span class="item_code">{{ props.item.items.item_code }}</span>
+                          <v-btn
+                            flat
+                            icon
+                            small
+                            color="deep-orange darken-3"
+                            @click="delAct(props.item, props.index)"
+                          >
+                            <v-icon small>far fa-trash-alt</v-icon>
+                          </v-btn>
+                        </nobr>
+                      </p>
+                      <p
+                        v-if="props.item.items.order_code !== '' && props.item.items.order_code !== props.item.items.item_code"
+                      >( {{ props.item.items.order_code }} )</p>
+                    </td>
+                    <td class="text-xs-center">
+                      <p>{{ props.item.items.item_model }}</p>
+                      <p>{{ props.item.items.item_name }}</p>
+                    </td>
+                    <td class="text-xs-center">
+                      <p>
                         <v-btn
                           flat
-                          icon
                           small
-                          color="deep-orange darken-3"
-                          @click="delAct(props.item, props.index)"
+                          class="lg indigo--text text--darken-3"
+                          @click="num_change(props.item.items)"
                         >
-                          <v-icon small>far fa-trash-alt</v-icon>
+                          {{ props.item.items.num }}
+                          <span class="mini pl-2">EA</span>
                         </v-btn>
-                      </nobr>
-                    </p>
-                    <p
-                      v-if="props.item.items.order_code !== '' && props.item.items.order_code !== props.item.items.item_code"
-                    >( {{ props.item.items.order_code }} )</p>
-                  </td>
-                  <td class="text-xs-center">
-                    <p>{{ props.item.items.item_model }}</p>
-                    <p>{{ props.item.items.item_name }}</p>
-                  </td>
-                  <td class="text-xs-center">
-                    <p>
-                      <v-btn
-                        flat
-                        small
-                        class="lg indigo--text text--darken-3"
-                        @click="num_change(props.item.items)"
-                      >
-                        {{ props.item.items.num }}
-                        <span class="mini pl-2">EA</span>
-                      </v-btn>
-                    </p>
-                    <p>
-                      {{ props.item.items.price }}
-                      <span class="mini pl-2">¥</span>
-                    </p>
-                  </td>
-                  <td class="text-xs-center price">
-                    <v-layout row wrap>
-                      <template v-for="(item, index) in props.item.items.vendor">
-                        <v-flex xs6 :key="'n' + index">{{ item.vendname.com_name }}</v-flex>
-                        <v-flex
-                          xs6
-                          :key="'p' + index"
-                        >{{ Math.round(item.vendor_item_price * props.item.items.num).toLocaleString() }}</v-flex>
-                      </template>
-                    </v-layout>
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
-          </v-tab-item>
-        </v-tabs>
-      </v-container>
-    </v-card-text>
-    <v-bottom-nav absolute value="value" active.sync="value">
-      <v-btn flat color="primary" @click="close_cmpt()">
-        <span>戻る</span>
-        <v-icon>fas fa-chevron-circle-left</v-icon>
-      </v-btn>
-      <v-btn flat color="primary" @click="make()">
-        <span>決定</span>
-        <v-icon>fas fa-check-circle</v-icon>
-      </v-btn>
-      <v-btn flat color="primary" @click="flg_chip_view=!flg_chip_view">
-        <span>CHIP品</span>
-        <v-icon v-if="!flg_chip_view">far fa-meh</v-icon>
-        <v-icon v-else>far fa-laugh</v-icon>
-      </v-btn>
-      <v-btn flat color="primary" @click="flg_set_view=!flg_set_view">
-        <span>セット品</span>
-        <v-icon v-if="!flg_set_view">far fa-meh</v-icon>
-        <v-icon v-else>far fa-laugh</v-icon>
-      </v-btn>
-      <v-btn flat color="primary" @click="add()">
-        <span>構成追加</span>
-        <v-icon>fas fa-sitemap</v-icon>
-      </v-btn>
-    </v-bottom-nav>
-    <v-dialog v-model="additem" transition="dialog-transition" width="500px">
-      <AddCmptItem :data="dialog_data" @rt="rtAdd" v-if="additem"></AddCmptItem>
-    </v-dialog>
-    <v-dialog v-model="delchk" max-width="500px" transition="dialog-transition">
-      <DelChecker :data="delchk_val" @rt="delAct_Do" v-if="delchk"></DelChecker>
-    </v-dialog>
-    <v-dialog v-model="henshu_view" max-width="700px" transition="dialog-transition">
-      <HenshuView
-        v-if="henshu_view"
-        :item_code="target.items.item_code"
-        :item_rev="target.items.item_rev"
-        :del="false"
-        @pass="up_items"
-      ></HenshuView>
-    </v-dialog>
-    <v-dialog v-model="num_selecter" max-width="500px" transition="dialog-transition">
-      <NumChanger :data="num_select_obj" @rt="change_num"></NumChanger>
-    </v-dialog>
-    <v-dialog v-model="class_selecter" max-width="200px" transition="dialog-transition">
-      <v-list class="text-xs-center class_list">
-        <v-list-tile avatar v-for="(item, index) in class_list" :key="index">
-          <v-list-tile-content>
-            <v-btn flat @click="select_item_class(item)">{{ item.value }}</v-btn>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-dialog>
-  </v-card>
+                      </p>
+                      <p>
+                        {{ props.item.items.price }}
+                        <span class="mini pl-2">¥</span>
+                      </p>
+                    </td>
+                    <td class="text-xs-center price">
+                      <v-layout row wrap>
+                        <template v-for="(item, index) in props.item.items.vendor">
+                          <v-flex xs6 :key="'n' + index">{{ item.vendname.com_name }}</v-flex>
+                          <v-flex
+                            xs6
+                            :key="'p' + index"
+                          >{{ Math.round(item.vendor_item_price * props.item.items.num).toLocaleString() }}</v-flex>
+                        </template>
+                      </v-layout>
+                    </td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </v-tab-item>
+          </v-tabs>
+        </v-container>
+      </v-card-text>
+      <v-bottom-nav fixed value="value" active.sync="value">
+        <v-btn flat color="primary" @click="close_cmpt()">
+          <span>戻る</span>
+          <v-icon>fas fa-chevron-circle-left</v-icon>
+        </v-btn>
+        <v-btn flat color="primary" @click="make()">
+          <span>決定</span>
+          <v-icon>fas fa-check-circle</v-icon>
+        </v-btn>
+        <v-btn flat color="primary" @click="flg_chip_view=!flg_chip_view">
+          <span>CHIP品</span>
+          <v-icon v-if="!flg_chip_view">far fa-meh</v-icon>
+          <v-icon v-else>far fa-laugh</v-icon>
+        </v-btn>
+        <v-btn flat color="primary" @click="flg_set_view=!flg_set_view">
+          <span>セット品</span>
+          <v-icon v-if="!flg_set_view">far fa-meh</v-icon>
+          <v-icon v-else>far fa-laugh</v-icon>
+        </v-btn>
+        <v-btn flat color="primary" @click="add()">
+          <span>構成追加</span>
+          <v-icon>fas fa-sitemap</v-icon>
+        </v-btn>
+      </v-bottom-nav>
+      <v-dialog v-model="additem" transition="dialog-transition" width="500px">
+        <AddCmptItem :data="dialog_data" @rt="rtAdd" v-if="additem"></AddCmptItem>
+      </v-dialog>
+      <v-dialog v-model="delchk" max-width="500px" transition="dialog-transition">
+        <DelChecker :data="delchk_val" @rt="delAct_Do" v-if="delchk"></DelChecker>
+      </v-dialog>
+      <v-dialog v-model="henshu_view" max-width="700px" transition="dialog-transition">
+        <HenshuView
+          v-if="henshu_view"
+          :item_code="target.items.item_code"
+          :item_rev="target.items.item_rev"
+          :del="false"
+          @pass="up_items"
+        ></HenshuView>
+      </v-dialog>
+      <v-dialog v-model="num_selecter" max-width="500px" transition="dialog-transition">
+        <NumChanger :data="num_select_obj" @rt="change_num"></NumChanger>
+      </v-dialog>
+      <v-dialog v-model="class_selecter" max-width="200px" transition="dialog-transition">
+        <v-list class="text-xs-center class_list">
+          <v-list-tile avatar v-for="(item, index) in class_list" :key="index">
+            <v-list-tile-content>
+              <v-btn flat @click="select_item_class(item)">{{ item.value }}</v-btn>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-dialog>
+    </v-card>
+  </v-app>
 </template>
 
 <script>
@@ -235,6 +237,10 @@ export default {
   },
   methods: {
     init() {
+      if (this.tar_model === undefined) {
+        this.$router.push({ name: "product_list" });
+        return;
+      }
       this.tar_model.cmpt.forEach(c => {
         c.item_use.forEach(i => {
           this.setNumPrice(i);
@@ -258,12 +264,14 @@ export default {
         cnt_order_list_status: fm.order_class,
         pdct_id: fm.pdct_id,
         order_price: 0,
+        cnt_order_num: fm.num,
         user_yoyaku: fm.user
       };
       let price = 0;
       let dCntOrders = [];
       let dCntPrice = [];
       let keynum = 1000;
+      // console.log(this.selected);
       this.selected.forEach((a, x) => {
         a.forEach((ar, n) => {
           keynum = keynum - 1;
@@ -282,7 +290,8 @@ export default {
             cmpt_id: ar.cmpt_id,
             assy_num: ar.item_ren,
             item_id: i.item_id,
-            num_order: i.num
+            num_order: ar.items.num,
+            appo_num: fm.num * ar.item_use
           };
           if (i.vendor !== undefined) {
             i.vendor.forEach((arr, nn) => {
@@ -311,7 +320,8 @@ export default {
         o: dCntOrders,
         op: dCntPrice
       };
-      console.log(d);
+      // console.log(d);
+      // return;
       axios.post("/db/order/yoyaku/set", d).then(res => {
         this.reload("/product_list");
       });
@@ -328,7 +338,7 @@ export default {
       let yoyaku = i.items.appo_num;
       let tehai = i.items.order_num;
       let hituyou = i.item_use * this.fm.num;
-      let order = hituyou - zan + tehai - yoyaku;
+      let order = hituyou - zan - tehai + yoyaku;
       if (i.items.lot_num <= 0) {
         if (order < 0) {
           i.items.num = 0;

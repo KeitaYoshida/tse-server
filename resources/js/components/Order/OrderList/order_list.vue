@@ -86,7 +86,7 @@ export default {
         let cmpt_list = [];
         let cstm_list = [];
         let ol = (this.view_list = this.order_list = res.data);
-        console.log(this.order_list);
+        // console.log(this.order_list);
         if (ol[0].cmpt !== null) {
           ol.forEach((ar, n) => {
             if (cmpt_list.indexOf(ar.cmpt.cmpt_code) === -1) {
@@ -113,7 +113,7 @@ export default {
           ccode.push(od.cnt_order_code);
         }
         od.price.forEach((cm, nn) => {
-          console.log(cm);
+          // console.log(cm);
           let com_id = cm.vendor_code;
           if (com_id in list === false) {
             list[com_id] = [];

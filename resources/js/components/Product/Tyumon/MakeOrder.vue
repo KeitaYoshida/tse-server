@@ -61,7 +61,14 @@
       </v-layout>
       <v-card-actions class="text-xs-center">
         <v-btn color="primary" flat class="action" @click="setOrder()" disabled>セット手配</v-btn>
-        <v-btn color="primary" flat class="action" v-if="p_class!=='部品'" @click="cmptOrder()">部材指定手配</v-btn>
+        <v-btn color="primary" flat class="action" v-if="fm.model===''" disabled>形式を選択</v-btn>
+        <v-btn
+          color="primary"
+          flat
+          class="action"
+          v-else-if="p_class!=='部品'"
+          @click="mvCmptOrer()"
+        >形式部材手配</v-btn>
         <v-btn color="primary" flat class="action" v-else @click="itemOrder()">部材手配</v-btn>
       </v-card-actions>
     </v-card-text>
@@ -153,17 +160,6 @@
           </v-layout>
         </v-card-text>
       </v-card>
-    </v-dialog>
-    <v-dialog
-      v-model="cmpt_order"
-      scrollable
-      fullscreen
-      persistent
-      hide-overlay
-      :overlay="false"
-      transition="dialog-bottom-transition"
-    >
-      <CmptOrderList :tar_model="tar_model" :fm="fm" @close="close_cmpt" v-if="tar_model"></CmptOrderList>
     </v-dialog>
     <v-dialog v-model="warning" max-width="500px" transition="dialog-transition">
       <v-card class="pa-2">
@@ -274,9 +270,14 @@ export default {
     setOrder() {
       if (this.modelCheck()) return;
     },
-    cmptOrder() {
-      if (this.modelCheck()) return;
-      this.cmpt_order = true;
+    mvCmptOrer() {
+      this.$router.push({
+        name: "order",
+        params: {
+          tar_model: this.tar_model,
+          fm: this.fm
+        }
+      });
     },
     itemOrder() {
       if (this.modelCheck()) return;
@@ -365,4 +366,3 @@ p {
   }
 }
 </style>
-
