@@ -26,11 +26,12 @@
                 color="deep-orange lighten-2"
                 outline
                 small
-                @click.stop="viewCmptSetting(props.item.model_id)"
+                :loading="loading"
+                @click.stop="viewCmptSetting(props.item)"
               >
                 <v-icon small left class="icon-edit">far fa-list-alt</v-icon>部材構成
               </v-btn>
-              <v-btn color="success" outline small>
+              <v-btn color="success" outline small :loading="loading">
                 <v-icon small left class="icon-edit">fas fa-edit</v-icon>工程登録
               </v-btn>
             </td>
@@ -55,7 +56,7 @@
                 <v-card-actions>
                   <v-layout wrap>
                     <v-flex xs6>
-                      <v-btn color="success" outline>工程登録</v-btn>
+                      <v-btn color="indigo lighten-2" outline>工程登録</v-btn>
                     </v-flex>
                     <v-flex xs6>
                       <v-btn color="warning" outline>削除</v-btn>
@@ -68,27 +69,6 @@
         </template>
       </v-data-table>
     </v-container>
-    <v-dialog
-      v-model="cmptview"
-      fullscreen
-      persistent
-      hide-overlay
-      transition="dialog-bottom-transition"
-      v-if="cmptview"
-    >
-      <v-card>
-        <v-toolbar color="primary" dark>
-          構成情報
-          <v-spacer></v-spacer>
-          <v-btn flat @click="cmptview=!cmptview">close</v-btn>
-        </v-toolbar>
-        <v-container grid-list-xs>
-          <v-card-text>
-            <CmptData :modelData="target" :upmode="true" v-if="target"></CmptData>
-          </v-card-text>
-        </v-container>
-      </v-card>
-    </v-dialog>
   </v-app>
 </template>
 
@@ -103,7 +83,6 @@ export default {
     return {
       items: [],
       target: null,
-      cmptview: false,
       headers: [
         { text: "形式", value: "model_code", align: "center" },
         { text: "形式名", value: "model_name", align: "center" },
@@ -132,10 +111,22 @@ export default {
         this.loading = false;
       });
     },
-    viewCmptSetting(id) {
-      axios.get("/db/model_mst/data/" + id).then(res => {
-        this.target = res.data;
-        this.cmptview = true;
+    viewCmptSetting(i) {
+      this.loading = true;
+      let fm = {
+        model: i.model_code,
+        rev: i.model_rev
+      };
+      axios.get("/db/model_mst/data/" + i.model_id).then(res => {
+        this.$router.push({
+          name: "order",
+          params: {
+            tar_model: res.data[0],
+            fm: fm,
+            mode: "cmpt",
+            rtname: "product_list"
+          }
+        });
       });
     }
   }

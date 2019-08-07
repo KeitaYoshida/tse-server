@@ -2,17 +2,19 @@
   <v-app>
     <v-card v-if="tar_model && fm">
       <v-toolbar color="transparent" flat>
-        <v-btn icon dark :to="{name: 'product_list'}">
-          <v-icon>back</v-icon>
+        <v-btn icon flat @click="mv_back()">
+          <v-icon color="primary">fas fa-angle-double-left</v-icon>
         </v-btn>
-        <v-chip color="primary" outline x-large>{{ fm.model }}</v-chip>
-        <v-chip color="primary" outline large>
-          {{ fm.num }}
-          <span class="mini">EA</span>
-        </v-chip>
-        <v-chip color="primary" outline large>{{ fm.rev.numToRev() }}</v-chip>
-        <v-chip color="primary" outline large>{{ fm.code }}</v-chip>
-        <v-chip color="primary" outline large>{{ fm.order_day }}</v-chip>
+        <v-chip color="primary" outline>{{ fm.model }}</v-chip>
+        <template v-if="selecter">
+          <v-chip color="primary" outline>
+            {{ fm.num }}
+            <span class="mini">EA</span>
+          </v-chip>
+          <v-chip color="primary" outline>{{ fm.rev.numToRev() }}</v-chip>
+          <v-chip color="primary" outline>{{ fm.code }}</v-chip>
+          <v-chip color="primary" outline>{{ fm.order_day }}</v-chip>
+        </template>
       </v-toolbar>
       <v-card-text>
         <v-container fluid v-if="view">
@@ -29,12 +31,12 @@
                 :items="cmpt.item_use"
                 pagination.sync="pagination"
                 hide-actions
-                select-all
+                :select-all="selecter"
                 item-key="item_id"
               >
                 <template v-slot:items="props">
                   <tr v-if="view_data_checker(props.item.items.item_class)">
-                    <td>
+                    <td v-if="selecter">
                       <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
                     </td>
                     <td class="text-xs-center">
@@ -77,7 +79,7 @@
                       <p>{{ props.item.items.item_model }}</p>
                       <p>{{ props.item.items.item_name }}</p>
                     </td>
-                    <td class="text-xs-center">
+                    <td class="text-xs-center" v-if="selecter">
                       <p>
                         <v-btn
                           flat
@@ -101,7 +103,9 @@
                           <v-flex
                             xs6
                             :key="'p' + index"
+                            v-if="selecter"
                           >{{ Math.round(item.vendor_item_price * props.item.items.num).toLocaleString() }}</v-flex>
+                          <v-flex xs6 :key="'p' + index" v-else>{{ item.vendor_item_price }}</v-flex>
                         </template>
                       </v-layout>
                     </td>
@@ -117,7 +121,7 @@
           <span>戻る</span>
           <v-icon>fas fa-chevron-circle-left</v-icon>
         </v-btn>
-        <v-btn flat color="primary" @click="make()">
+        <v-btn flat color="primary" @click="make()" v-if="selecter">
           <span>決定</span>
           <v-icon>fas fa-check-circle</v-icon>
         </v-btn>
@@ -184,7 +188,7 @@ export default {
     NumChanger,
     HenshuView
   },
-  props: ["tar_model", "fm"],
+  props: ["tar_model", "fm", "mode", "rtname"],
   data: function() {
     return {
       tabs: 0,
@@ -214,6 +218,7 @@ export default {
         { text: "手配先", value: "items.item_model", align: "center" }
       ],
       selected: [],
+      selecter: true,
       pagination: {
         sortBy: "item_ren"
       },
@@ -237,6 +242,15 @@ export default {
   },
   methods: {
     init() {
+      if (this.mode === "cmpt") {
+        this.selecter = false;
+        this.headers = [
+          { text: "連／種別", value: "item_ren", align: "center" },
+          { text: "手配品目コード", value: "items.item_code", align: "center" },
+          { text: "品名", value: "items.item_model", align: "center" },
+          { text: "手配先", value: "items.item_model", align: "center" }
+        ];
+      }
       if (this.tar_model === undefined) {
         this.$router.push({ name: "product_list" });
         return;
@@ -323,7 +337,7 @@ export default {
       // console.log(d);
       // return;
       axios.post("/db/order/yoyaku/set", d).then(res => {
-        this.reload("/product_list");
+        this.$router.push("/product_list");
       });
     },
     close_cmpt() {
@@ -522,6 +536,13 @@ export default {
           return;
         }
       });
+    },
+    mv_back() {
+      this.$router.go(-1);
+      // let name = this.rtname ? this.rtname : "product_list";
+      // this.$router.push({
+      //   name: name
+      // });
     }
   }
 };

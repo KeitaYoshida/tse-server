@@ -138,7 +138,6 @@
                 :headers="headers"
                 :items="model_data"
                 pagination.sync="pagination"
-                hide-actions
                 dark
                 item-key="model_id"
                 :search="search === null ? '' : search.slice(0, search.length -3)"
@@ -275,7 +274,8 @@ export default {
         name: "order",
         params: {
           tar_model: this.tar_model,
-          fm: this.fm
+          fm: this.fm,
+          rtname: "model_mst"
         }
       });
     },
