@@ -181,12 +181,19 @@ import NumChanger from "./../../com/ComFormDialog";
 import HenshuView from "./../../ItemData/Henshu";
 import AddCmptItem from "./../../com/ComFormDialog";
 
+import { mapState, mapMutations } from "vuex";
+
 export default {
   components: {
     DelChecker,
     AddCmptItem,
     NumChanger,
     HenshuView
+  },
+  computed: {
+    ...mapState({
+      user_info: "user_info"
+    })
   },
   props: ["tar_model", "fm", "mode", "rtname"],
   data: function() {
@@ -239,6 +246,7 @@ export default {
   },
   created: function() {
     this.init();
+    console.log(this.user_info);
   },
   methods: {
     init() {

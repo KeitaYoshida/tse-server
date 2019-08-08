@@ -28,7 +28,8 @@ mix.js('resources/js/app.js', 'public/js')
       rules: [{
       }],
     },
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
+    devtool: 'source-map',
     plugins: [
       new VuetifyLoaderPlugin()
     ]

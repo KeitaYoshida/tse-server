@@ -17,25 +17,45 @@
       </v-btn>
       <v-btn :color="color.icon" @click="axiosLogin()" depressed>
         <v-icon>fas fa-smile</v-icon>
-        <span id="username">{{ userinfo.name }}</span>
+        <span id="username">{{ user_info.name }}</span>
       </v-btn>
     </v-toolbar>
   </header>
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+import { USER_INFO } from "./../store/mutation-types";
+
 export default {
   props: ["logout"],
   data: function() {
     return {
-      userinfo: { name: "loading" },
       color: {
         base: "teal lighten-3",
         icon: "teal lighten-3"
       }
     };
   },
+  computed: {
+    ...mapState({
+      user_info: "user_info"
+    })
+  },
+  created: async function() {
+    let res = await axios.get("/userinfo");
+    this.USER_INFO(res.data);
+    // axios.get("/userinfo").then(response => {
+    //   this.USER_INFO(response.data);
+    // });
+  },
   methods: {
+    ...mapMutations({
+      USER_INFO
+    }),
+    update(v) {
+      this.USER_INFO(v);
+    },
     axiosLogout() {
       axios
         .post(this.logout)
@@ -61,15 +81,6 @@ export default {
     axiosLogin() {
       this.axiosLogout();
     }
-  },
-  created: function() {
-    axios.get("/userinfo").then(response => {
-      if (response.data === "GUEST") {
-        this.userinfo.name = "GUEST";
-      } else {
-        this.userinfo = response.data;
-      }
-    });
   }
 };
 </script>
