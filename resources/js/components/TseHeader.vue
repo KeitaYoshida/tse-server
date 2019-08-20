@@ -25,7 +25,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import { USER_INFO } from "./../store/mutation-types";
+import { USER_INFO } from "@/store/mutation-types";
 
 export default {
   props: ["logout"],

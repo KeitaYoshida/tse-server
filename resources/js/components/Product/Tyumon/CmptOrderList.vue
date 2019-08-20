@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-card v-if="tar_model && fm">
+    <v-card v-if="tar_model && fm" flat>
       <v-toolbar color="transparent" flat>
         <v-btn icon flat @click="mv_back()">
           <v-icon color="primary">fas fa-angle-double-left</v-icon>
@@ -246,7 +246,7 @@ export default {
   },
   created: function() {
     this.init();
-    console.log(this.user_info);
+    // console.log(this.user_info);
   },
   methods: {
     init() {

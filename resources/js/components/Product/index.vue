@@ -66,8 +66,8 @@
                 </v-btn>
                 <v-btn color="primary" outline small @click="view_list('seizo',props)">
                   <v-badge right color="indigo darken-1">
-                    <template v-slot:badge outline>
-                      <span>{{ props.item.child.length }}</span>
+                    <template v-slot:badge v-if="props.item.workdata.length > 0">
+                      <span>{{ props.item.workdata.length }}</span>
                     </template>
                     <strong>製造</strong>
                   </v-badge>
@@ -82,7 +82,7 @@
               <template v-if="exMode === 'tyumon'">
                 <Tyumon :target="target" :model_data="model_data"></Tyumon>
               </template>
-              <template v-if="exMode === 'seizo'">s</template>
+              <template v-if="exMode === 'seizo'">test</template>
             </template>
           </v-data-table>
         </div>
@@ -104,6 +104,8 @@
 import Loading from "./../com/Loading";
 import Zyutyu from "./Zyutyu";
 import Tyumon from "./Tyumon";
+import Workdata from "./Workdata";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 export default {
   components: {
@@ -137,7 +139,13 @@ export default {
   created: function() {
     this.init();
   },
+  computed: {
+    ...mapState({
+      tar: "target"
+    })
+  },
   methods: {
+    ...mapActions(["PDCT_ABOUT_SET"]),
     init() {
       axios.get("/db/pdct/list/live").then(res => {
         let d = (this.pdct = res.data);
@@ -198,8 +206,23 @@ export default {
     view_list(type, props) {
       this.target = props.item;
       this.exMode = type;
+      console.log(this.target);
+      let d = {
+        id: props.item.pdct_id,
+        code: props.item.const_code,
+        workdata: props.item.workdata
+      };
+      this.PDCT_ABOUT_SET(d);
       props.expanded = true;
     }
+  },
+  beforeDestroy: function() {
+    let d = {
+      id: null,
+      code: null,
+      workdata: []
+    };
+    // this.PDCT_ABOUT_SET(d);
   }
 };
 </script>

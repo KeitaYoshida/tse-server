@@ -16,11 +16,14 @@
                 :hint="item.hint"
                 :type="item.type"
                 v-model="item.value"
+                autofocus
+                v-on:keyup.enter="submit()"
+                :disabled="actionflg"
               ></v-text-field>
             </v-flex>
           </template>
           <v-flex xs8 offset-xs2 class="mt-4">
-            <v-btn color="info" class="submit-btn" outline @click="submit()">決定</v-btn>
+            <v-btn color="info" class="submit-btn" outline @click="submit()">Submit</v-btn>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -30,9 +33,34 @@
 
 <script>
 export default {
-  props: ["data"],
+  props: {
+    data: {
+      type: Object,
+      default: {
+        title: null,
+        message: null,
+        data: [
+          {
+            name: null,
+            label: null,
+            id: null,
+            hint: null,
+            type: null,
+            value: null
+          }
+        ]
+      }
+    }
+  },
+  data: function() {
+    return {
+      actionflg: false
+    };
+  },
   methods: {
     submit() {
+      if (this.actionflg) return;
+      this.actionflg = true;
       this.$emit("rt", this.data, true);
     }
   }
