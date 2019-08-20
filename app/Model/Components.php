@@ -19,6 +19,10 @@ class Components extends Model
   {
     return $this->hasMany("App\Model\RCmptItem", "cmpt_id", "cmpt_id");
   }
+  public function works()
+  {
+    return $this->hasMany('App\Model\CmptWorks', 'cmpt_id', 'cmpt_id');
+  }
   // public function imte_use_od()
   // {
   //   return $this->hasMany("App\Model\RCmptItem", "cmpt_id", "cmpt_id");

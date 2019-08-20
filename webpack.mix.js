@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const path = require('path')
 
 // require('laravel-mix-bundle-analyzer');
 // if (!mix.isWatching()) {
@@ -27,6 +28,11 @@ mix.js('resources/js/app.js', 'public/js')
     module: {
       rules: [{
       }],
+    },
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'resources/js')
+      }
     },
     // devtool: 'inline-source-map',
     devtool: 'source-map',

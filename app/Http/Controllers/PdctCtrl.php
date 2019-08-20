@@ -48,6 +48,12 @@ class PdctCtrl extends Controller
   public function ProductList()
   {
     $pd = new Production;
-    return $pd->where('pdct_status', '<', 10)->with('status')->with('child')->with(['orders.status', 'orders.order_status'])->get();
+    return $pd
+      ->where('pdct_status', '<', 10)
+      ->with('status')
+      ->with('child')
+      ->with(['orders.status', 'orders.order_status'])
+      ->with(['workdata.class', 'workdata.status', 'workdata.model'])
+      ->get();
   }
 }

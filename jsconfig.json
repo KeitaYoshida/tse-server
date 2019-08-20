@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "baseUrl": "./",
+        "paths": {
+            "@/*": ["resources/js/*"]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "app",
+        "backfile",
+        "bootstrap",
+        "config",
+        "database",
+        "public",
+        "routes",
+        "strage",
+        "tests",
+        "vendor"
+    ]
+}

@@ -15,6 +15,7 @@ const petition_menu = () => import( /* webpackChunkName: "petition_menu" */ "../
 const petition_kyuka = () => import( /* webpackChunkName: "petition_kyuka" */ "../components/petition/Kyuka.vue");
 const inventory = () => import( /* webpackChunkName: "inventory" */ "../components/Inventory/index.vue");
 const model_mst = () => import( /* webpackChunkName: "model_mst" */ "../components/ModelMst/index.vue");
+const cmpt_work_set = () => import(  /* webpackChunkName: "cmpt_work_set" */ "../components/ModelMst/WorkSet/cmpt.vue");
 const recept_list = () => import( /* webpackChunkName: "recept_list" */ "../components/ReceptList/index.vue");
 const product_list = () => import( /* webpackChunkName: "product_list" */ "../components/Product/index.vue");
 const order = () => import( /* webpackChunkName: "order" */ "../components/Product/Tyumon/CmptOrderList.vue");
@@ -95,6 +96,11 @@ let router = new Router({
       path: "/model_mst",
       name: "model_mst",
       component: model_mst
+    },
+    {
+      path: "/model_mst/work_set/cmpt",
+      name: "cmpt_work_set",
+      component: cmpt_work_set
     },
     {
       path: "/recept_list",

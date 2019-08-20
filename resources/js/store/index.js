@@ -7,6 +7,7 @@ import { state, mutations } from './mutations';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  namespaced: true,
   actions,
   getters,
   state,

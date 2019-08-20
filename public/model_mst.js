@@ -9,7 +9,23 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ReadFile_Model_ComponentEntry__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../ReadFile/Model/ComponentEntry */ "./resources/js/components/ReadFile/Model/ComponentEntry.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ReadFile_Model_ComponentEntry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../ReadFile/Model/ComponentEntry */ "./resources/js/components/ReadFile/Model/ComponentEntry.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
 //
 //
 //
@@ -85,14 +101,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+ // import { SET_MODEL_COM } from "@/store/mutations";
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    CmptData: _ReadFile_Model_ComponentEntry__WEBPACK_IMPORTED_MODULE_0__["default"]
+    CmptData: _ReadFile_Model_ComponentEntry__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
+    target: "target"
+  })),
   data: function data() {
     return {
       items: [],
-      target: null,
       headers: [{
         text: "形式",
         value: "model_code",
@@ -117,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.init();
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])(["SET_MODEL_COM", "RESET_COMPONENT_COM"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(["SET_COMPONENT_COM"]), {
     init: function init() {
       var _this = this;
 
@@ -145,8 +165,61 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       });
-    }
-  }
+    },
+    showCmpt: function showCmpt(props) {
+      props.expanded = !props.expanded;
+      var model = {
+        id: props.item.model_id,
+        code: props.item.model_code,
+        rev: props.item.model_rev
+      };
+      this.SET_MODEL_COM(model);
+      this.RESET_COMPONENT_COM();
+    },
+    addWorkData: function () {
+      var _addWorkData = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(item) {
+        var res, cmpt_data, cmpt;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get("/db/model_mst/data/" + this.target.model.id + "/fromItem");
+
+              case 2:
+                res = _context.sent;
+                cmpt_data = res.data[0].cmpt.filter(function (ar) {
+                  return ar.cmpt_id === item.cmpt_id;
+                });
+                cmpt = {
+                  id: item.cmpt_id,
+                  code: item.cmpt_code,
+                  rev: item.cmpt_rev,
+                  data: cmpt_data
+                };
+                _context.next = 7;
+                return this.SET_COMPONENT_COM(cmpt);
+
+              case 7:
+                this.$router.push("/model_mst/work_set/cmpt");
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function addWorkData(_x) {
+        return _addWorkData.apply(this, arguments);
+      }
+
+      return addWorkData;
+    }()
+  })
 });
 
 /***/ }),
@@ -252,98 +325,113 @@ var render = function() {
                 key: "items",
                 fn: function(props) {
                   return [
+                    _c("td", { staticClass: "text-xs-center" }, [
+                      _c("p", { staticClass: "model-code" }, [
+                        _vm._v(_vm._s(props.item.model_code))
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "ne blue-grey--text" }, [
+                        _vm._v(_vm._s(props.item.model_code_ne))
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "rev blue-grey--text" }, [
+                        _vm._v(_vm._s(props.item.model_rev.numToRev()))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-center" }, [
+                      _vm._v(_vm._s(props.item.model_name))
+                    ]),
+                    _vm._v(" "),
                     _c(
-                      "tr",
+                      "td",
                       {
-                        on: {
-                          click: function($event) {
-                            props.expanded = !props.expanded
-                          }
-                        }
+                        staticClass: "align-center justify-center layout px-0"
                       },
                       [
-                        _c("td", { staticClass: "text-xs-center" }, [
-                          _c("p", { staticClass: "model-code" }, [
-                            _vm._v(_vm._s(props.item.model_code))
-                          ]),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "ne blue-grey--text" }, [
-                            _vm._v(_vm._s(props.item.model_code_ne))
-                          ]),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "rev blue-grey--text" }, [
-                            _vm._v(_vm._s(props.item.model_rev.numToRev()))
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-xs-center" }, [
-                          _vm._v(_vm._s(props.item.model_name))
-                        ]),
-                        _vm._v(" "),
                         _c(
-                          "td",
+                          "v-btn",
                           {
-                            staticClass:
-                              "align-center justify-center layout px-0"
+                            attrs: {
+                              color: "deep-orange lighten-2",
+                              outline: "",
+                              small: "",
+                              loading: _vm.loading
+                            },
+                            on: {
+                              click: function($event) {
+                                $event.stopPropagation()
+                                return _vm.viewCmptSetting(props.item)
+                              }
+                            }
                           },
                           [
                             _c(
-                              "v-btn",
+                              "v-icon",
                               {
-                                attrs: {
-                                  color: "deep-orange lighten-2",
-                                  outline: "",
-                                  small: "",
-                                  loading: _vm.loading
-                                },
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.viewCmptSetting(props.item)
-                                  }
-                                }
+                                staticClass: "icon-edit",
+                                attrs: { small: "", left: "" }
                               },
-                              [
-                                _c(
-                                  "v-icon",
-                                  {
-                                    staticClass: "icon-edit",
-                                    attrs: { small: "", left: "" }
-                                  },
-                                  [_vm._v("far fa-list-alt")]
-                                ),
-                                _vm._v("部材構成\n            ")
-                              ],
-                              1
+                              [_vm._v("far fa-list-alt")]
                             ),
-                            _vm._v(" "),
+                            _vm._v("部材構成\n          ")
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              color: "success",
+                              outline: "",
+                              small: "",
+                              loading: _vm.loading
+                            }
+                          },
+                          [
                             _c(
-                              "v-btn",
+                              "v-icon",
                               {
-                                attrs: {
-                                  color: "success",
-                                  outline: "",
-                                  small: "",
-                                  loading: _vm.loading
-                                }
+                                staticClass: "icon-edit",
+                                attrs: { small: "", left: "" }
                               },
-                              [
-                                _c(
-                                  "v-icon",
-                                  {
-                                    staticClass: "icon-edit",
-                                    attrs: { small: "", left: "" }
-                                  },
-                                  [_vm._v("fas fa-edit")]
-                                ),
-                                _vm._v("工程登録\n            ")
-                              ],
-                              1
+                              [_vm._v("fas fa-edit")]
+                            ),
+                            _vm._v("工程登録\n          ")
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              color: "success",
+                              outline: "",
+                              small: "",
+                              icon: ""
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.showCmpt(props)
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "v-icon",
+                              {
+                                staticClass: "icon-edit",
+                                attrs: { small: "" }
+                              },
+                              [_vm._v("fas fa-angle-double-down")]
                             )
                           ],
                           1
                         )
-                      ]
+                      ],
+                      1
                     )
                   ]
                 }
@@ -407,6 +495,11 @@ var render = function() {
                                                 attrs: {
                                                   color: "indigo lighten-2",
                                                   outline: ""
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.addWorkData(item)
+                                                  }
                                                 }
                                               },
                                               [_vm._v("工程登録")]

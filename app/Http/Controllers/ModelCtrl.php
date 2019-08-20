@@ -8,6 +8,7 @@ use App\Model\Components;
 use App\Model\RModelCmpt;
 use App\Model\Item;
 use App\Model\RCmptItem;
+use App\Model\CmptWorks;
 
 class ModelCtrl extends Controller
 {
@@ -58,11 +59,13 @@ class ModelCtrl extends Controller
     $rci = new RCmptItem;
     $rci->where('cmpt_id', $cid)->where('item_id', $iid)->update(['item_order' => $val]);
   }
+
   public function DeleteCmptItems($cid, $iid)
   {
     $rci = new RCmptItem;
     $rci->where('cmpt_id', $cid)->where('item_id', $iid)->delete();
   }
+
   public function AddCmptItems(Request $req)
   {
     $im = new Item;
@@ -91,10 +94,69 @@ class ModelCtrl extends Controller
     return $m->with('cmpt')->get();
   }
 
-  public function ModelData($id)
+  public function ModelAddWork(Request $req)
+  {
+    $cm = new Components;
+    $cmpt = $cm->where('cmpt_id', $req->cmpt_id)->with('works')->get()[0];
+    $works = $cmpt->works;
+    $len = count($works);
+    $row = $len + 1;
+    $cmw = new CmptWorks;
+    $add = $cmw->create(['cmpt_id' => $req->cmpt_id, 'work_title' => $req->val, 'row' => $row]);
+    return $add;
+  }
+
+  public function ModelCmptWorkList($id)
+  {
+    $cmw = new CmptWorks;
+    return $cmw->where('cmpt_id', $id)->get();
+  }
+
+  public function ModelCmptWorkTitleList()
+  {
+    $cmw = new CmptWorks;
+    return $cmw->groupBy('work_title')->get('work_title');
+  }
+
+  public function ModelCmptWorkDelRow($row, $cmpt)
+  {
+    $cmw = new CmptWorks;
+    $cmw->where('cmpt_id', $cmpt)->where('row', $row)->delete();
+    $cmw->where('cmpt_id', $cmpt)->where('row', '>', $row)->decrement('row');
+  }
+
+  public function ModelCmptData($id)
+  {
+    $cm = new Components;
+    return $cm->where('cmpt_id', $id)->with('item_use.items')->get();
+  }
+
+  public function ModelCmptWorkRowUpdate($id, $row)
+  {
+    $cmw = new CmptWorks;
+    $cmw->where('work_id', $id)->update(['row' => $row]);
+  }
+
+  public function ModelCmptWorkItemSelect($cid, $wid)
+  {
+    $rci = new RCmptItem;
+    if ($wid === 'null') {
+      $rci->where('r_ci_id', $cid)->update(['work_id' => null]);
+    } else {
+      $rci->where('r_ci_id', $cid)->update(['work_id' => $wid]);
+    }
+  }
+
+  public function ModelData($id, $pt = "all")
   {
     $m = new Models;
-    return $m->where('model_id', $id)->with('cmpt.item_use.items.vendor.vendname')->get();
+    if ($pt === 'all') {
+      $ptv = "cmpt.item_use.items.vendor.vendname";
+      return $m->where('model_id', $id)->with($ptv)->get();
+    } else if ($pt === 'fromItem') {
+      $ptv = "cmpt.item_use.items.item_class_val";
+      return $m->where('model_id', $id)->with($ptv)->get();
+    }
   }
 
   public function ModelListForOrder()

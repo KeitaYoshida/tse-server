@@ -57,8 +57,18 @@ Route::get('/db/items/add/item/{iid}/{irev}', 'ItemsCtrl@AddItem');
 Route::get('/db/items/delete/item/{iid}/{irev}', 'ModelCtrl@DeleteItem');
 Route::get('/db/items/class/list', 'ItemsCtrl@ClassList');
 Route::get('/db/items/class/set/{cid}/{iid}', 'ItemsCtrl@ClassSet');
+
 Route::get('/db/model_mst/list', 'ModelCtrl@ModelList');
 Route::get('/db/model_mst/data/{id}', 'ModelCtrl@ModelData');
+Route::get('/db/model_mst/data/{id}/{pt}', 'ModelCtrl@ModelData');
+Route::post('/db/model_mst/work/add', 'ModelCtrl@ModelAddWork');
+Route::get('/db/model_mst/work/list/{id}', 'ModelCtrl@ModelCmptWorkList');
+Route::get('/db/model_mst/work/row/update/{id}/{row}', 'ModelCtrl@ModelCmptWorkRowUpdate');
+Route::get('/db/model_mst/cmpt/data/{id}', 'ModelCtrl@ModelCmptData');
+Route::get('/db/model_mst/cmpt/work/title/list', 'ModelCtrl@ModelCmptWorkTitleList');
+Route::get("/db/model_mst/cmpt/work/del/row/{row}/{cmpt}", 'ModelCtrl@ModelCmptWorkDelRow');
+Route::get("/db/model_mst/cmpt/work/item/select/{cid}/{wid}", 'ModelCtrl@ModelCmptWorkItemSelect');
+
 Route::post('/db/recept/hatyu/data/list', 'ReceptCtrl@DataList');
 Route::post('/db/recept/hatyu/data/set/{setTime}/{type}', 'ReceptCtrl@SetData');
 

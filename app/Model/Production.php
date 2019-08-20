@@ -23,4 +23,8 @@ class Production extends Model
   {
     return $this->hasMany('App\Model\CntOrderList', 'pdct_id', 'pdct_id');
   }
+  public function workdata()
+  {
+    return $this->hasMany('App\Model\PdctWorkdataList', 'pdct_id', 'pdct_id');
+  }
 }

@@ -11,6 +11,12 @@
     size: A4;
     margin: 0;
 }
+body {
+    height: calc(100vh - 64px) !important;
+}
+.application--wrap {
+    min-height: calc(100vh - 64px) !important;
+}
 
 #main-content {
     margin-top: 64px;
