@@ -27,8 +27,6 @@
                     outline
                     :class="addClassClass(props.item.pdct_class)"
                   >{{ props.item.pdct_class }}</v-chip>
-                </p>
-                <p class="pb-1">
                   <v-chip
                     outline
                     :class="addClassClass(props.item.status.st_val)"
@@ -37,41 +35,38 @@
               </td>
               <td class="text-xs-center">{{ props.item.model_id }}</td>
               <td class="text-xs-center">{{ props.item.const_code }}</td>
-              <td class="text-xs-center">{{ props.item.all_num }}</td>
               <td class="text-xs-center">
-                <p>{{ Number(props.item.all_price).toLocaleString() }}</p>
-                <p v-if="props.item.orders" class="mini">{{ rtOrderPrice(props.item.orders) }}</p>
-              </td>
-              <td class="text-xs-center">
-                <v-btn color="warning" outline small @click="view_list('zyutyu',props)">
-                  <template v-if="props.item.child.lengt !==0">
-                    <v-badge right color="orange darken-1">
-                      <template v-slot:badge outline>
-                        <span>{{ props.item.child.length }}</span>
-                      </template>
+                <nobr>
+                  <v-btn color="warning" outline small @click="view_list('zyutyu',props)">
+                    <template v-if="props.item.child.lengt !==0">
+                      <v-badge right color="orange darken-1">
+                        <template v-slot:badge outline>
+                          <span>{{ props.item.child.length }}</span>
+                        </template>
+                        <strong>受注</strong>
+                      </v-badge>
+                    </template>
+                    <template v-else>
                       <strong>受注</strong>
+                    </template>
+                  </v-btn>
+                  <v-btn color="success" outline small @click="view_list('tyumon',props)">
+                    <v-badge right color="green darken-1" class="outline">
+                      <template v-slot:badge v-if="props.item.orders.length > 0">
+                        <span>{{ props.item.orders.length }}</span>
+                      </template>
+                      <strong>注文</strong>
                     </v-badge>
-                  </template>
-                  <template v-else>
-                    <strong>受注</strong>
-                  </template>
-                </v-btn>
-                <v-btn color="success" outline small @click="view_list('tyumon',props)">
-                  <v-badge right color="green darken-1" class="outline">
-                    <template v-slot:badge v-if="props.item.orders.length > 0">
-                      <span>{{ props.item.orders.length }}</span>
-                    </template>
-                    <strong>注文</strong>
-                  </v-badge>
-                </v-btn>
-                <v-btn color="primary" outline small @click="view_list('seizo',props)">
-                  <v-badge right color="indigo darken-1">
-                    <template v-slot:badge v-if="props.item.workdata.length > 0">
-                      <span>{{ props.item.workdata.length }}</span>
-                    </template>
-                    <strong>製造</strong>
-                  </v-badge>
-                </v-btn>
+                  </v-btn>
+                  <v-btn color="primary" outline small @click="view_list('workdata',props)">
+                    <v-badge right color="indigo darken-1">
+                      <template v-slot:badge v-if="props.item.workdata.length > 0">
+                        <span>{{ props.item.workdata.length }}</span>
+                      </template>
+                      <strong>製造</strong>
+                    </v-badge>
+                  </v-btn>
+                </nobr>
               </td>
             </template>
 
@@ -82,7 +77,9 @@
               <template v-if="exMode === 'tyumon'">
                 <Tyumon :target="target" :model_data="model_data"></Tyumon>
               </template>
-              <template v-if="exMode === 'seizo'">test</template>
+              <template v-if="exMode === 'workdata'">
+                <Workdata></Workdata>
+              </template>
             </template>
           </v-data-table>
         </div>
@@ -111,7 +108,8 @@ export default {
   components: {
     Loading,
     Zyutyu,
-    Tyumon
+    Tyumon,
+    Workdata
   },
   data: function() {
     return {
@@ -122,8 +120,6 @@ export default {
         { text: "区分", value: "pdct_class", align: "center" },
         { text: "形式", value: "model_id", align: "center" },
         { text: "製造コード", value: "const_code", align: "center" },
-        { text: "総受注数", value: "all_num", align: "center" },
-        { text: "受注・手配金額", value: "all_price", align: "center" },
         { text: "処理", value: "none", align: "center" }
       ],
       exMode: "zyutyu",
@@ -206,10 +202,10 @@ export default {
     view_list(type, props) {
       this.target = props.item;
       this.exMode = type;
-      console.log(this.target);
       let d = {
         id: props.item.pdct_id,
         code: props.item.const_code,
+        model: props.item.model_id,
         workdata: props.item.workdata
       };
       this.PDCT_ABOUT_SET(d);
@@ -220,6 +216,7 @@ export default {
     let d = {
       id: null,
       code: null,
+      model: null,
       workdata: []
     };
     // this.PDCT_ABOUT_SET(d);
@@ -232,6 +229,7 @@ export default {
   font-size: 1rem;
 }
 td {
+  padding: 0 !important;
   p {
     text-align: center;
     padding-bottom: 0;

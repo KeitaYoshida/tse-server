@@ -31,6 +31,9 @@ export default {
       menu: false
     };
   },
+  created: function() {
+    this.date_select();
+  },
   methods: {
     date_select() {
       this.$emit("select", this.sday);
