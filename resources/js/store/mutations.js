@@ -39,6 +39,7 @@ export const state = {
     product: {
       id: null,
       code: null,
+      model: null,
       workdata: []
     },
     work: {
@@ -93,6 +94,7 @@ export const mutations = {
   },
   [types.PDCT_ABOUT_SET](state, payload) {
     state.target.product.id = payload.id;
+    state.target.product.model = payload.model;
     state.target.product.code = payload.code;
     state.target.product.workdata = payload.workdata;
   }

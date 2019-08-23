@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Production;
 use App\Model\Reception;
+use App\Model\PdctWorklistClass;
+use App\Model\PdctWorkdataList;
 
 class PdctCtrl extends Controller
 {
@@ -55,5 +57,16 @@ class PdctCtrl extends Controller
       ->with(['orders.status', 'orders.order_status'])
       ->with(['workdata.class', 'workdata.status', 'workdata.model'])
       ->get();
+  }
+
+  public function GetMakeWorkdataClass()
+  {
+    $wdclass = new PdctWorklistClass;
+    return $wdclass->get(['val']);
+  }
+  public function GetWorklistNum($id)
+  {
+    $wdlist = new PdctWorkdataList;
+    return $wdlist->where('pdct_id', $id)->count();
   }
 }

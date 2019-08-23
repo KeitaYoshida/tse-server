@@ -91,7 +91,7 @@ class ModelCtrl extends Controller
   public function ModelList()
   {
     $m = new Models;
-    return $m->with('cmpt')->get();
+    return $m->with('cmpt.works')->get();
   }
 
   public function ModelAddWork(Request $req)

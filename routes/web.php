@@ -88,6 +88,9 @@ Route::get("/db/pdct/is/this/{code}", 'PdctCtrl@CheckDup');
 Route::get("/db/pdct/list/live", 'PdctCtrl@ProductList');
 Route::get("/db/pdct/nolink/{id}", 'PdctCtrl@NoLinkUpdate');
 
+Route::get("/db/workdata/make/class", 'PdctCtrl@GetMakeWorkdataClass');
+Route::get("/db/workdata/get/worklist/num/{id}", 'PdctCtrl@GetWorklistNum');
+
 Route::get("/db/user_info/all", 'UserCtrl@RtUserInfoAll');
 Route::post("/db/user_info/shonin_relation/{uid}", 'UserCtrl@MakeShoninRelation');
 Route::get("/db/user_info/shonin/child/{uid}", 'UserCtrl@RtShoninChild');

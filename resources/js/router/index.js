@@ -110,7 +110,8 @@ let router = new Router({
     {
       path: "/product_list",
       name: "product_list",
-      component: product_list
+      component: product_list,
+      meta: { requiresAuth: true }
     },
     {
       path: "/product_list/order/",
