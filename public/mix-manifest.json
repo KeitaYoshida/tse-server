@@ -21,6 +21,8 @@
     "/item_data~model_mst~order~product_list~readfile.js.map": "/item_data~model_mst~order~product_list~readfile.js.map",
     "/item_list.js": "/item_list.js",
     "/item_list.js.map": "/item_list.js.map",
+    "/item_monitor.js": "/item_monitor.js",
+    "/item_monitor.js.map": "/item_monitor.js.map",
     "/model_mst.js": "/model_mst.js",
     "/model_mst.js.map": "/model_mst.js.map",
     "/model_mst~readfile.js": "/model_mst~readfile.js",
@@ -33,6 +35,8 @@
     "/petition_kyuka.js.map": "/petition_kyuka.js.map",
     "/petition_menu.js": "/petition_menu.js",
     "/petition_menu.js.map": "/petition_menu.js.map",
+    "/process.js": "/process.js",
+    "/process.js.map": "/process.js.map",
     "/product_list.js": "/product_list.js",
     "/product_list.js.map": "/product_list.js.map",
     "/readfile.js": "/readfile.js",
@@ -56,5 +60,7 @@
     "/vendors~readfile.js": "/vendors~readfile.js",
     "/vendors~readfile.js.map": "/vendors~readfile.js.map",
     "/vendors~readfile~recept_list.js": "/vendors~readfile~recept_list.js",
-    "/vendors~readfile~recept_list.js.map": "/vendors~readfile~recept_list.js.map"
+    "/vendors~readfile~recept_list.js.map": "/vendors~readfile~recept_list.js.map",
+    "/work.js": "/work.js",
+    "/work.js.map": "/work.js.map"
 }

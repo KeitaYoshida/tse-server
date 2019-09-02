@@ -69,6 +69,9 @@ Route::get('/db/model_mst/cmpt/work/title/list', 'ModelCtrl@ModelCmptWorkTitleLi
 Route::get("/db/model_mst/cmpt/work/del/row/{row}/{cmpt}", 'ModelCtrl@ModelCmptWorkDelRow');
 Route::get("/db/model_mst/cmpt/work/item/select/{cid}/{wid}", 'ModelCtrl@ModelCmptWorkItemSelect');
 
+Route::get("/db/cmpt/data/{id}", "CmptCtrl@GetCmptData");
+Route::post("/db/comt/get/data/arr", "CmptCtrl@GetCmptDataArr");
+
 Route::post('/db/recept/hatyu/data/list', 'ReceptCtrl@DataList');
 Route::post('/db/recept/hatyu/data/set/{setTime}/{type}', 'ReceptCtrl@SetData');
 
@@ -87,9 +90,20 @@ Route::get('/db/pdct/add/rcpt/{code}/{rid}', 'PdctCtrl@AddRecept');
 Route::get("/db/pdct/is/this/{code}", 'PdctCtrl@CheckDup');
 Route::get("/db/pdct/list/live", 'PdctCtrl@ProductList');
 Route::get("/db/pdct/nolink/{id}", 'PdctCtrl@NoLinkUpdate');
+Route::post('/db/pdct/make/sn_process', 'PdctCtrl@MakeSerialProcess');
 
 Route::get("/db/workdata/make/class", 'PdctCtrl@GetMakeWorkdataClass');
 Route::get("/db/workdata/get/worklist/num/{id}", 'PdctCtrl@GetWorklistNum');
+Route::get("/db/workdata/process/{id}", "PdctWorkList@GetProcessData");
+Route::get("/db/workdata/get/process_status", "PdctWorkList@GetProcessStatus");
+Route::get("/db/workdata/process/status/{wid}/{row}", "PdctWorkList@GetProcessSerialStatus");
+Route::post("/db/workdata/set/sn/act/{row}", "PdctWorkList@SetSnAct");
+Route::get("/db/workdata/cmpt/items/{wid}", "PdctWorkList@GetWorkItems");
+Route::post("/db/workdata/use/item/act/{flg}", "PdctWorkList@UseItemAction");
+Route::get("/db/workdata/set/const/status/{wid}/{per}", "PdctWorkList@SetConstStatus");
+
+Route::get("/db/works/get/list/way/day/{before}/{after}", "PdctWorkList@GetWorkListWayToDay");
+Route::get("/db/works/set/day/{id}/{sday}/{eday}", "PdctWorkList@SetWorkListDate");
 
 Route::get("/db/user_info/all", 'UserCtrl@RtUserInfoAll');
 Route::post("/db/user_info/shonin_relation/{uid}", 'UserCtrl@MakeShoninRelation');

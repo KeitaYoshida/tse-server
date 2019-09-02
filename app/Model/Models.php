@@ -13,6 +13,6 @@ class Models extends Model
 
   public function cmpt()
   {
-    return $this->belongsToMany('App\Model\Components', 'r_model_cmpt', 'model_id', 'cmpt_id');
+    return $this->belongsToMany('App\Model\Components', 'r_model_cmpt', 'model_id', 'cmpt_id')->withPivot(['row', 'process_row']);
   }
 }

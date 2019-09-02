@@ -72,8 +72,10 @@ export default {
         let csv = [];
         let f = e.target.result;
         let enc = jschardet.detect(f).encoding;
-        let res = iconv.decode(f, enc);
-
+        console.log(enc);
+        if (enc === "IBM855") enc = "SHIFT_JIS";
+        if (enc === "KOI8-R") enc = "SHIFT_JIS";
+        let res = iconv.decode(f, enc, { stripBOM: false });
         let colCnt = 0;
         let colNum = 0;
         const lines = res.split("\n");

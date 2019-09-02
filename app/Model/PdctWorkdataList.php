@@ -11,20 +11,27 @@ class PdctWorkdataList extends Model
   protected $guarded = array();
   public $timestamps = false;
 
-  function production()
+  // function production()
+  // {
+  //   $this->belongsTo('App\Model\Production', 'pdct_id', 'pdct_id');
+  // }
+  public function model()
   {
-    $this->belongsTo('App\Model\Production', 'pdct_id', 'pdct_id');
+    return $this->hasOne('App\Model\Models', 'model_id', 'model_id');
   }
-  function model()
+
+  public function class()
   {
-    $this->hasOne('App\Model\Models', 'model_id', 'model_id');
+    return $this->hasOne('App\Model\PdctWorklistClass', 'worklist_class', 'worklist_class');
   }
-  function class()
+
+  public function status()
   {
-    $this->hasOne('App\Model\PdctWorklistClass', 'worklist_class', 'worklist_class');
+    return $this->hasOne('App\Model\PdctWorklistStatus', 'worklist_status', 'worklist_status');
   }
-  function status()
+
+  public function serials()
   {
-    $this->hasOne('App\Model\Models\PdctWorklistStatus', 'worklist_status', 'worklist_status');
+    return $this->hasMany('App\Model\Serials', 'worklist_id', 'worklist_id')->orderBy('serial_id');
   }
 }

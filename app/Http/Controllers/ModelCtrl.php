@@ -91,7 +91,15 @@ class ModelCtrl extends Controller
   public function ModelList()
   {
     $m = new Models;
-    return $m->with('cmpt.works')->get();
+    // return $m->with(['cmpt.works' => function ($query) {
+    //   $query->pivot->orderBy('row', 'asc');
+    // }])->get();
+    return $m->with(['cmpt' => function ($q) {
+      $q->orderBy('r_model_cmpt.process_row', 'asc');
+      $q->with(['works' => function ($qy) {
+        $qy->orderBy('cmpt_works.row', 'asc');
+      }]);
+    }])->get();
   }
 
   public function ModelAddWork(Request $req)
@@ -154,8 +162,13 @@ class ModelCtrl extends Controller
       $ptv = "cmpt.item_use.items.vendor.vendname";
       return $m->where('model_id', $id)->with($ptv)->get();
     } else if ($pt === 'fromItem') {
-      $ptv = "cmpt.item_use.items.item_class_val";
-      return $m->where('model_id', $id)->with($ptv)->get();
+      return $m
+        ->where('model_id', $id)
+        ->with(["cmpt.item_use" => function ($q) {
+          $q->orderBy('r_cmpt_item.item_ren', 'asc');
+          $q->with('items.item_class_val');
+        }])
+        ->get();
     }
   }
 

@@ -107,6 +107,7 @@ Number.prototype.comHyphen = function () {
   }
 };
 
+
 import html2pdf from "html2pdf.js";
 /**
  * The following block of code may be used to automatically register your
@@ -124,6 +125,12 @@ import html2pdf from "html2pdf.js";
 Vue.component("tse-header", require("./components/TseHeader.vue").default);
 Vue.mixin({
   methods: {
+    wait(sec) {
+      return new Promise((resolve, reject) => {
+        setTimeout(resolve, sec * 1000);
+        //setTimeout(() => {reject(new Error("エラー！"))}, sec*1000);
+      });
+    },
     reload(path) {
       this.$router.go({ path: path, force: true });
     },

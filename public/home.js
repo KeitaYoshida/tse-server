@@ -196,6 +196,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -914,6 +917,13 @@ var render = function() {
                 { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
                 [_c("common-cards", { attrs: { card_name: "tehaisaki" } })],
                 1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
+                [_c("common-cards", { attrs: { card_name: "work" } })],
+                1
               )
             ],
             1
@@ -1265,6 +1275,16 @@ var _card_data = {
     class_text: COLOR_WORK_LESS,
     color: TEXT_COLOR,
     text: ["発注部材受け入れ"],
+    details: [""].join(""),
+    links: "",
+    button: false,
+    button_text: BUTON_TEXT
+  },
+  work: {
+    title: "制作",
+    class_text: COLOR_DEF,
+    color: TEXT_COLOR,
+    text: ["工事リスト・工程管理表・作業データ登録"],
     details: [""].join(""),
     links: "",
     button: false,

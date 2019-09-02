@@ -10655,10 +10655,16 @@ body {
 
 .application--wrap {
   min-height: calc(100vh - 64px) !important;
+  overflow: scroll;
+}
+
+#app {
+  height: 100%;
 }
 
 #main-content {
   margin-top: 64px;
+  height: calc(100%);
 }
 
 .a4 {
@@ -10692,50 +10698,52 @@ body {
   font-size: 1.2rem;
 }
 
-.v-chip.v-chip.v-chip--outline.chip {
+.v-chip.v-chip.v-chip--outline {
   border-radius: 10px;
 }
 
-.v-chip.v-chip.v-chip--outline.chip.noselect {
+.v-chip.v-chip.v-chip--outline.noselect {
   color: #424242;
   border-color: #424242;
 }
 
-.v-chip.v-chip.v-chip--outline.chip.cShoninEtc,
-.v-chip.v-chip.v-chip--outline.chip.chip.cZumen {
+.v-chip.v-chip.v-chip--outline.cShoninEtc,
+.v-chip.v-chip.v-chip--outline.cZumen {
   color: #4e342e;
   border-color: #4e342e;
 }
 
-.v-chip.v-chip.v-chip--outline.chip.chip.cBuzai,
-.v-chip.v-chip.v-chip--outline.chip.cHuryoTehai,
-.v-chip.v-chip.v-chip--outline.chip.chip.cShoninmachi {
+.v-chip.v-chip.v-chip--outline.cBuzai,
+.v-chip.v-chip.v-chip--outline.cHuryoTehai,
+.v-chip.v-chip.v-chip--outline.cShoninmachi {
   color: #ef6c00;
   border-color: #ef6c00;
 }
 
-.v-chip.v-chip.v-chip--outline.chip.chip.cSet,
-.v-chip.v-chip.v-chip--outline.chip.chip.cTehaiEtc,
-.v-chip.v-chip.v-chip--outline.chip.chip.cSetCPB {
+.v-chip.v-chip.v-chip--outline.cSet,
+.v-chip.v-chip.v-chip--outline.cTehaiEtc,
+.v-chip.v-chip.v-chip--outline.cSetCPB,
+.v-chip.v-chip.v-chip--outline.cModelInfo {
   color: #4527a0;
   border-color: #4527a0;
 }
 
-.v-chip.v-chip.v-chip--outline.chip.cHatyuzumi,
-.v-chip.v-chip.v-chip--outline.chip.cKoziTehai,
-.v-chip.v-chip.v-chip--outline.chip.chip.cBankin {
+.v-chip.v-chip.v-chip--outline.cHatyuzumi,
+.v-chip.v-chip.v-chip--outline.cKoziTehai,
+.v-chip.v-chip.v-chip--outline.cBankin,
+.v-chip.v-chip.v-chip--outline.cInfo {
   color: #1565c0;
   border-color: #1565c0;
 }
 
-.v-chip.v-chip.v-chip--outline.chip.cHoryu,
-.v-chip.v-chip.v-chip--outline.chip.cTuikaTehai,
-.v-chip.v-chip.v-chip--outline.chip.chip.cNezi {
+.v-chip.v-chip.v-chip--outline.cHoryu,
+.v-chip.v-chip.v-chip--outline.cTuikaTehai,
+.v-chip.v-chip.v-chip--outline.cNezi {
   color: #2e7d32;
   border-color: #2e7d32;
 }
 
-.v-chip.v-chip.v-chip--outline.chip.chip.cChip {
+.v-chip.v-chip.v-chip--outline.cChip {
   color: #00695c;
   border-color: #00695c;
 }

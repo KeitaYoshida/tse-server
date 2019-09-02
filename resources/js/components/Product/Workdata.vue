@@ -8,7 +8,36 @@
       :key="index"
       class="pa-3 workdata"
     >
-      <v-card></v-card>
+      <v-card flat>
+        <v-card-title primary-title>
+          <v-chip small color="#3949ab" dark>{{ item.class.val }}</v-chip>
+          <v-chip small color="#3949ab" dark>{{ item.status.val }}</v-chip>
+          <br />
+          <v-chip small color="#3949ab" dark>{{ item.model.model_code }}</v-chip>
+          <v-chip small color="#3949ab" dark>{{ item.model.model_rev.numToRev() }}</v-chip>
+          <v-chip
+            small
+            color="#3949ab"
+            dark
+            v-if="item.status.model_code_ne"
+          >{{ item.status.model_code_ne }}</v-chip>
+          <v-chip
+            small
+            color="#3949ab"
+            dark
+            v-if="item.status.model_name"
+          >{{ item.status.model_name }}</v-chip>
+        </v-card-title>
+        <v-card-text>
+          <v-chip outline color="#3949ab">{{ item.worklist_code }}</v-chip>
+          <v-chip outline color="#3949ab">{{ item.num }} EA</v-chip>
+          <v-chip outline color="#3949ab">{{ item.st_day }} ~ {{ item.ed_day }}</v-chip>
+          <v-chip outline color="#3949ab">起工氏: {{ item.user }}</v-chip>
+        </v-card-text>
+        <v-card-actions class="text-xs-center">
+          <v-btn color="#3949ab" flat style="width:100%;font-size:1.3rem;">製造</v-btn>
+        </v-card-actions>
+      </v-card>
     </v-flex>
     <v-flex xs6 md4 lg3 class="pa-3 other">
       <v-card class="add_button" flat height="100%">

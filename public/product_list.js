@@ -117,13 +117,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       data_row: null,
       mselect: false,
       d: {
-        pmodel: null,
-        model: null,
-        pcode: null,
-        wclass: "製造",
-        ccode: null,
+        product_model: null,
+        product_id: null,
+        model_code: null,
+        model_id: null,
+        product_code: null,
+        wclass: null,
+        base_code: null,
         all_num: null,
-        num: null,
+        split_num: null,
         user: null,
         stday: null,
         edday: null,
@@ -146,9 +148,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       // console.log(this.target);
       var p = this.target.product;
       var model_id = p.model;
-      this.d.pmodel = model_id;
-      this.d.pcode = p.code;
-      this.d.ccode = p.code;
+      this.d.product_model = model_id;
+      this.d.product_id = p.id;
+      this.d.product_code = p.code;
+      this.d.base_code = p.code;
       this.d.user = this.user.name;
       axios.get("/db/workdata/make/class").then(function (res) {
         var c = [];
@@ -163,7 +166,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     rtWlClass: function rtWlClass(val) {
       this.wlClass.selected = val;
-      this.d.wclass = val;
+      this.d.wclass = this.wlClass.value.indexOf(val);
     },
     rtModel: function () {
       var _rtModel = _asyncToGenerator(
@@ -174,12 +177,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 this.mselect = !this.mselect;
-                this.d.model = m.model_code;
+                this.d.model_code = m.model_code;
+                this.d.model_id = m.model_id;
                 this.d.cmpt = m.cmpt.filter(function (ar) {
                   return ar.works.length > 0;
                 });
 
-              case 3:
+                if (this.d.cmpt.length === 0) {
+                  alert("工程が登録されていません");
+                  this.d.model_code = null;
+                }
+
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -194,11 +203,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return rtModel;
     }(),
     set_num: function set_num() {
-      this.d.num = this.d.all_num;
+      this.d.split_num = this.d.all_num;
     },
     slice_num: function slice_num() {
-      if (this.d.all_num === null || this.d.num === null) return;
-      var n = Number(this.d.all_num) / Number(this.d.num);
+      if (this.d.all_num === null || this.d.split_num === null) return;
+      var n = Number(this.d.all_num) / Number(this.d.split_num);
       if (n === 1) return "分割なし";
       if (n > 20) return "分割数が多すぎます";
       return Math.ceil(n);
@@ -228,7 +237,100 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       return flg;
     },
-    submit: function submit() {}
+    submit: function () {
+      var _submit = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _this3 = this;
+
+        var d, data, sub_serial, works, _loop, i, h, axdata;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                d = this.d;
+                data = [];
+                sub_serial = [];
+                works = [];
+
+                _loop = function _loop(i) {
+                  var row = i - 1;
+                  var rnum = i * d.split_num;
+                  var num = rnum <= d.all_num ? d.split_num : d.all_num - (rnum - d.split_num);
+                  data[row] = {
+                    pdct_id: d.product_id,
+                    model_id: d.model_id,
+                    worklist_code: d.base_code + "-" + ("00" + i).slice(-2),
+                    worklist_status: 0,
+                    worklist_class: d.wclass,
+                    num: num,
+                    all_num: d.all_num,
+                    st_day: d.stday,
+                    ed_day: d.edday,
+                    user: d.user
+                  };
+                  d.cmpt.forEach(function (ar) {
+                    if (row !== 0) {
+                      ar.sn = Number(ar.sn) + Number(d.split_num);
+                    }
+
+                    if (Array.isArray(sub_serial[row]) === false) {
+                      sub_serial[row] = [];
+                    }
+
+                    sub_serial[row].push({
+                      cmpt_id: ar.cmpt_id,
+                      serial_no: Number(ar.sn)
+                    });
+                  });
+                };
+
+                for (i = 1; i * d.split_num < Number(d.all_num) + Number(d.split_num); i++) {
+                  _loop(i);
+                }
+
+                h = 0;
+                d.cmpt.forEach(function (ar) {
+                  ar.works.forEach(function (w) {
+                    works.push({
+                      cmpt_id: ar.cmpt_id,
+                      process_title: w.work_title,
+                      work_id: w.work_id,
+                      row: h
+                    });
+                    h = h + 1;
+                  });
+                }); // console.log(d);
+                // console.log(data);
+                // console.log(sub_serial);
+                // console.log(works);
+
+                axdata = {
+                  listdata: data,
+                  snarr: sub_serial,
+                  process: works
+                };
+                axios.post("/db/pdct/make/sn_process", axdata).then(function (res) {
+                  _this3.$router.push("/product_list");
+
+                  _this3.reload("/product_list");
+                });
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function submit() {
+        return _submit.apply(this, arguments);
+      }
+
+      return submit;
+    }()
   })
 });
 
@@ -758,6 +860,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1202,6 +1333,7 @@ __webpack_require__.r(__webpack_exports__);
       Object.keys(this.prop).forEach(function (key) {
         _this.menu[key] = _this.prop[key];
       });
+      this.rtVal(this.menu.value[0]);
     },
     rtVal: function rtVal(val) {
       this.menu.selected = val;
@@ -1826,7 +1958,11 @@ var render = function() {
                 { staticClass: "px-4 pt-3", attrs: { xs4: "" } },
                 [
                   _c("v-text-field", {
-                    attrs: { label: "形式", readonly: "", value: _vm.d.model },
+                    attrs: {
+                      label: "形式",
+                      readonly: "",
+                      value: _vm.d.model_code
+                    },
                     on: {
                       click: function($event) {
                         _vm.mselect = !_vm.mselect
@@ -1842,7 +1978,7 @@ var render = function() {
                 { staticClass: "px-4 pt-3", attrs: { xs4: "" } },
                 [
                   _c("v-text-field", {
-                    attrs: { label: "工事番号(共通)", value: _vm.d.ccode }
+                    attrs: { label: "工事番号(共通)", value: _vm.d.base_code }
                   })
                 ],
                 1
@@ -1966,11 +2102,11 @@ var render = function() {
                                       type: "number"
                                     },
                                     model: {
-                                      value: _vm.d.num,
+                                      value: _vm.d.split_num,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.d, "num", $$v)
+                                        _vm.$set(_vm.d, "split_num", $$v)
                                       },
-                                      expression: "d.num"
+                                      expression: "d.split_num"
                                     }
                                   },
                                   on
@@ -1995,7 +2131,7 @@ var render = function() {
                               key: index,
                               on: {
                                 click: function($event) {
-                                  _vm.d.num = item
+                                  _vm.d.split_num = item
                                 }
                               }
                             },
@@ -2068,7 +2204,7 @@ var render = function() {
         },
         [
           _c("SelectModel", {
-            attrs: { defval: _vm.d.pmodel },
+            attrs: { defval: _vm.d.product_model },
             on: { select: _vm.rtModel }
           })
         ],
@@ -2736,7 +2872,101 @@ var render = function() {
             staticClass: "pa-3 workdata",
             attrs: { xs6: "", md4: "", lg3: "" }
           },
-          [_c("v-card")],
+          [
+            _c(
+              "v-card",
+              { attrs: { flat: "" } },
+              [
+                _c(
+                  "v-card-title",
+                  { attrs: { "primary-title": "" } },
+                  [
+                    _c(
+                      "v-chip",
+                      { attrs: { small: "", color: "#3949ab", dark: "" } },
+                      [_vm._v(_vm._s(item.class.val))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-chip",
+                      { attrs: { small: "", color: "#3949ab", dark: "" } },
+                      [_vm._v(_vm._s(item.status.val))]
+                    ),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "v-chip",
+                      { attrs: { small: "", color: "#3949ab", dark: "" } },
+                      [_vm._v(_vm._s(item.model.model_code))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-chip",
+                      { attrs: { small: "", color: "#3949ab", dark: "" } },
+                      [_vm._v(_vm._s(item.model.model_rev.numToRev()))]
+                    ),
+                    _vm._v(" "),
+                    item.status.model_code_ne
+                      ? _c(
+                          "v-chip",
+                          { attrs: { small: "", color: "#3949ab", dark: "" } },
+                          [_vm._v(_vm._s(item.status.model_code_ne))]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    item.status.model_name
+                      ? _c(
+                          "v-chip",
+                          { attrs: { small: "", color: "#3949ab", dark: "" } },
+                          [_vm._v(_vm._s(item.status.model_name))]
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-card-text",
+                  [
+                    _c("v-chip", { attrs: { outline: "", color: "#3949ab" } }, [
+                      _vm._v(_vm._s(item.worklist_code))
+                    ]),
+                    _vm._v(" "),
+                    _c("v-chip", { attrs: { outline: "", color: "#3949ab" } }, [
+                      _vm._v(_vm._s(item.num) + " EA")
+                    ]),
+                    _vm._v(" "),
+                    _c("v-chip", { attrs: { outline: "", color: "#3949ab" } }, [
+                      _vm._v(_vm._s(item.st_day) + " ~ " + _vm._s(item.ed_day))
+                    ]),
+                    _vm._v(" "),
+                    _c("v-chip", { attrs: { outline: "", color: "#3949ab" } }, [
+                      _vm._v("起工氏: " + _vm._s(item.user))
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-card-actions",
+                  { staticClass: "text-xs-center" },
+                  [
+                    _c(
+                      "v-btn",
+                      {
+                        staticStyle: { width: "100%", "font-size": "1.3rem" },
+                        attrs: { color: "#3949ab", flat: "" }
+                      },
+                      [_vm._v("製造")]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
           1
         )
       }),
@@ -4221,8 +4451,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VChip */ "./node_modules/vuetify/lib/components/VChip/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 
 
 
@@ -4249,7 +4480,11 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VFlex"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VLayout"]})
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardTitle"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_7__["VChip"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VFlex"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VLayout"]})
 
 
 /* hot reload */

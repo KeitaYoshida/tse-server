@@ -128,6 +128,9 @@
         <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="tehaisaki"></common-cards>
         </v-flex>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="work"></common-cards>
+        </v-flex>
       </v-layout>
     </v-container>
   </v-app>

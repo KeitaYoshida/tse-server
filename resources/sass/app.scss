@@ -16,10 +16,14 @@ body {
 }
 .application--wrap {
     min-height: calc(100vh - 64px) !important;
+    overflow: scroll;
 }
-
+#app {
+    height: 100%;
+}
 #main-content {
     margin-top: 64px;
+    height: calc(100%);
 }
 
 .a4 {
@@ -48,42 +52,44 @@ body {
     font-size: 1.2rem;
 }
 
-.v-chip.v-chip.v-chip--outline.chip {
+.v-chip.v-chip.v-chip--outline {
     border-radius: 10px;
     &.noselect {
         color: #424242;
         border-color: #424242;
     }
     &.cShoninEtc,
-    &.chip.cZumen {
+    &.cZumen {
         color: #4e342e;
         border-color: #4e342e;
     }
-    &.chip.cBuzai,
+    &.cBuzai,
     &.cHuryoTehai,
-    &.chip.cShoninmachi {
+    &.cShoninmachi {
         color: #ef6c00;
         border-color: #ef6c00;
     }
-    &.chip.cSet,
-    &.chip.cTehaiEtc,
-    &.chip.cSetCPB {
+    &.cSet,
+    &.cTehaiEtc,
+    &.cSetCPB,
+    &.cModelInfo {
         color: #4527a0;
         border-color: #4527a0;
     }
     &.cHatyuzumi,
     &.cKoziTehai,
-    &.chip.cBankin {
+    &.cBankin,
+    &.cInfo {
         color: #1565c0;
         border-color: #1565c0;
     }
     &.cHoryu,
     &.cTuikaTehai,
-    &.chip.cNezi {
+    &.cNezi {
         color: #2e7d32;
         border-color: #2e7d32;
     }
-    &.chip.cChip {
+    &.cChip {
         color: #00695c;
         border-color: #00695c;
     }

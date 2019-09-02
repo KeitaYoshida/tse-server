@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~tehaisaki":"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~tehaisaki","cmpt_work_set":"cmpt_work_set","order_list":"order_list","tehaisaki":"tehaisaki","equip_start_check":"equip_start_check","home":"home","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~inventory~recept_list":"vendors~inventory~recept_list","inventory":"inventory","vendors~readfile~recept_list":"vendors~readfile~recept_list","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~readfile":"vendors~readfile","readfile":"readfile","vendors~item_list":"vendors~item_list","item_list":"item_list"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~tehaisaki":"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~tehaisaki","cmpt_work_set":"cmpt_work_set","order_list":"order_list","tehaisaki":"tehaisaki","equip_start_check":"equip_start_check","home":"home","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","process":"process","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~inventory~recept_list":"vendors~inventory~recept_list","inventory":"inventory","vendors~readfile~recept_list":"vendors~readfile~recept_list","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~readfile":"vendors~readfile","readfile":"readfile","vendors~item_list":"vendors~item_list","item_list":"item_list","work":"work"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -67467,7 +67467,7 @@ function theme() {
 /*!******************************************************!*\
   !*** ./node_modules/vuetify/lib/components/index.js ***!
   \******************************************************/
-/*! exports provided: VBtn, VContainer, VContent, VFlex, VLayout, VSpacer, VIcon, VTextField, VToolbar, VToolbarSideIcon, VToolbarTitle, VToolbarItems, VApp, VAlert, VAutocomplete, VAvatar, VBadge, VBottomNav, VBottomSheet, VBreadcrumbs, VBreadcrumbsItem, VBreadcrumbsDivider, VBtnToggle, VCalendar, VCalendarDaily, VCalendarWeekly, VCalendarMonthly, VCard, VCardMedia, VCardTitle, VCardActions, VCardText, VCarousel, VCarouselItem, VCheckbox, VChip, VCombobox, VCounter, VDataIterator, VDataTable, VEditDialog, VTableOverflow, VDatePicker, VDatePickerTitle, VDatePickerHeader, VDatePickerDateTable, VDatePickerMonthTable, VDatePickerYears, VDialog, VDivider, VExpansionPanel, VExpansionPanelContent, VFooter, VForm, VHover, VImg, VInput, VItem, VItemGroup, VJumbotron, VLabel, VList, VListGroup, VListTile, VListTileAction, VListTileAvatar, VListTileActionText, VListTileContent, VListTileTitle, VListTileSubTitle, VMenu, VMessages, VNavigationDrawer, VOverflowBtn, VPagination, VSheet, VParallax, VPicker, VProgressCircular, VProgressLinear, VRadioGroup, VRadio, VRangeSlider, VRating, VResponsive, VSelect, VSlider, VSnackbar, VSparkline, VSpeedDial, VStepper, VStepperContent, VStepperStep, VStepperHeader, VStepperItems, VSubheader, VSwitch, VSystemBar, VTabs, VTab, VTabItem, VTabsItems, VTabsSlider, VTextarea, VTimeline, VTimelineItem, VTimePicker, VTimePickerClock, VTimePickerTitle, VTooltip, VTreeview, VTreeviewNode, VWindow, VWindowItem, VBottomSheetTransition, VCarouselTransition, VCarouselReverseTransition, VTabTransition, VTabReverseTransition, VMenuTransition, VFabTransition, VDialogTransition, VDialogBottomTransition, VFadeTransition, VScaleTransition, VScrollXTransition, VScrollXReverseTransition, VScrollYTransition, VScrollYReverseTransition, VSlideXTransition, VSlideXReverseTransition, VSlideYTransition, VSlideYReverseTransition, VExpandTransition, VExpandXTransition, VRowExpandTransition */
+/*! exports provided: VApp, VAlert, VAutocomplete, VAvatar, VBadge, VBottomNav, VBottomSheet, VBreadcrumbs, VBreadcrumbsItem, VBreadcrumbsDivider, VBtn, VBtnToggle, VCalendar, VCalendarDaily, VCalendarWeekly, VCalendarMonthly, VCard, VCardMedia, VCardTitle, VCardActions, VCardText, VCarousel, VCarouselItem, VCheckbox, VChip, VCombobox, VCounter, VDataIterator, VDataTable, VEditDialog, VTableOverflow, VDatePicker, VDatePickerTitle, VDatePickerHeader, VDatePickerDateTable, VDatePickerMonthTable, VDatePickerYears, VDialog, VDivider, VExpansionPanel, VExpansionPanelContent, VFooter, VForm, VContainer, VContent, VFlex, VLayout, VSpacer, VHover, VIcon, VImg, VInput, VItem, VItemGroup, VJumbotron, VLabel, VList, VListGroup, VListTile, VListTileAction, VListTileAvatar, VListTileActionText, VListTileContent, VListTileTitle, VListTileSubTitle, VMenu, VMessages, VNavigationDrawer, VOverflowBtn, VPagination, VSheet, VParallax, VPicker, VProgressCircular, VProgressLinear, VRadioGroup, VRadio, VRangeSlider, VRating, VResponsive, VSelect, VSlider, VSnackbar, VSparkline, VSpeedDial, VStepper, VStepperContent, VStepperStep, VStepperHeader, VStepperItems, VSubheader, VSwitch, VSystemBar, VTabs, VTab, VTabItem, VTabsItems, VTabsSlider, VTextarea, VTextField, VTimeline, VTimelineItem, VTimePicker, VTimePickerClock, VTimePickerTitle, VToolbar, VToolbarSideIcon, VToolbarTitle, VToolbarItems, VTooltip, VTreeview, VTreeviewNode, VWindow, VWindowItem, VBottomSheetTransition, VCarouselTransition, VCarouselReverseTransition, VTabTransition, VTabReverseTransition, VMenuTransition, VFabTransition, VDialogTransition, VDialogBottomTransition, VFadeTransition, VScaleTransition, VScrollXTransition, VScrollXReverseTransition, VScrollYTransition, VScrollYReverseTransition, VSlideXTransition, VSlideXReverseTransition, VSlideYTransition, VSlideYReverseTransition, VExpandTransition, VExpandXTransition, VRowExpandTransition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68559,37 +68559,13 @@ function unbind(el, binding, vnode) {
 /*!*******************************************!*\
   !*** ./node_modules/vuetify/lib/index.js ***!
   \*******************************************/
-/*! exports provided: default, directives, colors, VBtn, VContainer, VContent, VFlex, VLayout, VSpacer, VIcon, VTextField, VToolbar, VToolbarSideIcon, VToolbarTitle, VToolbarItems, VApp, VAlert, VAutocomplete, VAvatar, VBadge, VBottomNav, VBottomSheet, VBreadcrumbs, VBreadcrumbsItem, VBreadcrumbsDivider, VBtnToggle, VCalendar, VCalendarDaily, VCalendarWeekly, VCalendarMonthly, VCard, VCardMedia, VCardTitle, VCardActions, VCardText, VCarousel, VCarouselItem, VCheckbox, VChip, VCombobox, VCounter, VDataIterator, VDataTable, VEditDialog, VTableOverflow, VDatePicker, VDatePickerTitle, VDatePickerHeader, VDatePickerDateTable, VDatePickerMonthTable, VDatePickerYears, VDialog, VDivider, VExpansionPanel, VExpansionPanelContent, VFooter, VForm, VHover, VImg, VInput, VItem, VItemGroup, VJumbotron, VLabel, VList, VListGroup, VListTile, VListTileAction, VListTileAvatar, VListTileActionText, VListTileContent, VListTileTitle, VListTileSubTitle, VMenu, VMessages, VNavigationDrawer, VOverflowBtn, VPagination, VSheet, VParallax, VPicker, VProgressCircular, VProgressLinear, VRadioGroup, VRadio, VRangeSlider, VRating, VResponsive, VSelect, VSlider, VSnackbar, VSparkline, VSpeedDial, VStepper, VStepperContent, VStepperStep, VStepperHeader, VStepperItems, VSubheader, VSwitch, VSystemBar, VTabs, VTab, VTabItem, VTabsItems, VTabsSlider, VTextarea, VTimeline, VTimelineItem, VTimePicker, VTimePickerClock, VTimePickerTitle, VTooltip, VTreeview, VTreeviewNode, VWindow, VWindowItem, VBottomSheetTransition, VCarouselTransition, VCarouselReverseTransition, VTabTransition, VTabReverseTransition, VMenuTransition, VFabTransition, VDialogTransition, VDialogBottomTransition, VFadeTransition, VScaleTransition, VScrollXTransition, VScrollXReverseTransition, VScrollYTransition, VScrollYReverseTransition, VSlideXTransition, VSlideXReverseTransition, VSlideYTransition, VSlideYReverseTransition, VExpandTransition, VExpandXTransition, VRowExpandTransition */
+/*! exports provided: default, directives, colors, VApp, VAlert, VAutocomplete, VAvatar, VBadge, VBottomNav, VBottomSheet, VBreadcrumbs, VBreadcrumbsItem, VBreadcrumbsDivider, VBtn, VBtnToggle, VCalendar, VCalendarDaily, VCalendarWeekly, VCalendarMonthly, VCard, VCardMedia, VCardTitle, VCardActions, VCardText, VCarousel, VCarouselItem, VCheckbox, VChip, VCombobox, VCounter, VDataIterator, VDataTable, VEditDialog, VTableOverflow, VDatePicker, VDatePickerTitle, VDatePickerHeader, VDatePickerDateTable, VDatePickerMonthTable, VDatePickerYears, VDialog, VDivider, VExpansionPanel, VExpansionPanelContent, VFooter, VForm, VContainer, VContent, VFlex, VLayout, VSpacer, VHover, VIcon, VImg, VInput, VItem, VItemGroup, VJumbotron, VLabel, VList, VListGroup, VListTile, VListTileAction, VListTileAvatar, VListTileActionText, VListTileContent, VListTileTitle, VListTileSubTitle, VMenu, VMessages, VNavigationDrawer, VOverflowBtn, VPagination, VSheet, VParallax, VPicker, VProgressCircular, VProgressLinear, VRadioGroup, VRadio, VRangeSlider, VRating, VResponsive, VSelect, VSlider, VSnackbar, VSparkline, VSpeedDial, VStepper, VStepperContent, VStepperStep, VStepperHeader, VStepperItems, VSubheader, VSwitch, VSystemBar, VTabs, VTab, VTabItem, VTabsItems, VTabsSlider, VTextarea, VTextField, VTimeline, VTimelineItem, VTimePicker, VTimePickerClock, VTimePickerTitle, VToolbar, VToolbarSideIcon, VToolbarTitle, VToolbarItems, VTooltip, VTreeview, VTreeviewNode, VWindow, VWindowItem, VBottomSheetTransition, VCarouselTransition, VCarouselReverseTransition, VTabTransition, VTabReverseTransition, VMenuTransition, VFabTransition, VDialogTransition, VDialogBottomTransition, VFadeTransition, VScaleTransition, VScrollXTransition, VScrollXReverseTransition, VScrollYTransition, VScrollYReverseTransition, VSlideXTransition, VSlideXReverseTransition, VSlideYTransition, VSlideYReverseTransition, VExpandTransition, VExpandXTransition, VRowExpandTransition */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Vuetify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Vuetify */ "./node_modules/vuetify/lib/components/Vuetify/index.js");
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components */ "./node_modules/vuetify/lib/components/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VBtn", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VBtn"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VContainer", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VContainer"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VContent", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VContent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VFlex", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VFlex"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VLayout", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VLayout"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VSpacer", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VSpacer"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VIcon", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VIcon"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VTextField", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VTextField"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VToolbar", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VToolbar"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VToolbarSideIcon", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VToolbarSideIcon"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VToolbarTitle", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VToolbarTitle"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VToolbarItems", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VToolbarItems"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VApp", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VApp"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VAlert", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VAlert"]; });
@@ -68609,6 +68585,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VBreadcrumbsItem", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VBreadcrumbsItem"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VBreadcrumbsDivider", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VBreadcrumbsDivider"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VBtn", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VBtn"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VBtnToggle", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VBtnToggle"]; });
 
@@ -68674,7 +68652,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VForm", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VForm"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VContainer", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VContainer"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VContent", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VContent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VFlex", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VFlex"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VLayout", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VLayout"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VSpacer", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VSpacer"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VHover", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VHover"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VIcon", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VIcon"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VImg", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VImg"]; });
 
@@ -68774,6 +68764,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VTextarea", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VTextarea"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VTextField", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VTextField"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VTimeline", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VTimeline"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VTimelineItem", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VTimelineItem"]; });
@@ -68783,6 +68775,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VTimePickerClock", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VTimePickerClock"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VTimePickerTitle", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VTimePickerTitle"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VToolbar", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VToolbar"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VToolbarSideIcon", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VToolbarSideIcon"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VToolbarTitle", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VToolbarTitle"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VToolbarItems", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VToolbarItems"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VTooltip", function() { return _components__WEBPACK_IMPORTED_MODULE_1__["VTooltip"]; });
 
@@ -76784,6 +76784,11 @@ Number.prototype.comHyphen = function () {
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("tse-header", __webpack_require__(/*! ./components/TseHeader.vue */ "./resources/js/components/TseHeader.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   methods: {
+    wait: function wait(sec) {
+      return new Promise(function (resolve, reject) {
+        setTimeout(resolve, sec * 1000); //setTimeout(() => {reject(new Error("エラー！"))}, sec*1000);
+      });
+    },
     reload: function reload(path) {
       this.$router.go({
         path: path,
@@ -77158,6 +77163,18 @@ var tehaisaki = function tehaisaki() {
   return Promise.all(/*! import() | tehaisaki */[__webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~tehaisaki"), __webpack_require__.e("tehaisaki")]).then(__webpack_require__.bind(null, /*! ../components/com/Tehaisaki.vue */ "./resources/js/components/com/Tehaisaki.vue"));
 };
 
+var process = function process() {
+  return __webpack_require__.e(/*! import() | process */ "process").then(__webpack_require__.bind(null, /*! ../components/Process.vue */ "./resources/js/components/Process.vue"));
+};
+
+var item_monitor = function item_monitor() {
+  return __webpack_require__.e(/*! import() | item_monitor */ "item_monitor").then(__webpack_require__.bind(null, /*! ../components/com/ItemMonitor.vue */ "./resources/js/components/com/ItemMonitor.vue"));
+};
+
+var work = function work() {
+  return __webpack_require__.e(/*! import() | work */ "work").then(__webpack_require__.bind(null, /*! ../components/Work/work.vue */ "./resources/js/components/Work/work.vue"));
+};
+
 var Auth = {
   login: function () {
     var _login = _asyncToGenerator(
@@ -77290,6 +77307,27 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     name: "tehaisaki",
     component: tehaisaki
   }, {
+    path: "/process/:id",
+    name: "process",
+    component: process,
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: "/item_monitor/:mid",
+    name: "item_monitor",
+    component: item_monitor,
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: "/work",
+    name: "work",
+    component: work,
+    meta: {
+      requiresAuth: true
+    }
+  }, {
     path: "/*",
     name: "j-home",
     component: home
@@ -77326,7 +77364,7 @@ router.beforeEach(function (to, from, next) {
 /*!***************************************!*\
   !*** ./resources/js/store/actions.js ***!
   \***************************************/
-/*! exports provided: SET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_RESET, WORK_ABOUT_SET, WORK_ABOUT_RESET, PDCT_ABOUT_SET */
+/*! exports provided: SET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_RESET, WORK_ABOUT_SET, WORK_ABOUT_RESET, PDCT_ABOUT_SET, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77340,6 +77378,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORK_ABOUT_SET", function() { return WORK_ABOUT_SET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORK_ABOUT_RESET", function() { return WORK_ABOUT_RESET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PDCT_ABOUT_SET", function() { return PDCT_ABOUT_SET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_INIT", function() { return PROCESS_INIT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_SERIAL_INFO", function() { return PROCESS_SERIAL_INFO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_INFO", function() { return PROCESS_INFO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_STATUS_UPDATE", function() { return PROCESS_STATUS_UPDATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_ITEMS_SET", function() { return PROCESS_ITEMS_SET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKS_INIT_DAY_PROCESS", function() { return WORKS_INIT_DAY_PROCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKS_EDIT_WORK_DAY", function() { return WORKS_EDIT_WORK_DAY; });
 /* harmony import */ var _mutation_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mutation-types */ "./resources/js/store/mutation-types.js");
 
 var SET_COMPONENT_COM = function SET_COMPONENT_COM(_ref, cmpt) {
@@ -77389,6 +77434,34 @@ var WORK_ABOUT_RESET = function WORK_ABOUT_RESET(_ref8) {
 var PDCT_ABOUT_SET = function PDCT_ABOUT_SET(_ref9, payload) {
   var commit = _ref9.commit;
   commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["PDCT_ABOUT_SET"], payload);
+};
+var PROCESS_INIT = function PROCESS_INIT(_ref10, payload) {
+  var commit = _ref10.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_INIT"], payload);
+};
+var PROCESS_SERIAL_INFO = function PROCESS_SERIAL_INFO(_ref11, payload) {
+  var commit = _ref11.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_SERIAL_INFO"], payload);
+};
+var PROCESS_INFO = function PROCESS_INFO(_ref12, payload) {
+  var commit = _ref12.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_INFO"], payload);
+};
+var PROCESS_STATUS_UPDATE = function PROCESS_STATUS_UPDATE(_ref13, payload) {
+  var commit = _ref13.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_STATUS_UPDATE"], payload);
+};
+var PROCESS_ITEMS_SET = function PROCESS_ITEMS_SET(_ref14, payload) {
+  var commit = _ref14.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_ITEMS_SET"], payload);
+};
+var WORKS_INIT_DAY_PROCESS = function WORKS_INIT_DAY_PROCESS(_ref15, payload) {
+  var commit = _ref15.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["WORKS_INIT_DAY_PROCESS"], payload);
+};
+var WORKS_EDIT_WORK_DAY = function WORKS_EDIT_WORK_DAY(_ref16, payload) {
+  var commit = _ref16.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["WORKS_EDIT_WORK_DAY"], payload);
 };
 
 /***/ }),
@@ -77440,7 +77513,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*!**********************************************!*\
   !*** ./resources/js/store/mutation-types.js ***!
   \**********************************************/
-/*! exports provided: MESSAGE_UPDATE, USER_INFO, SET_COMPONENT_COM, RESET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_SET_OBJECT, WORK_ABOUT_SET, SET_MODEL_COM, PDCT_ABOUT_SET */
+/*! exports provided: MESSAGE_UPDATE, USER_INFO, SET_COMPONENT_COM, RESET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_SET_OBJECT, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY, WORK_ABOUT_SET, SET_MODEL_COM, PDCT_ABOUT_SET */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77454,6 +77527,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CMPT_SEARCH_PAGE_ADD", function() { return CMPT_SEARCH_PAGE_ADD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CMPT_SEARCH_PAGE_BELOW", function() { return CMPT_SEARCH_PAGE_BELOW; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CMPT_SEARCH_SET_OBJECT", function() { return CMPT_SEARCH_SET_OBJECT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_INIT", function() { return PROCESS_INIT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_SERIAL_INFO", function() { return PROCESS_SERIAL_INFO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_INFO", function() { return PROCESS_INFO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_STATUS_UPDATE", function() { return PROCESS_STATUS_UPDATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_ITEMS_SET", function() { return PROCESS_ITEMS_SET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKS_INIT_DAY_PROCESS", function() { return WORKS_INIT_DAY_PROCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKS_EDIT_WORK_DAY", function() { return WORKS_EDIT_WORK_DAY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORK_ABOUT_SET", function() { return WORK_ABOUT_SET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_MODEL_COM", function() { return SET_MODEL_COM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PDCT_ABOUT_SET", function() { return PDCT_ABOUT_SET; });
@@ -77466,6 +77546,13 @@ var CMPT_SEARCH_LENGTH = "CMPT_SEARCH_LENGTH";
 var CMPT_SEARCH_PAGE_ADD = "CMPT_SEARCH_PAGE_ADD";
 var CMPT_SEARCH_PAGE_BELOW = "CMPT_SEARCH_PAGE_BELOW";
 var CMPT_SEARCH_SET_OBJECT = "CMPT_SEARCH_SET_OBJECT";
+var PROCESS_INIT = "PROCESS_INIT";
+var PROCESS_SERIAL_INFO = "PROCESS_SERIAL_INFO";
+var PROCESS_INFO = "PROCESS_INFO";
+var PROCESS_STATUS_UPDATE = "PROCESS_STATUS_UPDATE";
+var PROCESS_ITEMS_SET = "PROCESS_ITEMS_SET";
+var WORKS_INIT_DAY_PROCESS = "WORKS_INIT_DAY_PROCESS";
+var WORKS_EDIT_WORK_DAY = "WORKS_EDIT_WORK_DAY";
 var WORK_ABOUT_SET = "WORK_ABOUT_SET";
 var SET_MODEL_COM = "SET_MODEL_COM";
 var PDCT_ABOUT_SET = "PDCT_ABOUT_SET";
@@ -77500,6 +77587,12 @@ var state = {
     model: null,
     user: null
   },
+  works: {
+    list: {
+      days: null,
+      process: null
+    }
+  },
   target: {
     code: null,
     data: null,
@@ -77508,6 +77601,15 @@ var state = {
       rev: null,
       code: null,
       data: null
+    },
+    process: {
+      base: null,
+      info: null,
+      serials: null,
+      process: null,
+      process_status: null,
+      process_info: null,
+      process_items: null
     },
     component: {
       id: null,
@@ -77574,6 +77676,26 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
   state.target.product.model = payload.model;
   state.target.product.code = payload.code;
   state.target.product.workdata = payload.workdata;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_INIT"], function (state, payload) {
+  Object.keys(payload).forEach(function (key) {
+    state.target.process[key] = payload[key];
+  });
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_SERIAL_INFO"], function (state, payload) {
+  state.target.process.process_info = payload;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_INFO"], function (state, payload) {
+  state.target.process.info = payload;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_STATUS_UPDATE"], function (state, payload) {
+  state.target.process.process_info[payload.num] = payload.upval;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["PROCESS_ITEMS_SET"], function (state, payload) {
+  state.target.process.process_items = payload; // console.log(payload);
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["WORKS_INIT_DAY_PROCESS"], function (state, payload) {
+  state.works = payload;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["WORKS_EDIT_WORK_DAY"], function (state, payload) {
+  var tar = state.works.list.process.find(function (work) {
+    return work.worklist_id === payload.id;
+  });
+  tar.st_day = payload.sday;
+  tar.ed_day = payload.eday;
 }), _mutations);
 
 /***/ }),

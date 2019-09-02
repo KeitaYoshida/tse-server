@@ -38,3 +38,25 @@ export const WORK_ABOUT_RESET = ({ commit }) => {
 export const PDCT_ABOUT_SET = ({ commit }, payload) => {
   commit(types.PDCT_ABOUT_SET, payload);
 }
+
+export const PROCESS_INIT = ({ commit }, payload) => {
+  commit(types.PROCESS_INIT, payload);
+}
+export const PROCESS_SERIAL_INFO = ({ commit }, payload) => {
+  commit(types.PROCESS_SERIAL_INFO, payload);
+}
+export const PROCESS_INFO = ({ commit }, payload) => {
+  commit(types.PROCESS_INFO, payload);
+}
+export const PROCESS_STATUS_UPDATE = ({ commit }, payload) => {
+  commit(types.PROCESS_STATUS_UPDATE, payload);
+}
+export const PROCESS_ITEMS_SET = ({ commit }, payload) => {
+  commit(types.PROCESS_ITEMS_SET, payload);
+}
+export const WORKS_INIT_DAY_PROCESS = ({ commit }, payload) => {
+  commit(types.WORKS_INIT_DAY_PROCESS, payload);
+}
+export const WORKS_EDIT_WORK_DAY = ({ commit }, payload) => {
+  commit(types.WORKS_EDIT_WORK_DAY, payload);
+}

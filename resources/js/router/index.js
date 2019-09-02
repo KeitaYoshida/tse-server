@@ -23,6 +23,9 @@ const user_info = () => import( /* webpackChunkName: "user_info" */ "../componen
 const order_list = () => import( /* webpackChunkName: "order_list" */ "../components/Order/OrderList/order_list.vue");
 const ukeire = () => import(/* webpackChunkName: "order_list" */ "../components/Ukeire/ukeire.vue")
 const tehaisaki = () => import(/* webpackChunkName: "tehaisaki" */ "../components/com/Tehaisaki.vue")
+const process = () => import(/* webpackChunkName: "process" */ "../components/Process.vue");
+const item_monitor = () => import(/* webpackChunkName: "item_monitor" */ "../components/com/ItemMonitor.vue");
+const work = () => import(/* webpackChunkName: "work" */ "../components/Work/work.vue");
 
 let Auth = {
   login: async function () {
@@ -141,6 +144,24 @@ let router = new Router({
       path: "/tehaisaki",
       name: "tehaisaki",
       component: tehaisaki,
+    },
+    {
+      path: "/process/:id",
+      name: "process",
+      component: process,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/item_monitor/:mid",
+      name: "item_monitor",
+      component: item_monitor,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/work",
+      name: "work",
+      component: work,
+      meta: { requiresAuth: true },
     },
     {
       path: "/*",

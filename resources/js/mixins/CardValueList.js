@@ -122,6 +122,16 @@ const _card_data = {
     button: false,
     button_text: BUTON_TEXT
   },
+  work: {
+    title: "制作",
+    class_text: COLOR_DEF,
+    color: TEXT_COLOR,
+    text: ["工事リスト・工程管理表・作業データ登録"],
+    details: [""].join(""),
+    links: "",
+    button: false,
+    button_text: BUTON_TEXT
+  },
   tehaisaki: {
     title: "手配先",
     class_text: COLOR_WORK_LESS,

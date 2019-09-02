@@ -7,6 +7,9 @@ use App\Model\Production;
 use App\Model\Reception;
 use App\Model\PdctWorklistClass;
 use App\Model\PdctWorkdataList;
+use App\Model\Serials;
+use App\Model\SerialCmpt;
+use App\Model\Process;
 
 class PdctCtrl extends Controller
 {
@@ -68,5 +71,38 @@ class PdctCtrl extends Controller
   {
     $wdlist = new PdctWorkdataList;
     return $wdlist->where('pdct_id', $id)->count();
+  }
+  public function MakeSerialProcess(Request $req)
+  {
+    $wdlist = new PdctWorkdataList;
+    $serials = new Serials;
+    $serialcmpt = new SerialCmpt;
+    $pdb = new Process;
+
+    $listdata = $req->listdata;
+    $process = $req->process;
+    $snarr = $req->snarr;
+    $row = count($listdata);
+    for ($i = 0; $i < $row; $i++) {
+      $ld_row = $listdata[$i];
+      $serial_num = $ld_row['num'];
+      $wdserial = $wdlist->create($listdata[$i])->worklist_id;
+      for ($h = 0; $h < $serial_num; $h++) {
+        $sn = $serials->create(['worklist_id' => $wdserial])->serial_id;
+        foreach ($snarr[$i] as $cmpt) {
+          $serialcmpt
+            ->create([
+              'serial_id' => $sn,
+              'cmpt_id' => $cmpt['cmpt_id'],
+              'serial_no' => $cmpt['serial_no'] + $h
+            ]);
+        }
+        foreach ($process as $prow) {
+          $prow = $prow + array('serial_id' => $sn);
+          $pdb->create($prow);
+        }
+      }
+    }
+    return $i;
   }
 }

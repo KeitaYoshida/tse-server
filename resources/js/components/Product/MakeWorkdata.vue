@@ -6,10 +6,10 @@
       <ComMenu :prop="wlClass" @rtVal="rtWlClass" v-if="wlClass.value"></ComMenu>
       <v-layout wrap>
         <v-flex xs4 class="px-4 pt-3">
-          <v-text-field label="形式" readonly :value="d.model" @click="mselect=!mselect"></v-text-field>
+          <v-text-field label="形式" readonly :value="d.model_code" @click="mselect=!mselect"></v-text-field>
         </v-flex>
         <v-flex xs4 class="px-4 pt-3">
-          <v-text-field label="工事番号(共通)" :value="d.ccode"></v-text-field>
+          <v-text-field label="工事番号(共通)" :value="d.base_code"></v-text-field>
         </v-flex>
         <v-flex xs4 class="px-4 pt-3">
           <v-text-field label="起工氏" readonly :value="d.user"></v-text-field>
@@ -36,13 +36,13 @@
         <v-flex xs4 class="px-4 pt-3">
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
-              <v-text-field label="分割台数" type="number" v-on="on" v-model="d.num"></v-text-field>
+              <v-text-field label="分割台数" type="number" v-on="on" v-model="d.split_num"></v-text-field>
             </template>
             <v-list>
               <v-list-tile
                 v-for="(item, index) in [10, 15, 20, 25, 50, 100]"
                 :key="index"
-                @click="d.num = item"
+                @click="d.split_num = item"
               >
                 <v-list-tile-title>{{ item }}</v-list-tile-title>
               </v-list-tile>
@@ -58,7 +58,7 @@
       </v-layout>
     </v-card-text>
     <v-dialog v-model="mselect" width="600px">
-      <SelectModel @select="rtModel" :defval="d.pmodel"></SelectModel>
+      <SelectModel @select="rtModel" :defval="d.product_model"></SelectModel>
     </v-dialog>
   </v-card>
 </template>
@@ -86,13 +86,15 @@ export default {
       data_row: null,
       mselect: false,
       d: {
-        pmodel: null,
-        model: null,
-        pcode: null,
-        wclass: "製造",
-        ccode: null,
+        product_model: null,
+        product_id: null,
+        model_code: null,
+        model_id: null,
+        product_code: null,
+        wclass: null,
+        base_code: null,
         all_num: null,
-        num: null,
+        split_num: null,
         user: null,
         stday: null,
         edday: null,
@@ -116,9 +118,10 @@ export default {
       // console.log(this.target);
       let p = this.target.product;
       let model_id = p.model;
-      this.d.pmodel = model_id;
-      this.d.pcode = p.code;
-      this.d.ccode = p.code;
+      this.d.product_model = model_id;
+      this.d.product_id = p.id;
+      this.d.product_code = p.code;
+      this.d.base_code = p.code;
       this.d.user = this.user.name;
       axios.get("/db/workdata/make/class").then(res => {
         let c = [];
@@ -133,19 +136,24 @@ export default {
     },
     rtWlClass(val) {
       this.wlClass.selected = val;
-      this.d.wclass = val;
+      this.d.wclass = this.wlClass.value.indexOf(val);
     },
     async rtModel(m) {
       this.mselect = !this.mselect;
-      this.d.model = m.model_code;
+      this.d.model_code = m.model_code;
+      this.d.model_id = m.model_id;
       this.d.cmpt = m.cmpt.filter(ar => ar.works.length > 0);
+      if (this.d.cmpt.length === 0) {
+        alert("工程が登録されていません");
+        this.d.model_code = null;
+      }
     },
     set_num() {
-      this.d.num = this.d.all_num;
+      this.d.split_num = this.d.all_num;
     },
     slice_num() {
-      if (this.d.all_num === null || this.d.num === null) return;
-      let n = Number(this.d.all_num) / Number(this.d.num);
+      if (this.d.all_num === null || this.d.split_num === null) return;
+      let n = Number(this.d.all_num) / Number(this.d.split_num);
       if (n === 1) return "分割なし";
       if (n > 20) return "分割数が多すぎます";
       return Math.ceil(n);
@@ -171,7 +179,71 @@ export default {
       });
       return flg;
     },
-    submit() {}
+    async submit() {
+      let d = this.d;
+      let data = [];
+      let sub_serial = [];
+      let works = [];
+      for (
+        let i = 1;
+        i * d.split_num < Number(d.all_num) + Number(d.split_num);
+        i++
+      ) {
+        let row = i - 1;
+        let rnum = i * d.split_num;
+        let num =
+          rnum <= d.all_num ? d.split_num : d.all_num - (rnum - d.split_num);
+        data[row] = {
+          pdct_id: d.product_id,
+          model_id: d.model_id,
+          worklist_code: d.base_code + "-" + ("00" + i).slice(-2),
+          worklist_status: 0,
+          worklist_class: d.wclass,
+          num: num,
+          all_num: d.all_num,
+          st_day: d.stday,
+          ed_day: d.edday,
+          user: d.user
+        };
+        d.cmpt.forEach(ar => {
+          if (row !== 0) {
+            ar.sn = Number(ar.sn) + Number(d.split_num);
+          }
+          if (Array.isArray(sub_serial[row]) === false) {
+            sub_serial[row] = [];
+          }
+          sub_serial[row].push({
+            cmpt_id: ar.cmpt_id,
+            serial_no: Number(ar.sn)
+          });
+        });
+      }
+      let h = 0;
+      d.cmpt.forEach(ar => {
+        ar.works.forEach(w => {
+          works.push({
+            cmpt_id: ar.cmpt_id,
+            process_title: w.work_title,
+            work_id: w.work_id,
+            row: h
+          });
+          h = h + 1;
+        });
+      });
+      // console.log(d);
+      // console.log(data);
+      // console.log(sub_serial);
+      // console.log(works);
+      let axdata = {
+        listdata: data,
+        snarr: sub_serial,
+        process: works
+      };
+      axios.post("/db/pdct/make/sn_process", axdata).then(res => {
+        this.$router.push("/product_list");
+        this.reload("/product_list");
+      });
+    }
   }
 };
 </script>

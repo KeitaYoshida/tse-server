@@ -11,6 +11,12 @@ export const state = {
     model: null,
     user: null
   },
+  works: {
+    list: {
+      days: null,
+      process: null
+    },
+  },
   target: {
     code: null,
     data: null,
@@ -19,6 +25,15 @@ export const state = {
       rev: null,
       code: null,
       data: null
+    },
+    process: {
+      base: null,
+      info: null,
+      serials: null,
+      process: null,
+      process_status: null,
+      process_info: null,
+      process_items: null,
     },
     component: {
       id: null,
@@ -97,6 +112,33 @@ export const mutations = {
     state.target.product.model = payload.model;
     state.target.product.code = payload.code;
     state.target.product.workdata = payload.workdata;
+  },
+  [types.PROCESS_INIT](state, payload) {
+    Object.keys(payload).forEach(key => {
+      state.target.process[key] = payload[key];
+    })
+  },
+  [types.PROCESS_SERIAL_INFO](state, payload) {
+    state.target.process.process_info = payload;
+  },
+  [types.PROCESS_INFO](state, payload) {
+    state.target.process.info = payload;
+  },
+  [types.PROCESS_STATUS_UPDATE](state, payload) {
+    state.target.process.process_info[payload.num] = payload.upval;
+  },
+  [types.PROCESS_ITEMS_SET](state, payload) {
+    state.target.process.process_items = payload;
+    // console.log(payload);
+  },
+  [types.WORKS_INIT_DAY_PROCESS](state, payload) {
+    state.works = payload;
+  },
+  [types.WORKS_EDIT_WORK_DAY](state, payload) {
+    let tar = state.works.list.process.find(work => {
+      return work.worklist_id === payload.id;
+    });
+    tar.st_day = payload.sday;
+    tar.ed_day = payload.eday;
   }
-
 }
