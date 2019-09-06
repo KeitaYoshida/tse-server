@@ -123,7 +123,7 @@
           <common-cards card_name="user_info"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
-          <common-cards card_name="ukeire"></common-cards>
+          <common-cards card_name="ukeire/const_select"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="tehaisaki"></common-cards>

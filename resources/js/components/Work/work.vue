@@ -89,10 +89,12 @@ export default {
 <style lang="scss">
 #work_day_tabl_box {
   height: calc(100% - 56px);
+  overflow: hidden;
 }
 #work_day_table {
   height: calc(100% - 56px);
   background-color: #fff;
+  overflow: hidden;
   *,
   *:before,
   *:after {
@@ -131,14 +133,14 @@ export default {
   .rows.head {
     height: 6rem;
     position: fixed;
-    z-index: 100;
+    z-index: 91;
     background-color: #fff;
   }
   .table,
   .workList {
     width: 100%;
     height: 100%;
-    overflow-x: scroll;
+    overflow-x: hidden;
     position: relative;
     margin-bottom: 0;
   }
@@ -148,6 +150,9 @@ export default {
     background-color: transparent;
     top: 0;
     left: 0;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .yasumi {
     color: coral;
@@ -171,16 +176,33 @@ export default {
   .head-row:nth-child(odd) {
     background-color: #eaeaea;
   }
+  .fbox.cnt {
+    span.fin {
+      color: #2e7d32;
+    }
+    span.delay {
+      color: #ef6c00;
+    }
+  }
 }
 #work_day_list {
   height: calc(100% - 56px);
-  overflow: scroll;
+  overflow: hidden;
   .worklist_head {
     height: 6rem;
     position: fixed;
     background: #fff;
-    z-index: 99;
+    z-index: 90;
     width: 100%;
+  }
+  .worklist_head_body {
+    z-index: 92;
+    position: fixed;
+    width: 100%;
+    height: 6rem;
+    .v-text-field {
+      padding-top: 0;
+    }
   }
   .worklist {
     position: absolute;

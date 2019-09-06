@@ -80,8 +80,7 @@ export default {
         };
       });
       axios.post("/vendor-item/up/" + this.item_id, f).then(res => {
-        console.log(res.data);
-        return;
+        // console.log(res.data);
         this.submit_text = "更新済み";
         this.$emit("pass", { type: "order_price", data: res.data });
       });

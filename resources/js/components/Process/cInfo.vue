@@ -27,11 +27,10 @@
         <div class="mini">( id: {{ tar.process.base.wid }} )</div>
       </span>
       <span class="text">{{ tar.process.base.num }} ea</span>
-      <div v-if="tar.process.base.num !== tar.process.base.all_num">
-        <span
-          class="text"
-        >分割：{{ tar.process.base.num * tar.process.base.wcode_num}} / {{ tar.process.base.all_num }} ea</span>
-      </div>
+      <span
+        v-if="tar.process.base.num !== tar.process.base.all_num"
+        class="mini"
+      >(分割：{{ tar.process.base.num * tar.process.base.wcode_num}} / {{ tar.process.base.all_num }} ea)</span>
     </v-card-text>
   </v-card>
 </template>
@@ -78,12 +77,15 @@ div.mini {
   font-size: 1rem;
   text-align: center;
 }
+span.mini {
+  font-size: 0.8rem;
+}
 td {
   padding: 0.2rem 0.4rem;
 }
 .const_info {
   height: 30%;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 div.flex {
   height: 100%;

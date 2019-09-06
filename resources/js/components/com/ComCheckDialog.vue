@@ -32,9 +32,7 @@ export default {
       }
     }
   },
-  created: function() {
-    console.log(this.data);
-  },
+  created: function() {},
   methods: {
     submit() {
       this.$emit("rt", this.data, true);

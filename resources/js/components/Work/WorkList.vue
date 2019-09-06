@@ -1,7 +1,18 @@
 <template>
   <div v-if="process" @scroll="handleScroll" class="workList" id="workList">
     <div class="worklist_head">
-      <v-chip outline>作業リスト</v-chip>
+      <v-layout wrap>
+        <v-flex xs4 class="worklist_head_body">
+          <v-layout wrap>
+            <v-flex sm5 md4 lg3>
+              <v-chip outline color="primary">作業リスト</v-chip>
+            </v-flex>
+            <v-flex sm6 md7 lg8>
+              <v-text-field label="形式・工事番号" :value="search_x" @input="filterList($event)" clearable></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+      </v-layout>
     </div>
     <div class="worklist">
       <div class="head-row" v-for="(work, index) in process" :key="index">
@@ -14,8 +25,14 @@
           <v-flex xs6 class="fbox cnt">
             <span @click="action(index)" class="select_action">
               <nobr>
-                <v-icon v-if="select.indexOf(work) !== -1" small color="primary">far fa-check-square</v-icon>
-                {{ work.worklist_code }}
+                <span :class="setClass(work)">
+                  <v-icon
+                    v-if="select.indexOf(work) !== -1"
+                    small
+                    color="primary"
+                  >far fa-check-square</v-icon>
+                  {{ work.worklist_code }}
+                </span>
               </nobr>
             </span>
           </v-flex>
@@ -93,7 +110,8 @@ export default {
   },
   computed: {
     ...mapState({
-      works: "works"
+      works: "works",
+      search_x: state => state.search.modelconst
     })
   },
   created: function() {
@@ -101,9 +119,12 @@ export default {
   },
   mounted() {},
   methods: {
-    ...mapActions(["WORKS_EDIT_WORK_DAY"]),
+    ...mapActions(["WORKS_EDIT_WORK_DAY", "SEARCH_MODELCONST"]),
     init() {
       this.process = this.works.list.process;
+      if (this.search_x) {
+        this.filterAct(this.search_x);
+      }
     },
     rtWorkModel(work, index) {
       let def =
@@ -187,11 +208,54 @@ export default {
     },
     clear() {
       this.select = [];
+    },
+    setClass(work) {
+      let today = this.works.list.days.day;
+      let ed_day = work.ed_day;
+      let context = work.context;
+      if (context === 100) return "fin";
+      else if (ed_day < today) return "delay";
+    },
+    filterList(e) {
+      this.SEARCH_MODELCONST(e);
+    },
+    filterAct(val) {
+      val = val === null ? "" : val;
+      let tar = val.toLowerCase();
+      this.process = this.works.list.process.filter(ar => {
+        return (
+          ~ar.model.model_code.toLowerCase().indexOf(tar) ||
+          ~ar.worklist_code.toLowerCase().indexOf(tar)
+        );
+      });
+      this.select = [];
     }
+    // // mover(e) {
+    // //   console.log("o");
+    // //   let cl = document.getElementsByClassName("worklist");
+    // //   let tar = e.target;
+    // //   cl = [].slice.call(cl[0].childNodes);
+    // //   let n = cl.indexOf(tar);
+    // //   // cl[n].target.classList.add("mon");
+    // //   console.log(cl[n]);
+    // // },
+    // // mleave(e) {
+    // //   console.log("l");
+    // //   let cl = document.getElementsByClassName("worklist");
+    // //   let tar = e.target;
+    // //   cl = [].slice.call(cl[0].childNodes);
+    // //   let n = cl.indexOf(tar);
+    // //   // console.log(cl[n]);
+    // //   console.log(cl[n]);
+    // //   // cl[n].target.classList.remove("mon");
+    // }
   },
   watch: {
     scrollTop: function(val) {
       document.getElementById("workList").scrollTop = val;
+    },
+    search_x: function(val) {
+      this.filterAct(val);
     }
   }
 };

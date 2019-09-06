@@ -258,8 +258,10 @@ export default {
       this.btn_load = false;
     },
     itemMonitor() {
+      // this.$router.push("/item_monitor/89")
       window.open(
-        "http://192.168.13.103:8000/item_monitor/" + this.tar.process.base.mid
+        "http://192.168.13.103:8000/item_monitor/" +
+          this.tar.process.info.work_id
       );
     }
   }
@@ -321,12 +323,12 @@ h3 {
   height: 100%;
 }
 .info-area {
-  height: 15%;
-  overflow: scroll;
+  height: 17%;
+  overflow: hidden;
 }
 .val-area {
-  height: 85%;
-  overflow: scroll;
+  height: 83%;
+  overflow: auto;
 }
 .v-card__text {
   height: 100%;

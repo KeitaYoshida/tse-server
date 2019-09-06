@@ -32,6 +32,7 @@ export default {
       loading: false
     };
   },
+  created: function() {},
   methods: {
     ld() {
       this.loading = true;

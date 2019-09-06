@@ -21,10 +21,10 @@
           <v-tabs fixed-tabs show-arrows v-model="tabs">
             <v-tabs-slider color="yellow"></v-tabs-slider>
             <v-tab
-              v-for="(cmpt, index) in tar_model.cmpt"
+              v-for="(cmpt, index) in tarModel.cmpt"
               :key="index"
             >{{ cmpt.cmpt_code.slice(0, -3) }}</v-tab>
-            <v-tab-item v-for="(cmpt, index) in tar_model.cmpt" :key="index" class="mt-5">
+            <v-tab-item v-for="(cmpt, index) in tarModel.cmpt" :key="index" class="mt-5">
               <v-data-table
                 v-model="selected[index]"
                 :headers="headers"
@@ -139,9 +139,16 @@
           <span>構成追加</span>
           <v-icon>fas fa-sitemap</v-icon>
         </v-btn>
+        <v-btn flat color="primary" @click="deleteCmpt()">
+          <span>親形式削除</span>
+          <v-icon>fas fa-trash-alt</v-icon>
+        </v-btn>
       </v-bottom-nav>
       <v-dialog v-model="additem" transition="dialog-transition" width="500px">
         <AddCmptItem :data="dialog_data" @rt="rtAdd" v-if="additem"></AddCmptItem>
+      </v-dialog>
+      <v-dialog v-model="delcmpt" max-width="500px" transition="dialog-transition">
+        <DelChecker :data="delchk_cmpt" @rt="delAct_Cmpt" v-if="delcmpt"></DelChecker>
       </v-dialog>
       <v-dialog v-model="delchk" max-width="500px" transition="dialog-transition">
         <DelChecker :data="delchk_val" @rt="delAct_Do" v-if="delchk"></DelChecker>
@@ -241,7 +248,13 @@ export default {
       delchk_val: {
         title: "構成部材削除",
         message: "親形式から部材を削除します。"
-      }
+      },
+      delcmpt: false,
+      delchk_cmpt: {
+        title: "構成削除",
+        message: "親形式そのものを削除します"
+      },
+      tarModel: null
     };
   },
   created: function() {
@@ -250,6 +263,7 @@ export default {
   },
   methods: {
     init() {
+      if (this.tarModel === null) this.tarModel = this.tar_model;
       if (this.mode === "cmpt") {
         this.selecter = false;
         this.headers = [
@@ -259,11 +273,11 @@ export default {
           { text: "手配先", value: "items.item_model", align: "center" }
         ];
       }
-      if (this.tar_model === undefined) {
-        this.$router.push({ name: "product_list" });
+      if (this.tarModel === undefined) {
+        this.$router.push({ name: "home" });
         return;
       }
-      this.tar_model.cmpt.forEach(c => {
+      this.tarModel.cmpt.forEach(c => {
         c.item_use.forEach(i => {
           this.setNumPrice(i);
         });
@@ -271,6 +285,11 @@ export default {
       axios.get("/db/items/class/list").then(res => {
         this.class_list = res.data;
       });
+    },
+    async review() {
+      let tmp = await axios.get("/db/model_mst/data/" + this.tarModel.model_id);
+      this.tarModel = tmp.data[0];
+      this.init();
     },
     make() {
       let fm = this.fm;
@@ -428,19 +447,9 @@ export default {
       this.henshu_view = false;
       this.target = null;
     },
-    up_items(d) {
-      axios
-        .get(
-          "/items/iteminfo/" +
-            this.target.items.item_code +
-            "/" +
-            this.target.items.item_rev
-        )
-        .then(res => {
-          this.target.items = res.data[0];
-          this.setNumPrice(this.target);
-          this.henshu_view = false;
-        });
+    async up_items(d) {
+      await this.review();
+      this.henshu_view = false;
     },
     view_data_checker(n) {
       if (this.flg_chip_view === false) {
@@ -453,7 +462,7 @@ export default {
       return true;
     },
     add() {
-      let m = this.tar_model;
+      let m = this.tarModel;
       let model_id = m.model_id;
       let cmpt = m.cmpt[this.tabs];
       this.dialog_data = {
@@ -496,7 +505,7 @@ export default {
       };
       this.additem = true;
     },
-    rtAdd(d, flg) {
+    async rtAdd(d, flg) {
       if (
         d.data[0].value === "" ||
         d.data[1].value === "" ||
@@ -514,36 +523,36 @@ export default {
           item_use: d.data[2].value
         }
       };
-      axios.post("/db/r_cmpt_item/add/item/", data).then(res => {
+      await axios.post("/db/r_cmpt_item/add/item/", data).then(res => {
         if (res.data.length === 0) {
           alert("登録済みデータです");
         } else {
           this.setNumPrice(res.data[0]);
-          this.tar_model.cmpt[this.tabs].item_use.unshift(res.data[0]);
+          this.tarModel.cmpt[this.tabs].item_use.unshift(res.data[0]);
         }
       });
+      this.review();
       this.additem = !this.additem;
     },
     delAct(i, index) {
       this.target = i;
-      console.log(this.target_index);
-      console.log(this.tar_model.cmpt[this.tabs].item_use[this.target_index]);
       this.target_index = index;
       this.delchk = true;
     },
-    delAct_Do() {
-      let cmpt_id = this.tar_model.cmpt[this.tabs].cmpt_id;
+    async delAct_Do() {
+      let cmpt_id = this.tarModel.cmpt[this.tabs].cmpt_id;
       let item_id = this.target.items.item_id;
-      axios.get("/db/r_cmpt_item/delete/item/" + cmpt_id + "/" + item_id);
-      let index = this.tar_model.cmpt[this.tabs].item_use.forEach((ar, ind) => {
+      await axios.get("/db/r_cmpt_item/delete/item/" + cmpt_id + "/" + item_id);
+      let index = this.tarModel.cmpt[this.tabs].item_use.forEach((ar, ind) => {
         if (ar.items.item_id === item_id) {
-          this.tar_model.cmpt[this.tabs].item_use.splice(ind, 1);
+          this.tarModel.cmpt[this.tabs].item_use.splice(ind, 1);
           this.delchk = false;
           this.target = null;
           this.target_index = 0;
           return;
         }
       });
+      this.review();
     },
     mv_back() {
       this.$router.go(-1);
@@ -551,6 +560,16 @@ export default {
       // this.$router.push({
       //   name: name
       // });
+    },
+    deleteCmpt() {
+      this.delcmpt = true;
+    },
+    async delAct_Cmpt() {
+      let cmpt = this.tarModel.cmpt[this.tabs];
+      let cmpt_id = cmpt.cmpt_id;
+      await axios.get("/db/cmpt/delete/cmpt/" + cmpt_id);
+      await this.review();
+      this.delcmpt = false;
     }
   }
 };

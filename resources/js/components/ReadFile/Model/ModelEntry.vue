@@ -230,6 +230,8 @@ export default {
         rele: rele
       };
       axios.post("/db/model_entry/", d).then(res => {
+        console.log(res.data);
+        return;
         this.$emit("getModelData", res.data);
       });
     }

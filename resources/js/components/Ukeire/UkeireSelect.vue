@@ -1,9 +1,11 @@
 <template>
-  <v-container fluid>
+  <v-container fluid v-if="order.data">
     <h1 class="mb-3">受け入れ</h1>
     <h2 class="mb-3">
-      <v-chip outline color="primary">{{ cinfo.model_id }}</v-chip>
-      <v-chip outline color="primary">{{ cinfo.order_code }}</v-chip>
+      <template v-if="order.id">
+        <v-chip outline color="primary">{{ order.id }}</v-chip>
+        <v-chip outline color="primary">{{ order.code }}</v-chip>
+      </template>
       <v-chip color="primary" dark @click="numModeView=!numModeView" v-if="numMode===false">数量指定</v-chip>
       <v-chip
         color="success"
@@ -25,13 +27,12 @@
     ></v-text-field>
     <v-data-table
       :headers="headers"
-      :items="ukdata"
+      :items="order.data"
       class="elevation-1"
       :pagination.sync="pagination"
       item-key="cnt_orderlist_id"
       loading="true"
       :search="search"
-      v-if="ukdata"
     >
       <template v-slot:items="props">
         <td class="text-xs-center">
@@ -75,8 +76,8 @@
       </template>
     </v-data-table>
     <v-dialog
+      v-if="numModeView"
       v-model="numModeView"
-      :overlay="false"
       max-width="500px"
       transition="dialog-transition"
     >
@@ -86,10 +87,10 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import NumSetter from "./../com/ComFormDialog";
 
 export default {
-  props: ["ukdata", "cinfo"],
   components: { NumSetter },
   data: function() {
     return {
@@ -121,11 +122,18 @@ export default {
       set_num: ""
     };
   },
+  computed: {
+    ...mapState({
+      order: state => state.orders.one
+    })
+  },
   created: function() {
-    this.init(console.log(this.ukdata));
+    this.init();
   },
   methods: {
-    init() {},
+    init() {
+      if (this.order.data === null) this.$router.push("/ukeire/const_select");
+    },
     rtNyukaStatus(item) {
       let onum = item.num_order;
       let unum = item.num_recept;
@@ -148,28 +156,56 @@ export default {
         return unum > 0 ? "success" : "warning";
       }
     },
-    ukchip(item, num = 0) {
-      let onum = item.num_order;
-      let unum = item.num_recept;
-      if (num !== 0) {
-        unum = num;
-        this.numMode = false;
-        this.set_num = 0;
-        item.num_recept = unum;
-        return;
+    ukchip(item, inputNum = 0) {
+      let num_order = item.num_order;
+      let num_recept = item.num_recept;
+      let setNum = num_order === num_recept ? 0 : num_order;
+      if (inputNum !== 0) setNum = inputNum;
+
+      let iAddNumLast = setNum - num_recept;
+      let iAddNumOrder = -iAddNumLast;
+      if (num_recept > num_order && setNum <= num_order) {
+        iAddNumOrder = num_order - num_recept - iAddNumLast;
+      } else if (num_recept <= num_order && setNum > num_order) {
+        iAddNumOrder = Number(-num_order) + Number(num_recept);
+      } else if (num_recept > num_order && setNum > num_order) {
+        iAddNumOrder = 0;
       }
 
-      if (onum <= unum) {
-        item.num_recept = 0;
-      } else {
-        item.num_recept = unum > 0 ? unum : item.num_order;
-      }
+      axios.post("/db/ukeire/action", {
+        orders: {
+          cnt_order_id: item.cnt_order_id,
+          cnt_order_code: item.cnt_order_code,
+          num_recept: setNum
+        },
+        items: {
+          item_id: item.item_id,
+          last_num: iAddNumLast,
+          order_num: iAddNumOrder
+        }
+      });
+
+      item.num_recept = setNum;
+      this.numMode = false;
+      this.set_num = "";
     },
     setNum(d) {
       this.set_num = d.data[0].value;
       if (this.set_num === "") return;
       this.numMode = true;
       this.numModeView = false;
+      this.ninfo = {
+        title: "受入数量",
+        message: "",
+        data: [
+          {
+            name: "num",
+            label: "受入数量",
+            type: "number",
+            value: ""
+          }
+        ]
+      };
     }
   }
 };

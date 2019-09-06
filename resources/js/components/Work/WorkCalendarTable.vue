@@ -21,8 +21,9 @@
       v-for="(work, index) in process"
       :key="'progress' + index"
       :style="rtProgressStyle(work, index)"
+      @click="select_work(work)"
     >
-      <v-progress-linear color="#1565c0" class="pline" :value="work.context || 0"></v-progress-linear>
+      <v-progress-linear :color="setColor(work)" class="pline" :value="work.context || 0"></v-progress-linear>
     </div>
   </div>
 </template>
@@ -41,7 +42,8 @@ export default {
   },
   computed: {
     ...mapState({
-      works: "works"
+      works: "works",
+      search_x: state => state.search.modelconst
     })
   },
   created: function() {
@@ -57,6 +59,9 @@ export default {
       // console.log(this.works);
       this.days = this.works.list.days.values;
       this.process = this.works.list.process;
+      if (this.search_x) {
+        this.filterAct(this.search_x);
+      }
     },
     rtMonth(m, index) {
       if (index === 0) {
@@ -93,11 +98,36 @@ export default {
         "left: " + (this.headLeft - e.target.scrollLeft) + "px;"
       );
       this.$emit("scroll", e.target.scrollTop);
+    },
+    setColor(work) {
+      let today = this.works.list.days.day;
+      let ed_day = work.ed_day;
+      let context = work.context;
+      if (context === 100) return "#2e7d32";
+      else if (ed_day < today) return "#ef6c00";
+      else return "#1565c0";
+    },
+    select_work(work) {
+      this.$router.push("/process/" + work.worklist_id);
+    },
+    filterAct(val) {
+      val = val === null ? "" : val;
+      let tar = val.toLowerCase();
+      this.process = this.works.list.process.filter(ar => {
+        return (
+          ~ar.model.model_code.toLowerCase().indexOf(tar) ||
+          ~ar.worklist_code.toLowerCase().indexOf(tar)
+        );
+      });
+      this.select = [];
     }
   },
   watch: {
     scrollTop: function(val) {
       document.getElementById("calendarList").scrollTop = val;
+    },
+    search_x: function(val) {
+      this.filterAct(val);
     }
   }
 };
