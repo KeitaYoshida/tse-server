@@ -24,7 +24,7 @@ const order_list = () => import( /* webpackChunkName: "order_list" */ "../compon
 const ukeire = () => import(/* webpackChunkName: "order_list" */ "../components/Ukeire/ukeire.vue")
 const tehaisaki = () => import(/* webpackChunkName: "tehaisaki" */ "../components/com/Tehaisaki.vue")
 const process = () => import(/* webpackChunkName: "process" */ "../components/Process.vue");
-const item_monitor = () => import(/* webpackChunkName: "item_monitor" */ "../components/com/ItemMonitor.vue");
+const item_monitor = () => import(/* webpackChunkName: "item_monitor" */ "../components/com/ItemMonitorGet.vue");
 const work = () => import(/* webpackChunkName: "work" */ "../components/Work/work.vue");
 
 let Auth = {
@@ -135,7 +135,7 @@ let router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: "/ukeire",
+      path: "/ukeire/:pid",
       name: "ukeire",
       component: ukeire,
       meta: { requiresAuth: true }
@@ -152,7 +152,7 @@ let router = new Router({
       meta: { requiresAuth: true },
     },
     {
-      path: "/item_monitor/:mid",
+      path: "/item_monitor/:work_id",
       name: "item_monitor",
       component: item_monitor,
       meta: { requiresAuth: true },

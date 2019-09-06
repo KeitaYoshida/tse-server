@@ -132,4 +132,36 @@ class CntOrderCtrl extends Controller
     }
     return $i;
   }
+
+  public function UkeireAction(Request $req)
+  {
+    $co = new CntOrder;
+    $col = new CntOrderList;
+    $it = new Item;
+    $o = $req->orders;
+    $i = $req->items;
+    $co->where('cnt_order_id', $o['cnt_order_id'])->update(['num_recept' => $o['num_recept']]);
+    $it->where('item_id', $i['item_id'])->increment('last_num', $i['last_num']);
+    $it->where('item_id', $i['item_id'])->increment('order_num', $i['order_num']);
+
+    $row = $co->where('cnt_order_code', $o['cnt_order_code'])->get();
+    $i = $cnt = 0;
+    foreach ($row as $val) {
+      if ($val['num_recept'] >= $val['num_order']) {
+        $cnt = $cnt + 1;
+      }
+      $i = $i + 1;
+    }
+    $context = round($cnt / $i * 100, 2);
+    if ($context === 100.00) {
+      $col->where('cnt_order_code', $o['cnt_order_code'])->update(['context' => $context, 'cnt_status' => 2]);
+    } else {
+      $col->where('cnt_order_code', $o['cnt_order_code'])->update(['context' => $context, 'cnt_status' => 1]);
+    }
+  }
+  public function GetUkeireAllList()
+  {
+    $co = new CntOrder;
+    return $co->whereColumn('num_recept', '<', 'num_order')->with(['cmpt', 'item'])->get();
+  }
 }

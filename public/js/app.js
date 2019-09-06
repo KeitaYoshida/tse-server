@@ -77168,7 +77168,7 @@ var process = function process() {
 };
 
 var item_monitor = function item_monitor() {
-  return __webpack_require__.e(/*! import() | item_monitor */ "item_monitor").then(__webpack_require__.bind(null, /*! ../components/com/ItemMonitor.vue */ "./resources/js/components/com/ItemMonitor.vue"));
+  return __webpack_require__.e(/*! import() | item_monitor */ "item_monitor").then(__webpack_require__.bind(null, /*! ../components/com/ItemMonitorGet.vue */ "./resources/js/components/com/ItemMonitorGet.vue"));
 };
 
 var work = function work() {
@@ -77296,7 +77296,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
       requiresAuth: true
     }
   }, {
-    path: "/ukeire",
+    path: "/ukeire/:pid",
     name: "ukeire",
     component: ukeire,
     meta: {
@@ -77314,7 +77314,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
       requiresAuth: true
     }
   }, {
-    path: "/item_monitor/:mid",
+    path: "/item_monitor/:work_id",
     name: "item_monitor",
     component: item_monitor,
     meta: {
@@ -77364,7 +77364,7 @@ router.beforeEach(function (to, from, next) {
 /*!***************************************!*\
   !*** ./resources/js/store/actions.js ***!
   \***************************************/
-/*! exports provided: SET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_RESET, WORK_ABOUT_SET, WORK_ABOUT_RESET, PDCT_ABOUT_SET, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY */
+/*! exports provided: SET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_RESET, WORK_ABOUT_SET, WORK_ABOUT_RESET, PDCT_ABOUT_SET, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY, SEARCH_MODELCONST, ORDERS_ONE_INIT_SET */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77385,6 +77385,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROCESS_ITEMS_SET", function() { return PROCESS_ITEMS_SET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKS_INIT_DAY_PROCESS", function() { return WORKS_INIT_DAY_PROCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKS_EDIT_WORK_DAY", function() { return WORKS_EDIT_WORK_DAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_MODELCONST", function() { return SEARCH_MODELCONST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ORDERS_ONE_INIT_SET", function() { return ORDERS_ONE_INIT_SET; });
 /* harmony import */ var _mutation_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mutation-types */ "./resources/js/store/mutation-types.js");
 
 var SET_COMPONENT_COM = function SET_COMPONENT_COM(_ref, cmpt) {
@@ -77463,6 +77465,14 @@ var WORKS_EDIT_WORK_DAY = function WORKS_EDIT_WORK_DAY(_ref16, payload) {
   var commit = _ref16.commit;
   commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["WORKS_EDIT_WORK_DAY"], payload);
 };
+var SEARCH_MODELCONST = function SEARCH_MODELCONST(_ref17, payload) {
+  var commit = _ref17.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["SEARCH_MODELCONST"], payload);
+};
+var ORDERS_ONE_INIT_SET = function ORDERS_ONE_INIT_SET(_ref18, payload) {
+  var commit = _ref18.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["ORDERS_ONE_INIT_SET"], payload);
+};
 
 /***/ }),
 
@@ -77513,13 +77523,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*!**********************************************!*\
   !*** ./resources/js/store/mutation-types.js ***!
   \**********************************************/
-/*! exports provided: MESSAGE_UPDATE, USER_INFO, SET_COMPONENT_COM, RESET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_SET_OBJECT, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY, WORK_ABOUT_SET, SET_MODEL_COM, PDCT_ABOUT_SET */
+/*! exports provided: MESSAGE_UPDATE, USER_INFO, SEARCH_MODELCONST, SET_COMPONENT_COM, RESET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_SET_OBJECT, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY, WORK_ABOUT_SET, SET_MODEL_COM, PDCT_ABOUT_SET, ORDERS_ONE_INIT_SET */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MESSAGE_UPDATE", function() { return MESSAGE_UPDATE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "USER_INFO", function() { return USER_INFO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_MODELCONST", function() { return SEARCH_MODELCONST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_COMPONENT_COM", function() { return SET_COMPONENT_COM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESET_COMPONENT_COM", function() { return RESET_COMPONENT_COM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CMPT_SEARCH_VAL", function() { return CMPT_SEARCH_VAL; });
@@ -77537,8 +77548,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORK_ABOUT_SET", function() { return WORK_ABOUT_SET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_MODEL_COM", function() { return SET_MODEL_COM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PDCT_ABOUT_SET", function() { return PDCT_ABOUT_SET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ORDERS_ONE_INIT_SET", function() { return ORDERS_ONE_INIT_SET; });
 var MESSAGE_UPDATE = "MESSAGE_UPDATE";
 var USER_INFO = "USER_INFO";
+var SEARCH_MODELCONST = "SEARCH_MODELCONST";
 var SET_COMPONENT_COM = "SET_COMPONENT_COM";
 var RESET_COMPONENT_COM = "RESET_COMPONENT_COM";
 var CMPT_SEARCH_VAL = "CMPT_SEARCH_VAL";
@@ -77556,6 +77569,7 @@ var WORKS_EDIT_WORK_DAY = "WORKS_EDIT_WORK_DAY";
 var WORK_ABOUT_SET = "WORK_ABOUT_SET";
 var SET_MODEL_COM = "SET_MODEL_COM";
 var PDCT_ABOUT_SET = "PDCT_ABOUT_SET";
+var ORDERS_ONE_INIT_SET = "ORDERS_ONE_INIT_SET";
 
 /***/ }),
 
@@ -77585,12 +77599,20 @@ var state = {
   search: {
     item: null,
     model: null,
-    user: null
+    user: null,
+    modelconst: null
   },
   works: {
     list: {
       days: null,
       process: null
+    }
+  },
+  orders: {
+    one: {
+      id: null,
+      code: null,
+      data: null
     }
   },
   target: {
@@ -77644,6 +77666,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["USER_INFO"], function (state, payload) {
   if (payload === 'GUEST') return;
   state.user_info = payload;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["SEARCH_MODELCONST"], function (state, payload) {
+  state.search.modelconst = payload;
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["SET_MODEL_COM"], function (state, payload) {
   state.search.model = state.target.model.code = payload.code;
   state.target.model.id = payload.id;
@@ -77696,6 +77720,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
   });
   tar.st_day = payload.sday;
   tar.ed_day = payload.eday;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["ORDERS_ONE_INIT_SET"], function (state, payload) {
+  state.orders.one = payload;
 }), _mutations);
 
 /***/ }),

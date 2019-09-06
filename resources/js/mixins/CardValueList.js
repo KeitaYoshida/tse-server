@@ -112,7 +112,7 @@ const _card_data = {
     button: false,
     button_text: BUTON_TEXT
   },
-  ukeire: {
+  ['ukeire/const_select']: {
     title: "受入",
     class_text: COLOR_WORK_LESS,
     color: TEXT_COLOR,

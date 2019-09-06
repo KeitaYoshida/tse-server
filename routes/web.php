@@ -71,6 +71,7 @@ Route::get("/db/model_mst/cmpt/work/item/select/{cid}/{wid}", 'ModelCtrl@ModelCm
 
 Route::get("/db/cmpt/data/{id}", "CmptCtrl@GetCmptData");
 Route::post("/db/comt/get/data/arr", "CmptCtrl@GetCmptDataArr");
+Route::get("/db/cmpt/delete/cmpt/{id}", "CmptCtrl@DeleteCmpt");
 
 Route::post('/db/recept/hatyu/data/list', 'ReceptCtrl@DataList');
 Route::post('/db/recept/hatyu/data/set/{setTime}/{type}', 'ReceptCtrl@SetData');
@@ -119,6 +120,9 @@ Route::post("/db/order/list/orderd/", 'CntOrderCtrl@OrderListOrderd');
 Route::get("/db/order/list/yoyaku", 'CntOrderCtrl@OrderListYoyaku');
 Route::get("/db/order/torikeshi/{ocode}", 'CntOrderCtrl@OrderTorikeshi');
 Route::get("/db/order/ukeire/cnt/list", 'CntOrderCtrl@OrderUkeireCntList');
+
+Route::get('/db/ukeire/all/list', "CntOrderCtrl@GetUkeireAllList");
+Route::post("/db/ukeire/action", "CntOrderCtrl@UkeireAction");
 
 Route::get("/db/vendor/list", 'VendorCtrl@vendor_list');
 Route::get("/db/vendor/update/one/col/{vid}/{col}/{val}", 'VendorCtrl@VendorUpOne');

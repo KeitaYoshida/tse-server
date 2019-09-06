@@ -60,3 +60,9 @@ export const WORKS_INIT_DAY_PROCESS = ({ commit }, payload) => {
 export const WORKS_EDIT_WORK_DAY = ({ commit }, payload) => {
   commit(types.WORKS_EDIT_WORK_DAY, payload);
 }
+export const SEARCH_MODELCONST = ({ commit }, payload) => {
+  commit(types.SEARCH_MODELCONST, payload);
+}
+export const ORDERS_ONE_INIT_SET = ({ commit }, payload) => {
+  commit(types.ORDERS_ONE_INIT_SET, payload);
+}

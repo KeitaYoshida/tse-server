@@ -9,13 +9,21 @@ export const state = {
   search: {
     item: null,
     model: null,
-    user: null
+    user: null,
+    modelconst: null
   },
   works: {
     list: {
       days: null,
       process: null
     },
+  },
+  orders: {
+    one: {
+      id: null,
+      code: null,
+      data: null
+    }
   },
   target: {
     code: null,
@@ -70,6 +78,9 @@ export const mutations = {
   [types.USER_INFO](state, payload) {
     if (payload === 'GUEST') return;
     state.user_info = payload;
+  },
+  [types.SEARCH_MODELCONST](state, payload) {
+    state.search.modelconst = payload;
   },
   [types.SET_MODEL_COM](state, payload) {
     state.search.model = state.target.model.code = payload.code;
@@ -140,5 +151,8 @@ export const mutations = {
     });
     tar.st_day = payload.sday;
     tar.ed_day = payload.eday;
-  }
+  },
+  [types.ORDERS_ONE_INIT_SET](state, payload) {
+    state.orders.one = payload;
+  },
 }

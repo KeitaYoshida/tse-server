@@ -42,9 +42,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  created: function created() {
-    console.log(this.data);
-  },
+  created: function created() {},
   methods: {
     submit: function submit() {
       this.$emit("rt", this.data, true);

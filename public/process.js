@@ -273,7 +273,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
@@ -463,7 +462,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 9:
                 _context.next = 11;
                 return axios.get("/db/workdata/cmpt/items/" + i.work_id).then(function (res) {
-                  // console.log(res.data);
+                  console.log(i.work_id); // console.log(res.data);
+
                   var d = [];
                   res.data.forEach(function (cmpt) {
                     // console.log("test");
@@ -891,7 +891,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
       return loopAction;
     }(),
     itemMonitor: function itemMonitor() {
-      window.open("http://192.168.13.103:8000/item_monitor/" + this.tar.process.base.mid);
+      // this.$router.push("/item_monitor/89")
+      window.open("http://192.168.13.103:8000/item_monitor/" + this.tar.process.info.work_id);
     }
   })
 });
@@ -1009,7 +1010,7 @@ exports.push([module.i, ".process[data-v-38e10f58] {\n  height: 100%;\n}\nmain[d
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".flg[data-v-a708a194] {\n  border-radius: 3px !important;\n}\nspan.text[data-v-a708a194] {\n  font-size: 1.5rem;\n}\ndiv.mini[data-v-a708a194] {\n  font-size: 1rem;\n  text-align: center;\n}\ntd[data-v-a708a194] {\n  padding: 0.2rem 0.4rem;\n}\n.const_info[data-v-a708a194] {\n  height: 30%;\n  overflow-y: scroll;\n}\ndiv.flex[data-v-a708a194] {\n  height: 100%;\n}", ""]);
+exports.push([module.i, ".flg[data-v-a708a194] {\n  border-radius: 3px !important;\n}\nspan.text[data-v-a708a194] {\n  font-size: 1.5rem;\n}\ndiv.mini[data-v-a708a194] {\n  font-size: 1rem;\n  text-align: center;\n}\nspan.mini[data-v-a708a194] {\n  font-size: 0.8rem;\n}\ntd[data-v-a708a194] {\n  padding: 0.2rem 0.4rem;\n}\n.const_info[data-v-a708a194] {\n  height: 30%;\n  overflow: hidden;\n}\ndiv.flex[data-v-a708a194] {\n  height: 100%;\n}", ""]);
 
 
 
@@ -1024,7 +1025,7 @@ exports.push([module.i, ".flg[data-v-a708a194] {\n  border-radius: 3px !importan
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td.title_text button[data-v-33f55243] {\n  font-size: 1.5rem;\n}\ntd.title_text.select button[data-v-33f55243] {\n  color: #1565c0;\n}\ntd.status[data-v-33f55243] {\n  font-size: 1rem;\n}\ntr:nth-child(odd) td[data-v-33f55243] {\n  padding: 0.3rem;\n  padding-bottom: 0;\n}\ntr:nth-child(even) td[data-v-33f55243] {\n  padding: 0.3rem;\n  padding-top: 0;\n  border-bottom: 0.5px solid #ddd;\n}\ntr:nth-child(even) td button[data-v-33f55243] {\n  margin-top: 0;\n}\n.v-chip[data-v-33f55243] {\n  border-radius: 2px !important;\n}\n.v-chip.row1[data-v-33f55243] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\n.v-chip.row0[data-v-33f55243] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\n.const_info[data-v-33f55243] {\n  height: 70%;\n  overflow-y: scroll;\n}\ndiv.flex[data-v-33f55243] {\n  height: 100%;\n}", ""]);
+exports.push([module.i, "td.title_text button[data-v-33f55243] {\n  font-size: 1.5rem;\n}\ntd.title_text.select button[data-v-33f55243] {\n  color: #1565c0;\n}\ntd.status[data-v-33f55243] {\n  font-size: 1rem;\n}\ntr:nth-child(odd) td[data-v-33f55243] {\n  padding: 0.3rem;\n  padding-bottom: 0;\n}\ntr:nth-child(even) td[data-v-33f55243] {\n  padding: 0.3rem;\n  padding-top: 0;\n  border-bottom: 0.5px solid #ddd;\n}\ntr:nth-child(even) td button[data-v-33f55243] {\n  margin-top: 0;\n}\n.v-chip[data-v-33f55243] {\n  border-radius: 2px !important;\n}\n.v-chip.row1[data-v-33f55243] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\n.v-chip.row0[data-v-33f55243] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\n.const_info[data-v-33f55243] {\n  height: 70%;\n  overflow-y: auto;\n}\ndiv.flex[data-v-33f55243] {\n  height: 100%;\n}", ""]);
 
 
 
@@ -1039,7 +1040,7 @@ exports.push([module.i, "td.title_text button[data-v-33f55243] {\n  font-size: 1
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "strong.h[data-v-1e7ac174] {\n  font-size: 1rem;\n  display: block;\n  text-align: center;\n  margin-top: 1rem;\n}\nstrong.h.row0[data-v-1e7ac174] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\nstrong.h.row1[data-v-1e7ac174] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\nstrong.h.select[data-v-1e7ac174] {\n  border-bottom: 1px solid;\n}\n.v-chip.row1[data-v-1e7ac174] {\n  color: white;\n  background-color: #1565c0;\n  border-color: #1565c0;\n  border-radius: 5px;\n}\n.v-chip.row0[data-v-1e7ac174] {\n  color: white;\n  background-color: #2e7d32;\n  border-color: #2e7d32;\n  border-radius: 5px;\n}\n.v-chip.row1.v-chip--outline[data-v-1e7ac174] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\n.v-chip.row0.v-chip--outline[data-v-1e7ac174] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\n.v-menu[data-v-1e7ac174] {\n  display: inline;\n}\nlabel[data-v-1e7ac174] {\n  font-size: 1rem;\n}\n#set_tar_val[data-v-1e7ac174] {\n  width: 100px;\n  border-bottom: 1px solid gray;\n}\nh3[data-v-1e7ac174] {\n  display: inline;\n}\n.const_info[data-v-1e7ac174] {\n  height: 100%;\n}\n.info-area[data-v-1e7ac174] {\n  height: 15%;\n  overflow: scroll;\n}\n.val-area[data-v-1e7ac174] {\n  height: 85%;\n  overflow: scroll;\n}\n.v-card__text[data-v-1e7ac174] {\n  height: 100%;\n}\nbutton.act[data-v-1e7ac174] {\n  height: 3rem;\n  margin: 0;\n  border-radius: 2px;\n  color: #1565c0;\n}\ndiv.flex[data-v-1e7ac174] {\n  height: 100%;\n}\nth[data-v-1e7ac174],\ntd[data-v-1e7ac174] {\n  padding: 0.6rem 0;\n  border-bottom: 0.8px solid #d6d4d4;\n  font-size: 1.5rem;\n  font-weight: 400;\n  height: 4rem;\n  vertical-align: middle;\n}\nth.no[data-v-1e7ac174] {\n  color: darkgray;\n}\n.sticky_table[data-v-1e7ac174] {\n  display: block;\n  position: relative;\n  border-collapse: collapse;\n  font-size: 0;\n}\n.sticky_table thead[data-v-1e7ac174],\n.sticky_table tbody[data-v-1e7ac174] {\n  display: block;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n}\n.sticky_table th[data-v-1e7ac174],\n.sticky_table td[data-v-1e7ac174] {\n  display: inline-block;\n  width: 10rem;\n  background: #fff;\n  font-size: 1.5rem;\n}\n.sticky_table thead[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  z-index: 2;\n}\n.sticky_table tbody th[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  left: 0;\n  z-index: 1;\n}\n.sticky_table thead th.blank[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  left: 0;\n  z-index: 3;\n}\ntd.chk-info[data-v-1e7ac174] {\n  font-size: 0.9rem;\n}", ""]);
+exports.push([module.i, "strong.h[data-v-1e7ac174] {\n  font-size: 1rem;\n  display: block;\n  text-align: center;\n  margin-top: 1rem;\n}\nstrong.h.row0[data-v-1e7ac174] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\nstrong.h.row1[data-v-1e7ac174] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\nstrong.h.select[data-v-1e7ac174] {\n  border-bottom: 1px solid;\n}\n.v-chip.row1[data-v-1e7ac174] {\n  color: white;\n  background-color: #1565c0;\n  border-color: #1565c0;\n  border-radius: 5px;\n}\n.v-chip.row0[data-v-1e7ac174] {\n  color: white;\n  background-color: #2e7d32;\n  border-color: #2e7d32;\n  border-radius: 5px;\n}\n.v-chip.row1.v-chip--outline[data-v-1e7ac174] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\n.v-chip.row0.v-chip--outline[data-v-1e7ac174] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\n.v-menu[data-v-1e7ac174] {\n  display: inline;\n}\nlabel[data-v-1e7ac174] {\n  font-size: 1rem;\n}\n#set_tar_val[data-v-1e7ac174] {\n  width: 100px;\n  border-bottom: 1px solid gray;\n}\nh3[data-v-1e7ac174] {\n  display: inline;\n}\n.const_info[data-v-1e7ac174] {\n  height: 100%;\n}\n.info-area[data-v-1e7ac174] {\n  height: 17%;\n  overflow: hidden;\n}\n.val-area[data-v-1e7ac174] {\n  height: 83%;\n  overflow: auto;\n}\n.v-card__text[data-v-1e7ac174] {\n  height: 100%;\n}\nbutton.act[data-v-1e7ac174] {\n  height: 3rem;\n  margin: 0;\n  border-radius: 2px;\n  color: #1565c0;\n}\ndiv.flex[data-v-1e7ac174] {\n  height: 100%;\n}\nth[data-v-1e7ac174],\ntd[data-v-1e7ac174] {\n  padding: 0.6rem 0;\n  border-bottom: 0.8px solid #d6d4d4;\n  font-size: 1.5rem;\n  font-weight: 400;\n  height: 4rem;\n  vertical-align: middle;\n}\nth.no[data-v-1e7ac174] {\n  color: darkgray;\n}\n.sticky_table[data-v-1e7ac174] {\n  display: block;\n  position: relative;\n  border-collapse: collapse;\n  font-size: 0;\n}\n.sticky_table thead[data-v-1e7ac174],\n.sticky_table tbody[data-v-1e7ac174] {\n  display: block;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n}\n.sticky_table th[data-v-1e7ac174],\n.sticky_table td[data-v-1e7ac174] {\n  display: inline-block;\n  width: 10rem;\n  background: #fff;\n  font-size: 1.5rem;\n}\n.sticky_table thead[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  z-index: 2;\n}\n.sticky_table tbody th[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  left: 0;\n  z-index: 1;\n}\n.sticky_table thead th.blank[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  left: 0;\n  z-index: 3;\n}\ntd.chk-info[data-v-1e7ac174] {\n  font-size: 0.9rem;\n}", ""]);
 
 
 
@@ -1475,19 +1476,17 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _vm.tar.process.base.num !== _vm.tar.process.base.all_num
-                  ? _c("div", [
-                      _c("span", { staticClass: "text" }, [
-                        _vm._v(
-                          "分割：" +
-                            _vm._s(
-                              _vm.tar.process.base.num *
-                                _vm.tar.process.base.wcode_num
-                            ) +
-                            " / " +
-                            _vm._s(_vm.tar.process.base.all_num) +
-                            " ea"
-                        )
-                      ])
+                  ? _c("span", { staticClass: "mini" }, [
+                      _vm._v(
+                        "(分割：" +
+                          _vm._s(
+                            _vm.tar.process.base.num *
+                              _vm.tar.process.base.wcode_num
+                          ) +
+                          " / " +
+                          _vm._s(_vm.tar.process.base.all_num) +
+                          " ea)"
+                      )
                     ])
                   : _vm._e()
               ])

@@ -1,5 +1,6 @@
 export const MESSAGE_UPDATE = "MESSAGE_UPDATE";
 export const USER_INFO = "USER_INFO";
+export const SEARCH_MODELCONST = "SEARCH_MODELCONST";
 export const SET_COMPONENT_COM = "SET_COMPONENT_COM";
 export const RESET_COMPONENT_COM = "RESET_COMPONENT_COM";
 
@@ -23,3 +24,5 @@ export const WORK_ABOUT_SET = "WORK_ABOUT_SET";
 export const SET_MODEL_COM = "SET_MODEL_COM";
 
 export const PDCT_ABOUT_SET = "PDCT_ABOUT_SET";
+
+export const ORDERS_ONE_INIT_SET = "ORDERS_ONE_INIT_SET";

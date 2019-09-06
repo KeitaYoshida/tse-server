@@ -42,6 +42,7 @@ __webpack_require__.r(__webpack_exports__);
       loading: false
     };
   },
+  created: function created() {},
   methods: {
     ld: function ld() {
       this.loading = true;
@@ -908,7 +909,11 @@ var render = function() {
               _c(
                 "v-flex",
                 { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
-                [_c("common-cards", { attrs: { card_name: "ukeire" } })],
+                [
+                  _c("common-cards", {
+                    attrs: { card_name: "ukeire/const_select" }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),
@@ -1167,6 +1172,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _card_data2;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var TEXT_COLOR = 'white--text'; // const COLOR_TEAL_CLASS_2 = 'blue lighten-2';
 
 var BUTON_TEXT = 'VIEW';
@@ -1175,7 +1184,8 @@ var COLOR_MST = 'green lighten-2';
 var COLOR_FILE = "indigo lighten-2";
 var COLOR_WORK = "deep-orange lighten-2";
 var COLOR_WORK_LESS = 'teal lighten-2';
-var _card_data = {
+
+var _card_data = (_card_data2 = {
   item_list: {
     title: "部材",
     class_text: COLOR_MST,
@@ -1269,38 +1279,36 @@ var _card_data = {
     links: "",
     button: false,
     button_text: BUTON_TEXT
-  },
-  ukeire: {
-    title: "受入",
-    class_text: COLOR_WORK_LESS,
-    color: TEXT_COLOR,
-    text: ["発注部材受け入れ"],
-    details: [""].join(""),
-    links: "",
-    button: false,
-    button_text: BUTON_TEXT
-  },
-  work: {
-    title: "制作",
-    class_text: COLOR_DEF,
-    color: TEXT_COLOR,
-    text: ["工事リスト・工程管理表・作業データ登録"],
-    details: [""].join(""),
-    links: "",
-    button: false,
-    button_text: BUTON_TEXT
-  },
-  tehaisaki: {
-    title: "手配先",
-    class_text: COLOR_WORK_LESS,
-    color: TEXT_COLOR,
-    text: ["統合・登録・削除・更新"],
-    details: [""].join(""),
-    links: "",
-    button: false,
-    button_text: BUTON_TEXT
   }
-};
+}, _defineProperty(_card_data2, 'ukeire/const_select', {
+  title: "受入",
+  class_text: COLOR_WORK_LESS,
+  color: TEXT_COLOR,
+  text: ["発注部材受け入れ"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _defineProperty(_card_data2, "work", {
+  title: "制作",
+  class_text: COLOR_DEF,
+  color: TEXT_COLOR,
+  text: ["工事リスト・工程管理表・作業データ登録"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _defineProperty(_card_data2, "tehaisaki", {
+  title: "手配先",
+  class_text: COLOR_WORK_LESS,
+  color: TEXT_COLOR,
+  text: ["統合・登録・削除・更新"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _card_data2);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {

@@ -9,14 +9,22 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dayjs/locale/ja */ "./node_modules/dayjs/locale/ja.js");
-/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../com/ComCheckDialog */ "./resources/js/components/com/ComCheckDialog.vue");
-/* harmony import */ var _com_ComFormDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../com/ComFormDialog */ "./resources/js/components/com/ComFormDialog.vue");
-/* harmony import */ var _ItemData_Henshu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../ItemData/Henshu */ "./resources/js/components/ItemData/Henshu.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dayjs/locale/ja */ "./node_modules/dayjs/locale/ja.js");
+/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../com/ComCheckDialog */ "./resources/js/components/com/ComCheckDialog.vue");
+/* harmony import */ var _com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../com/ComFormDialog */ "./resources/js/components/com/ComFormDialog.vue");
+/* harmony import */ var _ItemData_Henshu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../ItemData/Henshu */ "./resources/js/components/ItemData/Henshu.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -196,9 +204,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
-dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
+dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
 
 
 
@@ -206,12 +221,12 @@ dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    DelChecker: _com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_2__["default"],
-    AddCmptItem: _com_ComFormDialog__WEBPACK_IMPORTED_MODULE_3__["default"],
-    NumChanger: _com_ComFormDialog__WEBPACK_IMPORTED_MODULE_3__["default"],
-    HenshuView: _ItemData_Henshu__WEBPACK_IMPORTED_MODULE_4__["default"]
+    DelChecker: _com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__["default"],
+    AddCmptItem: _com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__["default"],
+    NumChanger: _com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__["default"],
+    HenshuView: _ItemData_Henshu__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapState"])({
     user_info: "user_info"
   })),
   props: ["tar_model", "fm", "mode", "rtname"],
@@ -272,7 +287,13 @@ dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
       delchk_val: {
         title: "構成部材削除",
         message: "親形式から部材を削除します。"
-      }
+      },
+      delcmpt: false,
+      delchk_cmpt: {
+        title: "構成削除",
+        message: "親形式そのものを削除します"
+      },
+      tarModel: null
     };
   },
   created: function created() {
@@ -281,6 +302,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
   methods: {
     init: function init() {
       var _this = this;
+
+      if (this.tarModel === null) this.tarModel = this.tar_model;
 
       if (this.mode === "cmpt") {
         this.selecter = false;
@@ -303,14 +326,14 @@ dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
         }];
       }
 
-      if (this.tar_model === undefined) {
+      if (this.tarModel === undefined) {
         this.$router.push({
-          name: "product_list"
+          name: "home"
         });
         return;
       }
 
-      this.tar_model.cmpt.forEach(function (c) {
+      this.tarModel.cmpt.forEach(function (c) {
         c.item_use.forEach(function (i) {
           _this.setNumPrice(i);
         });
@@ -319,6 +342,37 @@ dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
         _this.class_list = res.data;
       });
     },
+    review: function () {
+      var _review = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var tmp;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get("/db/model_mst/data/" + this.tarModel.model_id);
+
+              case 2:
+                tmp = _context.sent;
+                this.tarModel = tmp.data[0];
+                this.init();
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function review() {
+        return _review.apply(this, arguments);
+      }
+
+      return review;
+    }(),
     make: function make() {
       var _this2 = this;
 
@@ -384,7 +438,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
                 vendor_code: arr.vendor_code,
                 price: arr.vendor_item_price,
                 kako: arr.kako,
-                order_day: dayjs__WEBPACK_IMPORTED_MODULE_0___default()(fm.order_day).add(arr.order_add_date, "days").format("YYYY-MM-DD")
+                order_day: dayjs__WEBPACK_IMPORTED_MODULE_1___default()(fm.order_day).add(arr.order_add_date, "days").format("YYYY-MM-DD")
               };
               price = price + arr.vendor_item_price * i.num;
             });
@@ -485,17 +539,34 @@ dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
       this.henshu_view = false;
       this.target = null;
     },
-    up_items: function up_items(d) {
-      var _this3 = this;
+    up_items: function () {
+      var _up_items = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(d) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return this.review();
 
-      axios.get("/items/iteminfo/" + this.target.items.item_code + "/" + this.target.items.item_rev).then(function (res) {
-        _this3.target.items = res.data[0];
+              case 2:
+                this.henshu_view = false;
 
-        _this3.setNumPrice(_this3.target);
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
 
-        _this3.henshu_view = false;
-      });
-    },
+      function up_items(_x) {
+        return _up_items.apply(this, arguments);
+      }
+
+      return up_items;
+    }(),
     view_data_checker: function view_data_checker(n) {
       if (this.flg_chip_view === false) {
         if (n === 6) return false;
@@ -509,7 +580,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
       return true;
     },
     add: function add() {
-      var m = this.tar_model;
+      var m = this.tarModel;
       var model_id = m.model_id;
       var cmpt = m.cmpt[this.tabs];
       this.dialog_data = {
@@ -543,64 +614,156 @@ dayjs__WEBPACK_IMPORTED_MODULE_0___default.a.locale("ja");
       };
       this.additem = true;
     },
-    rtAdd: function rtAdd(d, flg) {
-      var _this4 = this;
+    rtAdd: function () {
+      var _rtAdd = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(d, flg) {
+        var _this3 = this;
 
-      if (d.data[0].value === "" || d.data[1].value === "" || d.data[2].value === "") {
-        return;
+        var data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!(d.data[0].value === "" || d.data[1].value === "" || d.data[2].value === "")) {
+                  _context3.next = 2;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 2:
+                data = {
+                  item: {
+                    item_code: d.data[0].value,
+                    item_rev: d.data[1].value
+                  },
+                  cmpt: {
+                    cmpt_id: d.tar.rci,
+                    item_use: d.data[2].value
+                  }
+                };
+                _context3.next = 5;
+                return axios.post("/db/r_cmpt_item/add/item/", data).then(function (res) {
+                  if (res.data.length === 0) {
+                    alert("登録済みデータです");
+                  } else {
+                    _this3.setNumPrice(res.data[0]);
+
+                    _this3.tarModel.cmpt[_this3.tabs].item_use.unshift(res.data[0]);
+                  }
+                });
+
+              case 5:
+                this.review();
+                this.additem = !this.additem;
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function rtAdd(_x2, _x3) {
+        return _rtAdd.apply(this, arguments);
       }
 
-      var data = {
-        item: {
-          item_code: d.data[0].value,
-          item_rev: d.data[1].value
-        },
-        cmpt: {
-          cmpt_id: d.tar.rci,
-          item_use: d.data[2].value
-        }
-      };
-      axios.post("/db/r_cmpt_item/add/item/", data).then(function (res) {
-        if (res.data.length === 0) {
-          alert("登録済みデータです");
-        } else {
-          _this4.setNumPrice(res.data[0]);
-
-          _this4.tar_model.cmpt[_this4.tabs].item_use.unshift(res.data[0]);
-        }
-      });
-      this.additem = !this.additem;
-    },
+      return rtAdd;
+    }(),
     delAct: function delAct(i, index) {
       this.target = i;
-      console.log(this.target_index);
-      console.log(this.tar_model.cmpt[this.tabs].item_use[this.target_index]);
       this.target_index = index;
       this.delchk = true;
     },
-    delAct_Do: function delAct_Do() {
-      var _this5 = this;
+    delAct_Do: function () {
+      var _delAct_Do = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var _this4 = this;
 
-      var cmpt_id = this.tar_model.cmpt[this.tabs].cmpt_id;
-      var item_id = this.target.items.item_id;
-      axios.get("/db/r_cmpt_item/delete/item/" + cmpt_id + "/" + item_id);
-      var index = this.tar_model.cmpt[this.tabs].item_use.forEach(function (ar, ind) {
-        if (ar.items.item_id === item_id) {
-          _this5.tar_model.cmpt[_this5.tabs].item_use.splice(ind, 1);
+        var cmpt_id, item_id, index;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                cmpt_id = this.tarModel.cmpt[this.tabs].cmpt_id;
+                item_id = this.target.items.item_id;
+                _context4.next = 4;
+                return axios.get("/db/r_cmpt_item/delete/item/" + cmpt_id + "/" + item_id);
 
-          _this5.delchk = false;
-          _this5.target = null;
-          _this5.target_index = 0;
-          return;
-        }
-      });
-    },
+              case 4:
+                index = this.tarModel.cmpt[this.tabs].item_use.forEach(function (ar, ind) {
+                  if (ar.items.item_id === item_id) {
+                    _this4.tarModel.cmpt[_this4.tabs].item_use.splice(ind, 1);
+
+                    _this4.delchk = false;
+                    _this4.target = null;
+                    _this4.target_index = 0;
+                    return;
+                  }
+                });
+                this.review();
+
+              case 6:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function delAct_Do() {
+        return _delAct_Do.apply(this, arguments);
+      }
+
+      return delAct_Do;
+    }(),
     mv_back: function mv_back() {
       this.$router.go(-1); // let name = this.rtname ? this.rtname : "product_list";
       // this.$router.push({
       //   name: name
       // });
-    }
+    },
+    deleteCmpt: function deleteCmpt() {
+      this.delcmpt = true;
+    },
+    delAct_Cmpt: function () {
+      var _delAct_Cmpt = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var cmpt, cmpt_id;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                cmpt = this.tarModel.cmpt[this.tabs];
+                cmpt_id = cmpt.cmpt_id;
+                _context5.next = 4;
+                return axios.get("/db/cmpt/delete/cmpt/" + cmpt_id);
+
+              case 4:
+                _context5.next = 6;
+                return this.review();
+
+              case 6:
+                this.delcmpt = false;
+
+              case 7:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function delAct_Cmpt() {
+        return _delAct_Cmpt.apply(this, arguments);
+      }
+
+      return delAct_Cmpt;
+    }()
   }
 });
 
@@ -787,13 +950,13 @@ var render = function() {
                                 attrs: { color: "yellow" }
                               }),
                               _vm._v(" "),
-                              _vm._l(_vm.tar_model.cmpt, function(cmpt, index) {
+                              _vm._l(_vm.tarModel.cmpt, function(cmpt, index) {
                                 return _c("v-tab", { key: index }, [
                                   _vm._v(_vm._s(cmpt.cmpt_code.slice(0, -3)))
                                 ])
                               }),
                               _vm._v(" "),
-                              _vm._l(_vm.tar_model.cmpt, function(cmpt, index) {
+                              _vm._l(_vm.tarModel.cmpt, function(cmpt, index) {
                                 return _c(
                                   "v-tab-item",
                                   { key: index, staticClass: "mt-5" },
@@ -1411,6 +1574,24 @@ var render = function() {
                       _c("v-icon", [_vm._v("fas fa-sitemap")])
                     ],
                     1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { flat: "", color: "primary" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteCmpt()
+                        }
+                      }
+                    },
+                    [
+                      _c("span", [_vm._v("親形式削除")]),
+                      _vm._v(" "),
+                      _c("v-icon", [_vm._v("fas fa-trash-alt")])
+                    ],
+                    1
                   )
                 ],
                 1
@@ -1433,6 +1614,32 @@ var render = function() {
                     ? _c("AddCmptItem", {
                         attrs: { data: _vm.dialog_data },
                         on: { rt: _vm.rtAdd }
+                      })
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-dialog",
+                {
+                  attrs: {
+                    "max-width": "500px",
+                    transition: "dialog-transition"
+                  },
+                  model: {
+                    value: _vm.delcmpt,
+                    callback: function($$v) {
+                      _vm.delcmpt = $$v
+                    },
+                    expression: "delcmpt"
+                  }
+                },
+                [
+                  _vm.delcmpt
+                    ? _c("DelChecker", {
+                        attrs: { data: _vm.delchk_cmpt },
+                        on: { rt: _vm.delAct_Cmpt }
                       })
                     : _vm._e()
                 ],

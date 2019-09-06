@@ -17,4 +17,9 @@ class CmptCtrl extends Controller
     $cm = new Components;
     return $cm->whereIn('cmpt_id', $req)->get();
   }
+  public function DeleteCmpt($id)
+  {
+    $cm = new Components;
+    $cm->where('cmpt_id', $id)->delete();
+  }
 }

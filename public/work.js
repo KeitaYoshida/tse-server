@@ -49,6 +49,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -64,7 +65,10 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    works: "works"
+    works: "works",
+    search_x: function search_x(state) {
+      return state.search.modelconst;
+    }
   })),
   created: function created() {
     this.init();
@@ -78,6 +82,10 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       // console.log(this.works);
       this.days = this.works.list.days.values;
       this.process = this.works.list.process;
+
+      if (this.search_x) {
+        this.filterAct(this.search_x);
+      }
     },
     rtMonth: function rtMonth(m, index) {
       if (index === 0) {
@@ -111,11 +119,31 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       var el = document.getElementById("calendarListHead");
       el.setAttribute("style", "left: " + (this.headLeft - e.target.scrollLeft) + "px;");
       this.$emit("scroll", e.target.scrollTop);
+    },
+    setColor: function setColor(work) {
+      var today = this.works.list.days.day;
+      var ed_day = work.ed_day;
+      var context = work.context;
+      if (context === 100) return "#2e7d32";else if (ed_day < today) return "#ef6c00";else return "#1565c0";
+    },
+    select_work: function select_work(work) {
+      this.$router.push("/process/" + work.worklist_id);
+    },
+    filterAct: function filterAct(val) {
+      val = val === null ? "" : val;
+      var tar = val.toLowerCase();
+      this.process = this.works.list.process.filter(function (ar) {
+        return ~ar.model.model_code.toLowerCase().indexOf(tar) || ~ar.worklist_code.toLowerCase().indexOf(tar);
+      });
+      this.select = [];
     }
   }),
   watch: {
     scrollTop: function scrollTop(val) {
       document.getElementById("calendarList").scrollTop = val;
+    },
+    search_x: function search_x(val) {
+      this.filterAct(val);
     }
   }
 });
@@ -227,6 +255,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -242,15 +287,22 @@ dayjs__WEBPACK_IMPORTED_MODULE_2___default.a.locale("ja");
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
-    works: "works"
+    works: "works",
+    search_x: function search_x(state) {
+      return state.search.modelconst;
+    }
   })),
   created: function created() {
     this.init();
   },
   mounted: function mounted() {},
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["WORKS_EDIT_WORK_DAY"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["WORKS_EDIT_WORK_DAY", "SEARCH_MODELCONST"]), {
     init: function init() {
       this.process = this.works.list.process;
+
+      if (this.search_x) {
+        this.filterAct(this.search_x);
+      }
     },
     rtWorkModel: function rtWorkModel(work, index) {
       var def = work.model.model_code_ne !== null ? work.model.model_code_ne : work.model.model_code;
@@ -346,11 +398,50 @@ dayjs__WEBPACK_IMPORTED_MODULE_2___default.a.locale("ja");
     },
     clear: function clear() {
       this.select = [];
-    }
+    },
+    setClass: function setClass(work) {
+      var today = this.works.list.days.day;
+      var ed_day = work.ed_day;
+      var context = work.context;
+      if (context === 100) return "fin";else if (ed_day < today) return "delay";
+    },
+    filterList: function filterList(e) {
+      this.SEARCH_MODELCONST(e);
+    },
+    filterAct: function filterAct(val) {
+      val = val === null ? "" : val;
+      var tar = val.toLowerCase();
+      this.process = this.works.list.process.filter(function (ar) {
+        return ~ar.model.model_code.toLowerCase().indexOf(tar) || ~ar.worklist_code.toLowerCase().indexOf(tar);
+      });
+      this.select = [];
+    } // // mover(e) {
+    // //   console.log("o");
+    // //   let cl = document.getElementsByClassName("worklist");
+    // //   let tar = e.target;
+    // //   cl = [].slice.call(cl[0].childNodes);
+    // //   let n = cl.indexOf(tar);
+    // //   // cl[n].target.classList.add("mon");
+    // //   console.log(cl[n]);
+    // // },
+    // // mleave(e) {
+    // //   console.log("l");
+    // //   let cl = document.getElementsByClassName("worklist");
+    // //   let tar = e.target;
+    // //   cl = [].slice.call(cl[0].childNodes);
+    // //   let n = cl.indexOf(tar);
+    // //   // console.log(cl[n]);
+    // //   console.log(cl[n]);
+    // //   // cl[n].target.classList.remove("mon");
+    // }
+
   }),
   watch: {
     scrollTop: function scrollTop(val) {
       document.getElementById("workList").scrollTop = val;
+    },
+    search_x: function search_x(val) {
+      this.filterAct(val);
     }
   }
 });
@@ -502,7 +593,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "#work_day_tabl_box {\n  height: calc(100% - 56px);\n}\n#work_day_table {\n  height: calc(100% - 56px);\n  background-color: #fff;\n}\n#work_day_table *,\n#work_day_table *:before,\n#work_day_table *:after {\n  box-sizing: border-box;\n  line-height: 1;\n}\n#work_day_table p {\n  margin: 0;\n  padding: 0;\n  height: 2rem;\n}\n#work_day_table .cells {\n  border-left: 0.5px solid #eeeeee;\n}\n#work_day_table .block {\n  vertical-align: middle;\n  display: inline-block;\n  height: 2rem;\n  text-align: center;\n  font-size: 1.3rem;\n}\n#work_day_table .rowbox {\n  position: absolute;\n  top: 6rem;\n}\n#work_day_table .rowbox .rows:nth-child(odd) .block {\n  background-color: #eaeaea;\n}\n#work_day_table .rows {\n  width: 93rem;\n  height: 2rem;\n}\n#work_day_table .rows.head {\n  height: 6rem;\n  position: fixed;\n  z-index: 100;\n  background-color: #fff;\n}\n#work_day_table .table,\n#work_day_table .workList {\n  width: 100%;\n  height: 100%;\n  overflow-x: scroll;\n  position: relative;\n  margin-bottom: 0;\n}\n#work_day_table .progress {\n  position: absolute;\n  height: 2rem;\n  background-color: transparent;\n  top: 0;\n  left: 0;\n}\n#work_day_table .yasumi {\n  color: coral;\n}\n#work_day_table .head-row {\n  width: 100%;\n  font-size: 1.2rem;\n}\n#work_day_table .head-row .fbox {\n  text-align: center;\n  height: 2rem;\n  position: relative;\n}\n#work_day_table .head-row .fbox span {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translateY(-50%) translateX(-50%);\n  -webkit-transform: translateY(-50%) translateX(-50%);\n}\n#work_day_table .head-row:nth-child(odd) {\n  background-color: #eaeaea;\n}\n#work_day_list {\n  height: calc(100% - 56px);\n  overflow: scroll;\n}\n#work_day_list .worklist_head {\n  height: 6rem;\n  position: fixed;\n  background: #fff;\n  z-index: 99;\n  width: 100%;\n}\n#work_day_list .worklist {\n  position: absolute;\n  top: 6rem;\n  width: 100%;\n}\n#work_day_list .select_action:hover {\n  color: #1565c0;\n  cursor: pointer;\n}\n#work_day_calendar_table {\n  height: calc(100% - 56px);\n  overflow: scroll;\n  position: relative;\n}\n#work_day_calendar_table .block {\n  width: 3rem;\n}", ""]);
+exports.push([module.i, "#work_day_tabl_box {\n  height: calc(100% - 56px);\n  overflow: hidden;\n}\n#work_day_table {\n  height: calc(100% - 56px);\n  background-color: #fff;\n  overflow: hidden;\n}\n#work_day_table *,\n#work_day_table *:before,\n#work_day_table *:after {\n  box-sizing: border-box;\n  line-height: 1;\n}\n#work_day_table p {\n  margin: 0;\n  padding: 0;\n  height: 2rem;\n}\n#work_day_table .cells {\n  border-left: 0.5px solid #eeeeee;\n}\n#work_day_table .block {\n  vertical-align: middle;\n  display: inline-block;\n  height: 2rem;\n  text-align: center;\n  font-size: 1.3rem;\n}\n#work_day_table .rowbox {\n  position: absolute;\n  top: 6rem;\n}\n#work_day_table .rowbox .rows:nth-child(odd) .block {\n  background-color: #eaeaea;\n}\n#work_day_table .rows {\n  width: 93rem;\n  height: 2rem;\n}\n#work_day_table .rows.head {\n  height: 6rem;\n  position: fixed;\n  z-index: 91;\n  background-color: #fff;\n}\n#work_day_table .table,\n#work_day_table .workList {\n  width: 100%;\n  height: 100%;\n  overflow-x: hidden;\n  position: relative;\n  margin-bottom: 0;\n}\n#work_day_table .progress {\n  position: absolute;\n  height: 2rem;\n  background-color: transparent;\n  top: 0;\n  left: 0;\n}\n#work_day_table .progress:hover {\n  cursor: pointer;\n}\n#work_day_table .yasumi {\n  color: coral;\n}\n#work_day_table .head-row {\n  width: 100%;\n  font-size: 1.2rem;\n}\n#work_day_table .head-row .fbox {\n  text-align: center;\n  height: 2rem;\n  position: relative;\n}\n#work_day_table .head-row .fbox span {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translateY(-50%) translateX(-50%);\n  -webkit-transform: translateY(-50%) translateX(-50%);\n}\n#work_day_table .head-row:nth-child(odd) {\n  background-color: #eaeaea;\n}\n#work_day_table .fbox.cnt span.fin {\n  color: #2e7d32;\n}\n#work_day_table .fbox.cnt span.delay {\n  color: #ef6c00;\n}\n#work_day_list {\n  height: calc(100% - 56px);\n  overflow: hidden;\n}\n#work_day_list .worklist_head {\n  height: 6rem;\n  position: fixed;\n  background: #fff;\n  z-index: 90;\n  width: 100%;\n}\n#work_day_list .worklist_head_body {\n  z-index: 92;\n  position: fixed;\n  width: 100%;\n  height: 6rem;\n}\n#work_day_list .worklist_head_body .v-text-field {\n  padding-top: 0;\n}\n#work_day_list .worklist {\n  position: absolute;\n  top: 6rem;\n  width: 100%;\n}\n#work_day_list .select_action:hover {\n  color: #1565c0;\n  cursor: pointer;\n}\n#work_day_calendar_table {\n  height: calc(100% - 56px);\n  overflow: scroll;\n  position: relative;\n}\n#work_day_calendar_table .block {\n  width: 3rem;\n}", ""]);
 
 
 
@@ -630,12 +721,17 @@ var render = function() {
               {
                 key: "progress" + index,
                 staticClass: "progress",
-                style: _vm.rtProgressStyle(work, index)
+                style: _vm.rtProgressStyle(work, index),
+                on: {
+                  click: function($event) {
+                    return _vm.select_work(work)
+                  }
+                }
               },
               [
                 _c("v-progress-linear", {
                   staticClass: "pline",
-                  attrs: { color: "#1565c0", value: work.context || 0 }
+                  attrs: { color: _vm.setColor(work), value: work.context || 0 }
                 })
               ],
               1
@@ -680,7 +776,61 @@ var render = function() {
           _c(
             "div",
             { staticClass: "worklist_head" },
-            [_c("v-chip", { attrs: { outline: "" } }, [_vm._v("作業リスト")])],
+            [
+              _c(
+                "v-layout",
+                { attrs: { wrap: "" } },
+                [
+                  _c(
+                    "v-flex",
+                    { staticClass: "worklist_head_body", attrs: { xs4: "" } },
+                    [
+                      _c(
+                        "v-layout",
+                        { attrs: { wrap: "" } },
+                        [
+                          _c(
+                            "v-flex",
+                            { attrs: { sm5: "", md4: "", lg3: "" } },
+                            [
+                              _c(
+                                "v-chip",
+                                { attrs: { outline: "", color: "primary" } },
+                                [_vm._v("作業リスト")]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            { attrs: { sm6: "", md7: "", lg8: "" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "形式・工事番号",
+                                  value: _vm.search_x,
+                                  clearable: ""
+                                },
+                                on: {
+                                  input: function($event) {
+                                    return _vm.filterList($event)
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
             1
           ),
           _vm._v(" "),
@@ -727,26 +877,32 @@ var render = function() {
                               }
                             },
                             [
-                              _c(
-                                "nobr",
-                                [
-                                  _vm.select.indexOf(work) !== -1
-                                    ? _c(
-                                        "v-icon",
-                                        {
-                                          attrs: { small: "", color: "primary" }
-                                        },
-                                        [_vm._v("far fa-check-square")]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(work.worklist_code) +
-                                      "\n            "
-                                  )
-                                ],
-                                1
-                              )
+                              _c("nobr", [
+                                _c(
+                                  "span",
+                                  { class: _vm.setClass(work) },
+                                  [
+                                    _vm.select.indexOf(work) !== -1
+                                      ? _c(
+                                          "v-icon",
+                                          {
+                                            attrs: {
+                                              small: "",
+                                              color: "primary"
+                                            }
+                                          },
+                                          [_vm._v("far fa-check-square")]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(work.worklist_code) +
+                                        "\n              "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
                             ],
                             1
                           )
@@ -1236,6 +1392,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VChip */ "./node_modules/vuetify/lib/components/VChip/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -1262,7 +1419,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBottomNav: vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_4__["VBottomNav"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__["VChip"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VLayout"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBottomNav: vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_4__["VBottomNav"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__["VChip"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VLayout"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__["VTextField"]})
 
 
 /* hot reload */
