@@ -116,7 +116,7 @@ export default {
           this.PROCESS_INFO(i);
         });
       await axios.get("/db/workdata/cmpt/items/" + i.work_id).then(res => {
-        console.log(i.work_id);
+        // console.log(i.work_id);
         // console.log(res.data);
         let d = [];
         res.data.forEach(cmpt => {

@@ -35,12 +35,12 @@
                     <CmptSearch></CmptSearch>
                   </v-flex>
                   <v-flex xs7 class="text-xs-right">
-                    <CmptSearchPage></CmptSearchPage>
+                    <CmptSearchPage @rt="remakeItemList"></CmptSearchPage>
                   </v-flex>
                 </v-layout>
                 <template v-if="target.work.id===null">
                   <v-card flat class="hhh op8">
-                    <span class="no-select-message">工程を選択してください</span>
+                    <span class="no-select-message">{{ stayMassage }}</span>
                   </v-card>
                 </template>
                 <template v-else>
@@ -80,7 +80,8 @@ export default {
     return {
       loading: true,
       remake: true,
-      remakeItemFlg: true
+      remakeItemFlg: true,
+      stayMassage: "工程を選択してください"
     };
   },
   computed: {
@@ -117,6 +118,13 @@ export default {
       // console.log()
       this.target.component.data = d.data;
       this.remakeItemFlg = true;
+    },
+    async remakeItemList() {
+      this.stayMassage = "更新中";
+      let tmp = this.target.work.id;
+      this.target.work.id = null;
+      await this.wait(0.5);
+      this.target.work.id = tmp;
     }
   },
   beforeDestroy: function() {

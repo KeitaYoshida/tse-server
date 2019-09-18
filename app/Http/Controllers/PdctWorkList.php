@@ -90,4 +90,14 @@ class PdctWorkList extends Controller
     $PWLC = new PdctWorkdataList;
     return $PWLC->where('ed_day', '>=', $before)->where('st_day', '<=', $after)->with('model')->orderBy('model_id')->orderBy('worklist_code')->get();
   }
+  public function DeleteConst($wid)
+  {
+    $PWLC = new PdctWorkdataList;
+    $PWLC->where('worklist_id', $wid)->delete();
+  }
+  public function SetStatus($wid, $status)
+  {
+    $PWLC = new PdctWorkdataList;
+    $PWLC->where('worklist_id', $wid)->update(['worklist_status' => $status]);
+  }
 }

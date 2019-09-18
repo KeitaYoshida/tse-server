@@ -209,6 +209,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -237,11 +243,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: "com_tel",
         align: "center"
       }, {
-        text: "担当者名",
-        value: "com_tanto",
+        text: "担当者名/表示階層",
+        value: "level",
         align: "center"
       }],
       pagination: {
+        sortBy: "level",
+        descending: true,
         rowsPerPage: 20,
         rowsPerPageItems: [20, 50]
       },
@@ -289,12 +297,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var vId = this.target.vendor_code;
       var col = d.data[0].name;
       var val = d.data[0].value;
+
+      if (col === "new") {
+        this.addCom(val);
+        return;
+      }
+
       axios.get("/db/vendor/update/one/col/" + vId + "/" + col + "/" + val);
       this.target[col] = val;
       this.vfm = !this.vfm;
       this.fm = null;
       this.target = null;
     },
+    addCom: function () {
+      var _addCom = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(comname) {
+        var kCode;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get("/db/vendor/insert/comp/" + comname);
+
+              case 2:
+                kCode = _context.sent;
+                this.init();
+                this.search = kCode.data;
+                this.vfm = !this.vfm;
+                this.fm = null;
+                this.target = null;
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function addCom(_x) {
+        return _addCom.apply(this, arguments);
+      }
+
+      return addCom;
+    }(),
     togo_select_act: function togo_select_act(i) {
       this.target = i;
       this.mode = "togo_select_add";
@@ -315,37 +363,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     togo: function () {
       var _togo = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var _this2 = this;
 
         var tarCd, selCd;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 this.vchk = false;
 
                 if (!(this.chk.data_v2 === null)) {
-                  _context.next = 3;
+                  _context2.next = 3;
                   break;
                 }
 
-                return _context.abrupt("return");
+                return _context2.abrupt("return");
 
               case 3:
                 tarCd = this.chk.data_v2[1][1];
                 selCd = this.chk.data_v2[1][0];
-                _context.next = 7;
+                _context2.next = 7;
                 return axios.get("/db/vendor/togo/" + tarCd + "/" + selCd).then(function (res) {
                   _this2.del(selCd);
                 });
 
               case 7:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this);
+        }, _callee2, this);
       }));
 
       function togo() {
@@ -920,6 +968,29 @@ var render = function() {
                                         )
                                       )
                                     ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { flat: "", color: "primary" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.changeVal(
+                                            props.item,
+                                            "level",
+                                            "表示レベル"
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(_vm.rtMisettei(props.item.level))
+                                      )
+                                    ]
                                   )
                                 ],
                                 1
@@ -932,7 +1003,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  3317274029
+                  4069774432
                 )
               })
             : _vm._e()
@@ -1096,11 +1167,18 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-btn",
-            { attrs: { flat: "", value: "add" } },
+            {
+              attrs: { flat: "", value: "add" },
+              on: {
+                click: function($event) {
+                  return _vm.changeVal({}, "new", "会社名")
+                }
+              }
+            },
             [
               _c("span", [_vm._v("新規追加")]),
               _vm._v(" "),
-              _c("v-icon", [_vm._v("far fa-trash-alt")])
+              _c("v-icon", [_vm._v("fas fa-plus")])
             ],
             1
           )

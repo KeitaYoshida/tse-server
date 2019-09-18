@@ -63,12 +63,12 @@ export default {
         cmpt = [],
         status = [];
       let i = 0;
-      // console.log(d);
       d.data[0].serials.forEach(ar => {
-        ar.cmpt_sn.forEach((cmsn, n) => this.init_sn(sn, cmsn, i, n, cmpt));
         ar.process.forEach(pr =>
-          this.init_pr(process, pr, d.data[0].serials.length, status)
+          this.init_pr(process, pr, d.data[0].serials.length, status, cmpt)
         );
+        ar.cmpt_sn.forEach((cmsn, n) => this.init_sn(sn, cmsn, i, n, cmpt));
+        sn[i] = sn[i].reverse();
         i = i + 1;
       });
       let tmp = await axios.post("/db/comt/get/data/arr", cmpt);
@@ -118,13 +118,10 @@ export default {
       if (Array.isArray(sn[i]) === false) sn[i] = [];
       sn[i][n] = {};
       sn[i][n]["serial_id"] = cmsn.serial_id;
-      sn[i][n]["cmpt_id"] = cmsn.cmpt_id;
+      sn[i][n]["cmpt_id"] = cmpt[n];
       sn[i][n]["serial_no"] = cmsn.serial_no;
-      if (cmpt.indexOf(cmsn.cmpt_id) === -1) {
-        cmpt.push(cmsn.cmpt_id);
-      }
     },
-    init_pr(process, pr, row, status) {
+    init_pr(process, pr, row, status, cmpt) {
       if (process[pr.row] === undefined) process[pr.row] = {};
       let p = process[pr.row];
       p.title = pr.process_title;
@@ -141,6 +138,9 @@ export default {
         status[pr.process_status] = 1;
       } else {
         status[pr.process_status] = status[pr.process_status] + 1;
+      }
+      if (cmpt.indexOf(p.cmpt_id) === -1) {
+        cmpt.push(p.cmpt_id);
       }
     }
   },

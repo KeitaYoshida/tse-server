@@ -98,15 +98,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 3:
                 d = _context.sent;
                 sn = [], process = [], cmpt = [], status = [];
-                i = 0; // console.log(d);
-
+                i = 0;
                 d.data[0].serials.forEach(function (ar) {
+                  ar.process.forEach(function (pr) {
+                    return _this.init_pr(process, pr, d.data[0].serials.length, status, cmpt);
+                  });
                   ar.cmpt_sn.forEach(function (cmsn, n) {
                     return _this.init_sn(sn, cmsn, i, n, cmpt);
                   });
-                  ar.process.forEach(function (pr) {
-                    return _this.init_pr(process, pr, d.data[0].serials.length, status);
-                  });
+                  sn[i] = sn[i].reverse();
                   i = i + 1;
                 });
                 _context.next = 9;
@@ -176,14 +176,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (Array.isArray(sn[i]) === false) sn[i] = [];
       sn[i][n] = {};
       sn[i][n]["serial_id"] = cmsn.serial_id;
-      sn[i][n]["cmpt_id"] = cmsn.cmpt_id;
+      sn[i][n]["cmpt_id"] = cmpt[n];
       sn[i][n]["serial_no"] = cmsn.serial_no;
-
-      if (cmpt.indexOf(cmsn.cmpt_id) === -1) {
-        cmpt.push(cmsn.cmpt_id);
-      }
     },
-    init_pr: function init_pr(process, pr, row, status) {
+    init_pr: function init_pr(process, pr, row, status, cmpt) {
       if (process[pr.row] === undefined) process[pr.row] = {};
       var p = process[pr.row];
       p.title = pr.process_title;
@@ -202,6 +198,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         status[pr.process_status] = 1;
       } else {
         status[pr.process_status] = status[pr.process_status] + 1;
+      }
+
+      if (cmpt.indexOf(p.cmpt_id) === -1) {
+        cmpt.push(p.cmpt_id);
       }
     }
   }),
@@ -293,6 +293,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var f2 = s["2"] !== undefined ? s["2"] : 0;
       var f3 = s["3"] !== undefined ? s["3"] : 0;
       var fa = f0 + f1 + f2 + f3;
+      var work_id = this.tar.process.base.wid;
+      var model_status = 0;
+      if (f2 / fa > 0) model_status = 1;
+      if (f2 / fa === 1) model_status = 2;
+      axios.get("/db/workdata/set/status/" + work_id + "/" + model_status);
       return f2 / fa * 100;
     }
   })
@@ -462,8 +467,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 9:
                 _context.next = 11;
                 return axios.get("/db/workdata/cmpt/items/" + i.work_id).then(function (res) {
-                  console.log(i.work_id); // console.log(res.data);
-
+                  // console.log(i.work_id);
+                  // console.log(res.data);
                   var d = [];
                   res.data.forEach(function (cmpt) {
                     // console.log("test");

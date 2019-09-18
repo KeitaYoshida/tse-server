@@ -1229,7 +1229,14 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.renderChart(this.d, {
       responsive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      legend: {
+        position: "bottom"
+      },
+      showAllTooltips: true,
+      toolchips: {
+        enabled: false
+      }
     });
   },
   created: function created() {}

@@ -20,10 +20,10 @@
         <v-container fluid v-if="view">
           <v-tabs fixed-tabs show-arrows v-model="tabs">
             <v-tabs-slider color="yellow"></v-tabs-slider>
-            <v-tab
-              v-for="(cmpt, index) in tarModel.cmpt"
-              :key="index"
-            >{{ cmpt.cmpt_code.slice(0, -3) }}</v-tab>
+            <v-tab v-for="(cmpt, index) in tarModel.cmpt" :key="index">
+              {{ cmpt.cmpt_code.slice(0, -3) }}
+              <span class="mini">{{ cmpt.cmpt_rev.numToRev() }}</span>
+            </v-tab>
             <v-tab-item v-for="(cmpt, index) in tarModel.cmpt" :key="index" class="mt-5">
               <v-data-table
                 v-model="selected[index]"

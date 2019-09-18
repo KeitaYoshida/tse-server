@@ -9,7 +9,6 @@ class CntOrderList extends Model
   protected $table = 'cnt_order_lists';
   protected $primaryKey = 'cnt_orderlist_id';
   protected $guarded = array();
-  public $timestamps = false;
 
   public function status()
   {

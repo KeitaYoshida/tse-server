@@ -10,7 +10,8 @@ export const state = {
     item: null,
     model: null,
     user: null,
-    modelconst: null
+    modelconst: null,
+    inventory: null,
   },
   works: {
     list: {
@@ -24,6 +25,10 @@ export const state = {
       code: null,
       data: null
     }
+  },
+  items: {
+    iData: null,
+    iClass: null
   },
   target: {
     code: null,
@@ -155,4 +160,10 @@ export const mutations = {
   [types.ORDERS_ONE_INIT_SET](state, payload) {
     state.orders.one = payload;
   },
+  [types.ITEMS_SET](state, payload) {
+    state.items = payload;
+  },
+  [types.SEARCH_INVENTORY](state, payload) {
+    state.search.inventory = payload;
+  }
 }

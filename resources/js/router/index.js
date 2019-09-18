@@ -26,6 +26,8 @@ const tehaisaki = () => import(/* webpackChunkName: "tehaisaki" */ "../component
 const process = () => import(/* webpackChunkName: "process" */ "../components/Process.vue");
 const item_monitor = () => import(/* webpackChunkName: "item_monitor" */ "../components/com/ItemMonitorGet.vue");
 const work = () => import(/* webpackChunkName: "work" */ "../components/Work/work.vue");
+const iMonitor = () => import(/* webpackChunkName: "iMonitor" */ "@/components/monitor/monitor.vue");
+const sumup = () => import(/* webpackChunkName: "sum_up" */ "@/components/sumup/sumup.vue");
 
 let Auth = {
   login: async function () {
@@ -161,6 +163,18 @@ let router = new Router({
       path: "/work",
       name: "work",
       component: work,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/sumup",
+      name: "sumup",
+      component: sumup,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/item/monitor",
+      name: "iMonitor",
+      component: iMonitor,
       meta: { requiresAuth: true },
     },
     {

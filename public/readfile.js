@@ -881,9 +881,8 @@ __webpack_require__.r(__webpack_exports__);
         rele: rele
       };
       axios.post("/db/model_entry/", d).then(function (res) {
-        console.log(res.data);
-        return;
-
+        // console.log(res.data);
+        // return;
         _this.$emit("getModelData", res.data);
       });
     }

@@ -41,6 +41,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     data: {
@@ -59,8 +60,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
+  data: function data() {
+    return {
+      actionflg: false
+    };
+  },
   methods: {
     submit: function submit() {
+      if (this.actionflg) return;
+      this.actionflg = true;
       this.$emit("rt", this.data, true);
     }
   }
@@ -166,7 +174,8 @@ var render = function() {
                               id: item.id,
                               hint: item.hint,
                               type: item.type,
-                              autofocus: ""
+                              autofocus: "",
+                              disabled: _vm.actionflg
                             },
                             on: {
                               keyup: function($event) {
@@ -217,7 +226,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("決定")]
+                        [_vm._v("Submit")]
                       )
                     ],
                     1

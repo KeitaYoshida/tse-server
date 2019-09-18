@@ -200,6 +200,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -929,6 +935,20 @@ var render = function() {
                 { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
                 [_c("common-cards", { attrs: { card_name: "work" } })],
                 1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
+                [_c("common-cards", { attrs: { card_name: "item/monitor" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
+                [_c("common-cards", { attrs: { card_name: "sumup" } })],
+                1
               )
             ],
             1
@@ -1285,6 +1305,24 @@ var _card_data = (_card_data2 = {
   class_text: COLOR_WORK_LESS,
   color: TEXT_COLOR,
   text: ["発注部材受け入れ"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _defineProperty(_card_data2, 'item/monitor', {
+  title: "モニター",
+  class_text: COLOR_DEF,
+  color: TEXT_COLOR,
+  text: ["日次、月次、生産・集計モニター"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _defineProperty(_card_data2, "sumup", {
+  title: "集計",
+  class_text: COLOR_DEF,
+  color: TEXT_COLOR,
+  text: ["部材・工事集計、集計履歴"],
   details: [""].join(""),
   links: "",
   button: false,

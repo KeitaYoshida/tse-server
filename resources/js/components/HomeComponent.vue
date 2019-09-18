@@ -131,6 +131,12 @@
         <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="work"></common-cards>
         </v-flex>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="item/monitor"></common-cards>
+        </v-flex>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="sumup"></common-cards>
+        </v-flex>
       </v-layout>
     </v-container>
   </v-app>

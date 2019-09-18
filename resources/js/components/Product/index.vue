@@ -6,17 +6,17 @@
         <div v-else>
           <h1>製造データ</h1>
           <v-text-field
-            name="search"
             label="検索"
-            id="search"
-            v-model="search"
+            :value="search_x"
             prepend-inner-icon="fas fa-search"
+            autofocus
+            @input="SEARCH_MODELCONST($event)"
           ></v-text-field>
           <v-data-table
             :headers="headers"
             :items="pdct"
             item-key="pdct_id"
-            :search="search"
+            :search="search_x"
             :rows-per-page-items="[25,50,{'text':'All','value':-1}]"
             :pagination.sync="pagination"
           >
@@ -35,38 +35,70 @@
               </td>
               <td class="text-xs-center">{{ props.item.model_id }}</td>
               <td class="text-xs-center">{{ props.item.const_code }}</td>
-              <td class="text-xs-center">
-                <nobr>
-                  <v-btn color="warning" outline small @click="view_list('zyutyu',props)">
-                    <template v-if="props.item.child.lengt !==0">
-                      <v-badge right color="orange darken-1">
-                        <template v-slot:badge outline>
-                          <span>{{ props.item.child.length }}</span>
-                        </template>
+              <td class="text-xs-center" width="330px">
+                <v-layout row wrap class="buttons">
+                  <v-flex xs4>
+                    <v-btn color="warning" outline small @click="view_list('zyutyu',props)">
+                      <template v-if="props.item.child.lengt !==0">
+                        <v-badge right color="orange darken-1">
+                          <template v-slot:badge>
+                            <span>{{ props.item.child.length }}</span>
+                          </template>
+                          <strong>受注</strong>
+                        </v-badge>
+                      </template>
+                      <template v-else>
                         <strong>受注</strong>
+                      </template>
+                    </v-btn>
+                  </v-flex>
+                  <v-flex xs4>
+                    <v-btn
+                      color="success"
+                      outline
+                      small
+                      @click="view_list('tyumon',props)"
+                      class="mb-0"
+                    >
+                      <v-badge right color="green darken-1" class="outline">
+                        <template v-slot:badge v-if="props.item.orders.length > 0">
+                          <span>{{ props.item.orders.length }}</span>
+                        </template>
+                        <strong>注文</strong>
                       </v-badge>
-                    </template>
-                    <template v-else>
-                      <strong>受注</strong>
-                    </template>
-                  </v-btn>
-                  <v-btn color="success" outline small @click="view_list('tyumon',props)">
-                    <v-badge right color="green darken-1" class="outline">
-                      <template v-slot:badge v-if="props.item.orders.length > 0">
-                        <span>{{ props.item.orders.length }}</span>
-                      </template>
-                      <strong>注文</strong>
-                    </v-badge>
-                  </v-btn>
-                  <v-btn color="primary" outline small @click="view_list('workdata',props)">
-                    <v-badge right color="indigo darken-1">
-                      <template v-slot:badge v-if="props.item.workdata.length > 0">
-                        <span>{{ props.item.workdata.length }}</span>
-                      </template>
-                      <strong>製造</strong>
-                    </v-badge>
-                  </v-btn>
-                </nobr>
+                    </v-btn>
+                    <div class="px-2 py-0 my-1" v-if="tyumonView(props.item)">
+                      <v-progress-linear
+                        color="green darken-1"
+                        :value="rtComContext(props.item.orders)"
+                        height="3"
+                      ></v-progress-linear>
+                    </div>
+                  </v-flex>
+                  <v-flex xs4>
+                    <v-btn
+                      color="primary"
+                      outline
+                      small
+                      @click="view_list('workdata',props)"
+                      class="mb-0"
+                    >
+                      <v-badge right color="indigo lighten-1">
+                        <template v-slot:badge v-if="props.item.workdata.length > 0">
+                          <span>{{ props.item.workdata.length }}</span>
+                        </template>
+                        <strong>製造</strong>
+                      </v-badge>
+                    </v-btn>
+                    <div class="px-2 py-0 my-1" v-if="makeView(props.item)">
+                      <v-progress-linear
+                        color="green darken-1"
+                        :value="rtComContext(props.item.workdata)"
+                        height="3"
+                      ></v-progress-linear>
+                    </div>
+                  </v-flex>
+                </v-layout>
               </td>
             </template>
 
@@ -115,7 +147,6 @@ export default {
     return {
       loading: true,
       pdct: null,
-      search: "",
       headers: [
         { text: "区分", value: "pdct_class", align: "center" },
         { text: "形式", value: "model_id", align: "center" },
@@ -137,11 +168,12 @@ export default {
   },
   computed: {
     ...mapState({
-      tar: "target"
+      tar: "target",
+      search_x: state => state.search.modelconst
     })
   },
   methods: {
-    ...mapActions(["PDCT_ABOUT_SET"]),
+    ...mapActions(["PDCT_ABOUT_SET", "SEARCH_MODELCONST"]),
     init() {
       axios.get("/db/pdct/list/live").then(res => {
         let d = (this.pdct = res.data);
@@ -210,6 +242,20 @@ export default {
       };
       this.PDCT_ABOUT_SET(d);
       props.expanded = true;
+    },
+    tyumonView(item) {
+      return item.orders.length === 0 ? false : true;
+    },
+    makeView(item) {
+      return item.workdata.length === 0 ? false : true;
+    },
+    rtComContext(arr) {
+      let count = arr.length;
+      let sum = 0;
+      arr.forEach(ar => {
+        sum = sum + ar.context;
+      });
+      return sum / count;
     }
   },
   beforeDestroy: function() {
@@ -266,5 +312,11 @@ td {
 }
 .mini {
   font-size: 0.6rem;
+}
+.buttons {
+  max-width: 330px;
+}
+.v-progress-linear {
+  margin: 0;
 }
 </style>

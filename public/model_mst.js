@@ -13,6 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ReadFile_Model_ComponentEntry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../ReadFile/Model/ComponentEntry */ "./resources/js/components/ReadFile/Model/ComponentEntry.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/com/ComCheckDialog */ "./resources/js/components/com/ComCheckDialog.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -100,19 +101,59 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
  // import { SET_MODEL_COM } from "@/store/mutations";
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    CmptData: _ReadFile_Model_ComponentEntry__WEBPACK_IMPORTED_MODULE_1__["default"]
+    CmptData: _ReadFile_Model_ComponentEntry__WEBPACK_IMPORTED_MODULE_1__["default"],
+    DeleteCheck: _components_com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
-    target: "target"
+    target: "target",
+    search_x: function search_x(state) {
+      return state.search.modelconst;
+    }
   })),
   data: function data() {
     return {
       items: [],
+      lists: [],
       headers: [{
         text: "形式",
         value: "model_code",
@@ -131,19 +172,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: "$vuetify.dataIterator.rowsPerPageAll",
         value: -1
       }],
-      loading: true
+      loading: true,
+      delete_model: false,
+      delete_data: {
+        title: "形式データを削除します",
+        message: "",
+        data_v2: null
+      },
+      delete_target: null
     };
   },
   created: function created() {
     this.init();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])(["SET_MODEL_COM", "RESET_COMPONENT_COM"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(["SET_COMPONENT_COM"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])(["SET_MODEL_COM", "RESET_COMPONENT_COM"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(["SET_COMPONENT_COM", "SEARCH_MODELCONST"]), {
     init: function init() {
       var _this = this;
 
       axios.get("/db/model_mst/list").then(function (res) {
         _this.items = res.data;
         _this.loading = false;
+
+        _this.filterAct(_this.search_x);
       });
     },
     viewCmptSetting: function viewCmptSetting(i) {
@@ -218,8 +268,62 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return addWorkData;
-    }()
-  })
+    }(),
+    upAction: function upAction(item, parent) {
+      if (item.pivot.row - 1 < 0) return;
+      item.pivot.row = item.pivot.row - 1;
+      parent.cmpt = parent.cmpt.sort(function (a, b) {
+        if (a.pivot.row > b.pivot.row) return 1;else return -1;
+      });
+      var model_id = item.pivot.model_id;
+      var cmpt_id = item.pivot.cmpt_id;
+      var row = item.pivot.row;
+      axios.get("/db/model_mst/cmpt/row/set/" + model_id + "/" + cmpt_id + "/" + row).then(function (res) {// console.log(res);
+      });
+    },
+    downAction: function downAction(item, parent) {
+      if (item.pivot.row + 1 > parent.cmpt.length - 1) return;
+      item.pivot.row = item.pivot.row + 1;
+      parent.cmpt = parent.cmpt.sort(function (a, b) {
+        if (a.pivot.row > b.pivot.row) return 1;else return -1;
+      });
+      var model_id = item.pivot.model_id;
+      var cmpt_id = item.pivot.cmpt_id;
+      var row = item.pivot.row;
+      axios.get("/db/model_mst/cmpt/row/set/" + model_id + "/" + cmpt_id + "/" + row).then(function (res) {// console.log(res);
+      });
+    },
+    deleteAction: function deleteAction() {
+      var _this3 = this;
+
+      this.items = this.items.filter(function (ar) {
+        return ar.model_id !== _this3.delete_target;
+      });
+      this.delete_model = !this.delete_model;
+      axios.get("/db/model_mst/delete/model/" + this.delete_target).then(function (res) {// console.log(res.data);
+      });
+    },
+    filterList: function filterList(e) {
+      this.SEARCH_MODELCONST(e);
+    },
+    filterAct: function filterAct(val) {
+      if (val === null) {
+        this.lists = this.items;
+        return;
+      }
+
+      val = val === null ? "" : val;
+      var tar = val.toLowerCase();
+      this.lists = this.items.filter(function (ar) {
+        return ~ar.model_code.toLowerCase().indexOf(tar);
+      });
+    }
+  }),
+  watch: {
+    search_x: function search_x(val) {
+      this.filterAct(val);
+    }
+  }
 });
 
 /***/ }),
@@ -294,17 +398,16 @@ var render = function() {
           _vm._v(" "),
           _c("v-text-field", {
             attrs: {
+              value: _vm.search_x,
               "append-icon": "search",
               label: "Search",
-              "single-line": "",
-              "hide-details": ""
+              autofocus: "",
+              clearable: ""
             },
-            model: {
-              value: _vm.search,
-              callback: function($$v) {
-                _vm.search = $$v
-              },
-              expression: "search"
+            on: {
+              input: function($event) {
+                return _vm.filterList($event)
+              }
             }
           }),
           _vm._v(" "),
@@ -314,7 +417,7 @@ var render = function() {
             staticClass: "model",
             attrs: {
               headers: _vm.headers,
-              items: _vm.items,
+              items: _vm.lists,
               search: _vm.search,
               "rows-per-page-items": _vm.view_row_setting,
               loading: _vm.loading,
@@ -387,30 +490,6 @@ var render = function() {
                               outline: "",
                               small: "",
                               loading: _vm.loading
-                            }
-                          },
-                          [
-                            _c(
-                              "v-icon",
-                              {
-                                staticClass: "icon-edit",
-                                attrs: { small: "", left: "" }
-                              },
-                              [_vm._v("fas fa-edit")]
-                            ),
-                            _vm._v("工程登録\n          ")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-btn",
-                          {
-                            attrs: {
-                              color: "success",
-                              outline: "",
-                              small: "",
-                              icon: ""
                             },
                             on: {
                               click: function($event) {
@@ -423,10 +502,49 @@ var render = function() {
                               "v-icon",
                               {
                                 staticClass: "icon-edit",
-                                attrs: { small: "" }
+                                attrs: { small: "", left: "" }
+                              },
+                              [_vm._v("fas fa-edit")]
+                            ),
+                            _vm._v("工程登録\n            "),
+                            _c(
+                              "v-icon",
+                              {
+                                staticClass: "icon-edit",
+                                attrs: { small: "", right: "" }
                               },
                               [_vm._v("fas fa-angle-double-down")]
                             )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              color: "red lighten-1",
+                              outline: "",
+                              small: "",
+                              loading: _vm.loading
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.delete_model = !_vm.delete_model
+                                _vm.delete_target = props.item.model_id
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "v-icon",
+                              {
+                                staticClass: "icon-edit",
+                                attrs: { small: "", left: "" }
+                              },
+                              [_vm._v("fas fa-trash-alt")]
+                            ),
+                            _vm._v("削除\n          ")
                           ],
                           1
                         )
@@ -476,6 +594,111 @@ var render = function() {
                                       _vm._v(_vm._s(item.cmpt_name))
                                     ])
                                   ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-layout",
+                                  {
+                                    staticClass: "text-xs-center",
+                                    attrs: { wrap: "" }
+                                  },
+                                  [
+                                    _c(
+                                      "v-flex",
+                                      { attrs: { xs3: "" } },
+                                      [
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.upAction(
+                                                  item,
+                                                  props.item
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              {
+                                                staticClass:
+                                                  "indigo--text text--lighten-2",
+                                                attrs: { small: "" }
+                                              },
+                                              [_vm._v("fas fa-chevron-left")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-flex",
+                                      { attrs: { xs6: "" } },
+                                      [
+                                        _c(
+                                          "v-btn",
+                                          { attrs: { flat: "", disabled: "" } },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "indigo--text text--lighten-2"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "SN表示順: " +
+                                                    _vm._s(item.pivot.row)
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-flex",
+                                      { attrs: { xs3: "" } },
+                                      [
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.downAction(
+                                                  item,
+                                                  props.item
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              {
+                                                staticClass:
+                                                  "indigo--text text--lighten-2",
+                                                attrs: { small: "" }
+                                              },
+                                              [_vm._v("fas fa-chevron-right")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -547,6 +770,29 @@ var render = function() {
           })
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "500px", transition: "dialog-transition" },
+          model: {
+            value: _vm.delete_model,
+            callback: function($$v) {
+              _vm.delete_model = $$v
+            },
+            expression: "delete_model"
+          }
+        },
+        [
+          _vm.delete_model
+            ? _c("DeleteCheck", {
+                attrs: { data: _vm.delete_data },
+                on: { rt: _vm.deleteAction }
+              })
+            : _vm._e()
+        ],
+        1
       )
     ],
     1
@@ -579,8 +825,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -613,7 +860,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["VCardText"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__["VDataTable"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VLayout"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_7__["VCardText"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VLayout"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"]})
 
 
 /* hot reload */

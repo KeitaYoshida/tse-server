@@ -952,7 +952,14 @@ var render = function() {
                               _vm._v(" "),
                               _vm._l(_vm.tarModel.cmpt, function(cmpt, index) {
                                 return _c("v-tab", { key: index }, [
-                                  _vm._v(_vm._s(cmpt.cmpt_code.slice(0, -3)))
+                                  _vm._v(
+                                    "\n            " +
+                                      _vm._s(cmpt.cmpt_code.slice(0, -3)) +
+                                      "\n            "
+                                  ),
+                                  _c("span", { staticClass: "mini" }, [
+                                    _vm._v(_vm._s(cmpt.cmpt_rev.numToRev()))
+                                  ])
                                 ])
                               }),
                               _vm._v(" "),

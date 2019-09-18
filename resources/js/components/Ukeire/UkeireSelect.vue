@@ -99,7 +99,7 @@ export default {
         { text: "親形式", value: "cnt_model", align: "center" },
         { text: "部材品番", value: "cnt_order_code", align: "center" },
         { text: "部材品名／型式", value: "cnt_order_code", align: "center" },
-        { text: "受注／入庫数", value: "cnt_order_code", align: "center" }
+        { text: "発注／入庫数", value: "cnt_order_code", align: "center" }
       ],
       pagination: {
         sortBy: "cnt_model"

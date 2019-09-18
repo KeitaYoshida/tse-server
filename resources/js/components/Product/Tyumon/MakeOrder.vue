@@ -79,7 +79,7 @@
     </template>
     <template v-else>
       <v-dialog v-model="select" width="600px">
-        <SelectModel @select="rtModel" :defval="fm.code"></SelectModel>
+        <SelectModel @select="rtModel" :defval="target.model_id"></SelectModel>
       </v-dialog>
     </template>
     <v-dialog v-model="warning" max-width="500px" transition="dialog-transition">

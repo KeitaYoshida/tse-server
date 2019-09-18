@@ -66,3 +66,9 @@ export const SEARCH_MODELCONST = ({ commit }, payload) => {
 export const ORDERS_ONE_INIT_SET = ({ commit }, payload) => {
   commit(types.ORDERS_ONE_INIT_SET, payload);
 }
+export const ITEMS_SET = ({ commit }, payload) => {
+  commit(types.ITEMS_SET, payload);
+}
+export const SEARCH_INVENTORY = ({ commit }, payload) => {
+  commit(types.SEARCH_INVENTORY, payload);
+}

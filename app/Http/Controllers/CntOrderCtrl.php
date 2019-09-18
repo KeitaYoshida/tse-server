@@ -9,6 +9,7 @@ use App\Model\Item;
 use App\Model\CntOrderPrice;
 use App\Model\CntOrderStatus;
 use App\Model\CntOrderListStatus;
+use App\Model\InventoryHistory;
 
 class CntOrderCtrl extends Controller
 {
@@ -133,6 +134,19 @@ class CntOrderCtrl extends Controller
     return $i;
   }
 
+  public function ShukeiAction(Request $req)
+  {
+    $co = new CntOrder;
+    $it = new Item;
+    $invhis = new InventoryHistory;
+    $o = $req->orders;
+    $i = $req->items;
+    $his = $req->history;
+    $co->where('cnt_order_id', $o['cnt_order_id'])->update(['num_inv' => $o['num_inv']]);
+    $it->where('item_id', $i['item_id'])->increment('inv_num', $i['inv_num']);
+    $invhis->create($his);
+  }
+
   public function UkeireAction(Request $req)
   {
     $co = new CntOrder;
@@ -155,13 +169,21 @@ class CntOrderCtrl extends Controller
     $context = round($cnt / $i * 100, 2);
     if ($context === 100.00) {
       $col->where('cnt_order_code', $o['cnt_order_code'])->update(['context' => $context, 'cnt_status' => 2]);
-    } else {
+    } else if ($context === 0.00) {
       $col->where('cnt_order_code', $o['cnt_order_code'])->update(['context' => $context, 'cnt_status' => 1]);
+    } else {
+      $col->where('cnt_order_code', $o['cnt_order_code'])->update(['context' => $context, 'cnt_status' => 3]);
     }
   }
   public function GetUkeireAllList()
   {
     $co = new CntOrder;
     return $co->whereColumn('num_recept', '<', 'num_order')->with(['cmpt', 'item'])->get();
+  }
+  public function OrderListMini()
+  {
+    $col = new CntOrderList;
+    // return date("Y-m-d", strtotime("-3 year"));
+    return $col->where('updated_at', '>',  date("Y-m-d", strtotime("-3 year")))->get(['cnt_orderlist_id', 'cnt_model', 'cnt_order_code']);
   }
 }

@@ -2,11 +2,18 @@
   <v-app>
     <v-container>
       <h1>形式マスタ</h1>
-      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+      <v-text-field
+        :value="search_x"
+        append-icon="search"
+        label="Search"
+        @input="filterList($event)"
+        autofocus
+        clearable
+      ></v-text-field>
       <br />
       <v-data-table
         :headers="headers"
-        :items="items"
+        :items="lists"
         :search="search"
         :rows-per-page-items="view_row_setting"
         :loading="loading"
@@ -30,11 +37,18 @@
             >
               <v-icon small left class="icon-edit">far fa-list-alt</v-icon>部材構成
             </v-btn>
-            <v-btn color="success" outline small :loading="loading">
+            <v-btn color="success" outline small :loading="loading" @click="showCmpt(props)">
               <v-icon small left class="icon-edit">fas fa-edit</v-icon>工程登録
+              <v-icon small right class="icon-edit">fas fa-angle-double-down</v-icon>
             </v-btn>
-            <v-btn color="success" outline small icon @click="showCmpt(props)">
-              <v-icon small class="icon-edit">fas fa-angle-double-down</v-icon>
+            <v-btn
+              color="red lighten-1"
+              outline
+              small
+              :loading="loading"
+              @click="delete_model=!delete_model;delete_target=props.item.model_id"
+            >
+              <v-icon small left class="icon-edit">fas fa-trash-alt</v-icon>削除
             </v-btn>
           </td>
         </template>
@@ -54,6 +68,23 @@
                   <p class="cmpt_rev">{{ item.cmpt_rev.numToRev() }}</p>
                   <p class="cmpt_name">{{ item.cmpt_name }}</p>
                 </v-card-text>
+                <v-layout wrap class="text-xs-center">
+                  <v-flex xs3>
+                    <v-btn icon @click="upAction(item, props.item)">
+                      <v-icon small class="indigo--text text--lighten-2">fas fa-chevron-left</v-icon>
+                    </v-btn>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-btn flat disabled>
+                      <span class="indigo--text text--lighten-2">SN表示順: {{ item.pivot.row }}</span>
+                    </v-btn>
+                  </v-flex>
+                  <v-flex xs3>
+                    <v-btn icon @click="downAction(item, props.item)">
+                      <v-icon small class="indigo--text text--lighten-2">fas fa-chevron-right</v-icon>
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
                 <v-card-actions>
                   <v-layout wrap>
                     <v-flex xs6>
@@ -70,26 +101,33 @@
         </template>
       </v-data-table>
     </v-container>
+    <v-dialog v-model="delete_model" max-width="500px" transition="dialog-transition">
+      <DeleteCheck :data="delete_data" v-if="delete_model" @rt="deleteAction"></DeleteCheck>
+    </v-dialog>
   </v-app>
 </template>
 
 <script>
 import CmptData from "./../ReadFile/Model/ComponentEntry";
 import { mapState, mapMutations, mapActions } from "vuex";
+import DeleteCheck from "@/components/com/ComCheckDialog";
 // import { SET_MODEL_COM } from "@/store/mutations";
 
 export default {
   components: {
-    CmptData
+    CmptData,
+    DeleteCheck
   },
   computed: {
     ...mapState({
-      target: "target"
+      target: "target",
+      search_x: state => state.search.modelconst
     })
   },
   data: function() {
     return {
       items: [],
+      lists: [],
       headers: [
         { text: "形式", value: "model_code", align: "center" },
         { text: "形式名", value: "model_name", align: "center" },
@@ -105,7 +143,14 @@ export default {
           value: -1
         }
       ],
-      loading: true
+      loading: true,
+      delete_model: false,
+      delete_data: {
+        title: "形式データを削除します",
+        message: "",
+        data_v2: null
+      },
+      delete_target: null
     };
   },
   created: function() {
@@ -113,11 +158,12 @@ export default {
   },
   methods: {
     ...mapMutations(["SET_MODEL_COM", "RESET_COMPONENT_COM"]),
-    ...mapActions(["SET_COMPONENT_COM"]),
+    ...mapActions(["SET_COMPONENT_COM", "SEARCH_MODELCONST"]),
     init() {
       axios.get("/db/model_mst/list").then(res => {
         this.items = res.data;
         this.loading = false;
+        this.filterAct(this.search_x);
       });
     },
     viewCmptSetting(i) {
@@ -163,6 +209,70 @@ export default {
       };
       await this.SET_COMPONENT_COM(cmpt);
       this.$router.push("/model_mst/work_set/cmpt");
+    },
+    upAction(item, parent) {
+      if (item.pivot.row - 1 < 0) return;
+      item.pivot.row = item.pivot.row - 1;
+      parent.cmpt = parent.cmpt.sort(function(a, b) {
+        if (a.pivot.row > b.pivot.row) return 1;
+        else return -1;
+      });
+      let model_id = item.pivot.model_id;
+      let cmpt_id = item.pivot.cmpt_id;
+      let row = item.pivot.row;
+      axios
+        .get(
+          "/db/model_mst/cmpt/row/set/" + model_id + "/" + cmpt_id + "/" + row
+        )
+        .then(res => {
+          // console.log(res);
+        });
+    },
+    downAction(item, parent) {
+      if (item.pivot.row + 1 > parent.cmpt.length - 1) return;
+      item.pivot.row = item.pivot.row + 1;
+      parent.cmpt = parent.cmpt.sort(function(a, b) {
+        if (a.pivot.row > b.pivot.row) return 1;
+        else return -1;
+      });
+      let model_id = item.pivot.model_id;
+      let cmpt_id = item.pivot.cmpt_id;
+      let row = item.pivot.row;
+      axios
+        .get(
+          "/db/model_mst/cmpt/row/set/" + model_id + "/" + cmpt_id + "/" + row
+        )
+        .then(res => {
+          // console.log(res);
+        });
+    },
+    deleteAction() {
+      this.items = this.items.filter(ar => ar.model_id !== this.delete_target);
+      this.delete_model = !this.delete_model;
+      axios
+        .get("/db/model_mst/delete/model/" + this.delete_target)
+        .then(res => {
+          // console.log(res.data);
+        });
+    },
+    filterList(e) {
+      this.SEARCH_MODELCONST(e);
+    },
+    filterAct(val) {
+      if (val === null) {
+        this.lists = this.items;
+        return;
+      }
+      val = val === null ? "" : val;
+      let tar = val.toLowerCase();
+      this.lists = this.items.filter(ar => {
+        return ~ar.model_code.toLowerCase().indexOf(tar);
+      });
+    }
+  },
+  watch: {
+    search_x: function(val) {
+      this.filterAct(val);
     }
   }
 };

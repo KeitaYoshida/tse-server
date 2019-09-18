@@ -5,7 +5,7 @@
         <v-card-title primary-title>
           <v-chip
             small
-            outline
+            :outline="rtOutline(item.order_status.val)"
             dark
             :class="'chip ' + rtOrderClass(item.order_status.val)"
           >{{ item.order_status.val }}</v-chip>
@@ -62,11 +62,20 @@
         </v-card-text>
         <v-card-actions class="pt-0 text-xs-center">
           <v-layout row wrap>
-            <v-flex xs6>
+            <v-flex xs6 v-if="item.cnt_status===0">
               <v-btn flat small class="caption" :to="'/order_list/' + item.cnt_order_code">手配</v-btn>
             </v-flex>
-            <v-flex xs6>
+            <v-flex xs6 v-if="item.cnt_status===1">
+              <v-btn flat small class="caption" @click="ukeire(item)">受入</v-btn>
+            </v-flex>
+            <v-flex xs6 v-if="[2, 3].indexOf(item.cnt_status)">
+              <v-btn flat small class="caption" @click="ukeire(item)">受入リスト</v-btn>
+            </v-flex>
+            <v-flex xs6 v-if="item.cnt_status < 2">
               <v-btn flat small class="caption" color="warning" @click="del(item.cnt_order_code)">取消</v-btn>
+            </v-flex>
+            <v-flex xs6 v-if="item.cnt_status >= 2">
+              <v-btn flat small class="caption" color="warning" disabled>取消</v-btn>
             </v-flex>
           </v-layout>
         </v-card-actions>
@@ -95,6 +104,7 @@
 
 <script>
 import MakeOrder from "./Tyumon/MakeOrder";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -112,6 +122,7 @@ export default {
     this.init();
   },
   methods: {
+    ...mapActions(["ORDERS_ONE_INIT_SET"]),
     init() {
       switch (this.target.pdct_class) {
         case "部材":
@@ -123,16 +134,19 @@ export default {
     rtOrderClass(val) {
       switch (val) {
         case "承認待ち":
-          return "cShoninmachi";
+          return "blue-grey--text text--darken-3";
           break;
         case "発注済":
-          return "cHatyuzumi";
+          return "green--text text--darken-3";
+          break;
+        case "受入中":
+          return "green--text text--darken-3";
           break;
         case "保留":
-          return "cHoryu";
+          return "blue-grey darken-3";
           break;
         default:
-          return "cShoninEtc";
+          return "green darken-3";
           break;
       }
     },
@@ -152,10 +166,24 @@ export default {
           break;
       }
     },
+    rtOutline(val) {
+      return val === "受入完了" || val === "保留" ? false : true;
+    },
     del(ocd) {
       axios.get("/db/order/torikeshi/" + ocd).then(res => {
         this.reload("/product_list");
       });
+    },
+    async ukeire(item) {
+      let order_data = await axios.get(
+        "/db/order/list/one/" + item.cnt_order_code
+      );
+      await this.ORDERS_ONE_INIT_SET({
+        id: item.cnt_model,
+        code: item.cnt_order_code,
+        data: order_data.data
+      });
+      this.$router.push("/ukeire/ukeire");
     }
   }
 };

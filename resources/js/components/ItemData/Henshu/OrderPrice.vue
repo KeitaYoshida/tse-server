@@ -53,7 +53,7 @@ export default {
     return { vend_list: null, submit_text: "決定" };
   },
   created: async function() {
-    console.log(this.vendor);
+    // console.log(this.vendor);
     await axios.get("/vendor/list").then(res => {
       this.vend_list = res.data;
     });
@@ -80,7 +80,6 @@ export default {
         };
       });
       axios.post("/vendor-item/up/" + this.item_id, f).then(res => {
-        // console.log(res.data);
         this.submit_text = "更新済み";
         this.$emit("pass", { type: "order_price", data: res.data });
       });

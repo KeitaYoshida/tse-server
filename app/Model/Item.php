@@ -11,7 +11,7 @@ class Item extends Model
   protected $guarded = array();
   public $timestamps = false;
 
-  protected $with = ['item_class_val'];
+  // protected $with = ['item_class_val'];
 
   function vendor()
   {

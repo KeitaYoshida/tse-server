@@ -1003,7 +1003,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value: "cnt_order_code",
         align: "center"
       }, {
-        text: "受注／入庫数",
+        text: "発注／入庫数",
         value: "cnt_order_code",
         align: "center"
       }],

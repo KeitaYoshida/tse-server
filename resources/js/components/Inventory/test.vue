@@ -7,7 +7,14 @@ export default {
   mounted() {
     this.renderChart(this.d, {
       responsive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      legend: {
+        position: "bottom"
+      },
+      showAllTooltips: true,
+      toolchips: {
+        enabled: false
+      }
     });
   },
   created: function() {}

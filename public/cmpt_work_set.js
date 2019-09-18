@@ -230,7 +230,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -264,22 +272,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
   components: {},
   data: function data() {
     return {
-      tar: null
+      tar: null,
+      select_text: "全選択"
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
     target: "target"
   })),
   created: function created() {
     this.init();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["CMPT_SEARCH_PAGE_ADD", "CMPT_SEARCH_PAGE_BELOW"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["CMPT_SEARCH_PAGE_ADD", "CMPT_SEARCH_PAGE_BELOW", "SET_COMPONENT_COM"]), {
     init: function init() {
       this.tar = this.target.component.search;
     },
@@ -291,13 +307,95 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     returnLastItem: function returnLastItem() {
       var cm = this.target.component.data[0].item_use;
+      cm = cm.filter(function (ar) {
+        return [1, 3, 6].indexOf(ar.items.item_class) === -1;
+      });
       var anum = cm.length;
       var sm = cm.filter(function (ar) {
         return ar.work_id !== null;
       });
       var snum = sm.length;
       return snum + " / " + anum;
-    }
+    },
+    allSelect: function () {
+      var _allSelect = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _this = this;
+
+        var rcid, wid, cm;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                rcid = [];
+                wid = this.target.work.id;
+                cm = this.target.component.data[0].item_use;
+                cm = cm.filter(function (ar) {
+                  return [1, 3, 6].indexOf(ar.items.item_class) === -1;
+                });
+                cm.forEach(function (ar) {
+                  rcid.push(ar.r_ci_id);
+                });
+                _context2.next = 7;
+                return axios.post("/db/model_mst/cmpt/work/item/select/" + wid, rcid).then(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+                    var m, cmpt_data, cmpt;
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return axios.get("/db/model_mst/data/" + _this.target.model.id + "/fromItem");
+
+                          case 2:
+                            m = _context.sent;
+                            cmpt_data = m.data[0].cmpt.filter(function (ar) {
+                              return ar.cmpt_id === _this.target.component.id;
+                            });
+                            cmpt = {
+                              id: _this.target.component.id,
+                              code: _this.target.component.code,
+                              rev: _this.target.component.rev,
+                              data: cmpt_data
+                            };
+                            _context.next = 7;
+                            return _this.SET_COMPONENT_COM(cmpt);
+
+                          case 7:
+                            _this.$emit("rt");
+
+                          case 8:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function allSelect() {
+        return _allSelect.apply(this, arguments);
+      }
+
+      return allSelect;
+    }()
   })
 });
 
@@ -794,7 +892,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       loading: true,
       remake: true,
-      remakeItemFlg: true
+      remakeItemFlg: true,
+      stayMassage: "工程を選択してください"
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -880,6 +979,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return trashAct;
+    }(),
+    remakeItemList: function () {
+      var _remakeItemList = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var tmp;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                this.stayMassage = "更新中";
+                tmp = this.target.work.id;
+                this.target.work.id = null;
+                _context3.next = 5;
+                return this.wait(0.5);
+
+              case 5:
+                this.target.work.id = tmp;
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function remakeItemList() {
+        return _remakeItemList.apply(this, arguments);
+      }
+
+      return remakeItemList;
     }()
   }),
   beforeDestroy: function beforeDestroy() {
@@ -1276,7 +1407,9 @@ var render = function() {
                     ),
                     _c("br"),
                     _vm._v(
-                      "\n        連:" + _vm._s(props.item.item_ren) + "\n      "
+                      "\n        連: " +
+                        _vm._s(props.item.item_ren) +
+                        "\n      "
                     )
                   ]
                 )
@@ -1372,6 +1505,24 @@ var render = function() {
     [
       _c(
         "v-btn",
+        {
+          attrs: {
+            color: "teal darken-2",
+            small: "",
+            disabled: _vm.tar.length === null,
+            dark: ""
+          },
+          on: {
+            click: function($event) {
+              return _vm.allSelect()
+            }
+          }
+        },
+        [_vm._v(_vm._s(_vm.select_text))]
+      ),
+      _vm._v(" "),
+      _c(
+        "v-btn",
         { attrs: { icon: "", small: "", flat: "" } },
         [
           _vm.tar.sync.page === 1
@@ -1443,7 +1594,7 @@ var render = function() {
         ? _c(
             "v-chip",
             { attrs: { color: "teal darken-2", small: "", dark: "" } },
-            [_c("span", [_vm._v("残: " + _vm._s(_vm.returnLastItem()))])]
+            [_c("span", [_vm._v("連: " + _vm._s(_vm.returnLastItem()))])]
           )
         : _vm._e()
     ],
@@ -1913,7 +2064,11 @@ var render = function() {
                                           staticClass: "text-xs-right",
                                           attrs: { xs7: "" }
                                         },
-                                        [_c("CmptSearchPage")],
+                                        [
+                                          _c("CmptSearchPage", {
+                                            on: { rt: _vm.remakeItemList }
+                                          })
+                                        ],
                                         1
                                       )
                                     ],
@@ -1934,7 +2089,7 @@ var render = function() {
                                               {
                                                 staticClass: "no-select-message"
                                               },
-                                              [_vm._v("工程を選択してください")]
+                                              [_vm._v(_vm._s(_vm.stayMassage))]
                                             )
                                           ]
                                         )

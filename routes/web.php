@@ -37,10 +37,12 @@ Route::get('/checkdata/day/{date}', 'CheckdataController@daylist');
 Route::post('/errordata', 'ErrorDataDailyController@store')->middleware('auth');
 
 Route::get('/items/itemlist', 'ItemsCtrl@itemlist');
+Route::get("/items/itemClass", "ItemsCtrl@ItemClass");
 Route::get('/items/iteminfo/{code}/{rev}', 'ItemsCtrl@iteminfo');
 Route::get('/items/item_inv_his/{id}/{rev}', 'ItemCountHistoryCtrl@history');
 Route::get('/items/order_price/{id}', 'ItemsCtrl@item_order_price');
 Route::get('/items/up_item_num_inv/{id}/{rev}/{num}/{order}/{assy}', 'ItemsCtrl@up_item_num_inv')->middleware('auth');
+Route::get('/items/mini', 'ItemsCtrl@itemListMini');
 
 Route::get('/vendor/list', 'VendorCtrl@vendor_list');
 Route::post('/vendor-item/up/{id}', 'MVendorItemCtrl@up_vendor_item');
@@ -68,6 +70,9 @@ Route::get('/db/model_mst/cmpt/data/{id}', 'ModelCtrl@ModelCmptData');
 Route::get('/db/model_mst/cmpt/work/title/list', 'ModelCtrl@ModelCmptWorkTitleList');
 Route::get("/db/model_mst/cmpt/work/del/row/{row}/{cmpt}", 'ModelCtrl@ModelCmptWorkDelRow');
 Route::get("/db/model_mst/cmpt/work/item/select/{cid}/{wid}", 'ModelCtrl@ModelCmptWorkItemSelect');
+Route::post("/db/model_mst/cmpt/work/item/select/{wid}", 'ModelCtrl@ModelCmptWorkItemAll');
+Route::get('/db/model_mst/cmpt/row/set/{model_id}/{cmpt_id}/{row}', 'ModelCtrl@SetRModelCmptRow');
+Route::get("/db/model_mst/delete/model/{mid}", "ModelCtrl@DeleteModel");
 
 Route::get("/db/cmpt/data/{id}", "CmptCtrl@GetCmptData");
 Route::post("/db/comt/get/data/arr", "CmptCtrl@GetCmptDataArr");
@@ -102,6 +107,8 @@ Route::post("/db/workdata/set/sn/act/{row}", "PdctWorkList@SetSnAct");
 Route::get("/db/workdata/cmpt/items/{wid}", "PdctWorkList@GetWorkItems");
 Route::post("/db/workdata/use/item/act/{flg}", "PdctWorkList@UseItemAction");
 Route::get("/db/workdata/set/const/status/{wid}/{per}", "PdctWorkList@SetConstStatus");
+Route::get("/db/workdata/delete/const/{wid}", "PdctWorkList@DeleteConst");
+Route::get("/db/workdata/set/status/{wid}/{status}", "PdctWorkList@SetStatus");
 
 Route::get("/db/works/get/list/way/day/{before}/{after}", "PdctWorkList@GetWorkListWayToDay");
 Route::get("/db/works/set/day/{id}/{sday}/{eday}", "PdctWorkList@SetWorkListDate");
@@ -120,14 +127,21 @@ Route::post("/db/order/list/orderd/", 'CntOrderCtrl@OrderListOrderd');
 Route::get("/db/order/list/yoyaku", 'CntOrderCtrl@OrderListYoyaku');
 Route::get("/db/order/torikeshi/{ocode}", 'CntOrderCtrl@OrderTorikeshi');
 Route::get("/db/order/ukeire/cnt/list", 'CntOrderCtrl@OrderUkeireCntList');
+Route::get("/db/order/mini", 'CntOrderCtrl@OrderListMini');
 
 Route::get('/db/ukeire/all/list', "CntOrderCtrl@GetUkeireAllList");
 Route::post("/db/ukeire/action", "CntOrderCtrl@UkeireAction");
+
+Route::post("/db/shukei/action", "CntOrderCtrl@ShukeiAction");
 
 Route::get("/db/vendor/list", 'VendorCtrl@vendor_list');
 Route::get("/db/vendor/update/one/col/{vid}/{col}/{val}", 'VendorCtrl@VendorUpOne');
 Route::get("/db/vendor/togo/{mid}/{sid}", 'VendorCtrl@VendorTogo');
 Route::get("/db/vendor/del/{vid}", 'VendorCtrl@VendorDel');
+Route::get("/db/vendor/insert/comp/{name}", "VendorCtrl@AddComp");
+
+Route::get("/db/monitor/init_day", "monitor@InitDay");
+Route::get("/db/monitor/init_month", "monitor@InitMonth");
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 

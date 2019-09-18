@@ -13,9 +13,13 @@ class ItemsCtrl extends Controller
 {
   public function itemlist()
   {
-    return Item::all();
+    return Item::with('item_class_val')->with('vendor')->get();
   }
 
+  public function ItemClass()
+  {
+    return ItemClass::all();
+  }
   public function up_item_data(Request $req, $id)
   {
     $item = new Item;
@@ -54,5 +58,11 @@ class ItemsCtrl extends Controller
   {
     $i = new Item;
     $i->create(['item_code' => $iid, 'item_rev' => $irev]);
+  }
+
+  public function itemListMini()
+  {
+    $i = new Item;
+    return $i->get(['item_code', 'item_name', 'item_model']);
   }
 }

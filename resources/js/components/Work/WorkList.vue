@@ -230,25 +230,6 @@ export default {
       });
       this.select = [];
     }
-    // // mover(e) {
-    // //   console.log("o");
-    // //   let cl = document.getElementsByClassName("worklist");
-    // //   let tar = e.target;
-    // //   cl = [].slice.call(cl[0].childNodes);
-    // //   let n = cl.indexOf(tar);
-    // //   // cl[n].target.classList.add("mon");
-    // //   console.log(cl[n]);
-    // // },
-    // // mleave(e) {
-    // //   console.log("l");
-    // //   let cl = document.getElementsByClassName("worklist");
-    // //   let tar = e.target;
-    // //   cl = [].slice.call(cl[0].childNodes);
-    // //   let n = cl.indexOf(tar);
-    // //   // console.log(cl[n]);
-    // //   console.log(cl[n]);
-    // //   // cl[n].target.classList.remove("mon");
-    // }
   },
   watch: {
     scrollTop: function(val) {

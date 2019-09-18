@@ -90,6 +90,12 @@
                 color="primary"
                 @click="changeVal(props.item, 'com_tanto', '担当者名')"
               >{{ rtMisettei(props.item.com_tanto) }}</v-btn>
+              <br />
+              <v-btn
+                flat
+                color="primary"
+                @click="changeVal(props.item, 'level', '表示レベル')"
+              >{{ rtMisettei(props.item.level) }}</v-btn>
             </td>
           </tr>
         </template>
@@ -128,9 +134,9 @@
         <span>削除モード解除</span>
         <v-icon>far fa-trash-alt</v-icon>
       </v-btn>
-      <v-btn flat value="add">
+      <v-btn flat value="add" @click="changeVal({}, 'new', '会社名')">
         <span>新規追加</span>
-        <v-icon>far fa-trash-alt</v-icon>
+        <v-icon>fas fa-plus</v-icon>
       </v-btn>
     </v-bottom-nav>
   </v-app>
@@ -151,9 +157,11 @@ export default {
         { text: "会社名", value: "com_name", align: "center" },
         { text: "〒住所", value: "com_post", align: "center" },
         { text: "電話番号/メール", value: "com_tel", align: "center" },
-        { text: "担当者名", value: "com_tanto", align: "center" }
+        { text: "担当者名/表示階層", value: "level", align: "center" }
       ],
       pagination: {
+        sortBy: "level",
+        descending: true,
         rowsPerPage: 20,
         rowsPerPageItems: [20, 50]
       },
@@ -200,8 +208,20 @@ export default {
       let vId = this.target.vendor_code;
       let col = d.data[0].name;
       let val = d.data[0].value;
+      if (col === "new") {
+        this.addCom(val);
+        return;
+      }
       axios.get("/db/vendor/update/one/col/" + vId + "/" + col + "/" + val);
       this.target[col] = val;
+      this.vfm = !this.vfm;
+      this.fm = null;
+      this.target = null;
+    },
+    async addCom(comname) {
+      let kCode = await axios.get("/db/vendor/insert/comp/" + comname);
+      this.init();
+      this.search = kCode.data;
       this.vfm = !this.vfm;
       this.fm = null;
       this.target = null;

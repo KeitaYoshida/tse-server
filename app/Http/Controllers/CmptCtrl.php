@@ -15,7 +15,13 @@ class CmptCtrl extends Controller
   public function GetCmptDataArr(Request $req)
   {
     $cm = new Components;
-    return $cm->whereIn('cmpt_id', $req)->get();
+    $tmp = array();
+    foreach ($req->all() as $cmpt_id) {
+      // return $cm->where('cmpt_id', $cmpt_id)->get();
+      $hoge = $cm->where('cmpt_id', $cmpt_id)->get();
+      array_push($tmp, $hoge[0]);
+    }
+    return $tmp;
   }
   public function DeleteCmpt($id)
   {

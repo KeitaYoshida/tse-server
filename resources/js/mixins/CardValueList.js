@@ -122,6 +122,26 @@ const _card_data = {
     button: false,
     button_text: BUTON_TEXT
   },
+  ['item/monitor']: {
+    title: "モニター",
+    class_text: COLOR_DEF,
+    color: TEXT_COLOR,
+    text: ["日次、月次、生産・集計モニター"],
+    details: [""].join(""),
+    links: "",
+    button: false,
+    button_text: BUTON_TEXT
+  },
+  sumup: {
+    title: "集計",
+    class_text: COLOR_DEF,
+    color: TEXT_COLOR,
+    text: ["部材・工事集計、集計履歴"],
+    details: [""].join(""),
+    links: "",
+    button: false,
+    button_text: BUTON_TEXT
+  },
   work: {
     title: "制作",
     class_text: COLOR_DEF,

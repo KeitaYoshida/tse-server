@@ -378,8 +378,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         };
       });
       axios.post("/vendor-item/up/" + this.item_id, f).then(function (res) {
-        console.log(res.data);
-        return;
+        // console.log(res.data);
         _this2.submit_text = "更新済み";
 
         _this2.$emit("pass", {
@@ -980,9 +979,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  created: function created() {
-    console.log(this.data);
-  },
+  created: function created() {},
   methods: {
     submit: function submit() {
       this.$emit("rt", this.data, true);

@@ -60,6 +60,12 @@ export default {
       let f2 = s["2"] !== undefined ? s["2"] : 0;
       let f3 = s["3"] !== undefined ? s["3"] : 0;
       let fa = f0 + f1 + f2 + f3;
+      let work_id = this.tar.process.base.wid;
+      let model_status = 0;
+      if (f2 / fa > 0) model_status = 1;
+      if (f2 / fa === 1) model_status = 2;
+      axios.get("/db/workdata/set/status/" + work_id + "/" + model_status);
+
       return (f2 / fa) * 100;
     }
   }

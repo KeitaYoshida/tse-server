@@ -25,7 +25,9 @@ class ModelCtrl extends Controller
     foreach ($req->basis as  $val) {
       $cData[$val['cmpt_code']] =
         ['model_id' => $mid, 'cmpt_id' => $c->updateOrCreate($val)->cmpt_id];
-      $r_cmpt_item->where('cmpt_id', $cData[$val['cmpt_code']]['cmpt_id'])->delete();
+      // 削除処理停止
+      // return $r_cmpt_item->where('cmpt_id', $cData[$val['cmpt_code']]['cmpt_id'])->get();
+      // $r_cmpt_item->where('cmpt_id', $cData[$val['cmpt_code']]['cmpt_id'])->delete();
     }
 
     $im = new Item;
@@ -35,8 +37,13 @@ class ModelCtrl extends Controller
       $r_model_cmpt->updateOrCreate($cmpt_data);
       $h = $h + $i;
       for ($i = 0; $i < count($req->item[$key]); $i++) {
-        $imid = $im
-          ->updateOrCreate($req->iuni[$key][$i], $req->item[$key][$i])->item_id;
+        $ther_flg = $im->where($req->iuni[$key][$i])->get(['item_id']);
+        if (count($ther_flg) > 0) {
+          $imid = $ther_flg[0]->item_id;
+        } else {
+          $imid =
+            $im->updateOrCreate($req->iuni[$key][$i], $req->item[$key][$i])->item_id;
+        }
         $imData[$h + $i] = [
           'cmpt_id' => $cData[$key]['cmpt_id'],
           'item_id' => $imid,
@@ -48,7 +55,10 @@ class ModelCtrl extends Controller
     }
 
     foreach ($imData as $val) {
-      $r_cmpt_item->create($val);
+      $r_cmpt_item->updateOrCreate(
+        ['cmpt_id' => $val['cmpt_id'], 'item_id' => $val['item_id']],
+        $val
+      );
     }
 
     return $m->where('model_id', $mid)->with('cmpt.item_use.items.vendor.vendname')->get();
@@ -91,11 +101,8 @@ class ModelCtrl extends Controller
   public function ModelList()
   {
     $m = new Models;
-    // return $m->with(['cmpt.works' => function ($query) {
-    //   $query->pivot->orderBy('row', 'asc');
-    // }])->get();
     return $m->with(['cmpt' => function ($q) {
-      $q->orderBy('r_model_cmpt.process_row', 'asc');
+      $q->orderBy('r_model_cmpt.row', 'asc');
       $q->with(['works' => function ($qy) {
         $qy->orderBy('cmpt_works.row', 'asc');
       }]);
@@ -154,13 +161,19 @@ class ModelCtrl extends Controller
       $rci->where('r_ci_id', $cid)->update(['work_id' => $wid]);
     }
   }
+  public function ModelCmptWorkItemAll(Request $req, $wid)
+  {
+    $rci = new RCmptItem;
+    $rci->whereIn('r_ci_id', $req)->update(['work_id' => $wid]);
+  }
 
   public function ModelData($id, $pt = "all")
   {
     $m = new Models;
     if ($pt === 'all') {
       $ptv = "cmpt.item_use.items.vendor.vendname";
-      return $m->where('model_id', $id)->with($ptv)->get();
+      $ptc = "cmpt.item_use.items.item_class_val";
+      return $m->where('model_id', $id)->with($ptv)->with($ptc)->get();
     } else if ($pt === 'fromItem') {
       return $m
         ->where('model_id', $id)
@@ -181,5 +194,18 @@ class ModelCtrl extends Controller
     // return $m->whereHas('cmpt.item_use.items', function ($q) {
     //   $q->where('item_class', '<>', '図面')->where('item_class', '<>', 'CHIP品');
     // })->with('cmpt.item_use.items')->get();
+  }
+
+  public function SetRModelCmptRow($model_id, $cmpt_id, $row)
+  {
+    $RMC = new RModelCmpt;
+    $RMC->where(['model_id' => $model_id, 'cmpt_id' => $cmpt_id])->update(['row' => $row]);
+    return $RMC->where(['model_id' => $model_id, 'cmpt_id' => $cmpt_id])->get();
+  }
+
+  public function DeleteModel($mid)
+  {
+    $m = new Models;
+    $m->where('model_id', $mid)->delete();
   }
 }

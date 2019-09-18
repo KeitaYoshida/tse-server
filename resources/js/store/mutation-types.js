@@ -26,3 +26,7 @@ export const SET_MODEL_COM = "SET_MODEL_COM";
 export const PDCT_ABOUT_SET = "PDCT_ABOUT_SET";
 
 export const ORDERS_ONE_INIT_SET = "ORDERS_ONE_INIT_SET";
+
+export const ITEMS_SET = "ITEMS_SET";
+
+export const SEARCH_INVENTORY = "SEARCH_INVENTORY";

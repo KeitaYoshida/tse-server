@@ -9,7 +9,6 @@ class RCmptItem extends Model
   protected $table = 'r_cmpt_item';
   protected $primaryKey = 'r_ci_id';
   protected $guarded = array();
-  public $timestamps = false;
 
   public function items()
   {

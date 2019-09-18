@@ -10,32 +10,28 @@
     >
       <v-card flat>
         <v-card-title primary-title>
-          <v-chip small color="#3949ab" dark>{{ item.class.val }}</v-chip>
-          <v-chip small color="#3949ab" dark>{{ item.status.val }}</v-chip>
+          <v-chip small color="#5C6BC0" dark>{{ item.class.val }}</v-chip>
+          <v-chip
+            small
+            :outline="rtOutline(item.status)"
+            :class="rtClass(item.status)"
+            dark
+          >{{ item.status.val }}</v-chip>
           <br />
-          <v-chip small color="#3949ab" dark>{{ item.model.model_code }}</v-chip>
-          <v-chip small color="#3949ab" dark>{{ item.model.model_rev.numToRev() }}</v-chip>
-          <v-chip
-            small
-            color="#3949ab"
-            dark
-            v-if="item.status.model_code_ne"
-          >{{ item.status.model_code_ne }}</v-chip>
-          <v-chip
-            small
-            color="#3949ab"
-            dark
-            v-if="item.status.model_name"
-          >{{ item.status.model_name }}</v-chip>
         </v-card-title>
-        <v-card-text>
-          <v-chip outline color="#3949ab">{{ item.worklist_code }}</v-chip>
-          <v-chip outline color="#3949ab">{{ item.num }} EA</v-chip>
-          <v-chip outline color="#3949ab">{{ item.st_day }} ~ {{ item.ed_day }}</v-chip>
-          <v-chip outline color="#3949ab">起工氏: {{ item.user }}</v-chip>
+        <v-card-text class="mb-0 pb-0">
+          <p class="workdata_text">{{ item.status.model_code_ne || item.model.model_code }}</p>
+          <p class="workdata_text">{{ item.worklist_code }}</p>
+          <p class="workdata_text mini">{{ item.num }} EA</p>
         </v-card-text>
         <v-card-actions class="text-xs-center">
-          <v-btn color="#3949ab" flat style="width:100%;font-size:1.3rem;">製造</v-btn>
+          <v-btn flat class="btn-make half" :to="'/process/' + item.worklist_id">製造</v-btn>
+          <v-btn
+            flat
+            class="btn-delete half"
+            @click="deleteWorkList(item)"
+            :disabled="item.worklist_status!==0"
+          >取消</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -74,7 +70,29 @@ export default {
   },
   methods: {
     ...mapActions([]),
-    init() {}
+    init() {},
+    deleteWorkList(item) {
+      let n = this.target.product.workdata.indexOf(item);
+      this.target.product.workdata.splice(n, 1);
+      axios.get("/db/workdata/delete/const/" + item.worklist_id);
+    },
+    rtOutline(d) {
+      return d.worklist_status === 2 ? false : true;
+    },
+    rtClass(d) {
+      let cl = "";
+      switch (d.worklist_status) {
+        case 0:
+          break;
+        case 1:
+          cl = "indigo--text text--lighten-1";
+          break;
+        case 2:
+          cl = "indigo lighten-1";
+          break;
+      }
+      return cl;
+    }
   }
 };
 </script>
@@ -89,14 +107,33 @@ p {
 .other {
   min-height: 200px;
   .v-card {
-    background-color: #3949ab;
+    background-color: #5c6bc0;
     color: #fff;
   }
 }
 .workdata {
   .v-card {
-    border: 1px solid #3949ab;
-    color: #3949ab;
+    border: 1px solid #5c6bc0;
+    color: #5c6bc0;
+  }
+  .workdata_text {
+    color: "#5C6BC0";
+    font-size: 1.5rem;
+    &.mini {
+      font-size: 1.2rem;
+    }
+  }
+  .v-btn {
+    &.half {
+      width: 50%;
+      font-size: 1.3rem;
+    }
+    &.btn-make {
+      color: #5c6bc0;
+    }
+    &.btn-delete {
+      color: #ffa726;
+    }
   }
 }
 .add_button {

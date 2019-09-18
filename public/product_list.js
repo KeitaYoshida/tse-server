@@ -345,7 +345,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Tyumon_MakeOrder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Tyumon/MakeOrder */ "./resources/js/components/Product/Tyumon/MakeOrder.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Tyumon_MakeOrder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Tyumon/MakeOrder */ "./resources/js/components/Product/Tyumon/MakeOrder.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -442,9 +466,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    MakeOrder: _Tyumon_MakeOrder__WEBPACK_IMPORTED_MODULE_0__["default"]
+    MakeOrder: _Tyumon_MakeOrder__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: ["target", "model_data"],
   data: function data() {
@@ -457,7 +482,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.init();
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(["ORDERS_ONE_INIT_SET"]), {
     init: function init() {
       switch (this.target.pdct_class) {
         case "部材":
@@ -470,19 +495,23 @@ __webpack_require__.r(__webpack_exports__);
     rtOrderClass: function rtOrderClass(val) {
       switch (val) {
         case "承認待ち":
-          return "cShoninmachi";
+          return "blue-grey--text text--darken-3";
           break;
 
         case "発注済":
-          return "cHatyuzumi";
+          return "green--text text--darken-3";
+          break;
+
+        case "受入中":
+          return "green--text text--darken-3";
           break;
 
         case "保留":
-          return "cHoryu";
+          return "blue-grey darken-3";
           break;
 
         default:
-          return "cShoninEtc";
+          return "green darken-3";
           break;
       }
     },
@@ -505,14 +534,55 @@ __webpack_require__.r(__webpack_exports__);
           break;
       }
     },
+    rtOutline: function rtOutline(val) {
+      return val === "受入完了" || val === "保留" ? false : true;
+    },
     del: function del(ocd) {
       var _this = this;
 
       axios.get("/db/order/torikeshi/" + ocd).then(function (res) {
         _this.reload("/product_list");
       });
-    }
-  }
+    },
+    ukeire: function () {
+      var _ukeire = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(item) {
+        var order_data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get("/db/order/list/one/" + item.cnt_order_code);
+
+              case 2:
+                order_data = _context.sent;
+                _context.next = 5;
+                return this.ORDERS_ONE_INIT_SET({
+                  id: item.cnt_model,
+                  code: item.cnt_order_code,
+                  data: order_data.data
+                });
+
+              case 5:
+                this.$router.push("/ukeire/ukeire");
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function ukeire(_x) {
+        return _ukeire.apply(this, arguments);
+      }
+
+      return ukeire;
+    }()
+  })
 });
 
 /***/ }),
@@ -885,10 +955,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -908,7 +974,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.init();
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])([]), {
-    init: function init() {}
+    init: function init() {},
+    deleteWorkList: function deleteWorkList(item) {
+      var n = this.target.product.workdata.indexOf(item);
+      this.target.product.workdata.splice(n, 1);
+      axios.get("/db/workdata/delete/const/" + item.worklist_id);
+    },
+    rtOutline: function rtOutline(d) {
+      return d.worklist_status === 2 ? false : true;
+    },
+    rtClass: function rtClass(d) {
+      var cl = "";
+
+      switch (d.worklist_status) {
+        case 0:
+          break;
+
+        case 1:
+          cl = "indigo--text text--lighten-1";
+          break;
+
+        case 2:
+          cl = "indigo lighten-1";
+          break;
+      }
+
+      return cl;
+    }
   })
 });
 
@@ -1080,6 +1172,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1096,7 +1220,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       loading: true,
       pdct: null,
-      search: "",
       headers: [{
         text: "区分",
         value: "pdct_class",
@@ -1128,9 +1251,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.init();
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])({
-    tar: "target"
+    tar: "target",
+    search_x: function search_x(state) {
+      return state.search.modelconst;
+    }
   })),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapActions"])(["PDCT_ABOUT_SET"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapActions"])(["PDCT_ABOUT_SET", "SEARCH_MODELCONST"]), {
     init: function init() {
       var _this = this;
 
@@ -1209,6 +1335,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       };
       this.PDCT_ABOUT_SET(d);
       props.expanded = true;
+    },
+    tyumonView: function tyumonView(item) {
+      return item.orders.length === 0 ? false : true;
+    },
+    makeView: function makeView(item) {
+      return item.workdata.length === 0 ? false : true;
+    },
+    rtComContext: function rtComContext(arr) {
+      var count = arr.length;
+      var sum = 0;
+      arr.forEach(function (ar) {
+        sum = sum + ar.context;
+      });
+      return sum / count;
     }
   }),
   beforeDestroy: function beforeDestroy() {
@@ -1592,7 +1732,7 @@ exports.push([module.i, "p[data-v-7daaa038] {\n  margin-bottom: 0;\n}\n.model_na
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "p[data-v-3dea3866] {\n  margin-bottom: 0;\n}\n.v-card[data-v-3dea3866] {\n  text-align: center;\n}\n.other[data-v-3dea3866] {\n  min-height: 200px;\n}\n.other .v-card[data-v-3dea3866] {\n  background-color: #3949ab;\n  color: #fff;\n}\n.workdata .v-card[data-v-3dea3866] {\n  border: 1px solid #3949ab;\n  color: #3949ab;\n}\n.add_button button[data-v-3dea3866] {\n  position: absolute;\n  top: 45%;\n  left: 48%;\n  transform: translateY(-50%) translateX(-50%);\n}\n.v-card__title[data-v-3dea3866] {\n  padding: 0;\n  font-size: 0.9rem;\n}\n.v-card__title .v-chip[data-v-3dea3866] {\n  border-radius: 5px;\n  margin-top: 10px;\n  margin-left: 5px;\n}\n.v-card__title--primary[data-v-3dea3866] {\n  padding: 0;\n}\n.v-card__actions .v-btn[data-v-3dea3866] {\n  font-size: 0.8rem;\n  color: #1b5e20;\n}\n.v-chip.v-chip.v-chip--outline.chip[data-v-3dea3866] {\n  border-radius: 5px;\n}", ""]);
+exports.push([module.i, "p[data-v-3dea3866] {\n  margin-bottom: 0;\n}\n.v-card[data-v-3dea3866] {\n  text-align: center;\n}\n.other[data-v-3dea3866] {\n  min-height: 200px;\n}\n.other .v-card[data-v-3dea3866] {\n  background-color: #5c6bc0;\n  color: #fff;\n}\n.workdata .v-card[data-v-3dea3866] {\n  border: 1px solid #5c6bc0;\n  color: #5c6bc0;\n}\n.workdata .workdata_text[data-v-3dea3866] {\n  color: \"#5C6BC0\";\n  font-size: 1.5rem;\n}\n.workdata .workdata_text.mini[data-v-3dea3866] {\n  font-size: 1.2rem;\n}\n.workdata .v-btn.half[data-v-3dea3866] {\n  width: 50%;\n  font-size: 1.3rem;\n}\n.workdata .v-btn.btn-make[data-v-3dea3866] {\n  color: #5c6bc0;\n}\n.workdata .v-btn.btn-delete[data-v-3dea3866] {\n  color: #ffa726;\n}\n.add_button button[data-v-3dea3866] {\n  position: absolute;\n  top: 45%;\n  left: 48%;\n  transform: translateY(-50%) translateX(-50%);\n}\n.v-card__title[data-v-3dea3866] {\n  padding: 0;\n  font-size: 0.9rem;\n}\n.v-card__title .v-chip[data-v-3dea3866] {\n  border-radius: 5px;\n  margin-top: 10px;\n  margin-left: 5px;\n}\n.v-card__title--primary[data-v-3dea3866] {\n  padding: 0;\n}\n.v-card__actions .v-btn[data-v-3dea3866] {\n  font-size: 0.8rem;\n  color: #1b5e20;\n}\n.v-chip.v-chip.v-chip--outline.chip[data-v-3dea3866] {\n  border-radius: 5px;\n}", ""]);
 
 
 
@@ -1622,7 +1762,7 @@ exports.push([module.i, "p[data-v-fde9e5b6] {\n  margin: 0;\n  text-align: cente
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".view_lists[data-v-09740352] {\n  font-size: 1rem;\n}\ntd[data-v-09740352] {\n  padding: 0 !important;\n}\ntd p[data-v-09740352] {\n  text-align: center;\n  padding-bottom: 0;\n  margin-bottom: 0;\n}\n.v-chip[data-v-09740352] {\n  font-size: 0.9rem;\n  margin: 0;\n  border-radius: 5px;\n}\n.v-chip.v-chip.v-chip--outline[data-v-09740352] {\n  height: 24px;\n}\n.v-chip.buhin[data-v-09740352] {\n  border-color: #4e342e;\n  color: #4e342e;\n}\n.v-chip.shuri[data-v-09740352] {\n  border-color: #ef6c00;\n  color: #ef6c00;\n}\n.v-chip.seihin[data-v-09740352] {\n  border-color: #283593;\n  color: #283593;\n}\n.v-chip.etc[data-v-09740352] {\n  border-color: #2e7d32;\n  color: #2e7d32;\n}\n.v-chip.shinki[data-v-09740352] {\n  border-color: #4caf50;\n  color: #4caf50;\n}\n.mini[data-v-09740352] {\n  font-size: 0.6rem;\n}", ""]);
+exports.push([module.i, ".view_lists[data-v-09740352] {\n  font-size: 1rem;\n}\ntd[data-v-09740352] {\n  padding: 0 !important;\n}\ntd p[data-v-09740352] {\n  text-align: center;\n  padding-bottom: 0;\n  margin-bottom: 0;\n}\n.v-chip[data-v-09740352] {\n  font-size: 0.9rem;\n  margin: 0;\n  border-radius: 5px;\n}\n.v-chip.v-chip.v-chip--outline[data-v-09740352] {\n  height: 24px;\n}\n.v-chip.buhin[data-v-09740352] {\n  border-color: #4e342e;\n  color: #4e342e;\n}\n.v-chip.shuri[data-v-09740352] {\n  border-color: #ef6c00;\n  color: #ef6c00;\n}\n.v-chip.seihin[data-v-09740352] {\n  border-color: #283593;\n  color: #283593;\n}\n.v-chip.etc[data-v-09740352] {\n  border-color: #2e7d32;\n  color: #2e7d32;\n}\n.v-chip.shinki[data-v-09740352] {\n  border-color: #4caf50;\n  color: #4caf50;\n}\n.mini[data-v-09740352] {\n  font-size: 0.6rem;\n}\n.buttons[data-v-09740352] {\n  max-width: 330px;\n}\n.v-progress-linear[data-v-09740352] {\n  margin: 0;\n}", ""]);
 
 
 
@@ -2262,7 +2402,11 @@ var render = function() {
                       {
                         class:
                           "chip " + _vm.rtOrderClass(item.order_status.val),
-                        attrs: { small: "", outline: "", dark: "" }
+                        attrs: {
+                          small: "",
+                          outline: _vm.rtOutline(item.order_status.val),
+                          dark: ""
+                        }
                       },
                       [_vm._v(_vm._s(item.order_status.val))]
                     ),
@@ -2378,50 +2522,123 @@ var render = function() {
                       "v-layout",
                       { attrs: { row: "", wrap: "" } },
                       [
-                        _c(
-                          "v-flex",
-                          { attrs: { xs6: "" } },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "caption",
-                                attrs: {
-                                  flat: "",
-                                  small: "",
-                                  to: "/order_list/" + item.cnt_order_code
-                                }
-                              },
-                              [_vm._v("手配")]
+                        item.cnt_status === 0
+                          ? _c(
+                              "v-flex",
+                              { attrs: { xs6: "" } },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "caption",
+                                    attrs: {
+                                      flat: "",
+                                      small: "",
+                                      to: "/order_list/" + item.cnt_order_code
+                                    }
+                                  },
+                                  [_vm._v("手配")]
+                                )
+                              ],
+                              1
                             )
-                          ],
-                          1
-                        ),
+                          : _vm._e(),
                         _vm._v(" "),
-                        _c(
-                          "v-flex",
-                          { attrs: { xs6: "" } },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                staticClass: "caption",
-                                attrs: {
-                                  flat: "",
-                                  small: "",
-                                  color: "warning"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.del(item.cnt_order_code)
-                                  }
-                                }
-                              },
-                              [_vm._v("取消")]
+                        item.cnt_status === 1
+                          ? _c(
+                              "v-flex",
+                              { attrs: { xs6: "" } },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "caption",
+                                    attrs: { flat: "", small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.ukeire(item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("受入")]
+                                )
+                              ],
+                              1
                             )
-                          ],
-                          1
-                        )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        [2, 3].indexOf(item.cnt_status)
+                          ? _c(
+                              "v-flex",
+                              { attrs: { xs6: "" } },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "caption",
+                                    attrs: { flat: "", small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.ukeire(item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("受入リスト")]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.cnt_status < 2
+                          ? _c(
+                              "v-flex",
+                              { attrs: { xs6: "" } },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "caption",
+                                    attrs: {
+                                      flat: "",
+                                      small: "",
+                                      color: "warning"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.del(item.cnt_order_code)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("取消")]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.cnt_status >= 2
+                          ? _c(
+                              "v-flex",
+                              { attrs: { xs6: "" } },
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "caption",
+                                    attrs: {
+                                      flat: "",
+                                      small: "",
+                                      color: "warning",
+                                      disabled: ""
+                                    }
+                                  },
+                                  [_vm._v("取消")]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e()
                       ],
                       1
                     )
@@ -2798,7 +3015,7 @@ var render = function() {
               },
               [
                 _c("SelectModel", {
-                  attrs: { defval: _vm.fm.code },
+                  attrs: { defval: _vm.target.model_id },
                   on: { select: _vm.rtModel }
                 })
               ],
@@ -2883,70 +3100,43 @@ var render = function() {
                   [
                     _c(
                       "v-chip",
-                      { attrs: { small: "", color: "#3949ab", dark: "" } },
+                      { attrs: { small: "", color: "#5C6BC0", dark: "" } },
                       [_vm._v(_vm._s(item.class.val))]
                     ),
                     _vm._v(" "),
                     _c(
                       "v-chip",
-                      { attrs: { small: "", color: "#3949ab", dark: "" } },
+                      {
+                        class: _vm.rtClass(item.status),
+                        attrs: {
+                          small: "",
+                          outline: _vm.rtOutline(item.status),
+                          dark: ""
+                        }
+                      },
                       [_vm._v(_vm._s(item.status.val))]
                     ),
                     _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c(
-                      "v-chip",
-                      { attrs: { small: "", color: "#3949ab", dark: "" } },
-                      [_vm._v(_vm._s(item.model.model_code))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "v-chip",
-                      { attrs: { small: "", color: "#3949ab", dark: "" } },
-                      [_vm._v(_vm._s(item.model.model_rev.numToRev()))]
-                    ),
-                    _vm._v(" "),
-                    item.status.model_code_ne
-                      ? _c(
-                          "v-chip",
-                          { attrs: { small: "", color: "#3949ab", dark: "" } },
-                          [_vm._v(_vm._s(item.status.model_code_ne))]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    item.status.model_name
-                      ? _c(
-                          "v-chip",
-                          { attrs: { small: "", color: "#3949ab", dark: "" } },
-                          [_vm._v(_vm._s(item.status.model_name))]
-                        )
-                      : _vm._e()
+                    _c("br")
                   ],
                   1
                 ),
                 _vm._v(" "),
-                _c(
-                  "v-card-text",
-                  [
-                    _c("v-chip", { attrs: { outline: "", color: "#3949ab" } }, [
-                      _vm._v(_vm._s(item.worklist_code))
-                    ]),
-                    _vm._v(" "),
-                    _c("v-chip", { attrs: { outline: "", color: "#3949ab" } }, [
-                      _vm._v(_vm._s(item.num) + " EA")
-                    ]),
-                    _vm._v(" "),
-                    _c("v-chip", { attrs: { outline: "", color: "#3949ab" } }, [
-                      _vm._v(_vm._s(item.st_day) + " ~ " + _vm._s(item.ed_day))
-                    ]),
-                    _vm._v(" "),
-                    _c("v-chip", { attrs: { outline: "", color: "#3949ab" } }, [
-                      _vm._v("起工氏: " + _vm._s(item.user))
-                    ])
-                  ],
-                  1
-                ),
+                _c("v-card-text", { staticClass: "mb-0 pb-0" }, [
+                  _c("p", { staticClass: "workdata_text" }, [
+                    _vm._v(
+                      _vm._s(item.status.model_code_ne || item.model.model_code)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "workdata_text" }, [
+                    _vm._v(_vm._s(item.worklist_code))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "workdata_text mini" }, [
+                    _vm._v(_vm._s(item.num) + " EA")
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "v-card-actions",
@@ -2955,10 +3145,27 @@ var render = function() {
                     _c(
                       "v-btn",
                       {
-                        staticStyle: { width: "100%", "font-size": "1.3rem" },
-                        attrs: { color: "#3949ab", flat: "" }
+                        staticClass: "btn-make half",
+                        attrs: { flat: "", to: "/process/" + item.worklist_id }
                       },
                       [_vm._v("製造")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-btn",
+                      {
+                        staticClass: "btn-delete half",
+                        attrs: {
+                          flat: "",
+                          disabled: item.worklist_status !== 0
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteWorkList(item)
+                          }
+                        }
+                      },
+                      [_vm._v("取消")]
                     )
                   ],
                   1
@@ -3169,17 +3376,15 @@ var render = function() {
                       _vm._v(" "),
                       _c("v-text-field", {
                         attrs: {
-                          name: "search",
                           label: "検索",
-                          id: "search",
-                          "prepend-inner-icon": "fas fa-search"
+                          value: _vm.search_x,
+                          "prepend-inner-icon": "fas fa-search",
+                          autofocus: ""
                         },
-                        model: {
-                          value: _vm.search,
-                          callback: function($$v) {
-                            _vm.search = $$v
-                          },
-                          expression: "search"
+                        on: {
+                          input: function($event) {
+                            return _vm.SEARCH_MODELCONST($event)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -3188,7 +3393,7 @@ var render = function() {
                           headers: _vm.headers,
                           items: _vm.pdct,
                           "item-key": "pdct_id",
-                          search: _vm.search,
+                          search: _vm.search_x,
                           "rows-per-page-items": [
                             25,
                             50,
@@ -3251,193 +3456,280 @@ var render = function() {
                                 _vm._v(" "),
                                 _c(
                                   "td",
-                                  { staticClass: "text-xs-center" },
+                                  {
+                                    staticClass: "text-xs-center",
+                                    attrs: { width: "330px" }
+                                  },
                                   [
                                     _c(
-                                      "nobr",
+                                      "v-layout",
+                                      {
+                                        staticClass: "buttons",
+                                        attrs: { row: "", wrap: "" }
+                                      },
                                       [
                                         _c(
-                                          "v-btn",
-                                          {
-                                            attrs: {
-                                              color: "warning",
-                                              outline: "",
-                                              small: ""
-                                            },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.view_list(
-                                                  "zyutyu",
-                                                  props
-                                                )
-                                              }
-                                            }
-                                          },
+                                          "v-flex",
+                                          { attrs: { xs4: "" } },
                                           [
-                                            props.item.child.lengt !== 0
-                                              ? [
-                                                  _c(
-                                                    "v-badge",
-                                                    {
-                                                      attrs: {
-                                                        right: "",
-                                                        color: "orange darken-1"
-                                                      },
-                                                      scopedSlots: _vm._u(
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                attrs: {
+                                                  color: "warning",
+                                                  outline: "",
+                                                  small: ""
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.view_list(
+                                                      "zyutyu",
+                                                      props
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                props.item.child.lengt !== 0
+                                                  ? [
+                                                      _c(
+                                                        "v-badge",
+                                                        {
+                                                          attrs: {
+                                                            right: "",
+                                                            color:
+                                                              "orange darken-1"
+                                                          },
+                                                          scopedSlots: _vm._u(
+                                                            [
+                                                              {
+                                                                key: "badge",
+                                                                fn: function() {
+                                                                  return [
+                                                                    _c("span", [
+                                                                      _vm._v(
+                                                                        _vm._s(
+                                                                          props
+                                                                            .item
+                                                                            .child
+                                                                            .length
+                                                                        )
+                                                                      )
+                                                                    ])
+                                                                  ]
+                                                                },
+                                                                proxy: true
+                                                              }
+                                                            ],
+                                                            null,
+                                                            true
+                                                          )
+                                                        },
                                                         [
-                                                          {
-                                                            key: "badge",
-                                                            fn: function() {
-                                                              return [
-                                                                _c("span", [
-                                                                  _vm._v(
-                                                                    _vm._s(
-                                                                      props.item
-                                                                        .child
-                                                                        .length
-                                                                    )
-                                                                  )
-                                                                ])
-                                                              ]
-                                                            },
-                                                            proxy: true
-                                                          }
-                                                        ],
-                                                        null,
-                                                        true
+                                                          _vm._v(" "),
+                                                          _c("strong", [
+                                                            _vm._v("受注")
+                                                          ])
+                                                        ]
                                                       )
-                                                    },
-                                                    [
-                                                      _vm._v(" "),
+                                                    ]
+                                                  : [
                                                       _c("strong", [
                                                         _vm._v("受注")
                                                       ])
                                                     ]
-                                                  )
-                                                ]
-                                              : [_c("strong", [_vm._v("受注")])]
-                                          ],
-                                          2
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-btn",
-                                          {
-                                            attrs: {
-                                              color: "success",
-                                              outline: "",
-                                              small: ""
-                                            },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.view_list(
-                                                  "tyumon",
-                                                  props
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "v-badge",
-                                              {
-                                                staticClass: "outline",
-                                                attrs: {
-                                                  right: "",
-                                                  color: "green darken-1"
-                                                },
-                                                scopedSlots: _vm._u(
-                                                  [
-                                                    props.item.orders.length > 0
-                                                      ? {
-                                                          key: "badge",
-                                                          fn: function() {
-                                                            return [
-                                                              _c("span", [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    props.item
-                                                                      .orders
-                                                                      .length
-                                                                  )
-                                                                )
-                                                              ])
-                                                            ]
-                                                          },
-                                                          proxy: true
-                                                        }
-                                                      : null
-                                                  ],
-                                                  null,
-                                                  true
-                                                )
-                                              },
-                                              [
-                                                _vm._v(" "),
-                                                _c("strong", [_vm._v("注文")])
-                                              ]
+                                              ],
+                                              2
                                             )
                                           ],
                                           1
                                         ),
                                         _vm._v(" "),
                                         _c(
-                                          "v-btn",
-                                          {
-                                            attrs: {
-                                              color: "primary",
-                                              outline: "",
-                                              small: ""
-                                            },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.view_list(
-                                                  "workdata",
-                                                  props
-                                                )
-                                              }
-                                            }
-                                          },
+                                          "v-flex",
+                                          { attrs: { xs4: "" } },
                                           [
                                             _c(
-                                              "v-badge",
+                                              "v-btn",
                                               {
+                                                staticClass: "mb-0",
                                                 attrs: {
-                                                  right: "",
-                                                  color: "indigo darken-1"
+                                                  color: "success",
+                                                  outline: "",
+                                                  small: ""
                                                 },
-                                                scopedSlots: _vm._u(
-                                                  [
-                                                    props.item.workdata.length >
-                                                    0
-                                                      ? {
-                                                          key: "badge",
-                                                          fn: function() {
-                                                            return [
-                                                              _c("span", [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    props.item
-                                                                      .workdata
-                                                                      .length
-                                                                  )
-                                                                )
-                                                              ])
-                                                            ]
-                                                          },
-                                                          proxy: true
-                                                        }
-                                                      : null
-                                                  ],
-                                                  null,
-                                                  true
-                                                )
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.view_list(
+                                                      "tyumon",
+                                                      props
+                                                    )
+                                                  }
+                                                }
                                               },
                                               [
-                                                _vm._v(" "),
-                                                _c("strong", [_vm._v("製造")])
-                                              ]
-                                            )
+                                                _c(
+                                                  "v-badge",
+                                                  {
+                                                    staticClass: "outline",
+                                                    attrs: {
+                                                      right: "",
+                                                      color: "green darken-1"
+                                                    },
+                                                    scopedSlots: _vm._u(
+                                                      [
+                                                        props.item.orders
+                                                          .length > 0
+                                                          ? {
+                                                              key: "badge",
+                                                              fn: function() {
+                                                                return [
+                                                                  _c("span", [
+                                                                    _vm._v(
+                                                                      _vm._s(
+                                                                        props
+                                                                          .item
+                                                                          .orders
+                                                                          .length
+                                                                      )
+                                                                    )
+                                                                  ])
+                                                                ]
+                                                              },
+                                                              proxy: true
+                                                            }
+                                                          : null
+                                                      ],
+                                                      null,
+                                                      true
+                                                    )
+                                                  },
+                                                  [
+                                                    _vm._v(" "),
+                                                    _c("strong", [
+                                                      _vm._v("注文")
+                                                    ])
+                                                  ]
+                                                )
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _vm.tyumonView(props.item)
+                                              ? _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "px-2 py-0 my-1"
+                                                  },
+                                                  [
+                                                    _c("v-progress-linear", {
+                                                      attrs: {
+                                                        color: "green darken-1",
+                                                        value: _vm.rtComContext(
+                                                          props.item.orders
+                                                        ),
+                                                        height: "3"
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                )
+                                              : _vm._e()
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-flex",
+                                          { attrs: { xs4: "" } },
+                                          [
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                staticClass: "mb-0",
+                                                attrs: {
+                                                  color: "primary",
+                                                  outline: "",
+                                                  small: ""
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.view_list(
+                                                      "workdata",
+                                                      props
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c(
+                                                  "v-badge",
+                                                  {
+                                                    attrs: {
+                                                      right: "",
+                                                      color: "indigo lighten-1"
+                                                    },
+                                                    scopedSlots: _vm._u(
+                                                      [
+                                                        props.item.workdata
+                                                          .length > 0
+                                                          ? {
+                                                              key: "badge",
+                                                              fn: function() {
+                                                                return [
+                                                                  _c("span", [
+                                                                    _vm._v(
+                                                                      _vm._s(
+                                                                        props
+                                                                          .item
+                                                                          .workdata
+                                                                          .length
+                                                                      )
+                                                                    )
+                                                                  ])
+                                                                ]
+                                                              },
+                                                              proxy: true
+                                                            }
+                                                          : null
+                                                      ],
+                                                      null,
+                                                      true
+                                                    )
+                                                  },
+                                                  [
+                                                    _vm._v(" "),
+                                                    _c("strong", [
+                                                      _vm._v("製造")
+                                                    ])
+                                                  ]
+                                                )
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _vm.makeView(props.item)
+                                              ? _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "px-2 py-0 my-1"
+                                                  },
+                                                  [
+                                                    _c("v-progress-linear", {
+                                                      attrs: {
+                                                        color: "green darken-1",
+                                                        value: _vm.rtComContext(
+                                                          props.item.workdata
+                                                        ),
+                                                        height: "3"
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                )
+                                              : _vm._e()
                                           ],
                                           1
                                         )
@@ -4666,7 +4958,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VProgressLinear__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VProgressLinear */ "./node_modules/vuetify/lib/components/VProgressLinear/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -4696,7 +4989,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBadge: vuetify_lib_components_VBadge__WEBPACK_IMPORTED_MODULE_6__["VBadge"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_11__["VDialog"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBadge: vuetify_lib_components_VBadge__WEBPACK_IMPORTED_MODULE_6__["VBadge"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_11__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VFlex"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VLayout"],VProgressLinear: vuetify_lib_components_VProgressLinear__WEBPACK_IMPORTED_MODULE_12__["VProgressLinear"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_13__["VTextField"]})
 
 
 /* hot reload */

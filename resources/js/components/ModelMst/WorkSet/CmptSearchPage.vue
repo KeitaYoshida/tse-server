@@ -1,5 +1,12 @@
 <template>
   <span>
+    <v-btn
+      color="teal darken-2"
+      @click="allSelect()"
+      small
+      :disabled="tar.length===null"
+      dark
+    >{{ select_text }}</v-btn>
     <v-btn icon small flat>
       <v-icon color="teal darken-2" v-if="tar.sync.page===1" disabled>fas fa-chevron-circle-left</v-icon>
       <v-icon color="teal darken-2" v-else @click="belowPage">fas fa-chevron-circle-left</v-icon>
@@ -20,7 +27,7 @@
       <v-icon color="teal darken-2" v-else @click="addPage">fas fa-chevron-circle-right</v-icon>
     </v-btn>
     <v-chip v-if="tar.length!==0" color="teal darken-2" small dark>
-      <span>残: {{ returnLastItem() }}</span>
+      <span>連: {{ returnLastItem() }}</span>
     </v-chip>
   </span>
 </template>
@@ -33,7 +40,8 @@ export default {
   components: {},
   data: function() {
     return {
-      tar: null
+      tar: null,
+      select_text: "全選択"
     };
   },
   computed: {
@@ -45,7 +53,11 @@ export default {
     this.init();
   },
   methods: {
-    ...mapActions(["CMPT_SEARCH_PAGE_ADD", "CMPT_SEARCH_PAGE_BELOW"]),
+    ...mapActions([
+      "CMPT_SEARCH_PAGE_ADD",
+      "CMPT_SEARCH_PAGE_BELOW",
+      "SET_COMPONENT_COM"
+    ]),
     init() {
       this.tar = this.target.component.search;
     },
@@ -57,10 +69,38 @@ export default {
     },
     returnLastItem() {
       let cm = this.target.component.data[0].item_use;
+      cm = cm.filter(ar => [1, 3, 6].indexOf(ar.items.item_class) === -1);
       let anum = cm.length;
       let sm = cm.filter(ar => ar.work_id !== null);
       let snum = sm.length;
       return snum + " / " + anum;
+    },
+    async allSelect() {
+      let rcid = [];
+      let wid = this.target.work.id;
+      let cm = this.target.component.data[0].item_use;
+      cm = cm.filter(ar => [1, 3, 6].indexOf(ar.items.item_class) === -1);
+      cm.forEach(ar => {
+        rcid.push(ar.r_ci_id);
+      });
+      await axios
+        .post("/db/model_mst/cmpt/work/item/select/" + wid, rcid)
+        .then(async res => {
+          let m = await axios.get(
+            "/db/model_mst/data/" + this.target.model.id + "/fromItem"
+          );
+          let cmpt_data = m.data[0].cmpt.filter(ar => {
+            return ar.cmpt_id === this.target.component.id;
+          });
+          let cmpt = {
+            id: this.target.component.id,
+            code: this.target.component.code,
+            rev: this.target.component.rev,
+            data: cmpt_data
+          };
+          await this.SET_COMPONENT_COM(cmpt);
+          this.$emit("rt");
+        });
     }
   }
 };

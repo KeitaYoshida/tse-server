@@ -21,7 +21,7 @@
         <v-chip outline color="teal darken-2">
           {{ props.item.items.item_class_val.value }}
           <br />
-          連:{{ props.item.item_ren }}
+          連: {{ props.item.item_ren }}
         </v-chip>
       </td>
       <td class="text-xs-center teal--text text--darken-4">{{ props.item.items.item_code }}</td>
