@@ -76,22 +76,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   "extends": vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Doughnut"],
-  props: ["d", "type"],
+  props: ["d"],
   mounted: function mounted() {
     this.renderChart(this.d, {
       responsive: true,
       maintainAspectRatio: false,
       legend: {
-        position: "bottom"
-      },
-      showAllTooltips: true,
-      toolchips: {
-        enabled: false
-      },
-      fill: false
+        position: "bottom" // showAllTooltips: true,
+        // toolchips: {
+        //   enabled: false
+        // }
+
+      }
     });
-  },
-  created: function created() {}
+  }
 });
 
 /***/ }),

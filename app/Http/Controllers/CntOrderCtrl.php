@@ -134,6 +134,19 @@ class CntOrderCtrl extends Controller
     return $i;
   }
 
+  public function ShukeiSetItem(Request $req)
+  {
+    $it = new Item;
+    $invhis = new InventoryHistory;
+    $it->where('item_code', $req->item_code)->increment('inv_num', $req->shuke_num);
+    $invhis->create([
+      'loginid' => $req->loginid,
+      'item_id' => $req->item_id,
+      'add_num' => $req->shuke_num,
+      'memo' => $req->comments
+    ]);
+  }
+
   public function ShukeiAction(Request $req)
   {
     $co = new CntOrder;

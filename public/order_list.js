@@ -978,6 +978,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1079,6 +1080,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         iAddNumOrder = 0;
       }
 
+      document.getElementById("searchText").focus();
       axios.post("/db/ukeire/action", {
         orders: {
           cnt_order_id: item.cnt_order_id,
@@ -2212,6 +2214,7 @@ var render = function() {
             attrs: {
               "append-icon": "search",
               label: "Search",
+              id: "searchText",
               "single-line": "",
               "hide-details": "",
               autofocus: "",

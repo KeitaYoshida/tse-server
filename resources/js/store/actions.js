@@ -72,3 +72,6 @@ export const ITEMS_SET = ({ commit }, payload) => {
 export const SEARCH_INVENTORY = ({ commit }, payload) => {
   commit(types.SEARCH_INVENTORY, payload);
 }
+export const INVENTORY_SET = ({ commit }, payload) => {
+  commit(types.INVENTORY_SET, payload);
+}

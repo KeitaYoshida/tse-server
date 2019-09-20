@@ -7,6 +7,7 @@ use App\Model\Item;
 use App\Model\ItemCountHistory;
 use App\Model\ItemClass;
 use App\Model\CntOrder;
+use App\Model\InventoryHistory;
 use Auth;
 
 class ItemsCtrl extends Controller
@@ -29,7 +30,7 @@ class ItemsCtrl extends Controller
 
   public function iteminfo($code, $rev)
   {
-    return Item::with('vendor.vendname')->where(['item_code' => $code, 'item_rev' => $rev])->get();
+    return Item::with('item_class_val')->with('vendor.vendname')->where(['item_code' => $code, 'item_rev' => $rev])->get();
   }
 
   public function up_item_num_inv($id, $rev, $num, $order, $assy)
@@ -63,6 +64,15 @@ class ItemsCtrl extends Controller
   public function itemListMini()
   {
     $i = new Item;
-    return $i->get(['item_code', 'item_name', 'item_model']);
+    return $i->where('last_num', '>', 0)->get(['item_id', 'item_code', 'item_name', 'item_model', 'last_num', 'inv_num', 'item_price']);
+  }
+
+  public function inventoryHistory($day)
+  {
+    $iv = new InventoryHistory;
+    return $iv
+      ->where('created_at', '>', date("Y-m-d", strtotime("-" . $day . " day")))
+      ->with(['items:item_id,item_code,item_name,item_model', 'users:loginid,name'])
+      ->get();
   }
 }

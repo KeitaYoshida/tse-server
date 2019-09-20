@@ -12,10 +12,10 @@ class InventoryHistory extends Model
 
   function items()
   {
-    $this->hasOne('App\Model\Item', 'item_id', 'item_id');
+    return $this->hasOne('App\Model\Item', 'item_id', 'item_id');
   }
   function users()
   {
-    $this->hasOne('App\Model\User', 'loginid', 'loginid');
+    return $this->hasOne('App\Model\User', 'loginid', 'loginid');
   }
 }

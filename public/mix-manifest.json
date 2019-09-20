@@ -55,8 +55,8 @@
     "/user_info.js.map": "/user_info.js.map",
     "/vendors~est_kokuin.js": "/vendors~est_kokuin.js",
     "/vendors~est_kokuin.js.map": "/vendors~est_kokuin.js.map",
-    "/vendors~iMonitor~inventory~recept_list.js": "/vendors~iMonitor~inventory~recept_list.js",
-    "/vendors~iMonitor~inventory~recept_list.js.map": "/vendors~iMonitor~inventory~recept_list.js.map",
+    "/vendors~iMonitor~inventory~recept_list~sum_up.js": "/vendors~iMonitor~inventory~recept_list~sum_up.js",
+    "/vendors~iMonitor~inventory~recept_list~sum_up.js.map": "/vendors~iMonitor~inventory~recept_list~sum_up.js.map",
     "/vendors~item_data~model_mst~order~product_list~readfile.js": "/vendors~item_data~model_mst~order~product_list~readfile.js",
     "/vendors~item_data~model_mst~order~product_list~readfile.js.map": "/vendors~item_data~model_mst~order~product_list~readfile.js.map",
     "/vendors~item_list.js": "/vendors~item_list.js",
@@ -66,5 +66,7 @@
     "/vendors~readfile~recept_list.js": "/vendors~readfile~recept_list.js",
     "/vendors~readfile~recept_list.js.map": "/vendors~readfile~recept_list.js.map",
     "/work.js": "/work.js",
-    "/work.js.map": "/work.js.map"
+    "/work.js.map": "/work.js.map",
+    "/iMonitor~sum_up.js": "/iMonitor~sum_up.js",
+    "/iMonitor~sum_up.js.map": "/iMonitor~sum_up.js.map"
 }

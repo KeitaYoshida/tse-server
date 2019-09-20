@@ -3,16 +3,21 @@
     v-if="inited"
     :headers="headers"
     :items="items"
-    class="elevation-1"
     item-key="cnt_orderlist_id"
     loading="true"
+    :rows-per-page-items="[3,10,25,{'text':'$vuetify.dataIterator.rowsPerPageAll','value':-1}]"
     :search="search"
   >
     <template v-slot:items="props">
-      <tr @click="act(props.item.cnt_model, props.item.cnt_order_code)">
-        <td class="text-xs-center">{{ props.item.cnt_model }}</td>
-        <td class="text-xs-center">{{ props.item.cnt_order_code }}</td>
-      </tr>
+      <td class="text-xs-center">{{ props.item.cnt_model }}</td>
+      <td class="text-xs-center">
+        <v-btn
+          color="success"
+          class="link"
+          flat
+          @click="act(props.item.cnt_model, props.item.cnt_order_code)"
+        >{{ props.item.cnt_order_code }}</v-btn>
+      </td>
     </template>
   </v-data-table>
 </template>
@@ -65,4 +70,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+td {
+  padding: 0 !important;
+}
+button.link {
+  font-size: 1.2rem;
+}
 </style>

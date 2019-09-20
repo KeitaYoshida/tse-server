@@ -1,6 +1,8 @@
 <template>
   <v-container fluid v-if="order.data">
-    <h1 class="mb-3">集計</h1>
+    <h1 class="mb-3">
+      <span class="shukei_link" @click="$emit('rt')">集計</span> >> 工事集計
+    </h1>
     <h2 class="mb-3">
       <template v-if="order.id">
         <v-chip outline color="primary">{{ order.id }}</v-chip>
@@ -187,7 +189,8 @@ export default {
           history: {
             loginid: this.user.loginid,
             item_id: item.item_id,
-            memo: item.cnt_order_code
+            memo: item.cnt_order_code,
+            add_num: iAddNumLast
           }
         })
         .then(res => {
@@ -233,5 +236,12 @@ th {
 }
 td.num {
   font-size: 1.4rem;
+}
+.shukei_link {
+  color: #5c6bc0;
+  &:hover {
+    color: #1a237e;
+    cursor: pointer;
+  }
 }
 </style>

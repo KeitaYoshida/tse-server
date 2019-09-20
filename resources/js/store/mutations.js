@@ -30,6 +30,9 @@ export const state = {
     iData: null,
     iClass: null
   },
+  inventory: {
+    status: null
+  },
   target: {
     code: null,
     data: null,
@@ -165,5 +168,8 @@ export const mutations = {
   },
   [types.SEARCH_INVENTORY](state, payload) {
     state.search.inventory = payload;
+  },
+  [types.INVENTORY_SET](state, payload) {
+    state.inventory = payload;
   }
 }

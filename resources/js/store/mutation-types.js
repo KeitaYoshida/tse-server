@@ -30,3 +30,5 @@ export const ORDERS_ONE_INIT_SET = "ORDERS_ONE_INIT_SET";
 export const ITEMS_SET = "ITEMS_SET";
 
 export const SEARCH_INVENTORY = "SEARCH_INVENTORY";
+
+export const INVENTORY_SET = "INVENTORY_SET";

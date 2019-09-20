@@ -133,6 +133,7 @@ Route::get('/db/ukeire/all/list', "CntOrderCtrl@GetUkeireAllList");
 Route::post("/db/ukeire/action", "CntOrderCtrl@UkeireAction");
 
 Route::post("/db/shukei/action", "CntOrderCtrl@ShukeiAction");
+Route::post("/db/shukei/set/item", "CntOrderCtrl@ShukeiSetItem");
 
 Route::get("/db/vendor/list", 'VendorCtrl@vendor_list');
 Route::get("/db/vendor/update/one/col/{vid}/{col}/{val}", 'VendorCtrl@VendorUpOne');
@@ -142,6 +143,8 @@ Route::get("/db/vendor/insert/comp/{name}", "VendorCtrl@AddComp");
 
 Route::get("/db/monitor/init_day", "monitor@InitDay");
 Route::get("/db/monitor/init_month", "monitor@InitMonth");
+
+Route::get("/db/inventory/history/day/{day}", "ItemsCtrl@inventoryHistory");
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 
