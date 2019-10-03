@@ -275,22 +275,23 @@ export default {
     },
     getCsv() {
       let list = "";
-      var csv = "";
       csv =
         csv +
         "会社CD,会社名,メールアドレス,担当者名,郵便番号,住所,電話番号,level";
+      var csv =
+        "vendor_code,com_name,com_mail,com_tanto,com_post,com_add,com_tel,level";
       list = csv + "\n";
       this.items.forEach((ar, n) => {
-        list = list + (ar.vendor_code === null ? "" : ar.vendor_code) + ",";
-        list = list + (ar.com_name === null ? "" : ar.com_name) + ",";
-        list = list + (ar.com_mail === null ? "" : ar.com_mail) + ",";
-        list = list + (ar.com_tanto === null ? "" : ar.com_tanto) + ",";
-        list = list + (ar.com_post === null ? "" : ar.com_post) + ",";
-        list = list + (ar.com_add === null ? "" : ar.com_add) + ",";
-        list = list + (ar.com_tel === null ? "" : ar.com_tel) + ",";
-        list = list + (ar.level === null ? "" : ar.level) + "\n";
+        list =
+          list + '"' + (ar.vendor_code === null ? "" : ar.vendor_code) + '",';
+        list = list + '"' + (ar.com_name === null ? "" : ar.com_name) + '",';
+        list = list + '"' + (ar.com_mail === null ? "" : ar.com_mail) + '",';
+        list = list + '"' + (ar.com_tanto === null ? "" : ar.com_tanto) + '",';
+        list = list + '"' + (ar.com_post === null ? "" : ar.com_post) + '",';
+        list = list + '"' + (ar.com_add === null ? "" : ar.com_add) + '",';
+        list = list + '"' + (ar.com_tel === null ? "" : ar.com_tel) + '",';
+        list = list + '"' + (ar.level === null ? "" : ar.level) + '"\n';
       });
-      list = iconv.encode(list, "Shift_JIS");
       let blob = new Blob([list], { type: "text/csv" });
       let link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);

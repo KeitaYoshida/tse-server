@@ -63,10 +63,8 @@
     "/vendors~item_list.js.map": "/vendors~item_list.js.map",
     "/vendors~readfile.js": "/vendors~readfile.js",
     "/vendors~readfile.js.map": "/vendors~readfile.js.map",
-    "/vendors~readfile~recept_list.js": "/vendors~readfile~recept_list.js",
-    "/vendors~readfile~recept_list.js.map": "/vendors~readfile~recept_list.js.map",
-    "/work.js": "/work.js",
-    "/work.js.map": "/work.js.map",
     "/vendors~readfile~recept_list~tehaisaki.js": "/vendors~readfile~recept_list~tehaisaki.js",
-    "/vendors~readfile~recept_list~tehaisaki.js.map": "/vendors~readfile~recept_list~tehaisaki.js.map"
+    "/vendors~readfile~recept_list~tehaisaki.js.map": "/vendors~readfile~recept_list~tehaisaki.js.map",
+    "/work.js": "/work.js",
+    "/work.js.map": "/work.js.map"
 }
