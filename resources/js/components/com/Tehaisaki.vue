@@ -138,6 +138,10 @@
         <span>新規追加</span>
         <v-icon>fas fa-plus</v-icon>
       </v-btn>
+      <v-btn flat value="get" @click="getCsv()">
+        <span>データ取得</span>
+        <v-icon>fas fa-download</v-icon>
+      </v-btn>
     </v-bottom-nav>
   </v-app>
 </template>
@@ -145,6 +149,10 @@
 <script>
 import ComForm from "./../com/ComFormDialog";
 import ComAlert from "./../com/ComCheckDialog";
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale("ja");
+var iconv = require("iconv-lite");
 
 export default {
   props: [],
@@ -264,6 +272,34 @@ export default {
       this.items = this.items.filter(ar => {
         return ar.vendor_code !== selCd;
       });
+    },
+    getCsv() {
+      let list = "";
+      var csv = "";
+      csv =
+        csv +
+        "会社CD,会社名,メールアドレス,担当者名,郵便番号,住所,電話番号,level";
+      list = csv + "\n";
+      this.items.forEach((ar, n) => {
+        list = list + (ar.vendor_code === null ? "" : ar.vendor_code) + ",";
+        list = list + (ar.com_name === null ? "" : ar.com_name) + ",";
+        list = list + (ar.com_mail === null ? "" : ar.com_mail) + ",";
+        list = list + (ar.com_tanto === null ? "" : ar.com_tanto) + ",";
+        list = list + (ar.com_post === null ? "" : ar.com_post) + ",";
+        list = list + (ar.com_add === null ? "" : ar.com_add) + ",";
+        list = list + (ar.com_tel === null ? "" : ar.com_tel) + ",";
+        list = list + (ar.level === null ? "" : ar.level) + "\n";
+      });
+      list = iconv.encode(list, "Shift_JIS");
+      let blob = new Blob([list], { type: "text/csv" });
+      let link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      let day = dayjs().format("YYYYMMDDHHmmss");
+      let daynum = Number(day);
+      let day16 = daynum.toString(16);
+      let csv_name = "TSE_VENDOR_LIST_" + day16 + ".csv";
+      link.download = csv_name;
+      link.click();
     }
   }
 };
