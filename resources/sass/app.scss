@@ -11,6 +11,9 @@
     size: A4;
     margin: 0;
 }
+* {
+    -webkit-overflow-scrolling: touch;
+}
 body {
     height: calc(100vh - 64px) !important;
 }
