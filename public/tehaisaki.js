@@ -1260,7 +1260,7 @@ var render = function() {
               }
             },
             [
-              _c("span", [_vm._v("データ取得")]),
+              _c("span", [_vm._v("CSV取得")]),
               _vm._v(" "),
               _c("v-icon", [_vm._v("fas fa-download")])
             ],

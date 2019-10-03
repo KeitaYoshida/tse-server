@@ -139,7 +139,7 @@
         <v-icon>fas fa-plus</v-icon>
       </v-btn>
       <v-btn flat value="get" @click="getCsv()">
-        <span>データ取得</span>
+        <span>CSV取得</span>
         <v-icon>fas fa-download</v-icon>
       </v-btn>
     </v-bottom-nav>
