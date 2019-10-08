@@ -43,8 +43,8 @@ class VendorCtrl extends Controller
   {
     $v = new Vendor;
     $id = $v->orderBy('vendor_code', 'desc')->limit(1)->get('vendor_code');
-    $num = substr($id[0]['vendor_code'], -2);
-    $tarnum = $num + 1;
+    $num = substr($id[0]['vendor_code'], -4);
+    $tarnum = (int) $num + 1;
     $tarval = 'k' . substr('000' . $tarnum, -4);
     $v->insert(['vendor_code' => $tarval, 'com_name' => $name]);
     return $tarval;
