@@ -66,6 +66,7 @@ Route::get('/db/model_mst/data/{id}/{pt}', 'ModelCtrl@ModelData');
 Route::post('/db/model_mst/work/add', 'ModelCtrl@ModelAddWork');
 Route::get('/db/model_mst/work/list/{id}', 'ModelCtrl@ModelCmptWorkList');
 Route::get('/db/model_mst/work/row/update/{id}/{row}', 'ModelCtrl@ModelCmptWorkRowUpdate');
+Route::get('/db/model_mst/cmpt/list/{id}', 'ModelCtrl@ModelCmptList');
 Route::get('/db/model_mst/cmpt/data/{id}', 'ModelCtrl@ModelCmptData');
 Route::get('/db/model_mst/cmpt/work/title/list', 'ModelCtrl@ModelCmptWorkTitleList');
 Route::get("/db/model_mst/cmpt/work/del/row/{row}/{cmpt}", 'ModelCtrl@ModelCmptWorkDelRow');

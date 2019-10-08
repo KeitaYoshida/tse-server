@@ -887,7 +887,11 @@ var render = function() {
               _c(
                 "v-flex",
                 { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
-                [_c("common-cards", { attrs: { card_name: "model_mst" } })],
+                [
+                  _c("common-cards", {
+                    attrs: { card_name: "model_mst/noselect" }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),
@@ -1260,47 +1264,43 @@ var _card_data = (_card_data2 = {
     links: "",
     button: false,
     button_text: BUTON_TEXT
-  },
-  model_mst: {
-    title: "形式",
-    class_text: COLOR_MST,
-    color: TEXT_COLOR,
-    text: ["形式リスト・構成データ更新・部材登録・手配・点検・確認"],
-    details: [""].join(""),
-    links: "",
-    button: false
-  },
-  recept_list: {
-    title: "受注",
-    class_text: COLOR_WORK_LESS,
-    color: TEXT_COLOR,
-    text: ["注残・製造データ作成"],
-    details: [""].join(""),
-    links: "",
-    button: false,
-    button_text: BUTON_TEXT
-  },
-  product_list: {
-    title: "製造データ",
-    class_text: COLOR_WORK_LESS,
-    color: TEXT_COLOR,
-    text: ["手配・起工・納品"],
-    details: [""].join(""),
-    links: "",
-    button: false,
-    button_text: BUTON_TEXT
-  },
-  user_info: {
-    title: "作業者情報",
-    class_text: COLOR_DEF,
-    color: TEXT_COLOR,
-    text: ["作業者情報更新"],
-    details: [""].join(""),
-    links: "",
-    button: false,
-    button_text: BUTON_TEXT
   }
-}, _defineProperty(_card_data2, 'ukeire/const_select', {
+}, _defineProperty(_card_data2, 'model_mst/noselect', {
+  title: "形式",
+  class_text: COLOR_MST,
+  color: TEXT_COLOR,
+  text: ["形式リスト・構成データ更新・部材登録・手配・点検・確認"],
+  details: [""].join(""),
+  links: "",
+  button: false
+}), _defineProperty(_card_data2, "recept_list", {
+  title: "受注",
+  class_text: COLOR_WORK_LESS,
+  color: TEXT_COLOR,
+  text: ["注残・製造データ作成"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _defineProperty(_card_data2, "product_list", {
+  title: "製造データ",
+  class_text: COLOR_WORK_LESS,
+  color: TEXT_COLOR,
+  text: ["手配・起工・納品"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _defineProperty(_card_data2, "user_info", {
+  title: "作業者情報",
+  class_text: COLOR_DEF,
+  color: TEXT_COLOR,
+  text: ["作業者情報更新"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _defineProperty(_card_data2, 'ukeire/const_select', {
   title: "受入",
   class_text: COLOR_WORK_LESS,
   color: TEXT_COLOR,

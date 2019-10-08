@@ -7,7 +7,10 @@
       <v-layout row wrap class="h">
         <v-flex sm12 md5 class="h blue lighten-5 pa-0" dark>
           <v-container grid-list-xs class="h">
-            <h2 class="hh indigo--text text--indigo-darken-4">工程登録</h2>
+            <h2 class="hh indigo--text text--indigo-darken-4">
+              <v-icon left class="back-link" @click="returnPage()">fas fa-angle-double-left</v-icon>工程登録
+              <CmptMenu :prop="cmptMenu" v-if="cmptMenu" @rtVal="rtCmpt" />
+            </h2>
             <v-card flat class="hhh op8">
               <v-card-text>
                 <CmptWorkList v-if="remake" @rt="trashAct"></CmptWorkList>
@@ -65,6 +68,7 @@ import CmptSearch from "@/components/ModelMst/WorkSet/CmptSearch";
 import CmptSearchPage from "@/components/ModelMst/WorkSet/CmptSearchPage";
 import CmptWorkSelect from "@/components/ModelMst/WorkSet/CmptWorkSelect";
 import Loading from "@/components/com/Loading";
+import CmptMenu from "@/components/com/ComMenu";
 
 export default {
   props: [],
@@ -74,14 +78,17 @@ export default {
     CmptItemList,
     CmptSearch,
     CmptSearchPage,
-    CmptWorkSelect
+    CmptWorkSelect,
+    CmptMenu
   },
   data: function() {
     return {
       loading: true,
       remake: true,
       remakeItemFlg: true,
-      stayMassage: "工程を選択してください"
+      stayMassage: "工程を選択してください",
+      cmptMenu: null,
+      cmptList: null
     };
   },
   computed: {
@@ -93,12 +100,28 @@ export default {
     this.init();
   },
   methods: {
-    ...mapActions(["WORK_ABOUT_RESET", "CMPT_SEARCH_RESET"]),
-    init() {
+    ...mapActions([
+      "WORK_ABOUT_RESET",
+      "CMPT_SEARCH_RESET",
+      "SET_COMPONENT_COM"
+    ]),
+    async init() {
       if (this.target.component.id === null) {
         this.$router.push("/model_mst");
         return;
       }
+      let cmpt = await axios.get(
+        "/db/model_mst/cmpt/list/" + this.target.model.id
+      );
+      this.cmptList = cmpt.data[0].cmpt;
+      this.cmptMenu = {
+        text: "基板切り替え",
+        value: cmpt.data[0].cmpt.map(
+          cmpt => cmpt.cmpt_id + ": " + cmpt.cmpt_code.slice(0, 11)
+        ),
+        outline: false,
+        small: true
+      };
       this.loading = false;
     },
     async workSelect(val) {
@@ -125,6 +148,30 @@ export default {
       this.target.work.id = null;
       await this.wait(0.5);
       this.target.work.id = tmp;
+    },
+    returnPage() {
+      this.$router.push("/model_mst/" + this.target.model.code);
+    },
+    async rtCmpt(val) {
+      this.loading = true;
+      let cmpt_id = val.split(":")[0];
+      let res = await axios.get(
+        "/db/model_mst/data/" + this.target.model.id + "/fromItem"
+      );
+      let cmpt_data = res.data[0].cmpt.filter(ar => {
+        return ar.cmpt_id == cmpt_id;
+      });
+      let cmpt_tmp = this.cmptList.filter(fil => fil.cmpt_id == cmpt_id)[0];
+      let cmpt = {
+        id: cmpt_tmp.cmpt_id,
+        code: cmpt_tmp.cmpt_code,
+        rev: cmpt_tmp.cmpt_rev,
+        data: cmpt_data
+      };
+      await this.SET_COMPONENT_COM(cmpt);
+      await this.wait(0.5);
+      this.init();
+      this.loading = false;
     }
   },
   beforeDestroy: function() {
@@ -170,5 +217,12 @@ export default {
   border-radius: 3px;
   height: 80px;
   margin-top: -80px;
+}
+.back-link {
+  &:hover {
+    color: #3f51b5;
+    transition: color 0.5s;
+    cursor: pointer;
+  }
 }
 </style>

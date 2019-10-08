@@ -91,7 +91,7 @@ export default {
         model_code: null,
         model_id: null,
         product_code: null,
-        wclass: null,
+        wclass: 0,
         base_code: null,
         all_num: null,
         split_num: null,

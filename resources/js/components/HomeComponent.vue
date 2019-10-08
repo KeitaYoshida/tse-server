@@ -111,7 +111,7 @@
           <common-cards card_name="readfile"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
-          <common-cards card_name="model_mst"></common-cards>
+          <common-cards card_name="model_mst/noselect"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="recept_list"></common-cards>

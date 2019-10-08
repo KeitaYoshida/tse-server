@@ -44,7 +44,8 @@ export default {
       Object.keys(this.prop).forEach(key => {
         this.menu[key] = this.prop[key];
       });
-      this.rtVal(this.menu.value[0]);
+      // this.rtVal(this.menu.value[0]);
+      // console.log(this.menu);
     },
     rtVal(val) {
       this.menu.selected = val;

@@ -185,6 +185,12 @@ class ModelCtrl extends Controller
     }
   }
 
+  public function ModelCmptList($id)
+  {
+    $m = new Models;
+    return $m->where('model_id', $id)->with('cmpt')->get();
+  }
+
   public function ModelListForOrder()
   {
     $m = new Models;

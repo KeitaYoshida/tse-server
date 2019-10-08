@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki":"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki","cmpt_work_set":"cmpt_work_set","order_list":"order_list","equip_start_check":"equip_start_check","home":"home","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","process":"process","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~iMonitor~inventory~recept_list~sum_up":"vendors~iMonitor~inventory~recept_list~sum_up","sum_up":"sum_up","iMonitor":"iMonitor","inventory":"inventory","vendors~readfile~recept_list~tehaisaki":"vendors~readfile~recept_list~tehaisaki","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~readfile":"vendors~readfile","readfile":"readfile","vendors~item_list":"vendors~item_list","item_list":"item_list","tehaisaki":"tehaisaki","work":"work"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki":"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki","cmpt_work_set~product_list":"cmpt_work_set~product_list","cmpt_work_set":"cmpt_work_set","order_list":"order_list","equip_start_check":"equip_start_check","home":"home","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","process":"process","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~iMonitor~inventory~recept_list~sum_up":"vendors~iMonitor~inventory~recept_list~sum_up","sum_up":"sum_up","iMonitor":"iMonitor","inventory":"inventory","vendors~readfile~recept_list~tehaisaki":"vendors~readfile~recept_list~tehaisaki","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~readfile":"vendors~readfile","readfile":"readfile","vendors~item_list":"vendors~item_list","item_list":"item_list","tehaisaki":"tehaisaki","work":"work"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -77132,7 +77132,7 @@ var model_mst = function model_mst() {
 };
 
 var cmpt_work_set = function cmpt_work_set() {
-  return Promise.all(/*! import() | cmpt_work_set */[__webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("cmpt_work_set")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/WorkSet/cmpt.vue */ "./resources/js/components/ModelMst/WorkSet/cmpt.vue"));
+  return Promise.all(/*! import() | cmpt_work_set */[__webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("cmpt_work_set~product_list"), __webpack_require__.e("cmpt_work_set")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/WorkSet/cmpt.vue */ "./resources/js/components/ModelMst/WorkSet/cmpt.vue"));
 };
 
 var recept_list = function recept_list() {
@@ -77140,7 +77140,7 @@ var recept_list = function recept_list() {
 };
 
 var product_list = function product_list() {
-  return Promise.all(/*! import() | product_list */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("order"), __webpack_require__.e("product_list")]).then(__webpack_require__.bind(null, /*! ../components/Product/index.vue */ "./resources/js/components/Product/index.vue"));
+  return Promise.all(/*! import() | product_list */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("order"), __webpack_require__.e("cmpt_work_set~product_list"), __webpack_require__.e("product_list")]).then(__webpack_require__.bind(null, /*! ../components/Product/index.vue */ "./resources/js/components/Product/index.vue"));
 };
 
 var order = function order() {
@@ -77266,7 +77266,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     name: "readfile",
     component: readfile
   }, {
-    path: "/model_mst",
+    path: "/model_mst/:cmpt",
     name: "model_mst",
     component: model_mst
   }, {
