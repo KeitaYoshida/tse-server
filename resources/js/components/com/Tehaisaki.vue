@@ -277,9 +277,9 @@ export default {
       let list = "";
       csv =
         csv +
-        "会社CD,会社名,メールアドレス,担当者名,郵便番号,住所,電話番号,level";
+        "会社CD,会社名,メールアドレス,担当者名,郵便番号,住所,電話番号,level,password";
       var csv =
-        "vendor_code,com_name,com_mail,com_tanto,com_post,com_add,com_tel,level";
+        "vendor_code,com_name,com_mail,com_tanto,com_post,com_add,com_tel,level,password";
       list = csv + "\n";
       this.items.forEach((ar, n) => {
         list =
@@ -290,7 +290,8 @@ export default {
         list = list + '"' + (ar.com_post === null ? "" : ar.com_post) + '",';
         list = list + '"' + (ar.com_add === null ? "" : ar.com_add) + '",';
         list = list + '"' + (ar.com_tel === null ? "" : ar.com_tel) + '",';
-        list = list + '"' + (ar.level === null ? "" : ar.level) + '"\n';
+        list = list + '"' + (ar.level === null ? "" : ar.level) + '",';
+        list = list + '"' + (ar.password === null ? "" : ar.password) + '"\n';
       });
       let blob = new Blob([list], { type: "text/csv" });
       let link = document.createElement("a");

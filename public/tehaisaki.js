@@ -433,8 +433,8 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
     },
     getCsv: function getCsv() {
       var list = "";
-      csv = csv + "会社CD,会社名,メールアドレス,担当者名,郵便番号,住所,電話番号,level";
-      var csv = "vendor_code,com_name,com_mail,com_tanto,com_post,com_add,com_tel,level";
+      csv = csv + "会社CD,会社名,メールアドレス,担当者名,郵便番号,住所,電話番号,level,password";
+      var csv = "vendor_code,com_name,com_mail,com_tanto,com_post,com_add,com_tel,level,password";
       list = csv + "\n";
       this.items.forEach(function (ar, n) {
         list = list + '"' + (ar.vendor_code === null ? "" : ar.vendor_code) + '",';
@@ -444,7 +444,8 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
         list = list + '"' + (ar.com_post === null ? "" : ar.com_post) + '",';
         list = list + '"' + (ar.com_add === null ? "" : ar.com_add) + '",';
         list = list + '"' + (ar.com_tel === null ? "" : ar.com_tel) + '",';
-        list = list + '"' + (ar.level === null ? "" : ar.level) + '"\n';
+        list = list + '"' + (ar.level === null ? "" : ar.level) + '",';
+        list = list + '"' + (ar.password === null ? "" : ar.password) + '"\n';
       });
       var blob = new Blob([list], {
         type: "text/csv"
