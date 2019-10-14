@@ -24,7 +24,6 @@
       hide-details
       autofocus
       clearable
-      type="number"
     ></v-text-field>
     <v-data-table
       :headers="headers"
@@ -97,10 +96,10 @@ export default {
     return {
       headers: [
         { text: "認証No・状態", value: "order_key", align: "center" },
-        { text: "親形式", value: "cnt_model", align: "center" },
-        { text: "部材品番", value: "cnt_order_code", align: "center" },
-        { text: "部材品名／型式", value: "cnt_order_code", align: "center" },
-        { text: "発注／入庫数", value: "cnt_order_code", align: "center" }
+        { text: "親形式", value: "", align: "center" },
+        { text: "部材品番", value: "item.item_code", align: "center" },
+        { text: "部材品名／型式", value: "", align: "center" },
+        { text: "発注／入庫数", value: "", align: "center" }
       ],
       pagination: {
         sortBy: "cnt_model"
@@ -172,7 +171,7 @@ export default {
       } else if (num_recept > num_order && setNum > num_order) {
         iAddNumOrder = 0;
       }
-      document.getElementById("searchText").focus();
+      // document.getElementById("searchText").focus();
 
       axios.post("/db/ukeire/action", {
         orders: {

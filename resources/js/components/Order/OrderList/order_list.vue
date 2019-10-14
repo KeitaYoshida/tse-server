@@ -121,7 +121,7 @@ export default {
         }
         od.price.forEach((cm, nn) => {
           // console.log(cm);
-          let com_id = cm.Vnd_code;
+          let com_id = cm.vendor_code;
           if (com_id in list === false) {
             list[com_id] = [];
           }
@@ -225,6 +225,8 @@ export default {
           row.order_key +
           "#" +
           String(row.cnt_order_code).slice(4) +
+          "#" +
+          String(row.listdata.cnt_model).slice(0, 11) +
           "#" +
           String(row.cmpt.cmpt_code).slice(0, 11);
         csv = csv + 1451 + ",";

@@ -232,7 +232,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
 
         od.price.forEach(function (cm, nn) {
           // console.log(cm);
-          var com_id = cm.Vnd_code;
+          var com_id = cm.vendor_code;
 
           if (com_id in list === false) {
             list[com_id] = [];
@@ -325,7 +325,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
         var vnd = row.price[0].vendor_code;
         var oday = row.price[0].order_day.replace(/\-+/g, "");
         var order_cd = row.item.item_code !== row.item.order_code && row.item.order_code !== "" ? row.item.order_code : row.item.item_code;
-        var tekiyo = row.order_key + "#" + String(row.cnt_order_code).slice(4) + "#" + String(row.cmpt.cmpt_code).slice(0, 11);
+        var tekiyo = row.order_key + "#" + String(row.cnt_order_code).slice(4) + "#" + String(row.listdata.cnt_model).slice(0, 11) + "#" + String(row.cmpt.cmpt_code).slice(0, 11);
         csv = csv + 1451 + ",";
         csv = csv + code[vnd] + ",";
         csv = csv + order_cd + ",";
@@ -1039,7 +1039,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1054,19 +1053,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         align: "center"
       }, {
         text: "親形式",
-        value: "cnt_model",
+        value: "",
         align: "center"
       }, {
         text: "部材品番",
-        value: "cnt_order_code",
+        value: "item.item_code",
         align: "center"
       }, {
         text: "部材品名／型式",
-        value: "cnt_order_code",
+        value: "",
         align: "center"
       }, {
         text: "発注／入庫数",
-        value: "cnt_order_code",
+        value: "",
         align: "center"
       }],
       pagination: {
@@ -1139,9 +1138,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         iAddNumOrder = Number(-num_order) + Number(num_recept);
       } else if (num_recept > num_order && setNum > num_order) {
         iAddNumOrder = 0;
-      }
+      } // document.getElementById("searchText").focus();
 
-      document.getElementById("searchText").focus();
+
       axios.post("/db/ukeire/action", {
         orders: {
           cnt_order_id: item.cnt_order_id,
@@ -2279,8 +2278,7 @@ var render = function() {
               "single-line": "",
               "hide-details": "",
               autofocus: "",
-              clearable: "",
-              type: "number"
+              clearable: ""
             },
             model: {
               value: _vm.search,

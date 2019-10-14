@@ -91,7 +91,7 @@
                       <v-btn color="indigo lighten-2" outline @click="addWorkData(item)">工程登録</v-btn>
                     </v-flex>
                     <v-flex xs6>
-                      <v-btn color="warning" outline>削除</v-btn>
+                      <v-btn color="warning" outline @click="delCmpt(item, props.item)">削除</v-btn>
                     </v-flex>
                   </v-layout>
                 </v-card-actions>
@@ -268,6 +268,21 @@ export default {
       this.lists = this.items.filter(ar => {
         return ~ar.model_code.toLowerCase().indexOf(tar);
       });
+    },
+    delCmpt(item, model) {
+      let model_id = model.model_id;
+      let cmpt_id = item.cmpt_id;
+      let itemIndex = 0;
+      let cmptIndex = 0;
+      this.items.forEach((ar, n) => {
+        if (ar.model_id === model_id) {
+          itemIndex = n;
+          ar.cmpt.forEach((cmAr, cmN) => {
+            if (cmAr.cmpt_id === cmpt_id) cmptIndex = cmN;
+          });
+        }
+      });
+      this.items[itemIndex].cmpt.splice(cmptIndex, 1);
     }
   },
   watch: {

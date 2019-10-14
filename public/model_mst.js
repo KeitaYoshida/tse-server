@@ -317,6 +317,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.lists = this.items.filter(function (ar) {
         return ~ar.model_code.toLowerCase().indexOf(tar);
       });
+    },
+    delCmpt: function delCmpt(item, model) {
+      var model_id = model.model_id;
+      var cmpt_id = item.cmpt_id;
+      var itemIndex = 0;
+      var cmptIndex = 0;
+      this.items.forEach(function (ar, n) {
+        if (ar.model_id === model_id) {
+          itemIndex = n;
+          ar.cmpt.forEach(function (cmAr, cmN) {
+            if (cmAr.cmpt_id === cmpt_id) cmptIndex = cmN;
+          });
+        }
+      });
+      this.items[itemIndex].cmpt.splice(cmptIndex, 1);
     }
   }),
   watch: {
@@ -741,6 +756,14 @@ var render = function() {
                                                 attrs: {
                                                   color: "warning",
                                                   outline: ""
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.delCmpt(
+                                                      item,
+                                                      props.item
+                                                    )
+                                                  }
                                                 }
                                               },
                                               [_vm._v("削除")]
