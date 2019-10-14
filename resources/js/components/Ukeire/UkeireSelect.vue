@@ -62,8 +62,7 @@
         </td>
         <td class="text-xs-center">{{ rtCmpt(props.item.cmpt) }}</td>
         <td class="text-xs-center">
-          <p>{{ props.item.item.item_code }}</p>
-          <p>{{ rtOrderCode(props.item) }}</p>
+          <p v-html="rtOrderCode(props.item.item)"></p>
         </td>
         <td class="text-xs-center">
           <p>{{ props.item.item.item_name }}</p>
@@ -98,7 +97,7 @@ export default {
         { text: "認証No・状態", value: "order_key", align: "center" },
         { text: "親形式", value: "", align: "center" },
         { text: "部材品番", value: "item.item_code", align: "center" },
-        { text: "部材品名／型式", value: "", align: "center" },
+        { text: "部材品名／型式", value: "item.order_code", align: "center" },
         { text: "発注／入庫数", value: "", align: "center" }
       ],
       pagination: {
@@ -146,7 +145,20 @@ export default {
     rtCmpt(cmpt) {
       return cmpt === null ? "親形式なし" : cmpt.cmpt_code.slice(0, 11);
     },
-    rtOrderCode(item) {},
+    rtOrderCode(item) {
+      let item_code = item.item_code;
+      let order_code = item.order_code;
+      if (
+        order_code == null ||
+        order_code == "" ||
+        order_code.trim() == item_code.trim()
+      )
+        return item_code;
+      console.log(item_code);
+      console.log(order_code);
+      console.log(String(item_code) === String(order_code));
+      return order_code + "<br />" + "( " + item_code + " )";
+    },
     rtNyukaClass(item) {
       let onum = item.num_order;
       let unum = item.num_recept;

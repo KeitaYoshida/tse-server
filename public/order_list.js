@@ -1038,7 +1038,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1061,7 +1060,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         align: "center"
       }, {
         text: "部材品名／型式",
-        value: "",
+        value: "item.order_code",
         align: "center"
       }, {
         text: "発注／入庫数",
@@ -1112,7 +1111,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     rtCmpt: function rtCmpt(cmpt) {
       return cmpt === null ? "親形式なし" : cmpt.cmpt_code.slice(0, 11);
     },
-    rtOrderCode: function rtOrderCode(item) {},
+    rtOrderCode: function rtOrderCode(item) {
+      var item_code = item.item_code;
+      var order_code = item.order_code;
+      if (order_code == null || order_code == "" || order_code.trim() == item_code.trim()) return item_code;
+      console.log(item_code);
+      console.log(order_code);
+      console.log(String(item_code) === String(order_code));
+      return order_code + "<br />" + "( " + item_code + " )";
+    },
     rtNyukaClass: function rtNyukaClass(item) {
       var onum = item.num_order;
       var unum = item.num_recept;
@@ -2382,9 +2389,11 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-xs-center" }, [
-                        _c("p", [_vm._v(_vm._s(props.item.item.item_code))]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(_vm.rtOrderCode(props.item)))])
+                        _c("p", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.rtOrderCode(props.item.item))
+                          }
+                        })
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-xs-center" }, [
@@ -2404,7 +2413,7 @@ var render = function() {
               ],
               null,
               false,
-              65894316
+              1811531999
             )
           }),
           _vm._v(" "),
