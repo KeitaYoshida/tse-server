@@ -171,6 +171,7 @@ export default {
     },
     del(ocd) {
       axios.get("/db/order/torikeshi/" + ocd).then(res => {
+        console.log(res.data);
         this.reload("/product_list");
       });
     },

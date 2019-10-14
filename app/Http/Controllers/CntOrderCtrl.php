@@ -10,6 +10,7 @@ use App\Model\CntOrderPrice;
 use App\Model\CntOrderStatus;
 use App\Model\CntOrderListStatus;
 use App\Model\InventoryHistory;
+use App\Model\Models;
 
 class CntOrderCtrl extends Controller
 {
@@ -87,19 +88,57 @@ class CntOrderCtrl extends Controller
     $col = new CntOrderList;
     $co = new CntOrder;
     $it = new Item;
+    // $m = new Models;
+
+    // $KOJI_TEHAI = 0;
+
+    // $order_list_status = $col
+    //   ->where('cnt_order_code', $ocode)
+    //   ->get()[0]['cnt_order_list_status'];
 
     $ol = $co->where('cnt_order_code', $ocode)->get();
     foreach ($ol as $v) {
-      $it->where('item_id', $v['item_id'])->decrement('appo_num', $v['num_order']);
       $it->where('item_id', $v['item_id'])->decrement('order_num', $v['num_order']);
+      $it->where('item_id', $v['item_id'])->decrement('appo_num', $v['appo_num']);
     }
+
+    // if ($order_list_status === $KOJI_TEHAI) {
+    //   $model = $col
+    //     ->where('cnt_order_code', $ocode)
+    //     ->get(['cnt_model', 'cnt_model_rev'])[0];
+
+    //   $cmpts = $m
+    //     ->where('model_code', $model['cnt_model'])
+    //     ->where('model_rev', $model['cnt_model_rev'])
+    //     ->with('cmpt.item_use.items')
+    //     ->get()[0]['cmpt'];
+    //   foreach ($cmpts as $cmpt) {
+    //     $cmptItems = $cmpt['item_use'];
+    //     foreach ($cmptItems as $items) {
+    //       $itemUse = $items['item_use'];
+    //       $itemClass = $items['items']['item_class'];
+    //       $itemId = $items['item_id'];
+    //       return $itemClass;
+    //     }
+    //   }
+    // } else {
+    //   foreach ($ol as $v) {
+    //     $it->where('item_id', $v['item_id'])->decrement('appo_num', $v['appo_num']);
+    //   }
+    // }
+
     $col->where('cnt_order_code', $ocode)->delete();
   }
 
   public function OrderUkeireCntList()
   {
     $col = new CntOrderList;
-    return $col->where('cnt_status', 1)->with(['status'])->get();
+    $HATYUZUMI = 1;
+    $UKEIRETYU = 3;
+    return $col
+      ->where('cnt_status', $HATYUZUMI)
+      ->orWhere('cnt_status', $UKEIRETYU)
+      ->with(['status'])->get();
   }
 
   public function OrderYoyakuTouroku(Request $req)
@@ -114,11 +153,11 @@ class CntOrderCtrl extends Controller
     $price = $req->op;
     $list_code = $col->create($list)->cnt_orderlist_id;
     $i = 0;
+
     foreach ((array) $order as $k1 => $v1) {
       foreach ((array) $v1 as $k2 => $v2) {
         if (is_null($v2)) continue;
         $it->where('item_id', $v2['item_id'])->increment('appo_num', $v2['appo_num']);
-        if ($v2['num_order'] === 0) continue;
         $it->where('item_id', $v2['item_id'])->increment('order_num', $v2['num_order']);
         $order_id = $co->create($v2)->cnt_order_id;
         $i = $i + 1;

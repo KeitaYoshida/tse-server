@@ -6,7 +6,7 @@
       <v-chip outline color="primary">製造コード：{{ target.const_code }}</v-chip>
       <v-layout wrap align-space-around justify-center fill-height>
         <v-flex xs10 class="pt-3 pb-3">
-          <v-layout wrap>
+          <v-layout wrap class="align-center justify-center">
             <v-flex xs6 class="pr-5 mt-2">
               <v-text-field
                 label="手配形式"
@@ -38,7 +38,7 @@
                 prepend-icon="fas fa-calculator"
               ></v-text-field>
             </v-flex>
-            <v-flex xs6 class="pr-5 mt-4">
+            <v-flex xs5 class="mt-4">
               <v-select
                 v-model="fm.order_class"
                 :items="order_class"
@@ -47,6 +47,9 @@
                 label="手配区分"
                 prepend-icon="fas fa-calculator"
               ></v-select>
+            </v-flex>
+            <v-flex xs1>
+              <OrderClassHint :message="orderClassHint" />
             </v-flex>
             <v-flex xs6 class="mt-4">
               <v-text-field
@@ -99,6 +102,7 @@ import CmptOrderList from "./CmptOrderList";
 import CalendarText from "./../../com/CalendarText";
 import SelectModel from "./../../com/SelectModel";
 import SelectItem from "./../../com/SelectItem";
+import OrderClassHint from "@/components/com/Hint";
 
 export default {
   props: ["target", "ccode"],
@@ -106,7 +110,8 @@ export default {
     CmptOrderList,
     CalendarText,
     SelectModel,
-    SelectItem
+    SelectItem,
+    OrderClassHint
   },
   data: function() {
     return {
@@ -130,7 +135,12 @@ export default {
       cmpt_order: false,
       pagination: {
         totalItems: 0
-      }
+      },
+      orderClassHint: `
+        <p>工事手配時：全ての部材(※)の使用予約数を加算します</p>
+        <p>その他：選択部材の使用予約数のみを加算します</p>
+        <p>※：部材区分「１：図面、３：セット品、６：CHIP品を除く」</p>
+      `
     };
   },
   created: function() {

@@ -478,14 +478,20 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
         }
       } else {
         var lot = i.items.lot_num;
+        var last = -order;
         var min = i.items.minimum_set;
 
-        if (order < min) {
+        if (last > min) {
           i.items.num = 0;
-        }
+        } else {
+          var setNum = Math.ceil(Math.abs(order) / lot);
 
-        var setNum = Math.ceil(order / lot);
-        i.items.num = lot * setNum;
+          while (setNum * lot <= min) {
+            setNum = setNum + 1;
+          }
+
+          i.items.num = lot * setNum;
+        }
       }
 
       var price = 0;

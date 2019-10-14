@@ -75,8 +75,8 @@ export default {
       }
       if (this.cstm_list.length != clist.length) {
         this.view_list = this.view_list.filter(ar => {
-          return ar.price.find(vendor => {
-            return clist.indexOf(vendor.vname.com_name) != -1;
+          return ar.price.find(Vnd => {
+            return clist.indexOf(Vnd.vname.com_name) != -1;
           });
         });
       }
@@ -85,7 +85,10 @@ export default {
       axios.get(link).then(res => {
         let cmpt_list = [];
         let cstm_list = [];
-        let ol = (this.view_list = this.order_list = res.data);
+        // console.log(res.data);
+        let ol = (this.view_list = this.order_list = res.data.filter(
+          row => row.num_order !== 0
+        ));
         // console.log(this.order_list);
         if (ol[0].cmpt !== null) {
           ol.forEach((ar, n) => {
@@ -93,9 +96,9 @@ export default {
               cmpt_list.push(ar.cmpt.cmpt_code);
             }
             let tmp = ar.price;
-            tmp.forEach(vendor => {
-              if (cstm_list.indexOf(vendor.vname.com_name) === -1) {
-                cstm_list.push(vendor.vname.com_name);
+            tmp.forEach(Vnd => {
+              if (cstm_list.indexOf(Vnd.vname.com_name) === -1) {
+                cstm_list.push(Vnd.vname.com_name);
               }
             });
           });
@@ -105,7 +108,7 @@ export default {
         this.mode = mode;
       });
     },
-    order() {
+    elseOrder() {
       let list = {};
       let ccode = [];
       this.order_list.forEach((od, n) => {
@@ -114,7 +117,7 @@ export default {
         }
         od.price.forEach((cm, nn) => {
           // console.log(cm);
-          let com_id = cm.vendor_code;
+          let com_id = cm.Vnd_code;
           if (com_id in list === false) {
             list[com_id] = [];
           }
@@ -177,8 +180,67 @@ export default {
       axios.post("/db/order/list/orderd/", ccode).then(res => {
         // console.log(res.data);
       });
-      window.open("https://tse-order.firebaseapp.com/admin", "_blank");
+      // window.open("https://tse-order.firebaseapp.com/admin", "_blank");
       this.$router.push("/");
+    },
+    dainiOrder() {
+      const Dai2BuVnd = "k0080";
+      const Dai2SoVnd = "k0079";
+      const Dai1BuVnd = "k0076";
+      const Dai3BuVnd = "k0078";
+      const Hukuchi1Vnd = "k0097";
+      let pass = [Dai2BuVnd, Dai2SoVnd, Dai1BuVnd, Dai3BuVnd, Hukuchi1Vnd];
+      let orders = this.order_list.filter(row => {
+        return (
+          row.price.length > 0 && pass.indexOf(row.price[0].vendor_code) >= 0
+        );
+      });
+
+      const Dai2BuCode = "LZS0080";
+      const Dai2SoCode = "LZS0090";
+      const Dai1BuCode = "LZS0060";
+      const Dai3BuCode = "LZS0100";
+      const Hukuchi1Code = "LZS0130";
+      let code = {
+        [Dai2BuVnd]: Dai2BuCode,
+        [Dai2SoVnd]: Dai2SoCode,
+        [Dai1BuVnd]: Dai1BuCode,
+        [Dai3BuVnd]: Dai3BuCode,
+        [Hukuchi1Vnd]: Hukuchi1Code
+      };
+      let csv = "";
+      let file = orders.forEach(row => {
+        let vnd = row.price[0].vendor_code;
+        let oday = row.price[0].order_day.replace(/\-+/g, "");
+        let icode = row.item.item_code;
+        let tekiyo =
+          row.order_key +
+          "#" +
+          String(row.cnt_order_code).slice(4) +
+          "#" +
+          String(row.cmpt.cmpt_code).slice(0, 11);
+        csv = csv + '"' + "1451" + '",';
+        csv = csv + '"' + vnd + '",';
+        csv = csv + '"' + icode + '",';
+        csv = csv + '"' + row.num_order + '",';
+        csv = csv + '"' + "EA" + '",';
+        csv = csv + '"' + oday + '",';
+        csv = csv + '"' + "" + '",';
+        csv = csv + '"' + tekiyo + '"\n';
+      });
+      let blob = new Blob([csv], { type: "text/csv" });
+      let link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      let day = dayjs().format("YYYYMMDDHHmmss");
+      let daynum = Number(day);
+      let day16 = daynum.toString(16);
+      let csv_name = "WEB_EDI_" + day16 + ".csv";
+      link.download = csv_name;
+      link.click();
+    },
+    order() {
+      this.dainiOrder();
+      this.elseOrder();
     }
   }
 };

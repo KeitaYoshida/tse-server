@@ -388,12 +388,18 @@ export default {
         }
       } else {
         let lot = i.items.lot_num;
+        let last = -order;
         let min = i.items.minimum_set;
-        if (order < min) {
+        if (last > min) {
           i.items.num = 0;
+        } else {
+          let setNum = Math.ceil(Math.abs(order) / lot);
+          while (setNum * lot <= min) {
+            setNum = setNum + 1;
+          }
+
+          i.items.num = lot * setNum;
         }
-        let setNum = Math.ceil(order / lot);
-        i.items.num = lot * setNum;
       }
 
       let price = 0;

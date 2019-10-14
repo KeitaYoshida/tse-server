@@ -18,6 +18,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _viewList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./viewList */ "./resources/js/components/Order/OrderList/viewList.vue");
 
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -154,8 +156,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
 
       if (this.cstm_list.length != clist.length) {
         this.view_list = this.view_list.filter(function (ar) {
-          return ar.price.find(function (vendor) {
-            return clist.indexOf(vendor.vname.com_name) != -1;
+          return ar.price.find(function (Vnd) {
+            return clist.indexOf(Vnd.vname.com_name) != -1;
           });
         });
       }
@@ -172,8 +174,11 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
               case 0:
                 axios.get(link).then(function (res) {
                   var cmpt_list = [];
-                  var cstm_list = [];
-                  var ol = _this2.view_list = _this2.order_list = res.data; // console.log(this.order_list);
+                  var cstm_list = []; // console.log(res.data);
+
+                  var ol = _this2.view_list = _this2.order_list = res.data.filter(function (row) {
+                    return row.num_order !== 0;
+                  }); // console.log(this.order_list);
 
                   if (ol[0].cmpt !== null) {
                     ol.forEach(function (ar, n) {
@@ -182,9 +187,9 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
                       }
 
                       var tmp = ar.price;
-                      tmp.forEach(function (vendor) {
-                        if (cstm_list.indexOf(vendor.vname.com_name) === -1) {
-                          cstm_list.push(vendor.vname.com_name);
+                      tmp.forEach(function (Vnd) {
+                        if (cstm_list.indexOf(Vnd.vname.com_name) === -1) {
+                          cstm_list.push(Vnd.vname.com_name);
                         }
                       });
                     });
@@ -209,7 +214,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
 
       return getOrderData;
     }(),
-    order: function order() {
+    elseOrder: function elseOrder() {
       var _this3 = this;
 
       var list = {};
@@ -221,7 +226,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
 
         od.price.forEach(function (cm, nn) {
           // console.log(cm);
-          var com_id = cm.vendor_code;
+          var com_id = cm.Vnd_code;
 
           if (com_id in list === false) {
             list[com_id] = [];
@@ -287,9 +292,58 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       link.download = csv_name;
       link.click();
       axios.post("/db/order/list/orderd/", ccode).then(function (res) {// console.log(res.data);
-      });
-      window.open("https://tse-order.firebaseapp.com/admin", "_blank");
+      }); // window.open("https://tse-order.firebaseapp.com/admin", "_blank");
+
       this.$router.push("/");
+    },
+    dainiOrder: function dainiOrder() {
+      var _code;
+
+      var Dai2BuVnd = "k0080";
+      var Dai2SoVnd = "k0079";
+      var Dai1BuVnd = "k0076";
+      var Dai3BuVnd = "k0078";
+      var Hukuchi1Vnd = "k0097";
+      var pass = [Dai2BuVnd, Dai2SoVnd, Dai1BuVnd, Dai3BuVnd, Hukuchi1Vnd];
+      var orders = this.order_list.filter(function (row) {
+        return row.price.length > 0 && pass.indexOf(row.price[0].vendor_code) >= 0;
+      });
+      var Dai2BuCode = "LZS0080";
+      var Dai2SoCode = "LZS0090";
+      var Dai1BuCode = "LZS0060";
+      var Dai3BuCode = "LZS0100";
+      var Hukuchi1Code = "LZS0130";
+      var code = (_code = {}, _defineProperty(_code, Dai2BuVnd, Dai2BuCode), _defineProperty(_code, Dai2SoVnd, Dai2SoCode), _defineProperty(_code, Dai1BuVnd, Dai1BuCode), _defineProperty(_code, Dai3BuVnd, Dai3BuCode), _defineProperty(_code, Hukuchi1Vnd, Hukuchi1Code), _code);
+      var csv = "";
+      var file = orders.forEach(function (row) {
+        var vnd = row.price[0].vendor_code;
+        var oday = row.price[0].order_day.replace(/\-+/g, "");
+        var icode = row.item.item_code;
+        var tekiyo = row.order_key + "#" + String(row.cnt_order_code).slice(4) + "#" + String(row.cmpt.cmpt_code).slice(0, 11);
+        csv = csv + '"' + "1451" + '",';
+        csv = csv + '"' + vnd + '",';
+        csv = csv + '"' + icode + '",';
+        csv = csv + '"' + row.num_order + '",';
+        csv = csv + '"' + "EA" + '",';
+        csv = csv + '"' + oday + '",';
+        csv = csv + '"' + "" + '",';
+        csv = csv + '"' + tekiyo + '"\n';
+      });
+      var blob = new Blob([csv], {
+        type: "text/csv"
+      });
+      var link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      var day = dayjs__WEBPACK_IMPORTED_MODULE_1___default()().format("YYYYMMDDHHmmss");
+      var daynum = Number(day);
+      var day16 = daynum.toString(16);
+      var csv_name = "WEB_EDI_" + day16 + ".csv";
+      link.download = csv_name;
+      link.click();
+    },
+    order: function order() {
+      this.dainiOrder();
+      this.elseOrder();
     }
   }
 });
