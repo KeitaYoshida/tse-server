@@ -18,6 +18,10 @@
 </template>
 
 <script>
+var iconv = require("iconv-lite");
+iconv.skipDecodeWarning = true;
+var jschardet = require("jschardet");
+
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 dayjs.locale("ja");
@@ -212,22 +216,27 @@ export default {
       let file = orders.forEach(row => {
         let vnd = row.price[0].vendor_code;
         let oday = row.price[0].order_day.replace(/\-+/g, "");
-        let icode = row.item.item_code;
+        let order_cd =
+          row.item.item_code !== row.item.order_code &&
+          row.item.order_code !== ""
+            ? row.item.order_code
+            : row.item.item_code;
         let tekiyo =
           row.order_key +
           "#" +
           String(row.cnt_order_code).slice(4) +
           "#" +
           String(row.cmpt.cmpt_code).slice(0, 11);
-        csv = csv + '"' + "1451" + '",';
-        csv = csv + '"' + vnd + '",';
-        csv = csv + '"' + icode + '",';
-        csv = csv + '"' + row.num_order + '",';
-        csv = csv + '"' + "EA" + '",';
-        csv = csv + '"' + oday + '",';
-        csv = csv + '"' + "" + '",';
-        csv = csv + '"' + tekiyo + '"\n';
+        csv = csv + 1451 + ",";
+        csv = csv + code[vnd] + ",";
+        csv = csv + order_cd + ",";
+        csv = csv + row.num_order + ",";
+        csv = csv + "EA" + ",";
+        csv = csv + oday + ",";
+        csv = csv + "" + ",";
+        csv = csv + tekiyo + "\n";
       });
+      iconv.decode(csv, "shift_jis");
       let blob = new Blob([csv], { type: "text/csv" });
       let link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);

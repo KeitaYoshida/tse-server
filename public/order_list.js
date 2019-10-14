@@ -43,6 +43,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib/index.js");
+
+iconv.skipDecodeWarning = true;
+
+var jschardet = __webpack_require__(/*! jschardet */ "./node_modules/jschardet/index.js");
+
 
 
 dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
@@ -318,17 +324,18 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       var file = orders.forEach(function (row) {
         var vnd = row.price[0].vendor_code;
         var oday = row.price[0].order_day.replace(/\-+/g, "");
-        var icode = row.item.item_code;
+        var order_cd = row.item.item_code !== row.item.order_code && row.item.order_code !== "" ? row.item.order_code : row.item.item_code;
         var tekiyo = row.order_key + "#" + String(row.cnt_order_code).slice(4) + "#" + String(row.cmpt.cmpt_code).slice(0, 11);
-        csv = csv + '"' + "1451" + '",';
-        csv = csv + '"' + vnd + '",';
-        csv = csv + '"' + icode + '",';
-        csv = csv + '"' + row.num_order + '",';
-        csv = csv + '"' + "EA" + '",';
-        csv = csv + '"' + oday + '",';
-        csv = csv + '"' + "" + '",';
-        csv = csv + '"' + tekiyo + '"\n';
+        csv = csv + 1451 + ",";
+        csv = csv + code[vnd] + ",";
+        csv = csv + order_cd + ",";
+        csv = csv + row.num_order + ",";
+        csv = csv + "EA" + ",";
+        csv = csv + oday + ",";
+        csv = csv + "" + ",";
+        csv = csv + tekiyo + "\n";
       });
+      iconv.decode(csv, "shift_jis");
       var blob = new Blob([csv], {
         type: "text/csv"
       });
@@ -3139,6 +3146,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_ukeire_vue_vue_type_template_id_502e8f18_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ 1:
+/*!***************************!*\
+  !*** ./streams (ignored) ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 2:
+/*!*******************************!*\
+  !*** ./extend-node (ignored) ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 

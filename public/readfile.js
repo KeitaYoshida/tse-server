@@ -1140,8 +1140,8 @@ var jschardet = __webpack_require__(/*! jschardet */ "./node_modules/jschardet/i
       reader.onload = function (e) {
         var csv = [];
         var f = e.target.result;
-        var enc = jschardet.detect(f).encoding;
-        console.log(enc);
+        var enc = jschardet.detect(f).encoding; // console.log(enc);
+
         if (enc === "IBM855") enc = "SHIFT_JIS";
         if (enc === "KOI8-R") enc = "SHIFT_JIS";
         var res = iconv.decode(f, enc, {
