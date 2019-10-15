@@ -9,7 +9,7 @@ class Item extends Model
   protected $table = 'items';
   protected $primaryKey = 'item_id';
   protected $guarded = array();
-  public $timestamps = false;
+  // public $timestamps = false;
 
   // protected $with = ['item_class_val'];
 

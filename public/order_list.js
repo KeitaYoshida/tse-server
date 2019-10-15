@@ -1115,9 +1115,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var item_code = item.item_code;
       var order_code = item.order_code;
       if (order_code == null || order_code == "" || order_code.trim() == item_code.trim()) return item_code;
-      console.log(item_code);
-      console.log(order_code);
-      console.log(String(item_code) === String(order_code));
       return order_code + "<br />" + "( " + item_code + " )";
     },
     rtNyukaClass: function rtNyukaClass(item) {

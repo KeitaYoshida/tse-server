@@ -107,6 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _components_com_LineChart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/com/LineChart */ "./resources/js/components/com/LineChart.vue");
+/* harmony import */ var _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/com/ComFormDialog */ "./resources/js/components/com/ComFormDialog.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -131,18 +132,95 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: [],
+  props: ["im", "timer"],
   components: {
-    LineChart: _components_com_LineChart__WEBPACK_IMPORTED_MODULE_2__["default"]
+    LineChart: _components_com_LineChart__WEBPACK_IMPORTED_MODULE_2__["default"],
+    NumChange: _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
       dData: null,
       mData: null,
-      inited: false
+      inited: false,
+      headers: [{
+        text: "処理",
+        value: "order_code",
+        align: "center"
+      }, {
+        text: "品目コード",
+        value: "item_code",
+        align: "center"
+      }, {
+        text: "在庫数",
+        value: "",
+        align: "center"
+      }, {
+        text: "予約数",
+        value: "",
+        align: "center"
+      }, {
+        text: "発注数",
+        value: "",
+        align: "center"
+      }, {
+        text: "更新日時",
+        value: "updated_at",
+        align: "center"
+      }],
+      pagination: {
+        page: 1,
+        rowsPerPage: 20,
+        sortBy: "updated_at",
+        descending: true
+      },
+      search: "",
+      numData: {
+        title: "数量変更",
+        message: null,
+        data: [{
+          name: null,
+          label: null,
+          id: null,
+          hint: null,
+          type: null,
+          value: null
+        }]
+      },
+      dialog: false
     };
   },
   computed: {},
@@ -285,6 +363,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         labels: labels,
         datasets: datasets
       };
+    },
+    rtBeforeAfter: function rtBeforeAfter(after, before) {
+      if (before === undefined || before === null) return after;
+      return before + " --> " + after;
+    },
+    viewNumChange: function viewNumChange(item) {
+      this.dialog = !this.dialog;
+      this.numData = {
+        title: "数量変更",
+        message: null,
+        item_id: item.item_id,
+        data: [{
+          name: "last_num",
+          label: "在庫数",
+          value: item.last_num
+        }, {
+          name: "appo_num",
+          label: "予約数",
+          value: item.appo_num
+        }, {
+          name: "order_num",
+          label: "発注数",
+          value: item.order_num
+        }]
+      };
+    },
+    returnNum: function returnNum(d) {
+      this.dialog = !this.dialog;
+      var changeObj = {
+        item_id: d.item_id,
+        last_num: Number(d.data[0].value),
+        appo_num: Number(d.data[1].value),
+        order_num: Number(d.data[2].value)
+      };
+      this.$emit("changeNum", changeObj);
+    },
+    rtOrderCode: function rtOrderCode(item) {
+      var item_code = item.item_code;
+      var order_code = item.order_code;
+      if (order_code == null || order_code == "" || order_code.trim() == item_code.trim()) return item_code;
+      return order_code + "<br />" + "( " + item_code + " )";
     }
   })
 });
@@ -429,6 +548,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -446,7 +566,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       loading: true,
       mode: "day",
-      msync: false
+      msync: false,
+      interval: undefined,
+      im: null,
+      timer: undefined,
+      timerCnt: 0
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -455,12 +579,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.init();
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.interval = setInterval(function () {
+      _this.setImonitor();
+    }, 15000);
+    this.timer = setInterval(function () {
+      _this.timerCnt = _this.timerCnt + 1;
+    }, 1000);
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["ITEMS_SET"]), {
     init: function () {
       var _init = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this = this;
+        var _this2 = this;
 
         var items, iClass, iSplit, iDetail, iPrice;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -506,7 +640,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   iDetail[ic].order_num = iDetail[ic].order_num + item.order_num;
                   iDetail[ic].inv_num = iDetail[ic].inv_num + item.inv_num;
                   var vd = item.vendor;
-                  var price = vd.length === 0 ? 0 : _this.rtPrice(vd);
+                  var price = vd.length === 0 ? 0 : _this2.rtPrice(vd);
                   iPrice[ic].last = iPrice[ic].last + price * item.last_num;
                   iPrice[ic].appo = iPrice[ic].appo + price * item.appo_num;
                   iPrice[ic].order = iPrice[ic].order + price * item.order_num;
@@ -521,9 +655,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 16:
+                _context.next = 18;
+                return this.setImonitor(items);
+
+              case 18:
                 this.loading = false;
 
-              case 17:
+              case 19:
               case "end":
                 return _context.stop();
             }
@@ -537,16 +675,142 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return init;
     }(),
+    setImonitor: function () {
+      var _setImonitor = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _this3 = this;
+
+        var items,
+            iMonitor,
+            _args2 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                items = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : null;
+
+                if (!(items === null)) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _context2.next = 4;
+                return axios.get("/items/itemlist");
+
+              case 4:
+                items = _context2.sent;
+                items = items.data;
+
+              case 6:
+                iMonitor = this.Items.iMonitor;
+                if (iMonitor === undefined) iMonitor = {};
+                items.forEach(function (item) {
+                  if (!(item.item_id in iMonitor)) {
+                    iMonitor[item.item_id] = {
+                      item_id: item.item_id,
+                      item_code: item.item_code,
+                      item_rev: item.item_rev,
+                      order_code: item.order_code,
+                      last_num: item.last_num,
+                      appo_num: item.appo_num,
+                      order_num: item.order_num,
+                      updated_at: item.updated_at
+                    };
+                  } else {
+                    if (iMonitor[item.item_id].updated_at !== item.updated_at) {
+                      var i = iMonitor[item.item_id];
+                      iMonitor[item.item_id] = {
+                        item_id: item.item_id,
+                        item_code: item.item_code,
+                        item_rev: item.item_rev,
+                        order_code: item.order_code,
+                        last_num_b: i.last_num !== item.last_num ? i.last_num : null,
+                        appo_num_b: i.appo_num !== item.appo_num ? i.appo_num : null,
+                        order_num_b: i.order_num !== item.order_num ? i.order_num : null,
+                        last_num: item.last_num,
+                        appo_num: item.appo_num,
+                        order_num: item.order_num,
+                        updated_at: item.updated_at
+                      };
+                    }
+                  }
+                });
+                _context2.next = 11;
+                return this.ITEMS_SET({
+                  iMonitor: iMonitor
+                });
+
+              case 11:
+                this.im = Object.keys(this.Items.iMonitor).map(function (key) {
+                  return _this3.Items.iMonitor[key];
+                });
+                this.timerCnt = 0;
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function setImonitor() {
+        return _setImonitor.apply(this, arguments);
+      }
+
+      return setImonitor;
+    }(),
     rtPrice: function rtPrice(vendor) {
       var p = 0;
       vendor.forEach(function (ar) {
         return p = p + Number(ar.vendor_item_price);
       });
       return p;
-    }
+    },
+    changeNum: function () {
+      var _changeNum = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(d) {
+        var tar, index, row;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                tar = this.im.filter(function (row) {
+                  return row.item_id === d.item_id;
+                })[0];
+                index = this.im.indexOf(tar);
+                row = this.im[index];
+                row.last_num_b = row.last_num;
+                row.appo_num_b = row.appo_num;
+                row.order_num_b = row.order_num;
+                row.last_num = d.last_num;
+                row.appo_num = d.appo_num;
+                row.order_num = d.order_num;
+                _context3.next = 11;
+                return axios.post("/db/items/numSet/", d).then(function (res) {// console.log(res.data);
+                });
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function changeNum(_x) {
+        return _changeNum.apply(this, arguments);
+      }
+
+      return changeNum;
+    }()
   }),
   beforeDestroy: function beforeDestroy() {
     this.ITEMS_SET(null);
+    clearInterval(this.interval);
+    clearInterval(this.timer);
   }
 });
 
@@ -1062,17 +1326,167 @@ var render = function() {
         [
           _c(
             "v-flex",
-            { attrs: { xs6: "" } },
+            { attrs: { xs5: "", "offset-xs1": "" } },
             [_c("LineChart", { attrs: { d: _vm.mData, height: 300 } })],
             1
           ),
           _vm._v(" "),
-          _c("v-flex", { attrs: { xs6: "" } }),
+          _c("v-flex", { attrs: { xs5: "" } }),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs10: "", "offset-xs1": "" } },
+            [_c("LineChart", { attrs: { d: _vm.dData, height: 300 } })],
+            1
+          ),
           _vm._v(" "),
           _c(
             "v-flex",
             { attrs: { xs12: "" } },
-            [_c("LineChart", { attrs: { d: _vm.dData, height: 300 } })],
+            [
+              _c("v-text-field", {
+                attrs: {
+                  "append-icon": "search",
+                  label: "Search",
+                  "single-line": "",
+                  "hide-details": ""
+                },
+                model: {
+                  value: _vm.search,
+                  callback: function($$v) {
+                    _vm.search = $$v
+                  },
+                  expression: "search"
+                }
+              }),
+              _vm._v(" "),
+              _c("v-progress-linear", {
+                attrs: { value: (_vm.timer / 15) * 100 }
+              }),
+              _vm._v(" "),
+              _vm.im
+                ? _c("v-data-table", {
+                    staticClass: "elevation-1",
+                    attrs: {
+                      headers: _vm.headers,
+                      items: _vm.im,
+                      pagination: _vm.pagination,
+                      "item-key": "id",
+                      loading: "true",
+                      search: _vm.search
+                    },
+                    on: {
+                      "update:pagination": function($event) {
+                        _vm.pagination = $event
+                      }
+                    },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "items",
+                          fn: function(props) {
+                            return [
+                              _c(
+                                "td",
+                                { staticClass: "text-xs-center" },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "success",
+                                        small: "",
+                                        outline: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.viewNumChange(props.item)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("数量変更")]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("td", {
+                                staticClass: "text-xs-center",
+                                domProps: {
+                                  innerHTML: _vm._s(_vm.rtOrderCode(props.item))
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.rtBeforeAfter(
+                                      props.item.last_num,
+                                      props.item.last_num_b
+                                    )
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.rtBeforeAfter(
+                                      props.item.appo_num,
+                                      props.item.appo_num_b
+                                    )
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.rtBeforeAfter(
+                                      props.item.order_num,
+                                      props.item.order_num_b
+                                    )
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-xs-center" }, [
+                                _vm._v(_vm._s(props.item.updated_at))
+                              ])
+                            ]
+                          }
+                        }
+                      ],
+                      null,
+                      false,
+                      2912867876
+                    )
+                  })
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-dialog",
+            {
+              attrs: { overlay: false, "max-width": "500px" },
+              model: {
+                value: _vm.dialog,
+                callback: function($$v) {
+                  _vm.dialog = $$v
+                },
+                expression: "dialog"
+              }
+            },
+            [
+              _vm.dialog
+                ? _c("NumChange", {
+                    attrs: { data: _vm.numData },
+                    on: { rt: _vm.returnNum }
+                  })
+                : _vm._e()
+            ],
             1
           )
         ],
@@ -1183,7 +1597,7 @@ var render = function() {
     [
       _c(
         "v-container",
-        { attrs: { "grid-list-xs": "", id: "monitor" } },
+        { attrs: { fluid: "", id: "monitor" } },
         [
           _c(
             "transition",
@@ -1208,7 +1622,10 @@ var render = function() {
                     }
                   })
                 : _vm.mode === "day"
-                ? _c("DayMonitor")
+                ? _c("DayMonitor", {
+                    attrs: { timer: _vm.timerCnt, im: _vm.im },
+                    on: { changeNum: _vm.changeNum }
+                  })
                 : _vm._e()
             ],
             1
@@ -1216,6 +1633,8 @@ var render = function() {
         ],
         1
       ),
+      _vm._v(" "),
+      _c("v-container", { attrs: { fluid: "" } }),
       _vm._v(" "),
       _c(
         "v-bottom-nav",
@@ -1507,7 +1926,12 @@ __webpack_require__.r(__webpack_exports__);
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VProgressLinear__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VProgressLinear */ "./node_modules/vuetify/lib/components/VProgressLinear/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -1530,7 +1954,12 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["VFlex"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["VLayout"]})
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_5__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VFlex"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VLayout"],VProgressLinear: vuetify_lib_components_VProgressLinear__WEBPACK_IMPORTED_MODULE_8__["VProgressLinear"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__["VTextField"]})
 
 
 /* hot reload */

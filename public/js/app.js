@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki":"cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki","cmpt_work_set~product_list":"cmpt_work_set~product_list","cmpt_work_set":"cmpt_work_set","equip_start_check":"equip_start_check","home":"home","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","process":"process","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~iMonitor~inventory~recept_list~sum_up":"vendors~iMonitor~inventory~recept_list~sum_up","sum_up":"sum_up","iMonitor":"iMonitor","inventory":"inventory","vendors~order_list~readfile~recept_list~tehaisaki":"vendors~order_list~readfile~recept_list~tehaisaki","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~order_list~readfile":"vendors~order_list~readfile","readfile":"readfile","vendors~item_list":"vendors~item_list","item_list":"item_list","tehaisaki":"tehaisaki","order_list":"order_list","work":"work"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki":"cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki","cmpt_work_set~product_list":"cmpt_work_set~product_list","cmpt_work_set":"cmpt_work_set","equip_start_check":"equip_start_check","home":"home","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","process":"process","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~iMonitor~inventory~recept_list~sum_up":"vendors~iMonitor~inventory~recept_list~sum_up","iMonitor":"iMonitor","sum_up":"sum_up","inventory":"inventory","vendors~order_list~readfile~recept_list~tehaisaki":"vendors~order_list~readfile~recept_list~tehaisaki","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~order_list~readfile":"vendors~order_list~readfile","readfile":"readfile","vendors~item_list":"vendors~item_list","item_list":"item_list","tehaisaki":"tehaisaki","order_list":"order_list","work":"work"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -77096,7 +77096,7 @@ var home = function home() {
 };
 
 var item_list = function item_list() {
-  return Promise.all(/*! import() | item_list */[__webpack_require__.e("vendors~item_list"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_list")]).then(__webpack_require__.bind(null, /*! ../components/ItemList.vue */ "./resources/js/components/ItemList.vue"));
+  return Promise.all(/*! import() | item_list */[__webpack_require__.e("vendors~item_list"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_list")]).then(__webpack_require__.bind(null, /*! ../components/ItemList.vue */ "./resources/js/components/ItemList.vue"));
 };
 
 var item_data = function item_data() {
@@ -77104,7 +77104,7 @@ var item_data = function item_data() {
 };
 
 var readfile = function readfile() {
-  return Promise.all(/*! import() | readfile */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("readfile")]).then(__webpack_require__.bind(null, /*! ../components/ReadFile/ReadFile.vue */ "./resources/js/components/ReadFile/ReadFile.vue"));
+  return Promise.all(/*! import() | readfile */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("readfile")]).then(__webpack_require__.bind(null, /*! ../components/ReadFile/ReadFile.vue */ "./resources/js/components/ReadFile/ReadFile.vue"));
 };
 
 var equip_start_check = function equip_start_check() {
@@ -77128,11 +77128,11 @@ var inventory = function inventory() {
 };
 
 var model_mst = function model_mst() {
-  return Promise.all(/*! import() | model_mst */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("model_mst")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/index.vue */ "./resources/js/components/ModelMst/index.vue"));
+  return Promise.all(/*! import() | model_mst */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("model_mst")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/index.vue */ "./resources/js/components/ModelMst/index.vue"));
 };
 
 var cmpt_work_set = function cmpt_work_set() {
-  return Promise.all(/*! import() | cmpt_work_set */[__webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("cmpt_work_set~product_list"), __webpack_require__.e("cmpt_work_set")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/WorkSet/cmpt.vue */ "./resources/js/components/ModelMst/WorkSet/cmpt.vue"));
+  return Promise.all(/*! import() | cmpt_work_set */[__webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("cmpt_work_set~product_list"), __webpack_require__.e("cmpt_work_set")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/WorkSet/cmpt.vue */ "./resources/js/components/ModelMst/WorkSet/cmpt.vue"));
 };
 
 var recept_list = function recept_list() {
@@ -77140,11 +77140,11 @@ var recept_list = function recept_list() {
 };
 
 var product_list = function product_list() {
-  return Promise.all(/*! import() | product_list */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("order"), __webpack_require__.e("cmpt_work_set~product_list"), __webpack_require__.e("product_list")]).then(__webpack_require__.bind(null, /*! ../components/Product/index.vue */ "./resources/js/components/Product/index.vue"));
+  return Promise.all(/*! import() | product_list */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("order"), __webpack_require__.e("cmpt_work_set~product_list"), __webpack_require__.e("product_list")]).then(__webpack_require__.bind(null, /*! ../components/Product/index.vue */ "./resources/js/components/Product/index.vue"));
 };
 
 var order = function order() {
-  return Promise.all(/*! import() | order */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("order")]).then(__webpack_require__.bind(null, /*! ../components/Product/Tyumon/CmptOrderList.vue */ "./resources/js/components/Product/Tyumon/CmptOrderList.vue"));
+  return Promise.all(/*! import() | order */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("order")]).then(__webpack_require__.bind(null, /*! ../components/Product/Tyumon/CmptOrderList.vue */ "./resources/js/components/Product/Tyumon/CmptOrderList.vue"));
 };
 
 var user_info = function user_info() {
@@ -77152,15 +77152,15 @@ var user_info = function user_info() {
 };
 
 var order_list = function order_list() {
-  return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Order/OrderList/order_list.vue */ "./resources/js/components/Order/OrderList/order_list.vue"));
+  return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Order/OrderList/order_list.vue */ "./resources/js/components/Order/OrderList/order_list.vue"));
 };
 
 var ukeire = function ukeire() {
-  return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Ukeire/ukeire.vue */ "./resources/js/components/Ukeire/ukeire.vue"));
+  return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Ukeire/ukeire.vue */ "./resources/js/components/Ukeire/ukeire.vue"));
 };
 
 var tehaisaki = function tehaisaki() {
-  return Promise.all(/*! import() | tehaisaki */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("tehaisaki")]).then(__webpack_require__.bind(null, /*! ../components/com/Tehaisaki.vue */ "./resources/js/components/com/Tehaisaki.vue"));
+  return Promise.all(/*! import() | tehaisaki */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("tehaisaki")]).then(__webpack_require__.bind(null, /*! ../components/com/Tehaisaki.vue */ "./resources/js/components/com/Tehaisaki.vue"));
 };
 
 var process = function process() {
@@ -77176,11 +77176,11 @@ var work = function work() {
 };
 
 var iMonitor = function iMonitor() {
-  return Promise.all(/*! import() | iMonitor */[__webpack_require__.e("vendors~iMonitor~inventory~recept_list~sum_up"), __webpack_require__.e("iMonitor")]).then(__webpack_require__.bind(null, /*! @/components/monitor/monitor.vue */ "./resources/js/components/monitor/monitor.vue"));
+  return Promise.all(/*! import() | iMonitor */[__webpack_require__.e("vendors~iMonitor~inventory~recept_list~sum_up"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("iMonitor")]).then(__webpack_require__.bind(null, /*! @/components/monitor/monitor.vue */ "./resources/js/components/monitor/monitor.vue"));
 };
 
 var sumup = function sumup() {
-  return Promise.all(/*! import() | sum_up */[__webpack_require__.e("vendors~iMonitor~inventory~recept_list~sum_up"), __webpack_require__.e("cmpt_work_set~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("sum_up")]).then(__webpack_require__.bind(null, /*! @/components/sumup/sumup.vue */ "./resources/js/components/sumup/sumup.vue"));
+  return Promise.all(/*! import() | sum_up */[__webpack_require__.e("vendors~iMonitor~inventory~recept_list~sum_up"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("sum_up")]).then(__webpack_require__.bind(null, /*! @/components/sumup/sumup.vue */ "./resources/js/components/sumup/sumup.vue"));
 };
 
 var Auth = {
@@ -77774,7 +77774,7 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["ORDERS_ONE_INIT_SET"], function (state, payload) {
   state.orders.one = payload;
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["ITEMS_SET"], function (state, payload) {
-  state.items = payload;
+  state.items = Object.assign({}, state.items, payload);
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["SEARCH_INVENTORY"], function (state, payload) {
   state.search.inventory = payload;
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["INVENTORY_SET"], function (state, payload) {

@@ -74,5 +74,9 @@
     "/item_data~order~product_list~readfile.js": "/item_data~order~product_list~readfile.js",
     "/item_data~order~product_list~readfile.js.map": "/item_data~order~product_list~readfile.js.map",
     "/vendors~item_data~order~product_list~readfile.js": "/vendors~item_data~order~product_list~readfile.js",
-    "/vendors~item_data~order~product_list~readfile.js.map": "/vendors~item_data~order~product_list~readfile.js.map"
+    "/vendors~item_data~order~product_list~readfile.js.map": "/vendors~item_data~order~product_list~readfile.js.map",
+    "/vendors~inventory~recept_list~sum_up.js": "/vendors~inventory~recept_list~sum_up.js",
+    "/vendors~inventory~recept_list~sum_up.js.map": "/vendors~inventory~recept_list~sum_up.js.map",
+    "/cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki.js": "/cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki.js",
+    "/cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki.js.map": "/cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki.js.map"
 }

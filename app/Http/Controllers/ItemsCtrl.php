@@ -75,4 +75,14 @@ class ItemsCtrl extends Controller
       ->with(['items:item_id,item_code,item_name,item_model', 'users:loginid,name'])
       ->get();
   }
+
+  public function NumSet(Request $req)
+  {
+    $i = new Item;
+    $i->where('item_id', $req->item_id)->update([
+      'last_num' => $req->last_num,
+      'appo_num' => $req->appo_num,
+      'order_num' => $req->order_num
+    ]);
+  }
 }

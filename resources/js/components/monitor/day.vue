@@ -1,29 +1,91 @@
 <template>
   <v-layout row wrap v-if="inited">
-    <v-flex xs6>
+    <v-flex xs5 offset-xs1>
       <LineChart :d="mData" :height="300"></LineChart>
     </v-flex>
-    <v-flex xs6></v-flex>
-    <v-flex xs12>
+    <v-flex xs5></v-flex>
+    <v-flex xs10 offset-xs1>
       <LineChart :d="dData" :height="300"></LineChart>
     </v-flex>
+    <v-flex xs12>
+      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+      <v-progress-linear :value="timer/15*100"></v-progress-linear>
+      <v-data-table
+        v-if="im"
+        :headers="headers"
+        :items="im"
+        class="elevation-1"
+        :pagination.sync="pagination"
+        item-key="id"
+        loading="true"
+        :search="search"
+      >
+        <template v-slot:items="props">
+          <td class="text-xs-center">
+            <v-btn color="success" small outline @click="viewNumChange(props.item)">数量変更</v-btn>
+          </td>
+          <td class="text-xs-center" v-html="rtOrderCode(props.item)"></td>
+          <td class="text-xs-center">{{ rtBeforeAfter(props.item.last_num, props.item.last_num_b) }}</td>
+          <td class="text-xs-center">{{ rtBeforeAfter(props.item.appo_num, props.item.appo_num_b) }}</td>
+          <td
+            class="text-xs-center"
+          >{{ rtBeforeAfter(props.item.order_num, props.item.order_num_b) }}</td>
+          <td class="text-xs-center">{{ props.item.updated_at }}</td>
+        </template>
+      </v-data-table>
+    </v-flex>
+    <v-dialog v-model="dialog" :overlay="false" max-width="500px">
+      <NumChange v-if="dialog" :data="numData" @rt="returnNum" />
+    </v-dialog>
   </v-layout>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 import LineChart from "@/components/com/LineChart";
+import NumChange from "@/components/com/ComFormDialog";
 
 export default {
-  props: [],
+  props: ["im", "timer"],
   components: {
-    LineChart
+    LineChart,
+    NumChange
   },
   data: function() {
     return {
       dData: null,
       mData: null,
-      inited: false
+      inited: false,
+      headers: [
+        { text: "処理", value: "order_code", align: "center" },
+        { text: "品目コード", value: "item_code", align: "center" },
+        { text: "在庫数", value: "", align: "center" },
+        { text: "予約数", value: "", align: "center" },
+        { text: "発注数", value: "", align: "center" },
+        { text: "更新日時", value: "updated_at", align: "center" }
+      ],
+      pagination: {
+        page: 1,
+        rowsPerPage: 20,
+        sortBy: "updated_at",
+        descending: true
+      },
+      search: "",
+      numData: {
+        title: "数量変更",
+        message: null,
+        data: [
+          {
+            name: null,
+            label: null,
+            id: null,
+            hint: null,
+            type: null,
+            value: null
+          }
+        ]
+      },
+      dialog: false
     };
   },
   computed: {},
@@ -84,6 +146,56 @@ export default {
         labels: labels,
         datasets: datasets
       };
+    },
+    rtBeforeAfter(after, before) {
+      if (before === undefined || before === null) return after;
+      return before + " --> " + after;
+    },
+    viewNumChange(item) {
+      this.dialog = !this.dialog;
+      this.numData = {
+        title: "数量変更",
+        message: null,
+        item_id: item.item_id,
+        data: [
+          {
+            name: "last_num",
+            label: "在庫数",
+            value: item.last_num
+          },
+          {
+            name: "appo_num",
+            label: "予約数",
+            value: item.appo_num
+          },
+          {
+            name: "order_num",
+            label: "発注数",
+            value: item.order_num
+          }
+        ]
+      };
+    },
+    returnNum(d) {
+      this.dialog = !this.dialog;
+      let changeObj = {
+        item_id: d.item_id,
+        last_num: Number(d.data[0].value),
+        appo_num: Number(d.data[1].value),
+        order_num: Number(d.data[2].value)
+      };
+      this.$emit("changeNum", changeObj);
+    },
+    rtOrderCode(item) {
+      let item_code = item.item_code;
+      let order_code = item.order_code;
+      if (
+        order_code == null ||
+        order_code == "" ||
+        order_code.trim() == item_code.trim()
+      )
+        return item_code;
+      return order_code + "<br />" + "( " + item_code + " )";
     }
   }
 };

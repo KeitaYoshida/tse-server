@@ -59,6 +59,7 @@ Route::get('/db/items/add/item/{iid}/{irev}', 'ItemsCtrl@AddItem');
 Route::get('/db/items/delete/item/{iid}/{irev}', 'ModelCtrl@DeleteItem');
 Route::get('/db/items/class/list', 'ItemsCtrl@ClassList');
 Route::get('/db/items/class/set/{cid}/{iid}', 'ItemsCtrl@ClassSet');
+Route::post('/db/items/numSet/', 'ItemsCtrl@NumSet');
 
 Route::get('/db/model_mst/list', 'ModelCtrl@ModelList');
 Route::get('/db/model_mst/data/{id}', 'ModelCtrl@ModelData');

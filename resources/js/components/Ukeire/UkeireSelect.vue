@@ -154,9 +154,6 @@ export default {
         order_code.trim() == item_code.trim()
       )
         return item_code;
-      console.log(item_code);
-      console.log(order_code);
-      console.log(String(item_code) === String(order_code));
       return order_code + "<br />" + "( " + item_code + " )";
     },
     rtNyukaClass(item) {

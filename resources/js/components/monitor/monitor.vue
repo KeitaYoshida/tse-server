@@ -1,13 +1,14 @@
 <template>
   <v-app>
-    <v-container grid-list-xs id="monitor">
+    <v-container fluid id="monitor">
       <transition name="fade" mode="out-in">
         <Loading v-if="loading"></Loading>
         <IMonitor v-else-if="mode==='imonitor'" @reload="init()"></IMonitor>
         <InvMonitor v-else-if="mode==='invMonitor'" @reload="init()"></InvMonitor>
-        <DayMonitor v-else-if="mode==='day'"></DayMonitor>
+        <DayMonitor v-else-if="mode==='day'" :timer="timerCnt" :im="im" @changeNum="changeNum"></DayMonitor>
       </transition>
     </v-container>
+    <v-container fluid></v-container>
     <v-bottom-nav fixed :value="true">
       <v-btn flat value="Day" v-if="mode!=='day'" @click="mode='day'">
         <span>Day</span>
@@ -44,7 +45,11 @@ export default {
     return {
       loading: true,
       mode: "day",
-      msync: false
+      msync: false,
+      interval: undefined,
+      im: null,
+      timer: undefined,
+      timerCnt: 0
     };
   },
   computed: {
@@ -54,6 +59,14 @@ export default {
   },
   created: function() {
     this.init();
+  },
+  mounted: function() {
+    this.interval = setInterval(() => {
+      this.setImonitor();
+    }, 15000);
+    this.timer = setInterval(() => {
+      this.timerCnt = this.timerCnt + 1;
+    }, 1000);
   },
   methods: {
     ...mapActions(["ITEMS_SET"]),
@@ -103,16 +116,80 @@ export default {
         iDetail: iDetail,
         iPrice: iPrice
       });
+      await this.setImonitor(items);
       this.loading = false;
+    },
+    async setImonitor(items = null) {
+      if (items === null) {
+        items = await axios.get("/items/itemlist");
+        items = items.data;
+      }
+      let iMonitor = this.Items.iMonitor;
+      if (iMonitor === undefined) iMonitor = {};
+      items.forEach(item => {
+        if (!(item.item_id in iMonitor)) {
+          iMonitor[item.item_id] = {
+            item_id: item.item_id,
+            item_code: item.item_code,
+            item_rev: item.item_rev,
+            order_code: item.order_code,
+            last_num: item.last_num,
+            appo_num: item.appo_num,
+            order_num: item.order_num,
+            updated_at: item.updated_at
+          };
+        } else {
+          if (iMonitor[item.item_id].updated_at !== item.updated_at) {
+            let i = iMonitor[item.item_id];
+            iMonitor[item.item_id] = {
+              item_id: item.item_id,
+              item_code: item.item_code,
+              item_rev: item.item_rev,
+              order_code: item.order_code,
+              last_num_b: i.last_num !== item.last_num ? i.last_num : null,
+              appo_num_b: i.appo_num !== item.appo_num ? i.appo_num : null,
+              order_num_b: i.order_num !== item.order_num ? i.order_num : null,
+              last_num: item.last_num,
+              appo_num: item.appo_num,
+              order_num: item.order_num,
+              updated_at: item.updated_at
+            };
+          }
+        }
+      });
+      await this.ITEMS_SET({
+        iMonitor: iMonitor
+      });
+
+      this.im = Object.keys(this.Items.iMonitor).map(
+        key => this.Items.iMonitor[key]
+      );
+      this.timerCnt = 0;
     },
     rtPrice(vendor) {
       let p = 0;
       vendor.forEach(ar => (p = p + Number(ar.vendor_item_price)));
       return p;
+    },
+    async changeNum(d) {
+      let tar = this.im.filter(row => row.item_id === d.item_id)[0];
+      let index = this.im.indexOf(tar);
+      let row = this.im[index];
+      row.last_num_b = row.last_num;
+      row.appo_num_b = row.appo_num;
+      row.order_num_b = row.order_num;
+      row.last_num = d.last_num;
+      row.appo_num = d.appo_num;
+      row.order_num = d.order_num;
+      await axios.post("/db/items/numSet/", d).then(res => {
+        // console.log(res.data);
+      });
     }
   },
   beforeDestroy() {
     this.ITEMS_SET(null);
+    clearInterval(this.interval);
+    clearInterval(this.timer);
   }
 };
 </script>
