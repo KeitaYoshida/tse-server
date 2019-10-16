@@ -332,18 +332,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log(this.vendor);
-              _context.next = 3;
+              _context.next = 2;
               return axios.get("/vendor/list").then(function (res) {
                 _this.vend_list = res.data;
               });
 
-            case 3:
+            case 2:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, this);
+      }, _callee);
     }));
 
     function created() {
@@ -378,8 +377,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         };
       });
       axios.post("/vendor-item/up/" + this.item_id, f).then(function (res) {
-        console.log(res.data);
-        return;
         _this2.submit_text = "更新済み";
 
         _this2.$emit("pass", {
@@ -980,9 +977,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  created: function created() {
-    console.log(this.data);
-  },
+  created: function created() {},
   methods: {
     submit: function submit() {
       this.$emit("rt", this.data, true);

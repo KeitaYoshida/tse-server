@@ -480,16 +480,18 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
         var lot = i.items.lot_num;
         var last = -order;
         var min = i.items.minimum_set;
+        console.log(i.items.item_model + ": " + order + ": " + -min);
 
-        if (last > min) {
+        if (order < -min) {
           i.items.num = 0;
         } else {
-          var setNum = Math.ceil(Math.abs(order) / lot);
+          var setNum = 0;
 
-          while (setNum * lot <= min) {
+          while (order - setNum * lot > -min) {
             setNum = setNum + 1;
           }
 
+          console.log("setnum: " + setNum + " lotNum: " + lot + " min: " + min);
           i.items.num = lot * setNum;
         }
       }

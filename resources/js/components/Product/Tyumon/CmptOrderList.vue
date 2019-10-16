@@ -390,14 +390,15 @@ export default {
         let lot = i.items.lot_num;
         let last = -order;
         let min = i.items.minimum_set;
-        if (last > min) {
+        console.log(i.items.item_model + ": " + order + ": " + -min);
+        if (order < -min) {
           i.items.num = 0;
         } else {
-          let setNum = Math.ceil(Math.abs(order) / lot);
-          while (setNum * lot <= min) {
+          let setNum = 0;
+          while (order - setNum * lot > -min) {
             setNum = setNum + 1;
           }
-
+          console.log("setnum: " + setNum + " lotNum: " + lot + " min: " + min);
           i.items.num = lot * setNum;
         }
       }
