@@ -211,6 +211,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
@@ -479,8 +484,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       } else {
         var lot = i.items.lot_num;
         var last = -order;
-        var min = i.items.minimum_set;
-        console.log(i.items.item_model + ": " + order + ": " + -min);
+        var min = i.items.minimum_set; // console.log(i.items.item_model + ": " + order + ": " + -min);
 
         if (order < -min) {
           i.items.num = 0;
@@ -489,9 +493,9 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
 
           while (order - setNum * lot > -min) {
             setNum = setNum + 1;
-          }
+          } // console.log("setnum: " + setNum + " lotNum: " + lot + " min: " + min);
 
-          console.log("setnum: " + setNum + " lotNum: " + lot + " min: " + min);
+
           i.items.num = lot * setNum;
         }
       }
@@ -741,24 +745,26 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       var _delAct_Cmpt = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-        var cmpt, cmpt_id;
+        var model_id, cmpt, cmpt_id;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
+                model_id = this.tarModel.model_id;
                 cmpt = this.tarModel.cmpt[this.tabs];
-                cmpt_id = cmpt.cmpt_id;
-                _context5.next = 4;
-                return axios.get("/db/cmpt/delete/cmpt/" + cmpt_id);
+                cmpt_id = cmpt.cmpt_id; // console.log(model_id); console.log(cmpt_id);
 
-              case 4:
-                _context5.next = 6;
+                _context5.next = 5;
+                return axios.get("/db/cmpt/delete/cmpt/" + model_id + "/" + cmpt_id);
+
+              case 5:
+                _context5.next = 7;
                 return this.review();
 
-              case 6:
+              case 7:
                 this.delcmpt = false;
 
-              case 7:
+              case 8:
               case "end":
                 return _context5.stop();
             }
@@ -1163,12 +1169,30 @@ var render = function() {
                                                                     },
                                                                     [
                                                                       _vm._v(
-                                                                        _vm._s(
-                                                                          props
-                                                                            .item
-                                                                            .items
-                                                                            .item_code
-                                                                        )
+                                                                        "\n                          " +
+                                                                          _vm._s(
+                                                                            props
+                                                                              .item
+                                                                              .items
+                                                                              .item_code
+                                                                          ) +
+                                                                          "\n                          "
+                                                                      ),
+                                                                      _c(
+                                                                        "span",
+                                                                        {
+                                                                          staticClass:
+                                                                            "mini pa-0"
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            "[" +
+                                                                              _vm._s(
+                                                                                props.item.items.item_rev.numToRev()
+                                                                              ) +
+                                                                              "]"
+                                                                          )
+                                                                        ]
                                                                       )
                                                                     ]
                                                                   ),

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Components;
+use App\Model\RModelCmpt;
 
 class CmptCtrl extends Controller
 {
@@ -23,9 +24,10 @@ class CmptCtrl extends Controller
     }
     return $tmp;
   }
-  public function DeleteCmpt($id)
+  public function DeleteCmpt($mid, $cid)
   {
-    $cm = new Components;
-    $cm->where('cmpt_id', $id)->delete();
+    // return $mid . ' - ' . $cid;
+    $rmc = new RModelCmpt;
+    $rmc->where('model_id', $mid)->where('cmpt_id', $cid)->delete();
   }
 }

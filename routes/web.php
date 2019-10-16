@@ -78,7 +78,7 @@ Route::get("/db/model_mst/delete/model/{mid}", "ModelCtrl@DeleteModel");
 
 Route::get("/db/cmpt/data/{id}", "CmptCtrl@GetCmptData");
 Route::post("/db/comt/get/data/arr", "CmptCtrl@GetCmptDataArr");
-Route::get("/db/cmpt/delete/cmpt/{id}", "CmptCtrl@DeleteCmpt");
+Route::get("/db/cmpt/delete/cmpt/{mid}/{cid}", "CmptCtrl@DeleteCmpt");
 
 Route::post('/db/recept/hatyu/data/list', 'ReceptCtrl@DataList');
 Route::post('/db/recept/hatyu/data/set/{setTime}/{type}', 'ReceptCtrl@SetData');

@@ -59,7 +59,12 @@
                           <v-btn flat icon small color="primary" @click="henshu(props.item)">
                             <v-icon small>far fa-edit</v-icon>
                           </v-btn>
-                          <span class="item_code">{{ props.item.items.item_code }}</span>
+                          <span class="item_code">
+                            {{ props.item.items.item_code }}
+                            <span
+                              class="mini pa-0"
+                            >[{{ props.item.items.item_rev.numToRev()}}]</span>
+                          </span>
                           <v-btn
                             flat
                             icon
@@ -390,7 +395,7 @@ export default {
         let lot = i.items.lot_num;
         let last = -order;
         let min = i.items.minimum_set;
-        console.log(i.items.item_model + ": " + order + ": " + -min);
+        // console.log(i.items.item_model + ": " + order + ": " + -min);
         if (order < -min) {
           i.items.num = 0;
         } else {
@@ -398,7 +403,7 @@ export default {
           while (order - setNum * lot > -min) {
             setNum = setNum + 1;
           }
-          console.log("setnum: " + setNum + " lotNum: " + lot + " min: " + min);
+          // console.log("setnum: " + setNum + " lotNum: " + lot + " min: " + min);
           i.items.num = lot * setNum;
         }
       }
@@ -572,9 +577,12 @@ export default {
       this.delcmpt = true;
     },
     async delAct_Cmpt() {
+      let model_id = this.tarModel.model_id;
       let cmpt = this.tarModel.cmpt[this.tabs];
       let cmpt_id = cmpt.cmpt_id;
-      await axios.get("/db/cmpt/delete/cmpt/" + cmpt_id);
+      // console.log(model_id); console.log(cmpt_id);
+      await axios.get("/db/cmpt/delete/cmpt/" + model_id + "/" + cmpt_id);
+      // console.log(tmp.data);
       await this.review();
       this.delcmpt = false;
     }
