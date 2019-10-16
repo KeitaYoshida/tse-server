@@ -77,7 +77,7 @@
                     </td>
                     <td class="text-xs-center">
                       <p>{{ props.item.items.item_model }}</p>
-                      <p>{{ props.item.items.item_name }}</p>
+                      <p>{{ props.item.items.item_name }} [ {{ props.item.item_use }} ]</p>
                     </td>
                     <td class="text-xs-center" v-if="selecter">
                       <p>

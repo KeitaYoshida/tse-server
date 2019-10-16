@@ -1265,7 +1265,13 @@ var render = function() {
                                                               _vm._s(
                                                                 props.item.items
                                                                   .item_name
-                                                              )
+                                                              ) +
+                                                                " [ " +
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .item_use
+                                                                ) +
+                                                                " ]"
                                                             )
                                                           ])
                                                         ]
