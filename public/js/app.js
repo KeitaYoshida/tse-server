@@ -77317,10 +77317,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   }, {
     path: "/process/:id",
     name: "process",
-    component: process,
-    meta: {
-      requiresAuth: true
-    }
+    component: process
   }, {
     path: "/item_monitor/:work_id",
     name: "item_monitor",
@@ -77331,10 +77328,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   }, {
     path: "/work",
     name: "work",
-    component: work,
-    meta: {
-      requiresAuth: true
-    }
+    component: work
   }, {
     path: "/sumup",
     name: "sumup",

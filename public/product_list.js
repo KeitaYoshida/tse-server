@@ -2464,7 +2464,7 @@ var render = function() {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        [2, 3].indexOf(item.cnt_status)
+                        [2, 3, 4].indexOf(item.cnt_status)
                           ? _c(
                               "v-flex",
                               { attrs: { xs6: "" } },

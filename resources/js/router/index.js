@@ -119,7 +119,7 @@ let router = new Router({
             component: product_list,
             meta: {
                 requiresAuth: true
-            }
+            },
         },
         {
             path: "/product_list/order/",
@@ -160,9 +160,6 @@ let router = new Router({
             path: "/process/:id",
             name: "process",
             component: process,
-            meta: {
-                requiresAuth: true
-            },
         },
         {
             path: "/item_monitor/:work_id",
@@ -176,9 +173,6 @@ let router = new Router({
             path: "/work",
             name: "work",
             component: work,
-            meta: {
-                requiresAuth: true
-            },
         },
         {
             path: "/sumup",
