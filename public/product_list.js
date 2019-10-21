@@ -462,9 +462,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2487,55 +2484,30 @@ var render = function() {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        item.cnt_status < 2
-                          ? _c(
-                              "v-flex",
-                              { attrs: { xs6: "" } },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    staticClass: "caption",
-                                    attrs: {
-                                      flat: "",
-                                      small: "",
-                                      color: "warning"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.del(item.cnt_order_code)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("取消")]
-                                )
-                              ],
-                              1
+                        _c(
+                          "v-flex",
+                          { attrs: { xs6: "" } },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "caption",
+                                attrs: {
+                                  flat: "",
+                                  small: "",
+                                  color: "warning"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.del(item.cnt_order_code)
+                                  }
+                                }
+                              },
+                              [_vm._v("取消")]
                             )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        item.cnt_status >= 2
-                          ? _c(
-                              "v-flex",
-                              { attrs: { xs6: "" } },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    staticClass: "caption",
-                                    attrs: {
-                                      flat: "",
-                                      small: "",
-                                      color: "warning",
-                                      disabled: ""
-                                    }
-                                  },
-                                  [_vm._v("取消")]
-                                )
-                              ],
-                              1
-                            )
-                          : _vm._e()
+                          ],
+                          1
+                        )
                       ],
                       1
                     )

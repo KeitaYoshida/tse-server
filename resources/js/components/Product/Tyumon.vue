@@ -71,11 +71,8 @@
             <v-flex xs6 v-if="[2, 3, 4].indexOf(item.cnt_status)">
               <v-btn flat small class="caption" @click="ukeire(item)">受入リスト</v-btn>
             </v-flex>
-            <v-flex xs6 v-if="item.cnt_status < 2">
+            <v-flex xs6>
               <v-btn flat small class="caption" color="warning" @click="del(item.cnt_order_code)">取消</v-btn>
-            </v-flex>
-            <v-flex xs6 v-if="item.cnt_status >= 2">
-              <v-btn flat small class="caption" color="warning" disabled>取消</v-btn>
             </v-flex>
           </v-layout>
         </v-card-actions>
