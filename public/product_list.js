@@ -2461,28 +2461,26 @@ var render = function() {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        [2, 3, 4].indexOf(item.cnt_status)
-                          ? _c(
-                              "v-flex",
-                              { attrs: { xs6: "" } },
-                              [
-                                _c(
-                                  "v-btn",
-                                  {
-                                    staticClass: "caption",
-                                    attrs: { flat: "", small: "" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.ukeire(item)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("受入リスト")]
-                                )
-                              ],
-                              1
+                        _c(
+                          "v-flex",
+                          { attrs: { xs6: "" } },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "caption",
+                                attrs: { flat: "", small: "" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.ukeire(item)
+                                  }
+                                }
+                              },
+                              [_vm._v("受入リスト")]
                             )
-                          : _vm._e(),
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
                         _c(
                           "v-flex",

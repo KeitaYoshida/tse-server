@@ -68,7 +68,7 @@
             <v-flex xs6 v-if="item.cnt_status===1">
               <v-btn flat small class="caption" @click="ukeire(item)">受入</v-btn>
             </v-flex>
-            <v-flex xs6 v-if="[2, 3, 4].indexOf(item.cnt_status)">
+            <v-flex xs6>
               <v-btn flat small class="caption" @click="ukeire(item)">受入リスト</v-btn>
             </v-flex>
             <v-flex xs6>
