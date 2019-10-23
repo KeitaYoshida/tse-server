@@ -58,16 +58,23 @@ export default {
     async init() {
       this.id = this.$route.params.id;
       let d = await axios.get("/db/workdata/process/" + this.id);
+      console.log(d.data);
+      let cmpt_row = await axios.get(
+        "/db/workdata/process/cmpt_row/" + d.data[0].model.model_id
+      );
+      cmpt_row = cmpt_row.data;
       let sn = [],
         process = [],
         cmpt = [],
         status = [];
       let i = 0;
+      console.log(d.data[0]);
       d.data[0].serials.forEach(ar => {
         ar.process.forEach(pr =>
           this.init_pr(process, pr, d.data[0].serials.length, status, cmpt)
         );
         ar.cmpt_sn.forEach((cmsn, n) => this.init_sn(sn, cmsn, i, n, cmpt));
+        // console.log(sn);
         sn[i] = sn[i].reverse();
         i = i + 1;
       });
@@ -115,10 +122,12 @@ export default {
       };
     },
     init_sn(sn, cmsn, i, n, cmpt) {
+      console.log(sn);
+      console.log(cmsn);
       if (Array.isArray(sn[i]) === false) sn[i] = [];
       sn[i][n] = {};
       sn[i][n]["serial_id"] = cmsn.serial_id;
-      sn[i][n]["cmpt_id"] = cmpt[n];
+      sn[i][n]["cmpt_id"] = cmsn.cmpt_id;
       sn[i][n]["serial_no"] = cmsn.serial_no;
     },
     init_pr(process, pr, row, status, cmpt) {

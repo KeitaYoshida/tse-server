@@ -11,6 +11,7 @@ use App\Model\Process;
 use App\Model\ProcessStatus;
 use App\Model\RCmptItem;
 use App\Model\Item;
+use App\Model\RModelCmpt;
 
 class PdctWorkList extends Controller
 {
@@ -20,11 +21,20 @@ class PdctWorkList extends Controller
     return $PWLC
       ->where('worklist_id', $id)
       ->with(['status', 'class', 'model'])
-      ->with(['serials.cmpt_sn', 'serials.process' => function ($q) {
+      ->with(['serials.cmpt_sn' => function ($q) {
+        $q;
+      }, 'serials.process' => function ($q) {
         $q->orderBy('process.row', 'asc');
       }])
       ->get();
   }
+
+  public function GetProcessCmptRowData($mid)
+  {
+    $RMC = new RModelCmpt;
+    return $RMC->where('model_id', $mid)->orderBy('row', 'desc')->get();
+  }
+
   public function GetProcessStatus()
   {
     $pst = new ProcessStatus;

@@ -77317,7 +77317,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   }, {
     path: "/process/:id",
     name: "process",
-    component: process
+    component: process,
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: "/item_monitor/:work_id",
     name: "item_monitor",

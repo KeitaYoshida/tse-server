@@ -103,6 +103,7 @@ Route::post('/db/pdct/make/sn_process', 'PdctCtrl@MakeSerialProcess');
 Route::get("/db/workdata/make/class", 'PdctCtrl@GetMakeWorkdataClass');
 Route::get("/db/workdata/get/worklist/num/{id}", 'PdctCtrl@GetWorklistNum');
 Route::get("/db/workdata/process/{id}", "PdctWorkList@GetProcessData");
+Route::get("/db/workdata/process/cmpt_row/{mid}", "PdctWorkList@GetProcessCmptRowData");
 Route::get("/db/workdata/get/process_status", "PdctWorkList@GetProcessStatus");
 Route::get("/db/workdata/process/status/{wid}/{row}", "PdctWorkList@GetProcessSerialStatus");
 Route::post("/db/workdata/set/sn/act/{row}", "PdctWorkList@SetSnAct");

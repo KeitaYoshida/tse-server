@@ -86,7 +86,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _this = this;
 
-        var d, sn, process, cmpt, status, i, tmp, pst;
+        var d, cmpt_row, sn, process, cmpt, status, i, tmp, pst;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -97,28 +97,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
                 d = _context.sent;
+                console.log(d.data);
+                _context.next = 7;
+                return axios.get("/db/workdata/process/cmpt_row/" + d.data[0].model.model_id);
+
+              case 7:
+                cmpt_row = _context.sent;
+                cmpt_row = cmpt_row.data;
                 sn = [], process = [], cmpt = [], status = [];
                 i = 0;
+                console.log(d.data[0]);
                 d.data[0].serials.forEach(function (ar) {
                   ar.process.forEach(function (pr) {
                     return _this.init_pr(process, pr, d.data[0].serials.length, status, cmpt);
                   });
                   ar.cmpt_sn.forEach(function (cmsn, n) {
                     return _this.init_sn(sn, cmsn, i, n, cmpt);
-                  });
+                  }); // console.log(sn);
+
                   sn[i] = sn[i].reverse();
                   i = i + 1;
                 });
-                _context.next = 9;
+                _context.next = 15;
                 return axios.post("/db/comt/get/data/arr", cmpt);
 
-              case 9:
+              case 15:
                 tmp = _context.sent;
                 cmpt = tmp.data;
-                _context.next = 13;
+                _context.next = 19;
                 return axios.get("/db/workdata/get/process_status");
 
-              case 13:
+              case 19:
                 pst = _context.sent;
                 this.PROCESS_INIT({
                   serials: sn,
@@ -130,7 +139,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.loading = false;
                 this.update_const_status(status);
 
-              case 17:
+              case 23:
               case "end":
                 return _context.stop();
             }
@@ -173,10 +182,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       };
     },
     init_sn: function init_sn(sn, cmsn, i, n, cmpt) {
+      console.log(sn);
+      console.log(cmsn);
       if (Array.isArray(sn[i]) === false) sn[i] = [];
       sn[i][n] = {};
       sn[i][n]["serial_id"] = cmsn.serial_id;
-      sn[i][n]["cmpt_id"] = cmpt[n];
+      sn[i][n]["cmpt_id"] = cmsn.cmpt_id;
       sn[i][n]["serial_no"] = cmsn.serial_no;
     },
     init_pr: function init_pr(process, pr, row, status, cmpt) {
@@ -542,6 +553,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -1045,7 +1060,7 @@ exports.push([module.i, "td.title_text button[data-v-33f55243] {\n  font-size: 1
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "strong.h[data-v-1e7ac174] {\n  font-size: 1rem;\n  display: block;\n  text-align: center;\n  margin-top: 1rem;\n}\nstrong.h.row0[data-v-1e7ac174] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\nstrong.h.row1[data-v-1e7ac174] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\nstrong.h.select[data-v-1e7ac174] {\n  border-bottom: 1px solid;\n}\n.v-chip.row1[data-v-1e7ac174] {\n  color: white;\n  background-color: #1565c0;\n  border-color: #1565c0;\n  border-radius: 5px;\n}\n.v-chip.row0[data-v-1e7ac174] {\n  color: white;\n  background-color: #2e7d32;\n  border-color: #2e7d32;\n  border-radius: 5px;\n}\n.v-chip.row1.v-chip--outline[data-v-1e7ac174] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\n.v-chip.row0.v-chip--outline[data-v-1e7ac174] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\n.v-menu[data-v-1e7ac174] {\n  display: inline;\n}\nlabel[data-v-1e7ac174] {\n  font-size: 1rem;\n}\n#set_tar_val[data-v-1e7ac174] {\n  width: 100px;\n  border-bottom: 1px solid gray;\n}\nh3[data-v-1e7ac174] {\n  display: inline;\n}\n.const_info[data-v-1e7ac174] {\n  height: 100%;\n}\n.info-area[data-v-1e7ac174] {\n  height: 17%;\n  overflow: hidden;\n}\n.val-area[data-v-1e7ac174] {\n  height: 83%;\n  overflow: auto;\n}\n.v-card__text[data-v-1e7ac174] {\n  height: 100%;\n}\nbutton.act[data-v-1e7ac174] {\n  height: 3rem;\n  margin: 0;\n  border-radius: 2px;\n  color: #1565c0;\n}\ndiv.flex[data-v-1e7ac174] {\n  height: 100%;\n}\nth[data-v-1e7ac174],\ntd[data-v-1e7ac174] {\n  padding: 0.6rem 0;\n  border-bottom: 0.8px solid #d6d4d4;\n  font-size: 1.5rem;\n  font-weight: 400;\n  height: 4rem;\n  vertical-align: middle;\n}\nth.no[data-v-1e7ac174] {\n  color: darkgray;\n}\n.sticky_table[data-v-1e7ac174] {\n  display: block;\n  position: relative;\n  border-collapse: collapse;\n  font-size: 0;\n}\n.sticky_table thead[data-v-1e7ac174],\n.sticky_table tbody[data-v-1e7ac174] {\n  display: block;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n}\n.sticky_table th[data-v-1e7ac174],\n.sticky_table td[data-v-1e7ac174] {\n  display: inline-block;\n  width: 10rem;\n  background: #fff;\n  font-size: 1.5rem;\n}\n.sticky_table thead[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  z-index: 2;\n}\n.sticky_table tbody th[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  left: 0;\n  z-index: 1;\n}\n.sticky_table thead th.blank[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  left: 0;\n  z-index: 3;\n}\ntd.chk-info[data-v-1e7ac174] {\n  font-size: 0.9rem;\n}", ""]);
+exports.push([module.i, "strong.h[data-v-1e7ac174] {\n  font-size: 1rem;\n  display: block;\n  text-align: center;\n  margin-top: 1rem;\n}\nstrong.h.row0[data-v-1e7ac174] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\nstrong.h.row1[data-v-1e7ac174] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\nstrong.h.select[data-v-1e7ac174] {\n  border-bottom: 1px solid;\n}\ntd.select[data-v-1e7ac174] {\n  font-weight: 900;\n  color: #1565c0;\n}\n.v-chip.row1[data-v-1e7ac174] {\n  color: white;\n  background-color: #1565c0;\n  border-color: #1565c0;\n  border-radius: 5px;\n}\n.v-chip.row0[data-v-1e7ac174] {\n  color: white;\n  background-color: #2e7d32;\n  border-color: #2e7d32;\n  border-radius: 5px;\n}\n.v-chip.row1.v-chip--outline[data-v-1e7ac174] {\n  color: #1565c0;\n  border-color: #1565c0;\n}\n.v-chip.row0.v-chip--outline[data-v-1e7ac174] {\n  color: #2e7d32;\n  border-color: #2e7d32;\n}\n.v-menu[data-v-1e7ac174] {\n  display: inline;\n}\nlabel[data-v-1e7ac174] {\n  font-size: 1rem;\n}\n#set_tar_val[data-v-1e7ac174] {\n  width: 100px;\n  border-bottom: 1px solid gray;\n}\nh3[data-v-1e7ac174] {\n  display: inline;\n}\n.const_info[data-v-1e7ac174] {\n  height: 100%;\n}\n.info-area[data-v-1e7ac174] {\n  height: 17%;\n  overflow: hidden;\n}\n.val-area[data-v-1e7ac174] {\n  height: 83%;\n  overflow: auto;\n}\n.v-card__text[data-v-1e7ac174] {\n  height: 100%;\n}\nbutton.act[data-v-1e7ac174] {\n  height: 3rem;\n  margin: 0;\n  border-radius: 2px;\n  color: #1565c0;\n}\ndiv.flex[data-v-1e7ac174] {\n  height: 100%;\n}\nth[data-v-1e7ac174],\ntd[data-v-1e7ac174] {\n  padding: 0.6rem 0;\n  border-bottom: 0.8px solid #d6d4d4;\n  font-size: 1.5rem;\n  font-weight: 400;\n  height: 4rem;\n  vertical-align: middle;\n}\nth.no[data-v-1e7ac174] {\n  color: darkgray;\n}\n.sticky_table[data-v-1e7ac174] {\n  display: block;\n  position: relative;\n  border-collapse: collapse;\n  font-size: 0;\n}\n.sticky_table thead[data-v-1e7ac174],\n.sticky_table tbody[data-v-1e7ac174] {\n  display: block;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n}\n.sticky_table th[data-v-1e7ac174],\n.sticky_table td[data-v-1e7ac174] {\n  display: inline-block;\n  width: 10rem;\n  background: #fff;\n  font-size: 1.5rem;\n}\n.sticky_table thead[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  z-index: 2;\n}\n.sticky_table tbody th[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  left: 0;\n  z-index: 1;\n}\n.sticky_table thead th.blank[data-v-1e7ac174] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  left: 0;\n  z-index: 3;\n}\ntd.chk-info[data-v-1e7ac174] {\n  font-size: 0.9rem;\n}", ""]);
 
 
 
@@ -2011,7 +2026,11 @@ var render = function() {
                       _vm._l(cmpt, function(item, n) {
                         return _c(
                           "td",
-                          { key: n, staticClass: "text-xs-center" },
+                          {
+                            key: n,
+                            class:
+                              "text-xs-center " + _vm.selectCmpt(item.cmpt_id)
+                          },
                           [_vm._v(_vm._s(item.serial_no))]
                         )
                       }),

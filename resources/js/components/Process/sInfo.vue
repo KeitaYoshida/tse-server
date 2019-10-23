@@ -108,7 +108,11 @@
                 -> {{ tar.process.process_status[act_val].val}}
               </v-btn>
             </th>
-            <td v-for="(item, n) in cmpt" :key="n" class="text-xs-center">{{ item.serial_no }}</td>
+            <td
+              v-for="(item, n) in cmpt"
+              :key="n"
+              :class="'text-xs-center ' + selectCmpt(item.cmpt_id)"
+            >{{ item.serial_no }}</td>
             <td class="text-xs-center chk-info">
               <template v-if="tar.process.process_info[index].worker">
                 {{ tar.process.process_info[index].worker }}
@@ -285,6 +289,10 @@ strong.h {
   &.select {
     border-bottom: 1px solid;
   }
+}
+td.select {
+  font-weight: 900;
+  color: #1565c0;
 }
 .v-chip.row1 {
   color: white;
