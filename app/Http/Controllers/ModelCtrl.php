@@ -166,7 +166,12 @@ class ModelCtrl extends Controller
     $rci = new RCmptItem;
     $rci->whereIn('r_ci_id', $req)->update(['work_id' => $wid]);
   }
-
+  public function ModelCmptWorkItemAllDelete($wid)
+  {
+    $rci = new RCmptItem;
+    // return $rci->where('work_id', $wid)->get();
+    $rci->where('work_id', $wid)->update(['work_id' => null]);
+  }
   public function ModelData($id, $pt = "all")
   {
     $m = new Models;

@@ -73,6 +73,7 @@ Route::get('/db/model_mst/cmpt/work/title/list', 'ModelCtrl@ModelCmptWorkTitleLi
 Route::get("/db/model_mst/cmpt/work/del/row/{row}/{cmpt}", 'ModelCtrl@ModelCmptWorkDelRow');
 Route::get("/db/model_mst/cmpt/work/item/select/{cid}/{wid}", 'ModelCtrl@ModelCmptWorkItemSelect');
 Route::post("/db/model_mst/cmpt/work/item/select/{wid}", 'ModelCtrl@ModelCmptWorkItemAll');
+Route::get("/db/model_mst/cmpt/work/item/all/delete/{wid}", 'ModelCtrl@ModelCmptWorkItemAllDelete');
 Route::get('/db/model_mst/cmpt/row/set/{model_id}/{cmpt_id}/{row}', 'ModelCtrl@SetRModelCmptRow');
 Route::get("/db/model_mst/delete/model/{mid}", "ModelCtrl@DeleteModel");
 

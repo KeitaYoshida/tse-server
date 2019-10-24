@@ -2,11 +2,11 @@
   <span>
     <v-btn
       color="teal darken-2"
-      @click="allSelect()"
+      @click="all()"
       small
       :disabled="tar.length===null"
       dark
-    >{{ select_text }}</v-btn>
+    >{{ returnButtonName() }}</v-btn>
     <v-btn icon small flat>
       <v-icon color="teal darken-2" v-if="tar.sync.page===1" disabled>fas fa-chevron-circle-left</v-icon>
       <v-icon color="teal darken-2" v-else @click="belowPage">fas fa-chevron-circle-left</v-icon>
@@ -67,13 +67,48 @@ export default {
     belowPage() {
       this.CMPT_SEARCH_PAGE_BELOW();
     },
-    returnLastItem() {
+    returnCom() {
       let cm = this.target.component.data[0].item_use;
       cm = cm.filter(ar => [1, 3, 6].indexOf(ar.items.item_class) === -1);
       let anum = cm.length;
       let sm = cm.filter(ar => ar.work_id !== null);
       let snum = sm.length;
-      return snum + " / " + anum;
+      return { anum: anum, snum: snum };
+    },
+    returnButtonName() {
+      let n = this.returnCom();
+      if (n.snum === n.anum) return "全解除";
+      else return "全選択";
+    },
+    returnLastItem() {
+      let n = this.returnCom();
+      return n.snum + " / " + n.anum;
+    },
+    async all() {
+      let n = this.returnCom();
+      if (n.snum === n.anum) this.allDelete();
+      else return this.allSelect();
+    },
+    async allDelete() {
+      let wid = this.target.work.id;
+      await axios
+        .get("/db/model_mst/cmpt/work/item/all/delete/" + wid)
+        .then(async res => {
+          let m = await axios.get(
+            "/db/model_mst/data/" + this.target.model.id + "/fromItem"
+          );
+          let cmpt_data = m.data[0].cmpt.filter(ar => {
+            return ar.cmpt_id === this.target.component.id;
+          });
+          let cmpt = {
+            id: this.target.component.id,
+            code: this.target.component.code,
+            rev: this.target.component.rev,
+            data: cmpt_data
+          };
+          await this.SET_COMPONENT_COM(cmpt);
+          this.$emit("rt");
+        });
     },
     async allSelect() {
       let rcid = [];

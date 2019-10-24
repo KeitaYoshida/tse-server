@@ -305,7 +305,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     belowPage: function belowPage() {
       this.CMPT_SEARCH_PAGE_BELOW();
     },
-    returnLastItem: function returnLastItem() {
+    returnCom: function returnCom() {
       var cm = this.target.component.data[0].item_use;
       cm = cm.filter(function (ar) {
         return [1, 3, 6].indexOf(ar.items.item_class) === -1;
@@ -315,18 +315,137 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return ar.work_id !== null;
       });
       var snum = sm.length;
-      return snum + " / " + anum;
+      return {
+        anum: anum,
+        snum: snum
+      };
     },
+    returnButtonName: function returnButtonName() {
+      var n = this.returnCom();
+      if (n.snum === n.anum) return "全解除";else return "全選択";
+    },
+    returnLastItem: function returnLastItem() {
+      var n = this.returnCom();
+      return n.snum + " / " + n.anum;
+    },
+    all: function () {
+      var _all = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var n;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                n = this.returnCom();
+
+                if (!(n.snum === n.anum)) {
+                  _context.next = 5;
+                  break;
+                }
+
+                this.allDelete();
+                _context.next = 6;
+                break;
+
+              case 5:
+                return _context.abrupt("return", this.allSelect());
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function all() {
+        return _all.apply(this, arguments);
+      }
+
+      return all;
+    }(),
+    allDelete: function () {
+      var _allDelete = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var _this = this;
+
+        var wid;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                wid = this.target.work.id;
+                _context3.next = 3;
+                return axios.get("/db/model_mst/cmpt/work/item/all/delete/" + wid).then(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(res) {
+                    var m, cmpt_data, cmpt;
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                      while (1) {
+                        switch (_context2.prev = _context2.next) {
+                          case 0:
+                            _context2.next = 2;
+                            return axios.get("/db/model_mst/data/" + _this.target.model.id + "/fromItem");
+
+                          case 2:
+                            m = _context2.sent;
+                            cmpt_data = m.data[0].cmpt.filter(function (ar) {
+                              return ar.cmpt_id === _this.target.component.id;
+                            });
+                            cmpt = {
+                              id: _this.target.component.id,
+                              code: _this.target.component.code,
+                              rev: _this.target.component.rev,
+                              data: cmpt_data
+                            };
+                            _context2.next = 7;
+                            return _this.SET_COMPONENT_COM(cmpt);
+
+                          case 7:
+                            _this.$emit("rt");
+
+                          case 8:
+                          case "end":
+                            return _context2.stop();
+                        }
+                      }
+                    }, _callee2);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function allDelete() {
+        return _allDelete.apply(this, arguments);
+      }
+
+      return allDelete;
+    }(),
     allSelect: function () {
       var _allSelect = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _this = this;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var _this2 = this;
 
         var rcid, wid, cm;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 rcid = [];
                 wid = this.target.work.id;
@@ -337,57 +456,57 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 cm.forEach(function (ar) {
                   rcid.push(ar.r_ci_id);
                 });
-                _context2.next = 7;
+                _context5.next = 7;
                 return axios.post("/db/model_mst/cmpt/work/item/select/" + wid, rcid).then(
                 /*#__PURE__*/
                 function () {
-                  var _ref = _asyncToGenerator(
+                  var _ref2 = _asyncToGenerator(
                   /*#__PURE__*/
-                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(res) {
                     var m, cmpt_data, cmpt;
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
                       while (1) {
-                        switch (_context.prev = _context.next) {
+                        switch (_context4.prev = _context4.next) {
                           case 0:
-                            _context.next = 2;
-                            return axios.get("/db/model_mst/data/" + _this.target.model.id + "/fromItem");
+                            _context4.next = 2;
+                            return axios.get("/db/model_mst/data/" + _this2.target.model.id + "/fromItem");
 
                           case 2:
-                            m = _context.sent;
+                            m = _context4.sent;
                             cmpt_data = m.data[0].cmpt.filter(function (ar) {
-                              return ar.cmpt_id === _this.target.component.id;
+                              return ar.cmpt_id === _this2.target.component.id;
                             });
                             cmpt = {
-                              id: _this.target.component.id,
-                              code: _this.target.component.code,
-                              rev: _this.target.component.rev,
+                              id: _this2.target.component.id,
+                              code: _this2.target.component.code,
+                              rev: _this2.target.component.rev,
                               data: cmpt_data
                             };
-                            _context.next = 7;
-                            return _this.SET_COMPONENT_COM(cmpt);
+                            _context4.next = 7;
+                            return _this2.SET_COMPONENT_COM(cmpt);
 
                           case 7:
-                            _this.$emit("rt");
+                            _this2.$emit("rt");
 
                           case 8:
                           case "end":
-                            return _context.stop();
+                            return _context4.stop();
                         }
                       }
-                    }, _callee);
+                    }, _callee4);
                   }));
 
-                  return function (_x) {
-                    return _ref.apply(this, arguments);
+                  return function (_x2) {
+                    return _ref2.apply(this, arguments);
                   };
                 }());
 
               case 7:
               case "end":
-                return _context2.stop();
+                return _context5.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee5, this);
       }));
 
       function allSelect() {
@@ -1545,11 +1664,11 @@ var render = function() {
           },
           on: {
             click: function($event) {
-              return _vm.allSelect()
+              return _vm.all()
             }
           }
         },
-        [_vm._v(_vm._s(_vm.select_text))]
+        [_vm._v(_vm._s(_vm.returnButtonName()))]
       ),
       _vm._v(" "),
       _c(
