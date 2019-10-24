@@ -54,8 +54,16 @@ class PdctWorkList extends Controller
   public function SetSnAct(Request $req, $row)
   {
     $PR = new Process;
+    $time = $req->shutoku_time;
     $up = $req->upval;
-    $PR->where(['serial_id' => $up['serial_id'], 'row' => $row])
+    return $PR
+      ->where(
+        [
+          'serial_id' => $up['serial_id'],
+          'row' => $row,
+          'check_time' => $time
+        ]
+      )
       ->update($up);
   }
   public function SetWorkListDate($id, $sday, $eday)

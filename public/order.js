@@ -298,7 +298,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
         title: "構成削除",
         message: "親形式そのものを削除します"
       },
-      tarModel: null
+      tarModel: null,
+      useItem: {}
     };
   },
   created: function created() {
@@ -473,7 +474,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       var yoyaku = i.items.appo_num;
       var tehai = i.items.order_num;
       var hituyou = i.item_use * this.fm.num;
-      var order = hituyou - zan - tehai + yoyaku;
+      var allready = this.useItem[i.items.item_code] === undefined ? 0 : this.useItem[i.items.item_code];
+      var order = hituyou - zan - tehai + yoyaku + allready;
 
       if (i.items.lot_num <= 0) {
         if (order < 0) {
@@ -497,6 +499,14 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
 
 
           i.items.num = lot * setNum;
+        }
+      }
+
+      if (i.items.num !== hituyou) {
+        if (hituyou > i.items.num) {
+          this.useItem[i.items.item_code] = allready + hituyou - i.items.num;
+        } else {
+          this.useItem[i.items.item_code] = allready + hituyou;
         }
       }
 

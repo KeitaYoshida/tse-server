@@ -97,16 +97,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
                 d = _context.sent;
-                console.log(d.data);
-                _context.next = 7;
+                _context.next = 6;
                 return axios.get("/db/workdata/process/cmpt_row/" + d.data[0].model.model_id);
 
-              case 7:
+              case 6:
                 cmpt_row = _context.sent;
                 cmpt_row = cmpt_row.data;
                 sn = [], process = [], cmpt = [], status = [];
-                i = 0;
-                console.log(d.data[0]);
+                i = 0; // console.log(d.data[0]);
+
                 d.data[0].serials.forEach(function (ar) {
                   ar.process.forEach(function (pr) {
                     return _this.init_pr(process, pr, d.data[0].serials.length, status, cmpt);
@@ -118,16 +117,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   sn[i] = sn[i].reverse();
                   i = i + 1;
                 });
-                _context.next = 15;
+                _context.next = 13;
                 return axios.post("/db/comt/get/data/arr", cmpt);
 
-              case 15:
+              case 13:
                 tmp = _context.sent;
                 cmpt = tmp.data;
-                _context.next = 19;
+                _context.next = 17;
                 return axios.get("/db/workdata/get/process_status");
 
-              case 19:
+              case 17:
                 pst = _context.sent;
                 this.PROCESS_INIT({
                   serials: sn,
@@ -139,7 +138,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.loading = false;
                 this.update_const_status(status);
 
-              case 23:
+              case 21:
               case "end":
                 return _context.stop();
             }
@@ -182,8 +181,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       };
     },
     init_sn: function init_sn(sn, cmsn, i, n, cmpt) {
-      console.log(sn);
-      console.log(cmsn);
+      // console.log(sn);
+      // console.log(cmsn);
       if (Array.isArray(sn[i]) === false) sn[i] = [];
       sn[i][n] = {};
       sn[i][n]["serial_id"] = cmsn.serial_id;
@@ -705,7 +704,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
       set_num: 25,
       btn_load: false,
       statuses: [],
-      itemView: false
+      itemView: false,
+      alertMessage: []
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -781,7 +781,9 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(n) {
         var loopflg,
+            shutoku_time,
             d,
+            now,
             row,
             rt,
             _args = arguments;
@@ -793,41 +795,65 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
 
                 if (loopflg === false) {
                   this.btn_load = true;
+                  this.alertMessage = [];
                 }
 
+                shutoku_time = this.tar.process.process_info[n].check_time;
                 d = {
                   num: n,
-                  upval: this.tar.process.process_info[n]
+                  upval: this.tar.process.process_info[n],
+                  shutoku_time: shutoku_time
                 };
                 this.Item_Checker(n);
+                now = {
+                  process_status: d.upval.process_status,
+                  worker: d.upval.worker,
+                  check_time: d.upval.check_time
+                };
                 d.upval.process_status = this.act_val;
                 d.upval.worker = this.user.name;
-                d.upval.check_time = dayjs__WEBPACK_IMPORTED_MODULE_4___default()().format("YY-MM-DD HH:mm");
+                d.upval.check_time = dayjs__WEBPACK_IMPORTED_MODULE_4___default()().format("YY-MM-DD HH:mm:ss");
                 row = this.tar.process.info.row;
-                _context.next = 10;
+                _context.next = 12;
                 return axios.post("/db/workdata/set/sn/act/" + row, d);
 
-              case 10:
+              case 12:
                 rt = _context.sent;
-                _context.next = 13;
-                return this.PROCESS_STATUS_UPDATE(d);
 
-              case 13:
-                this.setStatus();
-                this.set_tar_val = n + 2;
-
-                if (!(loopflg === false)) {
-                  _context.next = 19;
+                if (!(rt.data === 0)) {
+                  _context.next = 20;
                   break;
                 }
 
-                _context.next = 18;
+                d.upval.process_status = now.process_status;
+                d.upval.worker = now.worker;
+                d.upval.check_time = now.check_time;
+                this.alertMessage.push(n);
+                _context.next = 24;
+                break;
+
+              case 20:
+                _context.next = 22;
+                return this.PROCESS_STATUS_UPDATE(d);
+
+              case 22:
+                this.setStatus();
+                this.set_tar_val = n + 2;
+
+              case 24:
+                if (!(loopflg === false)) {
+                  _context.next = 29;
+                  break;
+                }
+
+                this.alertFail();
+                _context.next = 28;
                 return this.$emit("reload");
 
-              case 18:
+              case 28:
                 this.btn_load = false;
 
-              case 19:
+              case 29:
               case "end":
                 return _context.stop();
             }
@@ -855,48 +881,50 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
                 st_num = this.set_tar_val - 1;
                 max_num = pinfo.length;
                 this.btn_load = true;
+                this.alertMessage = [];
                 i = 0;
 
-              case 6:
+              case 7:
                 if (!(i < num)) {
-                  _context2.next = 17;
+                  _context2.next = 18;
                   break;
                 }
 
                 tar_num = st_num + i;
 
                 if (!(tar_num >= max_num)) {
-                  _context2.next = 10;
+                  _context2.next = 11;
                   break;
                 }
 
-                return _context2.abrupt("break", 17);
+                return _context2.abrupt("break", 18);
 
-              case 10:
+              case 11:
                 if (!(pinfo[tar_num].process_status === this.act_val)) {
-                  _context2.next = 12;
+                  _context2.next = 13;
                   break;
                 }
 
-                return _context2.abrupt("continue", 14);
+                return _context2.abrupt("continue", 15);
 
-              case 12:
-                _context2.next = 14;
+              case 13:
+                _context2.next = 15;
                 return this.action(tar_num, true);
 
-              case 14:
+              case 15:
                 i++;
-                _context2.next = 6;
+                _context2.next = 7;
                 break;
 
-              case 17:
-                _context2.next = 19;
+              case 18:
+                this.alertFail();
+                _context2.next = 21;
                 return this.$emit("reload");
 
-              case 19:
+              case 21:
                 this.btn_load = false;
 
-              case 20:
+              case 22:
               case "end":
                 return _context2.stop();
             }
@@ -910,6 +938,16 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
 
       return loopAction;
     }(),
+    alertFail: function alertFail() {
+      console.log(this.alertMessage);
+      if (this.alertMessage.length === 0) return;
+      var mess = "排他処理エラー：別作業者により更新済みデータです\n";
+      this.alertMessage.forEach(function (row) {
+        mess = mess + "No. " + (Number(row) + Number(1)) + " \n";
+      });
+      alert(mess);
+      this.$emit("reload");
+    },
     itemMonitor: function itemMonitor() {
       // this.$router.push("/item_monitor/89")
       window.open("http://192.168.13.103:8000/item_monitor/" + this.tar.process.info.work_id);

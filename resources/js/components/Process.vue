@@ -58,7 +58,7 @@ export default {
     async init() {
       this.id = this.$route.params.id;
       let d = await axios.get("/db/workdata/process/" + this.id);
-      console.log(d.data);
+      // console.log(d.data);
       let cmpt_row = await axios.get(
         "/db/workdata/process/cmpt_row/" + d.data[0].model.model_id
       );
@@ -68,7 +68,7 @@ export default {
         cmpt = [],
         status = [];
       let i = 0;
-      console.log(d.data[0]);
+      // console.log(d.data[0]);
       d.data[0].serials.forEach(ar => {
         ar.process.forEach(pr =>
           this.init_pr(process, pr, d.data[0].serials.length, status, cmpt)
@@ -122,8 +122,8 @@ export default {
       };
     },
     init_sn(sn, cmsn, i, n, cmpt) {
-      console.log(sn);
-      console.log(cmsn);
+      // console.log(sn);
+      // console.log(cmsn);
       if (Array.isArray(sn[i]) === false) sn[i] = [];
       sn[i][n] = {};
       sn[i][n]["serial_id"] = cmsn.serial_id;

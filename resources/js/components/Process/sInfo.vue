@@ -150,7 +150,8 @@ export default {
       set_num: 25,
       btn_load: false,
       statuses: [],
-      itemView: false
+      itemView: false,
+      alertMessage: []
     };
   },
   computed: {
@@ -226,22 +227,38 @@ export default {
     async action(n, loopflg = false) {
       if (loopflg === false) {
         this.btn_load = true;
+        this.alertMessage = [];
       }
+      let shutoku_time = this.tar.process.process_info[n].check_time;
       let d = {
         num: n,
-        upval: this.tar.process.process_info[n]
+        upval: this.tar.process.process_info[n],
+        shutoku_time: shutoku_time
       };
       this.Item_Checker(n);
+      let now = {
+        process_status: d.upval.process_status,
+        worker: d.upval.worker,
+        check_time: d.upval.check_time
+      };
       d.upval.process_status = this.act_val;
       d.upval.worker = this.user.name;
-      d.upval.check_time = dayjs().format("YY-MM-DD HH:mm");
+      d.upval.check_time = dayjs().format("YY-MM-DD HH:mm:ss");
       let row = this.tar.process.info.row;
       let rt = await axios.post("/db/workdata/set/sn/act/" + row, d);
-      // console.log(rt.data);
-      await this.PROCESS_STATUS_UPDATE(d);
-      this.setStatus();
-      this.set_tar_val = n + 2;
+      if (rt.data === 0) {
+        d.upval.process_status = now.process_status;
+        d.upval.worker = now.worker;
+        d.upval.check_time = now.check_time;
+        this.alertMessage.push(n);
+      } else {
+        await this.PROCESS_STATUS_UPDATE(d);
+        this.setStatus();
+        this.set_tar_val = n + 2;
+      }
+      // return;
       if (loopflg === false) {
+        this.alertFail();
         await this.$emit("reload");
         this.btn_load = false;
       }
@@ -252,14 +269,26 @@ export default {
       let st_num = this.set_tar_val - 1;
       let max_num = pinfo.length;
       this.btn_load = true;
+      this.alertMessage = [];
       for (let i = 0; i < num; i++) {
         let tar_num = st_num + i;
         if (tar_num >= max_num) break;
         if (pinfo[tar_num].process_status === this.act_val) continue;
         await this.action(tar_num, true);
       }
+      this.alertFail();
       await this.$emit("reload");
       this.btn_load = false;
+    },
+    alertFail() {
+      console.log(this.alertMessage);
+      if (this.alertMessage.length === 0) return;
+      let mess = "排他処理エラー：別作業者により更新済みデータです\n";
+      this.alertMessage.forEach(row => {
+        mess = mess + "No. " + (Number(row) + Number(1)) + " \n";
+      });
+      alert(mess);
+      this.$emit("reload");
     },
     itemMonitor() {
       // this.$router.push("/item_monitor/89")

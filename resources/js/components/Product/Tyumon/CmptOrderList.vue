@@ -259,7 +259,8 @@ export default {
         title: "構成削除",
         message: "親形式そのものを削除します"
       },
-      tarModel: null
+      tarModel: null,
+      useItem: {}
     };
   },
   created: function() {
@@ -384,7 +385,11 @@ export default {
       let yoyaku = i.items.appo_num;
       let tehai = i.items.order_num;
       let hituyou = i.item_use * this.fm.num;
-      let order = hituyou - zan - tehai + yoyaku;
+      let allready =
+        this.useItem[i.items.item_code] === undefined
+          ? 0
+          : this.useItem[i.items.item_code];
+      let order = hituyou - zan - tehai + yoyaku + allready;
       if (i.items.lot_num <= 0) {
         if (order < 0) {
           i.items.num = 0;
@@ -408,6 +413,13 @@ export default {
         }
       }
 
+      if (i.items.num !== hituyou) {
+        if (hituyou > i.items.num) {
+          this.useItem[i.items.item_code] = allready + hituyou - i.items.num;
+        } else {
+          this.useItem[i.items.item_code] = allready + hituyou;
+        }
+      }
       let price = 0;
       i.items.vendor.forEach(ar => {
         price = Number(price) + Number(ar.vendor_item_price);
