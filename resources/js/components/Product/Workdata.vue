@@ -40,8 +40,8 @@
         <v-btn outline dark large @click="selectModel=!selectModel">起工</v-btn>
       </v-card>
     </v-flex>
-    <v-dialog v-model="selectModel" max-width="680px" v-if="selectModel">
-      <MakeWorkdata></MakeWorkdata>
+    <v-dialog v-model="selectModel" max-width="680px" v-if="selectModel" persistent>
+      <MakeWorkdata @clearDialog="clearDialog"></MakeWorkdata>
     </v-dialog>
   </v-layout>
 </template>
@@ -92,6 +92,9 @@ export default {
           break;
       }
       return cl;
+    },
+    clearDialog() {
+      this.selectModel = !this.selectModel;
     }
   }
 };

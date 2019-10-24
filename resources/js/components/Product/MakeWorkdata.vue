@@ -1,9 +1,14 @@
 <template>
   <v-card>
     <v-card-text>
-      <v-chip outline color="primary">製造形式：{{ target.product.model }}</v-chip>
-      <v-chip outline color="primary">製造コード：{{ target.product.code }}</v-chip>
-      <ComMenu :prop="wlClass" @rtVal="rtWlClass" v-if="wlClass.value"></ComMenu>
+      <nobr>
+        <v-chip flat outline color="primary" @click="$emit('clearDialog')">
+          <v-icon>fas fa-times</v-icon>
+        </v-chip>
+        <v-chip outline color="primary">製造形式：{{ target.product.model }}</v-chip>
+        <v-chip outline color="primary">製造コード：{{ target.product.code }}</v-chip>
+        <ComMenu :prop="wlClass" @rtVal="rtWlClass" v-if="wlClass.value"></ComMenu>
+      </nobr>
       <v-layout wrap>
         <v-flex xs4 class="px-4 pt-3">
           <v-text-field label="形式" readonly :value="d.model_code" @click="mselect=!mselect"></v-text-field>

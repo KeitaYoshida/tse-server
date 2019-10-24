@@ -92,6 +92,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1006,6 +1011,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return cl;
+    },
+    clearDialog: function clearDialog() {
+      this.selectModel = !this.selectModel;
     }
   })
 });
@@ -1968,20 +1976,40 @@ var render = function() {
       _c(
         "v-card-text",
         [
-          _c("v-chip", { attrs: { outline: "", color: "primary" } }, [
-            _vm._v("製造形式：" + _vm._s(_vm.target.product.model))
-          ]),
-          _vm._v(" "),
-          _c("v-chip", { attrs: { outline: "", color: "primary" } }, [
-            _vm._v("製造コード：" + _vm._s(_vm.target.product.code))
-          ]),
-          _vm._v(" "),
-          _vm.wlClass.value
-            ? _c("ComMenu", {
-                attrs: { prop: _vm.wlClass },
-                on: { rtVal: _vm.rtWlClass }
-              })
-            : _vm._e(),
+          _c(
+            "nobr",
+            [
+              _c(
+                "v-chip",
+                {
+                  attrs: { flat: "", outline: "", color: "primary" },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("clearDialog")
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("fas fa-times")])],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-chip", { attrs: { outline: "", color: "primary" } }, [
+                _vm._v("製造形式：" + _vm._s(_vm.target.product.model))
+              ]),
+              _vm._v(" "),
+              _c("v-chip", { attrs: { outline: "", color: "primary" } }, [
+                _vm._v("製造コード：" + _vm._s(_vm.target.product.code))
+              ]),
+              _vm._v(" "),
+              _vm.wlClass.value
+                ? _c("ComMenu", {
+                    attrs: { prop: _vm.wlClass },
+                    on: { rtVal: _vm.rtWlClass }
+                  })
+                : _vm._e()
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "v-layout",
@@ -3090,7 +3118,7 @@ var render = function() {
         ? _c(
             "v-dialog",
             {
-              attrs: { "max-width": "680px" },
+              attrs: { "max-width": "680px", persistent: "" },
               model: {
                 value: _vm.selectModel,
                 callback: function($$v) {
@@ -3099,7 +3127,7 @@ var render = function() {
                 expression: "selectModel"
               }
             },
-            [_c("MakeWorkdata")],
+            [_c("MakeWorkdata", { on: { clearDialog: _vm.clearDialog } })],
             1
           )
         : _vm._e()
@@ -4199,9 +4227,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VChip */ "./node_modules/vuetify/lib/components/VChip/index.js");
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/index.js");
-/* harmony import */ var vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VMenu */ "./node_modules/vuetify/lib/components/VMenu/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/index.js");
+/* harmony import */ var vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VMenu */ "./node_modules/vuetify/lib/components/VMenu/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -4234,7 +4263,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__["VChip"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VFlex"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VLayout"],VList: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__["VList"],VListTile: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__["VListTile"],VListTileTitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__["VListTileTitle"],VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_10__["VMenu"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__["VChip"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VLayout"],VList: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__["VList"],VListTile: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__["VListTile"],VListTileTitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__["VListTileTitle"],VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_11__["VMenu"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"]})
 
 
 /* hot reload */
