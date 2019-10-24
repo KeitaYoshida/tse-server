@@ -755,10 +755,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
     rtActIndex: function rtActIndex(n) {
       this.act_val = n;
     },
-    Item_Checker: function Item_Checker(n) {
+    Item_Checker: function Item_Checker(n, now, to) {
       if (this.tar.process.process_items.length === 0) return;
-      var now = this.tar.process.process_info[n].process_status;
-      var to = this.act_val;
 
       if (to === 2) {
         this.ItemUseAction();
@@ -782,6 +780,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(n) {
         var loopflg,
             shutoku_time,
+            shutoku_status,
             d,
             now,
             row,
@@ -799,12 +798,12 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
                 }
 
                 shutoku_time = this.tar.process.process_info[n].check_time;
+                shutoku_status = this.tar.process.process_info[n].process_status;
                 d = {
                   num: n,
                   upval: this.tar.process.process_info[n],
                   shutoku_time: shutoku_time
                 };
-                this.Item_Checker(n);
                 now = {
                   process_status: d.upval.process_status,
                   worker: d.upval.worker,
@@ -829,31 +828,32 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
                 d.upval.worker = now.worker;
                 d.upval.check_time = now.check_time;
                 this.alertMessage.push(n);
-                _context.next = 24;
+                _context.next = 25;
                 break;
 
               case 20:
-                _context.next = 22;
+                this.Item_Checker(n, shutoku_status, this.act_val);
+                _context.next = 23;
                 return this.PROCESS_STATUS_UPDATE(d);
 
-              case 22:
+              case 23:
                 this.setStatus();
                 this.set_tar_val = n + 2;
 
-              case 24:
+              case 25:
                 if (!(loopflg === false)) {
-                  _context.next = 29;
+                  _context.next = 30;
                   break;
                 }
 
                 this.alertFail();
-                _context.next = 28;
+                _context.next = 29;
                 return this.$emit("reload");
 
-              case 28:
+              case 29:
                 this.btn_load = false;
 
-              case 29:
+              case 30:
               case "end":
                 return _context.stop();
             }

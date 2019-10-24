@@ -202,10 +202,8 @@ export default {
     rtActIndex(n) {
       this.act_val = n;
     },
-    Item_Checker(n) {
+    Item_Checker(n, now, to) {
       if (this.tar.process.process_items.length === 0) return;
-      let now = this.tar.process.process_info[n].process_status;
-      let to = this.act_val;
       if (to === 2) {
         this.ItemUseAction();
       } else if (now === 2) {
@@ -230,12 +228,12 @@ export default {
         this.alertMessage = [];
       }
       let shutoku_time = this.tar.process.process_info[n].check_time;
+      let shutoku_status = this.tar.process.process_info[n].process_status;
       let d = {
         num: n,
         upval: this.tar.process.process_info[n],
         shutoku_time: shutoku_time
       };
-      this.Item_Checker(n);
       let now = {
         process_status: d.upval.process_status,
         worker: d.upval.worker,
@@ -252,6 +250,7 @@ export default {
         d.upval.check_time = now.check_time;
         this.alertMessage.push(n);
       } else {
+        this.Item_Checker(n, shutoku_status, this.act_val);
         await this.PROCESS_STATUS_UPDATE(d);
         this.setStatus();
         this.set_tar_val = n + 2;
