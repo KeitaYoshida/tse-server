@@ -14,7 +14,7 @@
           <v-text-field label="形式" readonly :value="d.model_code" @click="mselect=!mselect"></v-text-field>
         </v-flex>
         <v-flex xs4 class="px-4 pt-3">
-          <v-text-field label="工事番号(共通)" :value="d.base_code"></v-text-field>
+          <v-text-field label="工事番号(共通)" v-model="d.base_code"></v-text-field>
         </v-flex>
         <v-flex xs4 class="px-4 pt-3">
           <v-text-field label="起工氏" readonly :value="d.user"></v-text-field>
@@ -58,7 +58,14 @@
           <v-text-field disabled label="分割数" :value="slice_num()"></v-text-field>
         </v-flex>
         <v-flex xs8 offset-xs2 class="py-3">
-          <v-btn color="primary" style="width:100%" large :disabled="form_flg()" @click="submit">作成</v-btn>
+          <v-btn
+            color="primary"
+            style="width:100%"
+            large
+            :disabled="form_flg()"
+            @click="submit"
+            :loading="loading"
+          >作成</v-btn>
         </v-flex>
       </v-layout>
     </v-card-text>
@@ -105,7 +112,8 @@ export default {
         edday: null,
         cmpt: null
       },
-      make_flg: true
+      make_flg: true,
+      loading: false
     };
   },
   computed: {
@@ -185,6 +193,7 @@ export default {
       return flg;
     },
     async submit() {
+      this.loading = true;
       let d = this.d;
       let data = [];
       let sub_serial = [];

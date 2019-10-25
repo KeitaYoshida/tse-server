@@ -97,6 +97,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -136,7 +143,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         edday: null,
         cmpt: null
       },
-      make_flg: true
+      make_flg: true,
+      loading: false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -254,6 +262,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                this.loading = true;
                 d = this.d;
                 data = [];
                 sub_serial = [];
@@ -322,7 +331,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   _this3.reload("/product_list");
                 });
 
-              case 10:
+              case 11:
               case "end":
                 return _context2.stop();
             }
@@ -2040,7 +2049,14 @@ var render = function() {
                 { staticClass: "px-4 pt-3", attrs: { xs4: "" } },
                 [
                   _c("v-text-field", {
-                    attrs: { label: "工事番号(共通)", value: _vm.d.base_code }
+                    attrs: { label: "工事番号(共通)" },
+                    model: {
+                      value: _vm.d.base_code,
+                      callback: function($$v) {
+                        _vm.$set(_vm.d, "base_code", $$v)
+                      },
+                      expression: "d.base_code"
+                    }
                   })
                 ],
                 1
@@ -2236,7 +2252,8 @@ var render = function() {
                       attrs: {
                         color: "primary",
                         large: "",
-                        disabled: _vm.form_flg()
+                        disabled: _vm.form_flg(),
+                        loading: _vm.loading
                       },
                       on: { click: _vm.submit }
                     },
