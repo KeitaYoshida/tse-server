@@ -996,6 +996,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
@@ -2157,6 +2158,8 @@ var render = function() {
     "v-card",
     [
       _c("v-card-text", [
+        _c("p", [_vm._v(_vm._s(_vm.tar.process.process_items.length) + " 点")]),
+        _vm._v(" "),
         _c(
           "table",
           [

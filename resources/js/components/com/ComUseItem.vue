@@ -1,6 +1,7 @@
 <template>
   <v-card>
     <v-card-text>
+      <p>{{ tar.process.process_items.length }} 点</p>
       <table>
         <thead>
           <tr>
