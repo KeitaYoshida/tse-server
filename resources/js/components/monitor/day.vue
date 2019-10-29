@@ -189,17 +189,22 @@ export default {
     rtOrderCode(item) {
       let item_code = item.item_code;
       let order_code = item.order_code;
+      const rev =
+        "<br /><p class='mini'>[ " + item.item_rev.numToRev() + " ]</p>";
+      console.log(rev);
       if (
         order_code == null ||
         order_code == "" ||
         order_code.trim() == item_code.trim()
       )
-        return item_code;
-      return order_code + "<br />" + "( " + item_code + " )";
+        return item_code + rev;
+      return order_code + "<br />" + "( " + item_code + " )" + rev;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.mini {
+}
 </style>
