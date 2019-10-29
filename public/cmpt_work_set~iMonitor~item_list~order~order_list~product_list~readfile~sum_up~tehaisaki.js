@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["cmpt_work_set~iMonitor~item_list~order~order_list~product_list~readfile~sum_up~tehaisaki"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js?!./resources/js/components/com/ComFormDialog.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************************************************!*\
@@ -64,9 +64,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       actionflg: false
     };
-  },
-  created: function created() {
-    this.actionflg = false;
   },
   methods: {
     submit: function submit() {
@@ -358,4 +355,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki.js.map
+//# sourceMappingURL=cmpt_work_set~iMonitor~item_list~order~order_list~product_list~readfile~sum_up~tehaisaki.js.map

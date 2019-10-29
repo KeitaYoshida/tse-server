@@ -76,6 +76,8 @@ Route::post("/db/model_mst/cmpt/work/item/select/{wid}", 'ModelCtrl@ModelCmptWor
 Route::get("/db/model_mst/cmpt/work/item/all/delete/{wid}", 'ModelCtrl@ModelCmptWorkItemAllDelete');
 Route::get('/db/model_mst/cmpt/row/set/{model_id}/{cmpt_id}/{row}', 'ModelCtrl@SetRModelCmptRow');
 Route::get("/db/model_mst/delete/model/{mid}", "ModelCtrl@DeleteModel");
+Route::post("/db/model_mst/copy/model/{tar_id}", "ModelCtrl@CopyModel");
+Route::post("/db/model_mst/copy/cmpt/{model_id}", "ModelCtrl@CopyCmptToModel");
 
 Route::get("/db/cmpt/data/{id}", "CmptCtrl@GetCmptData");
 Route::post("/db/comt/get/data/arr", "CmptCtrl@GetCmptDataArr");

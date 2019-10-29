@@ -551,6 +551,19 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
     },
     change_num: function change_num(d) {
       this.num_change_target.num = d.data[0].value;
+      this.num_select_obj = {
+        title: "手配数量変更",
+        message: "手配数を変更できます。",
+        data: [{
+          name: "num",
+          label: "手配数",
+          id: "",
+          hint: "",
+          type: "number",
+          value: 0
+        }]
+      };
+      this.num_change_target = null;
       this.num_selecter = !this.num_selecter;
     },
     henshu: function henshu(i) {
@@ -1773,10 +1786,12 @@ var render = function() {
                   }
                 },
                 [
-                  _c("NumChanger", {
-                    attrs: { data: _vm.num_select_obj },
-                    on: { rt: _vm.change_num }
-                  })
+                  _vm.num_change_target
+                    ? _c("NumChanger", {
+                        attrs: { data: _vm.num_select_obj },
+                        on: { rt: _vm.change_num }
+                      })
+                    : _vm._e()
                 ],
                 1
               ),

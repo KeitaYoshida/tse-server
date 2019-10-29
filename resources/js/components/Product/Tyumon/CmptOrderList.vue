@@ -168,7 +168,7 @@
         ></HenshuView>
       </v-dialog>
       <v-dialog v-model="num_selecter" max-width="500px" transition="dialog-transition">
-        <NumChanger :data="num_select_obj" @rt="change_num"></NumChanger>
+        <NumChanger :data="num_select_obj" @rt="change_num" v-if="num_change_target"></NumChanger>
       </v-dialog>
       <v-dialog v-model="class_selecter" max-width="200px" transition="dialog-transition">
         <v-list class="text-xs-center class_list">
@@ -461,6 +461,21 @@ export default {
     },
     change_num(d) {
       this.num_change_target.num = d.data[0].value;
+      this.num_select_obj = {
+        title: "手配数量変更",
+        message: "手配数を変更できます。",
+        data: [
+          {
+            name: "num",
+            label: "手配数",
+            id: "",
+            hint: "",
+            type: "number",
+            value: 0
+          }
+        ]
+      };
+      this.num_change_target = null;
       this.num_selecter = !this.num_selecter;
     },
     henshu(i) {

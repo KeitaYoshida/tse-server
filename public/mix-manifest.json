@@ -74,5 +74,11 @@
     "/item_data~model_mst~readfile.js": "/item_data~model_mst~readfile.js",
     "/item_data~model_mst~readfile.js.map": "/item_data~model_mst~readfile.js.map",
     "/vendors~item_data~model_mst~readfile.js": "/vendors~item_data~model_mst~readfile.js",
-    "/vendors~item_data~model_mst~readfile.js.map": "/vendors~item_data~model_mst~readfile.js.map"
+    "/vendors~item_data~model_mst~readfile.js.map": "/vendors~item_data~model_mst~readfile.js.map",
+    "/cmpt_work_set~iMonitor~item_list~order~order_list~product_list~readfile~sum_up~tehaisaki.js": "/cmpt_work_set~iMonitor~item_list~order~order_list~product_list~readfile~sum_up~tehaisaki.js",
+    "/cmpt_work_set~iMonitor~item_list~order~order_list~product_list~readfile~sum_up~tehaisaki.js.map": "/cmpt_work_set~iMonitor~item_list~order~order_list~product_list~readfile~sum_up~tehaisaki.js.map",
+    "/item_data~order~product_list~readfile.js": "/item_data~order~product_list~readfile.js",
+    "/item_data~order~product_list~readfile.js.map": "/item_data~order~product_list~readfile.js.map",
+    "/vendors~item_data~order~product_list~readfile.js": "/vendors~item_data~order~product_list~readfile.js",
+    "/vendors~item_data~order~product_list~readfile.js.map": "/vendors~item_data~order~product_list~readfile.js.map"
 }

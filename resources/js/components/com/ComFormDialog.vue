@@ -57,6 +57,9 @@ export default {
       actionflg: false
     };
   },
+  created: function() {
+    this.actionflg = false;
+  },
   methods: {
     submit() {
       if (this.actionflg) return;

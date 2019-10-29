@@ -9,6 +9,7 @@ use App\Model\RModelCmpt;
 use App\Model\Item;
 use App\Model\RCmptItem;
 use App\Model\CmptWorks;
+use PhpParser\Node\Expr\BinaryOp\Mod;
 
 class ModelCtrl extends Controller
 {
@@ -218,5 +219,51 @@ class ModelCtrl extends Controller
   {
     $m = new Models;
     $m->where('model_id', $mid)->delete();
+  }
+
+  public function CopyModel(Request $req, $tar_id)
+  {
+    $m = new Models;
+    $rmc = new RModelCmpt;
+    $d = $m
+      ->where('model_code', $req->model_code)
+      ->where('model_rev', $req->model_rev)
+      ->count();
+
+    // $d = $m
+    //   ->where('model_code', $req->model_code)
+    //   ->where('model_rev', $req->model_rev)
+    //   ->with('cmpt')
+    //   ->get()[0];
+    // return $d;
+
+    if ($d !== 0) return;
+    $makeId = $m->create($req->all())->model_id;
+    $cmpt_org = $m->where('model_id', $tar_id)->with('cmpt')->get()[0];
+    foreach ($cmpt_org->cmpt as $row) {
+      $row->pivot->model_id = $makeId;
+      $rmc->create([
+        "cmpt_id" => $row->pivot->cmpt_id,
+        "model_id" => $row->pivot->model_id,
+        "process_row" => $row->pivot->process_row,
+        "row" => $row->pivot->row,
+      ]);
+    }
+    return $m->where('model_id', $makeId)->with('cmpt')->get()[0];
+    // return $cmpt;
+    // // $d = $m->where('model_id', $tar_id)->where->with('cmpt')->get();
+    // // return $model_id . ": " . $rev . ": " . $tar_id;
+    // return $makeId;
+  }
+  public function CopyCmptToModel(Request $req, $model_id)
+  {
+    $cmpt = new Components;
+    $rmc = new RModelCmpt;
+    $cmpt_id = $cmpt->create($req->all())->cmpt_id;
+    $rmc->create(['model_id' => $model_id, 'cmpt_id' => $cmpt_id]);
+
+    $m = new Models;
+    return $m->where('model_id', $model_id)->with('cmpt')->get();
+    return $req;
   }
 }

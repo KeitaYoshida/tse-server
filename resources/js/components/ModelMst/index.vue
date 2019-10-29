@@ -50,10 +50,19 @@
             >
               <v-icon small left class="icon-edit">fas fa-trash-alt</v-icon>削除
             </v-btn>
+            <v-btn
+              color="indigo lighten-1"
+              outline
+              small
+              :loading="loading"
+              @click="copyFormView(props.item)"
+            >
+              <v-icon small left class="icon-edit">fas fa-trash-alt</v-icon>複製
+            </v-btn>
           </td>
         </template>
         <template v-slot:expand="props">
-          <v-layout wrap>
+          <v-layout wrap row fill-height>
             <v-flex
               xs6
               md4
@@ -63,10 +72,18 @@
               class="pa-3 cmpt"
             >
               <v-card flat class="cmpt_card" color="indigo--text text--lighten-2">
-                <v-card-text class="cmpt_text">
+                <v-card-text class="cmpt_text pb-0">
                   <p>{{ item.cmpt_code }}</p>
                   <p class="cmpt_rev">{{ item.cmpt_rev.numToRev() }}</p>
                   <p class="cmpt_name">{{ item.cmpt_name }}</p>
+                  <v-btn
+                    class="cmpt_name"
+                    flat
+                    color="indigo lighten-2"
+                    small
+                    outline
+                    @click="copyCmpt(props.item, item)"
+                  >複製</v-btn>
                 </v-card-text>
                 <v-layout wrap class="text-xs-center">
                   <v-flex xs3>
@@ -104,6 +121,9 @@
     <v-dialog v-model="delete_model" max-width="500px" transition="dialog-transition">
       <DeleteCheck :data="delete_data" v-if="delete_model" @rt="deleteAction"></DeleteCheck>
     </v-dialog>
+    <v-dialog v-model="copy_flg" max-width="500px" transition="dialog-transition">
+      <CopyForm :data="copy_data" v-if="copy_flg" @rt="copyAction"></CopyForm>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -111,12 +131,14 @@
 import CmptData from "./../ReadFile/Model/ComponentEntry";
 import { mapState, mapMutations, mapActions } from "vuex";
 import DeleteCheck from "@/components/com/ComCheckDialog";
+import CopyForm from "@/components/com/ComFormDialog";
 // import { SET_MODEL_COM } from "@/store/mutations";
 
 export default {
   components: {
     CmptData,
-    DeleteCheck
+    DeleteCheck,
+    CopyForm
   },
   computed: {
     ...mapState({
@@ -150,7 +172,9 @@ export default {
         message: "",
         data_v2: null
       },
-      delete_target: null
+      delete_target: null,
+      copy_flg: null,
+      copy_data: null
     };
   },
   created: function() {
@@ -248,12 +272,11 @@ export default {
     },
     deleteAction() {
       this.items = this.items.filter(ar => ar.model_id !== this.delete_target);
+      this.filterAct(this.search_x);
       this.delete_model = !this.delete_model;
       axios
         .get("/db/model_mst/delete/model/" + this.delete_target)
-        .then(res => {
-          // console.log(res.data);
-        });
+        .then(res => {});
     },
     filterList(e) {
       this.SEARCH_MODELCONST(e);
@@ -282,7 +305,65 @@ export default {
           });
         }
       });
+      axios.get("/db/cmpt/delete/cmpt/" + model_id + "/" + cmpt_id);
       this.items[itemIndex].cmpt.splice(cmptIndex, 1);
+    },
+    copyFormView(m) {
+      this.copy_data = {
+        title: "形式複製",
+        message: m.model_code + "形式情報を入力",
+        data: [
+          {
+            label: "形式",
+            value: m.model_code
+          },
+          {
+            label: "REV",
+            type: "number",
+            value: m.model_rev,
+            hint: "数値で入力して下さい(例:01-01 → 101)"
+          },
+          {
+            label: "NE",
+            value: m.model_code_ne
+          },
+          {
+            label: "名前",
+            value: m.model_name
+          }
+        ],
+        tar: m.model_id
+      };
+      this.copy_flg = true;
+    },
+    copyAction(d) {
+      let m = {
+        model_code: d.data[0].value,
+        model_rev: d.data[1].value,
+        model_code_ne: d.data[2].value,
+        model_name: d.data[3].value
+      };
+      let tar_id = d.tar;
+      // console.log(model + ": " + rev + ": " + tar_id);
+      axios.post("/db/model_mst/copy/model/" + tar_id, m).then(res => {
+        if (res.data === "") {
+          alert("重複データです");
+        }
+        this.items.push(res.data);
+      });
+      this.copy_flg = !this.copy_flg;
+    },
+    copyCmpt(model, cmpt) {
+      let model_id = model.model_id;
+      let iCmpt = {
+        cmpt_code: "copy_" + cmpt.cmpt_code,
+        cmpt_rev: cmpt.cmpt_rev,
+        cmpt_name: cmpt.cmpt_name
+      };
+      axios.post("/db/model_mst/copy/cmpt/" + model_id, iCmpt).then(res => {
+        cmpt = res.data[0].cmpt;
+        console.log(res.data);
+      });
     }
   },
   watch: {
@@ -310,6 +391,7 @@ export default {
 }
 .cmpt_card {
   border: 1px solid #7986cb;
+  height: 100%;
   p {
     margin-bottom: 0.2rem;
   }

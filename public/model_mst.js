@@ -14,6 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ReadFile_Model_ComponentEntry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../ReadFile/Model/ComponentEntry */ "./resources/js/components/ReadFile/Model/ComponentEntry.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _components_com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/com/ComCheckDialog */ "./resources/js/components/com/ComCheckDialog.vue");
+/* harmony import */ var _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/com/ComFormDialog */ "./resources/js/components/com/ComFormDialog.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -135,6 +136,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
  // import { SET_MODEL_COM } from "@/store/mutations";
@@ -142,7 +164,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     CmptData: _ReadFile_Model_ComponentEntry__WEBPACK_IMPORTED_MODULE_1__["default"],
-    DeleteCheck: _components_com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__["default"]
+    DeleteCheck: _components_com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__["default"],
+    CopyForm: _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
     target: "target",
@@ -179,7 +202,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         message: "",
         data_v2: null
       },
-      delete_target: null
+      delete_target: null,
+      copy_flg: null,
+      copy_data: null
     };
   },
   created: function created() {
@@ -299,9 +324,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.items = this.items.filter(function (ar) {
         return ar.model_id !== _this3.delete_target;
       });
+      this.filterAct(this.search_x);
       this.delete_model = !this.delete_model;
-      axios.get("/db/model_mst/delete/model/" + this.delete_target).then(function (res) {// console.log(res.data);
-      });
+      axios.get("/db/model_mst/delete/model/" + this.delete_target).then(function (res) {});
     },
     filterList: function filterList(e) {
       this.SEARCH_MODELCONST(e);
@@ -331,7 +356,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
         }
       });
+      axios.get("/db/cmpt/delete/cmpt/" + model_id + "/" + cmpt_id);
       this.items[itemIndex].cmpt.splice(cmptIndex, 1);
+    },
+    copyFormView: function copyFormView(m) {
+      this.copy_data = {
+        title: "形式複製",
+        message: m.model_code + "形式情報を入力",
+        data: [{
+          label: "形式",
+          value: m.model_code
+        }, {
+          label: "REV",
+          type: "number",
+          value: m.model_rev,
+          hint: "数値で入力して下さい(例:01-01 → 101)"
+        }, {
+          label: "NE",
+          value: m.model_code_ne
+        }, {
+          label: "名前",
+          value: m.model_name
+        }],
+        tar: m.model_id
+      };
+      this.copy_flg = true;
+    },
+    copyAction: function copyAction(d) {
+      var _this4 = this;
+
+      var m = {
+        model_code: d.data[0].value,
+        model_rev: d.data[1].value,
+        model_code_ne: d.data[2].value,
+        model_name: d.data[3].value
+      };
+      var tar_id = d.tar; // console.log(model + ": " + rev + ": " + tar_id);
+
+      axios.post("/db/model_mst/copy/model/" + tar_id, m).then(function (res) {
+        if (res.data === "") {
+          alert("重複データです");
+        }
+
+        _this4.items.push(res.data);
+      });
+      this.copy_flg = !this.copy_flg;
+    },
+    copyCmpt: function copyCmpt(model, cmpt) {
+      var model_id = model.model_id;
+      var iCmpt = {
+        cmpt_code: "copy_" + cmpt.cmpt_code,
+        cmpt_rev: cmpt.cmpt_rev,
+        cmpt_name: cmpt.cmpt_name
+      };
+      axios.post("/db/model_mst/copy/cmpt/" + model_id, iCmpt).then(function (res) {
+        cmpt = res.data[0].cmpt;
+        console.log(res.data);
+      });
     }
   }),
   watch: {
@@ -352,7 +433,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".model-code[data-v-0099e5da] {\n  font-size: 1.5rem;\n  margin: 0;\n  padding-top: 0.5rem;\n}\n.ne[data-v-0099e5da] {\n  padding-left: 3rem;\n  font-size: 1rem;\n  padding-bottom: 0.5rem;\n}\n.rev[data-v-0099e5da] {\n  font-size: 1rem;\n  padding: 0 0.5rem;\n}\n.cmpt_card[data-v-0099e5da] {\n  border: 1px solid #7986cb;\n}\n.cmpt_card p[data-v-0099e5da] {\n  margin-bottom: 0.2rem;\n}\n.cmpt[data-v-0099e5da] {\n  text-align: center;\n}\n.cmpt_text[data-v-0099e5da] {\n  font-size: 1rem;\n}\n.cmpt_rev[data-v-0099e5da] {\n  font-size: 0.5rem;\n  text-align: right;\n  margin-right: 10%;\n}", ""]);
+exports.push([module.i, ".model-code[data-v-0099e5da] {\n  font-size: 1.5rem;\n  margin: 0;\n  padding-top: 0.5rem;\n}\n.ne[data-v-0099e5da] {\n  padding-left: 3rem;\n  font-size: 1rem;\n  padding-bottom: 0.5rem;\n}\n.rev[data-v-0099e5da] {\n  font-size: 1rem;\n  padding: 0 0.5rem;\n}\n.cmpt_card[data-v-0099e5da] {\n  border: 1px solid #7986cb;\n  height: 100%;\n}\n.cmpt_card p[data-v-0099e5da] {\n  margin-bottom: 0.2rem;\n}\n.cmpt[data-v-0099e5da] {\n  text-align: center;\n}\n.cmpt_text[data-v-0099e5da] {\n  font-size: 1rem;\n}\n.cmpt_rev[data-v-0099e5da] {\n  font-size: 0.5rem;\n  text-align: right;\n  margin-right: 10%;\n}", ""]);
 
 
 
@@ -562,6 +643,35 @@ var render = function() {
                             _vm._v("削除\n          ")
                           ],
                           1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              color: "indigo lighten-1",
+                              outline: "",
+                              small: "",
+                              loading: _vm.loading
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.copyFormView(props.item)
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "v-icon",
+                              {
+                                staticClass: "icon-edit",
+                                attrs: { small: "", left: "" }
+                              },
+                              [_vm._v("fas fa-trash-alt")]
+                            ),
+                            _vm._v("複製\n          ")
+                          ],
+                          1
                         )
                       ],
                       1
@@ -575,7 +685,7 @@ var render = function() {
                   return [
                     _c(
                       "v-layout",
-                      { attrs: { wrap: "" } },
+                      { attrs: { wrap: "", row: "", "fill-height": "" } },
                       _vm._l(props.item.cmpt, function(item, index) {
                         return _c(
                           "v-flex",
@@ -597,7 +707,7 @@ var render = function() {
                               [
                                 _c(
                                   "v-card-text",
-                                  { staticClass: "cmpt_text" },
+                                  { staticClass: "cmpt_text pb-0" },
                                   [
                                     _c("p", [_vm._v(_vm._s(item.cmpt_code))]),
                                     _vm._v(" "),
@@ -607,8 +717,31 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("p", { staticClass: "cmpt_name" }, [
                                       _vm._v(_vm._s(item.cmpt_name))
-                                    ])
-                                  ]
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-btn",
+                                      {
+                                        staticClass: "cmpt_name",
+                                        attrs: {
+                                          flat: "",
+                                          color: "indigo lighten-2",
+                                          small: "",
+                                          outline: ""
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.copyCmpt(
+                                              props.item,
+                                              item
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("複製")]
+                                    )
+                                  ],
+                                  1
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -812,6 +945,29 @@ var render = function() {
             ? _c("DeleteCheck", {
                 attrs: { data: _vm.delete_data },
                 on: { rt: _vm.deleteAction }
+              })
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "500px", transition: "dialog-transition" },
+          model: {
+            value: _vm.copy_flg,
+            callback: function($$v) {
+              _vm.copy_flg = $$v
+            },
+            expression: "copy_flg"
+          }
+        },
+        [
+          _vm.copy_flg
+            ? _c("CopyForm", {
+                attrs: { data: _vm.copy_data },
+                on: { rt: _vm.copyAction }
               })
             : _vm._e()
         ],
