@@ -171,7 +171,7 @@ export default {
       return order_code + "<br />" + "( " + item_code + " )";
     },
     rtNyukaClass(item) {
-      console.log(item);
+      // console.log(item);
       let onum = item.num_order;
       let unum = item.num_recept;
       if (onum <= unum) {

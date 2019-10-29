@@ -1134,7 +1134,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return order_code + "<br />" + "( " + item_code + " )";
     },
     rtNyukaClass: function rtNyukaClass(item) {
-      console.log(item);
+      // console.log(item);
       var onum = item.num_order;
       var unum = item.num_recept;
 

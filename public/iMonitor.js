@@ -372,20 +372,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.dialog = !this.dialog;
       this.numData = {
         title: "数量変更",
-        message: null,
+        message: "加算数を入力",
         item_id: item.item_id,
         data: [{
           name: "last_num",
           label: "在庫数",
-          value: item.last_num
+          value: null
         }, {
           name: "appo_num",
           label: "予約数",
-          value: item.appo_num
+          value: null
         }, {
           name: "order_num",
           label: "発注数",
-          value: item.order_num
+          value: null
         }]
       };
     },
@@ -782,17 +782,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 })[0];
                 index = this.im.indexOf(tar);
                 row = this.im[index];
+                console.log(d);
                 row.last_num_b = row.last_num;
                 row.appo_num_b = row.appo_num;
                 row.order_num_b = row.order_num;
-                row.last_num = d.last_num;
-                row.appo_num = d.appo_num;
-                row.order_num = d.order_num;
-                _context3.next = 11;
+                row.last_num = Number(row.last_num) + Number(d.last_num);
+                row.appo_num = Number(row.appo_num) + Number(d.appo_num);
+                row.order_num = Number(row.order_num) + Number(d.order_num);
+                _context3.next = 12;
                 return axios.post("/db/items/numSet/", d).then(function (res) {// console.log(res.data);
                 });
 
-              case 11:
+              case 12:
               case "end":
                 return _context3.stop();
             }

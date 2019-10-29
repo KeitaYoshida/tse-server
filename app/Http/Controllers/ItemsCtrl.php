@@ -79,10 +79,13 @@ class ItemsCtrl extends Controller
   public function NumSet(Request $req)
   {
     $i = new Item;
-    $i->where('item_id', $req->item_id)->update([
-      'last_num' => $req->last_num,
-      'appo_num' => $req->appo_num,
-      'order_num' => $req->order_num
-    ]);
+    $i->where('item_id', $req->item_id)->increment('last_num', $req->last_num);
+    $i->where('item_id', $req->item_id)->increment('appo_num', $req->appo_num);
+    $i->where('item_id', $req->item_id)->increment('order_num', $req->order_num);
+    // $i->where('item_id', $req->item_id)->update([
+    //   'last_num' => $req->last_num,
+    //   'appo_num' => $req->appo_num,
+    //   'order_num' => $req->order_num
+    // ]);
   }
 }

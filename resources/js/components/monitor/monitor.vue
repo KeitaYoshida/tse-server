@@ -175,12 +175,13 @@ export default {
       let tar = this.im.filter(row => row.item_id === d.item_id)[0];
       let index = this.im.indexOf(tar);
       let row = this.im[index];
+      console.log(d);
       row.last_num_b = row.last_num;
       row.appo_num_b = row.appo_num;
       row.order_num_b = row.order_num;
-      row.last_num = d.last_num;
-      row.appo_num = d.appo_num;
-      row.order_num = d.order_num;
+      row.last_num = Number(row.last_num) + Number(d.last_num);
+      row.appo_num = Number(row.appo_num) + Number(d.appo_num);
+      row.order_num = Number(row.order_num) + Number(d.order_num);
       await axios.post("/db/items/numSet/", d).then(res => {
         // console.log(res.data);
       });

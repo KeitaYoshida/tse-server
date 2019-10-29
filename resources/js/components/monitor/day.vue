@@ -155,23 +155,23 @@ export default {
       this.dialog = !this.dialog;
       this.numData = {
         title: "数量変更",
-        message: null,
+        message: "加算数を入力",
         item_id: item.item_id,
         data: [
           {
             name: "last_num",
             label: "在庫数",
-            value: item.last_num
+            value: null
           },
           {
             name: "appo_num",
             label: "予約数",
-            value: item.appo_num
+            value: null
           },
           {
             name: "order_num",
             label: "発注数",
-            value: item.order_num
+            value: null
           }
         ]
       };
