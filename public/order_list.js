@@ -1038,6 +1038,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1061,6 +1066,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         text: "部材品名／型式",
         value: "item.order_code",
+        align: "center"
+      }, {
+        text: "実数",
+        value: "",
         align: "center"
       }, {
         text: "発注／入庫数",
@@ -1176,6 +1185,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           value: ""
         }]
       };
+    },
+    numClass: function numClass(appo, order) {
+      if (appo > order) {
+        return "useLastItem";
+      } else if (appo < order) {
+        return "lotOrder";
+      }
     }
   }
 });
@@ -1318,7 +1334,7 @@ exports.push([module.i, ".biger[data-v-7bcff8b0] {\n  font-size: 1.3rem;\n}", ""
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "p[data-v-09265ab0] {\n  margin: 0;\n}\ntd[data-v-09265ab0],\nth[data-v-09265ab0] {\n  padding: 0 !important;\n}\n.v-chip.ninsho .v-chip__content[data-v-09265ab0] {\n  height: 42px;\n}\ntd.num[data-v-09265ab0] {\n  font-size: 1.4rem;\n}", ""]);
+exports.push([module.i, "p[data-v-09265ab0] {\n  margin: 0;\n}\ntd[data-v-09265ab0],\nth[data-v-09265ab0] {\n  padding: 0 !important;\n}\n.v-chip.ninsho .v-chip__content[data-v-09265ab0] {\n  height: 42px;\n}\ntd.num[data-v-09265ab0] {\n  font-size: 1.4rem;\n}\n.useLastItem[data-v-09265ab0] {\n  background: lavenderblush;\n}\n.lotOrder[data-v-09265ab0] {\n  background: aliceblue;\n}", ""]);
 
 
 
@@ -2315,102 +2331,128 @@ var render = function() {
                   fn: function(props) {
                     return [
                       _c(
-                        "td",
-                        { staticClass: "text-xs-center" },
+                        "tr",
+                        {
+                          class: _vm.numClass(
+                            props.item.appo_num,
+                            props.item.num_order
+                          )
+                        },
                         [
-                          _vm.numMode === false
-                            ? _c(
-                                "v-btn",
-                                {
-                                  staticClass: "ninsho",
-                                  attrs: {
-                                    outline: "",
-                                    color: _vm.rtNyukaClass(props.item),
-                                    large: ""
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.ukchip(props.item)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n          " +
-                                      _vm._s(props.item.order_key) +
-                                      "\n          "
-                                  ),
-                                  _c("br"),
-                                  _vm._v(
-                                    "\n          " +
-                                      _vm._s(_vm.rtNyukaStatus(props.item)) +
-                                      "\n        "
+                          _c(
+                            "td",
+                            { staticClass: "text-xs-center" },
+                            [
+                              _vm.numMode === false
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "ninsho",
+                                      attrs: {
+                                        outline: "",
+                                        color: _vm.rtNyukaClass(props.item),
+                                        large: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.ukchip(props.item)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n            " +
+                                          _vm._s(props.item.order_key) +
+                                          "\n            "
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        "\n            " +
+                                          _vm._s(
+                                            _vm.rtNyukaStatus(props.item)
+                                          ) +
+                                          "\n          "
+                                      )
+                                    ]
                                   )
-                                ]
-                              )
-                            : _vm._e(),
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.numMode === true
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "ninsho",
+                                      attrs: {
+                                        color: "primary",
+                                        dark: "",
+                                        large: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.ukchip(
+                                            props.item,
+                                            _vm.set_num
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n            " +
+                                          _vm._s(props.item.order_key) +
+                                          "\n            "
+                                      ),
+                                      _c("br"),
+                                      _vm._v("数量セット\n          ")
+                                    ]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
-                          _vm.numMode === true
-                            ? _c(
-                                "v-btn",
-                                {
-                                  staticClass: "ninsho",
-                                  attrs: {
-                                    color: "primary",
-                                    dark: "",
-                                    large: ""
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.ukchip(props.item, _vm.set_num)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n          " +
-                                      _vm._s(props.item.order_key) +
-                                      "\n          "
-                                  ),
-                                  _c("br"),
-                                  _vm._v("数量セット\n        ")
-                                ]
-                              )
-                            : _vm._e()
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-xs-center" }, [
-                        _vm._v(_vm._s(_vm.rtCmpt(props.item.cmpt)))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-xs-center" }, [
-                        _c("p", {
-                          domProps: {
-                            innerHTML: _vm._s(_vm.rtOrderCode(props.item.item))
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-xs-center" }, [
-                        _c("p", [_vm._v(_vm._s(props.item.item.item_name))]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(props.item.item.item_model))])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-xs-center num" }, [
-                        _c("p", [_vm._v(_vm._s(props.item.num_order))]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(props.item.num_recept))])
-                      ])
+                          _c("td", { staticClass: "text-xs-center" }, [
+                            _vm._v(_vm._s(_vm.rtCmpt(props.item.cmpt)))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-xs-center" }, [
+                            _c("p", {
+                              domProps: {
+                                innerHTML: _vm._s(
+                                  _vm.rtOrderCode(props.item.item)
+                                )
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-xs-center" }, [
+                            _c("p", [
+                              _vm._v(_vm._s(props.item.item.item_name))
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(_vm._s(props.item.item.item_model))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-xs-center num" }, [
+                            _c("p", [_vm._v(_vm._s(props.item.appo_num))])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-xs-center num" }, [
+                            _c("p", [_vm._v(_vm._s(props.item.num_order))]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v(_vm._s(props.item.num_recept))])
+                          ])
+                        ]
+                      )
                     ]
                   }
                 }
               ],
               null,
               false,
-              1811531999
+              2830376665
             )
           }),
           _vm._v(" "),

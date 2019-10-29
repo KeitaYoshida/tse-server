@@ -35,7 +35,10 @@
                 item-key="item_id"
               >
                 <template v-slot:items="props">
-                  <tr v-if="view_data_checker(props.item.items.item_class)">
+                  <tr
+                    v-if="view_data_checker(props.item.items.item_class)"
+                    :class="useLastItem(props.item)"
+                  >
                     <td v-if="selecter">
                       <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
                     </td>
@@ -603,6 +606,15 @@ export default {
     deleteCmpt() {
       this.delcmpt = true;
     },
+    useLastItem(i) {
+      let item_order = i.item_use * this.fm.num;
+      let real_order = i.items.num;
+      if (item_order > real_order) {
+        return "useLastItem";
+      } else if (item_order < real_order) {
+        return "lotOrder";
+      }
+    },
     async delAct_Cmpt() {
       let model_id = this.tarModel.model_id;
       let cmpt = this.tarModel.cmpt[this.tabs];
@@ -669,6 +681,12 @@ td.price {
 }
 p {
   margin-bottom: 0;
+}
+.useLastItem {
+  background: lavenderblush;
+}
+.lotOrder {
+  background: aliceblue;
 }
 // tr,
 // td {

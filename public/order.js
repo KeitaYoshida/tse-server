@@ -216,6 +216,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
@@ -764,6 +767,16 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
     deleteCmpt: function deleteCmpt() {
       this.delcmpt = true;
     },
+    useLastItem: function useLastItem(i) {
+      var item_order = i.item_use * this.fm.num;
+      var real_order = i.items.num;
+
+      if (item_order > real_order) {
+        return "useLastItem";
+      } else if (item_order < real_order) {
+        return "lotOrder";
+      }
+    },
     delAct_Cmpt: function () {
       var _delAct_Cmpt = _asyncToGenerator(
       /*#__PURE__*/
@@ -815,7 +828,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
 
 exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".item_code_area .v-btn[data-v-4e1e03f6] {\n  margin: 0;\n}\n.class_list button[data-v-4e1e03f6] {\n  margin: 0 auto;\n}\n.item_code[data-v-4e1e03f6] {\n  font-size: 1.2rem;\n}\n.v-card__text[data-v-4e1e03f6] {\n  margin-bottom: 5rem;\n}\n.v-chip.ren[data-v-4e1e03f6] {\n  height: 44px;\n}\n.t + .t[data-v-4e1e03f6] {\n  margin-left: 1rem;\n}\ntd.price[data-v-4e1e03f6] {\n  font-size: 0.8rem;\n}\n.t[data-v-4e1e03f6] {\n  font-size: 1.2rem;\n  border: 0.5px solid white;\n  border-radius: 5px;\n  padding: 0.5rem;\n}\n.mini[data-v-4e1e03f6] {\n  font-size: 0.5rem;\n}\n.v-btn.lg[data-v-4e1e03f6] {\n  font-size: 1.4rem;\n  height: 28px;\n  padding: 4px;\n}\np[data-v-4e1e03f6] {\n  margin-bottom: 0;\n}", ""]);
+exports.push([module.i, ".item_code_area .v-btn[data-v-4e1e03f6] {\n  margin: 0;\n}\n.class_list button[data-v-4e1e03f6] {\n  margin: 0 auto;\n}\n.item_code[data-v-4e1e03f6] {\n  font-size: 1.2rem;\n}\n.v-card__text[data-v-4e1e03f6] {\n  margin-bottom: 5rem;\n}\n.v-chip.ren[data-v-4e1e03f6] {\n  height: 44px;\n}\n.t + .t[data-v-4e1e03f6] {\n  margin-left: 1rem;\n}\ntd.price[data-v-4e1e03f6] {\n  font-size: 0.8rem;\n}\n.t[data-v-4e1e03f6] {\n  font-size: 1.2rem;\n  border: 0.5px solid white;\n  border-radius: 5px;\n  padding: 0.5rem;\n}\n.mini[data-v-4e1e03f6] {\n  font-size: 0.5rem;\n}\n.v-btn.lg[data-v-4e1e03f6] {\n  font-size: 1.4rem;\n  height: 28px;\n  padding: 4px;\n}\np[data-v-4e1e03f6] {\n  margin-bottom: 0;\n}\n.useLastItem[data-v-4e1e03f6] {\n  background: lavenderblush;\n}\n.lotOrder[data-v-4e1e03f6] {\n  background: aliceblue;\n}", ""]);
 
 
 
@@ -1023,494 +1036,518 @@ var render = function() {
                                                 _vm.view_data_checker(
                                                   props.item.items.item_class
                                                 )
-                                                  ? _c("tr", [
-                                                      _vm.selecter
-                                                        ? _c(
-                                                            "td",
-                                                            [
-                                                              _c("v-checkbox", {
-                                                                attrs: {
-                                                                  primary: "",
-                                                                  "hide-details":
-                                                                    ""
-                                                                },
-                                                                model: {
-                                                                  value:
-                                                                    props.selected,
-                                                                  callback: function(
-                                                                    $$v
-                                                                  ) {
-                                                                    _vm.$set(
-                                                                      props,
-                                                                      "selected",
-                                                                      $$v
-                                                                    )
-                                                                  },
-                                                                  expression:
-                                                                    "props.selected"
-                                                                }
-                                                              })
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "td",
-                                                        {
-                                                          staticClass:
-                                                            "text-xs-center"
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "p",
-                                                            [
-                                                              _c(
-                                                                "v-chip",
-                                                                {
-                                                                  class:
-                                                                    props.item
-                                                                      .items
-                                                                      .item_class_val
-                                                                      .custom +
-                                                                    " chip ren",
-                                                                  attrs: {
-                                                                    large: "",
-                                                                    outline: ""
-                                                                  },
-                                                                  on: {
-                                                                    click: function(
-                                                                      $event
-                                                                    ) {
-                                                                      return _vm.change_item_class(
-                                                                        props
-                                                                      )
+                                                  ? _c(
+                                                      "tr",
+                                                      {
+                                                        class: _vm.useLastItem(
+                                                          props.item
+                                                        )
+                                                      },
+                                                      [
+                                                        _vm.selecter
+                                                          ? _c(
+                                                              "td",
+                                                              [
+                                                                _c(
+                                                                  "v-checkbox",
+                                                                  {
+                                                                    attrs: {
+                                                                      primary:
+                                                                        "",
+                                                                      "hide-details":
+                                                                        ""
+                                                                    },
+                                                                    model: {
+                                                                      value:
+                                                                        props.selected,
+                                                                      callback: function(
+                                                                        $$v
+                                                                      ) {
+                                                                        _vm.$set(
+                                                                          props,
+                                                                          "selected",
+                                                                          $$v
+                                                                        )
+                                                                      },
+                                                                      expression:
+                                                                        "props.selected"
                                                                     }
                                                                   }
-                                                                },
-                                                                [
-                                                                  _vm._v(
-                                                                    "\n                        " +
-                                                                      _vm._s(
-                                                                        props
-                                                                          .item
-                                                                          .items
-                                                                          .item_class_val
-                                                                          .value ===
-                                                                          "ネジ・スペーサ"
-                                                                          ? "ネジ他"
-                                                                          : props
-                                                                              .item
-                                                                              .items
-                                                                              .item_class_val
-                                                                              .value
-                                                                      ) +
-                                                                      "\n                        "
-                                                                  ),
-                                                                  _c("br"),
-                                                                  _vm._v(
-                                                                    "\n                        " +
-                                                                      _vm._s(
-                                                                        props
-                                                                          .item
-                                                                          .item_ren
-                                                                      ) +
-                                                                      "\n                      "
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "td",
-                                                        {
-                                                          staticClass:
-                                                            "text-xs-center"
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "p",
-                                                            {
-                                                              staticClass:
-                                                                "item_code_area"
-                                                            },
-                                                            [
-                                                              _c(
-                                                                "nobr",
-                                                                [
-                                                                  _c(
-                                                                    "v-btn",
-                                                                    {
-                                                                      attrs: {
-                                                                        flat:
-                                                                          "",
-                                                                        icon:
-                                                                          "",
-                                                                        small:
-                                                                          "",
-                                                                        color:
-                                                                          "primary"
-                                                                      },
-                                                                      on: {
-                                                                        click: function(
-                                                                          $event
-                                                                        ) {
-                                                                          return _vm.henshu(
-                                                                            props.item
-                                                                          )
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    [
-                                                                      _c(
-                                                                        "v-icon",
-                                                                        {
-                                                                          attrs: {
-                                                                            small:
-                                                                              ""
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "far fa-edit"
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ],
-                                                                    1
-                                                                  ),
-                                                                  _vm._v(" "),
-                                                                  _c(
-                                                                    "span",
-                                                                    {
-                                                                      staticClass:
-                                                                        "item_code"
-                                                                    },
-                                                                    [
-                                                                      _vm._v(
-                                                                        "\n                          " +
-                                                                          _vm._s(
-                                                                            props
-                                                                              .item
-                                                                              .items
-                                                                              .item_code
-                                                                          ) +
-                                                                          "\n                          "
-                                                                      ),
-                                                                      _c(
-                                                                        "span",
-                                                                        {
-                                                                          staticClass:
-                                                                            "mini pa-0"
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "[" +
-                                                                              _vm._s(
-                                                                                props.item.items.item_rev.numToRev()
-                                                                              ) +
-                                                                              "]"
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ]
-                                                                  ),
-                                                                  _vm._v(" "),
-                                                                  _c(
-                                                                    "v-btn",
-                                                                    {
-                                                                      attrs: {
-                                                                        flat:
-                                                                          "",
-                                                                        icon:
-                                                                          "",
-                                                                        small:
-                                                                          "",
-                                                                        color:
-                                                                          "deep-orange darken-3"
-                                                                      },
-                                                                      on: {
-                                                                        click: function(
-                                                                          $event
-                                                                        ) {
-                                                                          return _vm.delAct(
-                                                                            props.item,
-                                                                            props.index
-                                                                          )
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    [
-                                                                      _c(
-                                                                        "v-icon",
-                                                                        {
-                                                                          attrs: {
-                                                                            small:
-                                                                              ""
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "far fa-trash-alt"
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ],
-                                                                    1
-                                                                  )
-                                                                ],
-                                                                1
-                                                              )
-                                                            ],
-                                                            1
-                                                          ),
-                                                          _vm._v(" "),
-                                                          props.item.items
-                                                            .order_code !==
-                                                            "" &&
-                                                          props.item.items
-                                                            .order_code !==
-                                                            props.item.items
-                                                              .item_code
-                                                            ? _c("p", [
-                                                                _vm._v(
-                                                                  "( " +
-                                                                    _vm._s(
-                                                                      props.item
-                                                                        .items
-                                                                        .order_code
-                                                                    ) +
-                                                                    " )"
                                                                 )
-                                                              ])
-                                                            : _vm._e()
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "td",
-                                                        {
-                                                          staticClass:
-                                                            "text-xs-center"
-                                                        },
-                                                        [
-                                                          _c("p", [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                props.item.items
-                                                                  .item_model
-                                                              )
+                                                              ],
+                                                              1
                                                             )
-                                                          ]),
-                                                          _vm._v(" "),
-                                                          _c("p", [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                props.item.items
-                                                                  .item_name
-                                                              ) +
-                                                                " [ " +
-                                                                _vm._s(
-                                                                  props.item
-                                                                    .item_use
-                                                                ) +
-                                                                " ]"
-                                                            )
-                                                          ])
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _vm.selecter
-                                                        ? _c(
-                                                            "td",
-                                                            {
-                                                              staticClass:
-                                                                "text-xs-center"
-                                                            },
-                                                            [
-                                                              _c(
-                                                                "p",
-                                                                [
-                                                                  _c(
-                                                                    "v-btn",
-                                                                    {
-                                                                      staticClass:
-                                                                        "lg indigo--text text--darken-3",
-                                                                      attrs: {
-                                                                        flat:
-                                                                          "",
-                                                                        small:
-                                                                          ""
-                                                                      },
-                                                                      on: {
-                                                                        click: function(
-                                                                          $event
-                                                                        ) {
-                                                                          return _vm.num_change(
-                                                                            props
-                                                                              .item
-                                                                              .items
-                                                                          )
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    [
-                                                                      _vm._v(
-                                                                        "\n                        " +
-                                                                          _vm._s(
-                                                                            props
-                                                                              .item
-                                                                              .items
-                                                                              .num
-                                                                          ) +
-                                                                          "\n                        "
-                                                                      ),
-                                                                      _c(
-                                                                        "span",
-                                                                        {
-                                                                          staticClass:
-                                                                            "mini pl-2"
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "EA"
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ]
-                                                                  )
-                                                                ],
-                                                                1
-                                                              ),
-                                                              _vm._v(" "),
-                                                              _c("p", [
-                                                                _vm._v(
-                                                                  "\n                      " +
-                                                                    _vm._s(
-                                                                      props.item
-                                                                        .items
-                                                                        .price
-                                                                    ) +
-                                                                    "\n                      "
-                                                                ),
+                                                          : _vm._e(),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "td",
+                                                          {
+                                                            staticClass:
+                                                              "text-xs-center"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "p",
+                                                              [
                                                                 _c(
-                                                                  "span",
+                                                                  "v-chip",
                                                                   {
-                                                                    staticClass:
-                                                                      "mini pl-2"
+                                                                    class:
+                                                                      props.item
+                                                                        .items
+                                                                        .item_class_val
+                                                                        .custom +
+                                                                      " chip ren",
+                                                                    attrs: {
+                                                                      large: "",
+                                                                      outline:
+                                                                        ""
+                                                                    },
+                                                                    on: {
+                                                                      click: function(
+                                                                        $event
+                                                                      ) {
+                                                                        return _vm.change_item_class(
+                                                                          props
+                                                                        )
+                                                                      }
+                                                                    }
                                                                   },
-                                                                  [_vm._v("¥")]
+                                                                  [
+                                                                    _vm._v(
+                                                                      "\n                        " +
+                                                                        _vm._s(
+                                                                          props
+                                                                            .item
+                                                                            .items
+                                                                            .item_class_val
+                                                                            .value ===
+                                                                            "ネジ・スペーサ"
+                                                                            ? "ネジ他"
+                                                                            : props
+                                                                                .item
+                                                                                .items
+                                                                                .item_class_val
+                                                                                .value
+                                                                        ) +
+                                                                        "\n                        "
+                                                                    ),
+                                                                    _c("br"),
+                                                                    _vm._v(
+                                                                      "\n                        " +
+                                                                        _vm._s(
+                                                                          props
+                                                                            .item
+                                                                            .item_ren
+                                                                        ) +
+                                                                        "\n                      "
+                                                                    )
+                                                                  ]
                                                                 )
-                                                              ])
-                                                            ]
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "td",
-                                                        {
-                                                          staticClass:
-                                                            "text-xs-center price"
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "v-layout",
-                                                            {
-                                                              attrs: {
-                                                                row: "",
-                                                                wrap: ""
-                                                              }
-                                                            },
-                                                            [
-                                                              _vm._l(
-                                                                props.item.items
-                                                                  .vendor,
-                                                                function(
-                                                                  item,
-                                                                  index
-                                                                ) {
-                                                                  return [
+                                                              ],
+                                                              1
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "td",
+                                                          {
+                                                            staticClass:
+                                                              "text-xs-center"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "p",
+                                                              {
+                                                                staticClass:
+                                                                  "item_code_area"
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "nobr",
+                                                                  [
                                                                     _c(
-                                                                      "v-flex",
+                                                                      "v-btn",
                                                                       {
-                                                                        key:
-                                                                          "n" +
-                                                                          index,
                                                                         attrs: {
-                                                                          xs6:
-                                                                            ""
+                                                                          flat:
+                                                                            "",
+                                                                          icon:
+                                                                            "",
+                                                                          small:
+                                                                            "",
+                                                                          color:
+                                                                            "primary"
+                                                                        },
+                                                                        on: {
+                                                                          click: function(
+                                                                            $event
+                                                                          ) {
+                                                                            return _vm.henshu(
+                                                                              props.item
+                                                                            )
+                                                                          }
                                                                         }
                                                                       },
                                                                       [
+                                                                        _c(
+                                                                          "v-icon",
+                                                                          {
+                                                                            attrs: {
+                                                                              small:
+                                                                                ""
+                                                                            }
+                                                                          },
+                                                                          [
+                                                                            _vm._v(
+                                                                              "far fa-edit"
+                                                                            )
+                                                                          ]
+                                                                        )
+                                                                      ],
+                                                                      1
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "span",
+                                                                      {
+                                                                        staticClass:
+                                                                          "item_code"
+                                                                      },
+                                                                      [
                                                                         _vm._v(
-                                                                          _vm._s(
-                                                                            item
-                                                                              .vendname
-                                                                              .com_name
-                                                                          )
+                                                                          "\n                          " +
+                                                                            _vm._s(
+                                                                              props
+                                                                                .item
+                                                                                .items
+                                                                                .item_code
+                                                                            ) +
+                                                                            "\n                          "
+                                                                        ),
+                                                                        _c(
+                                                                          "span",
+                                                                          {
+                                                                            staticClass:
+                                                                              "mini pa-0"
+                                                                          },
+                                                                          [
+                                                                            _vm._v(
+                                                                              "[" +
+                                                                                _vm._s(
+                                                                                  props.item.items.item_rev.numToRev()
+                                                                                ) +
+                                                                                "]"
+                                                                            )
+                                                                          ]
                                                                         )
                                                                       ]
                                                                     ),
                                                                     _vm._v(" "),
-                                                                    _vm.selecter
-                                                                      ? _c(
-                                                                          "v-flex",
+                                                                    _c(
+                                                                      "v-btn",
+                                                                      {
+                                                                        attrs: {
+                                                                          flat:
+                                                                            "",
+                                                                          icon:
+                                                                            "",
+                                                                          small:
+                                                                            "",
+                                                                          color:
+                                                                            "deep-orange darken-3"
+                                                                        },
+                                                                        on: {
+                                                                          click: function(
+                                                                            $event
+                                                                          ) {
+                                                                            return _vm.delAct(
+                                                                              props.item,
+                                                                              props.index
+                                                                            )
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "v-icon",
                                                                           {
-                                                                            key:
-                                                                              "p" +
-                                                                              index,
                                                                             attrs: {
-                                                                              xs6:
+                                                                              small:
                                                                                 ""
                                                                             }
                                                                           },
                                                                           [
                                                                             _vm._v(
-                                                                              _vm._s(
-                                                                                Math.round(
-                                                                                  item.vendor_item_price *
-                                                                                    props
-                                                                                      .item
-                                                                                      .items
-                                                                                      .num
-                                                                                ).toLocaleString()
-                                                                              )
+                                                                              "far fa-trash-alt"
                                                                             )
                                                                           ]
                                                                         )
-                                                                      : _c(
-                                                                          "v-flex",
-                                                                          {
-                                                                            key:
-                                                                              "p" +
-                                                                              index,
-                                                                            attrs: {
-                                                                              xs6:
-                                                                                ""
-                                                                            }
-                                                                          },
-                                                                          [
-                                                                            _vm._v(
-                                                                              _vm._s(
-                                                                                item.vendor_item_price
-                                                                              )
-                                                                            )
-                                                                          ]
-                                                                        )
-                                                                  ]
-                                                                }
+                                                                      ],
+                                                                      1
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              ],
+                                                              1
+                                                            ),
+                                                            _vm._v(" "),
+                                                            props.item.items
+                                                              .order_code !==
+                                                              "" &&
+                                                            props.item.items
+                                                              .order_code !==
+                                                              props.item.items
+                                                                .item_code
+                                                              ? _c("p", [
+                                                                  _vm._v(
+                                                                    "( " +
+                                                                      _vm._s(
+                                                                        props
+                                                                          .item
+                                                                          .items
+                                                                          .order_code
+                                                                      ) +
+                                                                      " )"
+                                                                  )
+                                                                ])
+                                                              : _vm._e()
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "td",
+                                                          {
+                                                            staticClass:
+                                                              "text-xs-center"
+                                                          },
+                                                          [
+                                                            _c("p", [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .items
+                                                                    .item_model
+                                                                )
                                                               )
-                                                            ],
-                                                            2
-                                                          )
-                                                        ],
-                                                        1
-                                                      )
-                                                    ])
+                                                            ]),
+                                                            _vm._v(" "),
+                                                            _c("p", [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  props.item
+                                                                    .items
+                                                                    .item_name
+                                                                ) +
+                                                                  " [ " +
+                                                                  _vm._s(
+                                                                    props.item
+                                                                      .item_use
+                                                                  ) +
+                                                                  " ]"
+                                                              )
+                                                            ])
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _vm.selecter
+                                                          ? _c(
+                                                              "td",
+                                                              {
+                                                                staticClass:
+                                                                  "text-xs-center"
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "p",
+                                                                  [
+                                                                    _c(
+                                                                      "v-btn",
+                                                                      {
+                                                                        staticClass:
+                                                                          "lg indigo--text text--darken-3",
+                                                                        attrs: {
+                                                                          flat:
+                                                                            "",
+                                                                          small:
+                                                                            ""
+                                                                        },
+                                                                        on: {
+                                                                          click: function(
+                                                                            $event
+                                                                          ) {
+                                                                            return _vm.num_change(
+                                                                              props
+                                                                                .item
+                                                                                .items
+                                                                            )
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "\n                        " +
+                                                                            _vm._s(
+                                                                              props
+                                                                                .item
+                                                                                .items
+                                                                                .num
+                                                                            ) +
+                                                                            "\n                        "
+                                                                        ),
+                                                                        _c(
+                                                                          "span",
+                                                                          {
+                                                                            staticClass:
+                                                                              "mini pl-2"
+                                                                          },
+                                                                          [
+                                                                            _vm._v(
+                                                                              "EA"
+                                                                            )
+                                                                          ]
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c("p", [
+                                                                  _vm._v(
+                                                                    "\n                      " +
+                                                                      _vm._s(
+                                                                        props
+                                                                          .item
+                                                                          .items
+                                                                          .price
+                                                                      ) +
+                                                                      "\n                      "
+                                                                  ),
+                                                                  _c(
+                                                                    "span",
+                                                                    {
+                                                                      staticClass:
+                                                                        "mini pl-2"
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        "¥"
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                ])
+                                                              ]
+                                                            )
+                                                          : _vm._e(),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "td",
+                                                          {
+                                                            staticClass:
+                                                              "text-xs-center price"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "v-layout",
+                                                              {
+                                                                attrs: {
+                                                                  row: "",
+                                                                  wrap: ""
+                                                                }
+                                                              },
+                                                              [
+                                                                _vm._l(
+                                                                  props.item
+                                                                    .items
+                                                                    .vendor,
+                                                                  function(
+                                                                    item,
+                                                                    index
+                                                                  ) {
+                                                                    return [
+                                                                      _c(
+                                                                        "v-flex",
+                                                                        {
+                                                                          key:
+                                                                            "n" +
+                                                                            index,
+                                                                          attrs: {
+                                                                            xs6:
+                                                                              ""
+                                                                          }
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            _vm._s(
+                                                                              item
+                                                                                .vendname
+                                                                                .com_name
+                                                                            )
+                                                                          )
+                                                                        ]
+                                                                      ),
+                                                                      _vm._v(
+                                                                        " "
+                                                                      ),
+                                                                      _vm.selecter
+                                                                        ? _c(
+                                                                            "v-flex",
+                                                                            {
+                                                                              key:
+                                                                                "p" +
+                                                                                index,
+                                                                              attrs: {
+                                                                                xs6:
+                                                                                  ""
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                _vm._s(
+                                                                                  Math.round(
+                                                                                    item.vendor_item_price *
+                                                                                      props
+                                                                                        .item
+                                                                                        .items
+                                                                                        .num
+                                                                                  ).toLocaleString()
+                                                                                )
+                                                                              )
+                                                                            ]
+                                                                          )
+                                                                        : _c(
+                                                                            "v-flex",
+                                                                            {
+                                                                              key:
+                                                                                "p" +
+                                                                                index,
+                                                                              attrs: {
+                                                                                xs6:
+                                                                                  ""
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                _vm._s(
+                                                                                  item.vendor_item_price
+                                                                                )
+                                                                              )
+                                                                            ]
+                                                                          )
+                                                                    ]
+                                                                  }
+                                                                )
+                                                              ],
+                                                              2
+                                                            )
+                                                          ],
+                                                          1
+                                                        )
+                                                      ]
+                                                    )
                                                   : _vm._e()
                                               ]
                                             }

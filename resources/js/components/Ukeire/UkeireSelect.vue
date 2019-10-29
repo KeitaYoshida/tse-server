@@ -35,43 +35,48 @@
       :search="search"
     >
       <template v-slot:items="props">
-        <td class="text-xs-center">
-          <v-btn
-            outline
-            :color="rtNyukaClass(props.item)"
-            @click="ukchip(props.item)"
-            v-if="numMode===false"
-            large
-            class="ninsho"
-          >
-            {{ props.item.order_key}}
-            <br />
-            {{ rtNyukaStatus(props.item) }}
-          </v-btn>
-          <v-btn
-            color="primary"
-            @click="ukchip(props.item, set_num)"
-            v-if="numMode===true"
-            dark
-            large
-            class="ninsho"
-          >
-            {{ props.item.order_key}}
-            <br />数量セット
-          </v-btn>
-        </td>
-        <td class="text-xs-center">{{ rtCmpt(props.item.cmpt) }}</td>
-        <td class="text-xs-center">
-          <p v-html="rtOrderCode(props.item.item)"></p>
-        </td>
-        <td class="text-xs-center">
-          <p>{{ props.item.item.item_name }}</p>
-          <p>{{ props.item.item.item_model }}</p>
-        </td>
-        <td class="text-xs-center num">
-          <p>{{ props.item.num_order }}</p>
-          <p>{{ props.item.num_recept }}</p>
-        </td>
+        <tr :class="numClass(props.item.appo_num, props.item.num_order)">
+          <td class="text-xs-center">
+            <v-btn
+              outline
+              :color="rtNyukaClass(props.item)"
+              @click="ukchip(props.item)"
+              v-if="numMode===false"
+              large
+              class="ninsho"
+            >
+              {{ props.item.order_key}}
+              <br />
+              {{ rtNyukaStatus(props.item) }}
+            </v-btn>
+            <v-btn
+              color="primary"
+              @click="ukchip(props.item, set_num)"
+              v-if="numMode===true"
+              dark
+              large
+              class="ninsho"
+            >
+              {{ props.item.order_key}}
+              <br />数量セット
+            </v-btn>
+          </td>
+          <td class="text-xs-center">{{ rtCmpt(props.item.cmpt) }}</td>
+          <td class="text-xs-center">
+            <p v-html="rtOrderCode(props.item.item)"></p>
+          </td>
+          <td class="text-xs-center">
+            <p>{{ props.item.item.item_name }}</p>
+            <p>{{ props.item.item.item_model }}</p>
+          </td>
+          <td class="text-xs-center num">
+            <p>{{ props.item.appo_num }}</p>
+          </td>
+          <td class="text-xs-center num">
+            <p>{{ props.item.num_order }}</p>
+            <p>{{ props.item.num_recept }}</p>
+          </td>
+        </tr>
       </template>
     </v-data-table>
     <v-dialog
@@ -98,6 +103,7 @@ export default {
         { text: "親形式", value: "", align: "center" },
         { text: "部材品番", value: "item.item_code", align: "center" },
         { text: "部材品名／型式", value: "item.order_code", align: "center" },
+        { text: "実数", value: "", align: "center" },
         { text: "発注／入庫数", value: "", align: "center" }
       ],
       pagination: {
@@ -216,6 +222,13 @@ export default {
           }
         ]
       };
+    },
+    numClass(appo, order) {
+      if (appo > order) {
+        return "useLastItem";
+      } else if (appo < order) {
+        return "lotOrder";
+      }
     }
   }
 };
@@ -234,5 +247,11 @@ th {
 }
 td.num {
   font-size: 1.4rem;
+}
+.useLastItem {
+  background: lavenderblush;
+}
+.lotOrder {
+  background: aliceblue;
 }
 </style>
