@@ -40,7 +40,7 @@ class CntOrderCtrl extends Controller
     // return $o->where('cnt_order_code', $ccode)->whereHas('price', function ($q) {
     //   return $q->where('vendor_code', 'k0004');
     // })->with('price.vname')->get();
-    return $o->where('cnt_order_code', $ccode)->with(['price.vname', 'cmpt', 'item', 'listdata'])->orderBy('cmpt_id')->orderBy('assy_num')->get();
+    return $o->where('cnt_order_code', $ccode)->with(['price.vname', 'cmpt', 'item.vendor.vendname', 'listdata'])->orderBy('cmpt_id')->orderBy('assy_num')->get();
   }
 
   public function OrderDataOne($ccode)

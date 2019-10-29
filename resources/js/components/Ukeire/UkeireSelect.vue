@@ -62,7 +62,9 @@
             </v-btn>
           </td>
           <td class="text-xs-center">{{ rtCmpt(props.item.cmpt) }}</td>
-          <td class="text-xs-center">{{ props.item.item.maker_name }}</td>
+          <td
+            class="text-xs-center"
+          >{{ props.item.item.vendor.length > 0 ? props.item.item.vendor[0].vendname.com_name : '-' }}</td>
           <td class="text-xs-center">
             <p v-html="rtOrderCode(props.item.item)"></p>
           </td>
@@ -102,7 +104,11 @@ export default {
       headers: [
         { text: "認証No・状態", value: "order_key", align: "center" },
         { text: "親形式", value: "", align: "center" },
-        { text: "手配先", value: "item.maker_name", align: "center" },
+        {
+          text: "手配先",
+          value: "item.vendor[0].vendname.com_name",
+          align: "center"
+        },
         { text: "部材品番", value: "item.item_code", align: "center" },
         { text: "部材品名／型式", value: "item.order_code", align: "center" },
         { text: "実数", value: "", align: "center" },
@@ -165,7 +171,7 @@ export default {
       return order_code + "<br />" + "( " + item_code + " )";
     },
     rtNyukaClass(item) {
-      // console.log(item);
+      console.log(item);
       let onum = item.num_order;
       let unum = item.num_recept;
       if (onum <= unum) {

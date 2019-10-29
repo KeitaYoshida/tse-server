@@ -1044,6 +1044,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1062,7 +1064,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         align: "center"
       }, {
         text: "手配先",
-        value: "item.maker_name",
+        value: "item.vendor[0].vendname.com_name",
         align: "center"
       }, {
         text: "部材品番",
@@ -1132,7 +1134,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return order_code + "<br />" + "( " + item_code + " )";
     },
     rtNyukaClass: function rtNyukaClass(item) {
-      // console.log(item);
+      console.log(item);
       var onum = item.num_order;
       var unum = item.num_recept;
 
@@ -2422,7 +2424,13 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-xs-center" }, [
-                            _vm._v(_vm._s(props.item.item.maker_name))
+                            _vm._v(
+                              _vm._s(
+                                props.item.item.vendor.length > 0
+                                  ? props.item.item.vendor[0].vendname.com_name
+                                  : "-"
+                              )
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-xs-center" }, [
@@ -2462,7 +2470,7 @@ var render = function() {
               ],
               null,
               false,
-              1806405312
+              3246951277
             )
           }),
           _vm._v(" "),
