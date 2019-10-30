@@ -10,12 +10,16 @@
           <span id="kanri-no">ＴＳ２−３９</span>
         </li>
         <li class="infomation">
-          日付：
-          <span id="work-day">{{ get__hiduke() }}</span>
+          手順書番号：
+          <span id="work-day">ＭＴ−１３３５</span>
         </li>
         <li class="infomation">
           作業者：
           <span id="work-user">{{ check_list.work_user }}</span>
+        </li>
+        <li class="infomation">
+          日付：
+          <span id="work-day">{{ get__hiduke() }}</span>
         </li>
       </ul>
       <table id="chk_info">

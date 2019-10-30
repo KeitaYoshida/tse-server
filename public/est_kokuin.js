@@ -99,6 +99,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -547,9 +551,9 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "infomation" }, [
-              _vm._v("\n        日付：\n        "),
+              _vm._v("\n        手順書番号：\n        "),
               _c("span", { attrs: { id: "work-day" } }, [
-                _vm._v(_vm._s(_vm.get__hiduke()))
+                _vm._v("ＭＴ−１３３５")
               ])
             ]),
             _vm._v(" "),
@@ -557,6 +561,13 @@ var render = function() {
               _vm._v("\n        作業者：\n        "),
               _c("span", { attrs: { id: "work-user" } }, [
                 _vm._v(_vm._s(_vm.check_list.work_user))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "infomation" }, [
+              _vm._v("\n        日付：\n        "),
+              _c("span", { attrs: { id: "work-day" } }, [
+                _vm._v(_vm._s(_vm.get__hiduke()))
               ])
             ])
           ]),
