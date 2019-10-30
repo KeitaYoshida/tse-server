@@ -476,6 +476,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2412,6 +2424,28 @@ var render = function() {
                               )
                             )
                           ])
+                        ]),
+                        _vm._v(" "),
+                        _c("v-flex", { attrs: { xs5: "" } }, [
+                          _c("span", { staticClass: "mini" }, [
+                            _vm._v("手配日:")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("v-flex", { attrs: { xs7: "" } }, [
+                          _c("span", [
+                            _vm._v(_vm._s(item.created_at.slice(0, 10)))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("v-flex", { attrs: { xs5: "" } }, [
+                          _c("span", { staticClass: "mini" }, [
+                            _vm._v("指定日:")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("v-flex", { attrs: { xs7: "" } }, [
+                          _c("span", [_vm._v(_vm._s(item.order_day))])
                         ]),
                         _vm._v(" "),
                         _c("v-flex", { attrs: { xs7: "" } }, [

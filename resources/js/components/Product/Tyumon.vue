@@ -52,6 +52,18 @@
             <v-flex xs7>
               <span>{{ item.order_price === null ? 0 : item.order_price.toLocaleString() }}</span>
             </v-flex>
+            <v-flex xs5>
+              <span class="mini">手配日:</span>
+            </v-flex>
+            <v-flex xs7>
+              <span>{{ item.created_at.slice(0, 10) }}</span>
+            </v-flex>
+            <v-flex xs5>
+              <span class="mini">指定日:</span>
+            </v-flex>
+            <v-flex xs7>
+              <span>{{ item.order_day }}</span>
+            </v-flex>
             <v-flex xs7>
               <span class="mini">手配（セット）数：</span>
             </v-flex>

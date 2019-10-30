@@ -416,7 +416,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
         pdct_id: fm.pdct_id,
         order_price: 0,
         cnt_order_num: fm.num,
-        user_yoyaku: fm.user
+        user_yoyaku: fm.user,
+        order_day: fm.order_day
       };
       var price = 0;
       var dCntOrders = [];
