@@ -890,6 +890,11 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       var _this3 = this;
 
       this.select = !this.select;
+
+      if (select.model_code === "TSE_RP") {
+        this.fm.order_class = 3;
+      }
+
       axios.get("/db/model_mst/data/" + select.model_id).then(function (res) {
         _this3.fm.model = _this3.search = select.model_code;
         _this3.fm.rev = select.model_rev;

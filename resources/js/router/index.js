@@ -176,6 +176,9 @@ let router = new Router({
             path: "/work",
             name: "work",
             component: work,
+            meta: {
+                requiresAuth: true
+            },
         },
         {
             path: "/sumup",

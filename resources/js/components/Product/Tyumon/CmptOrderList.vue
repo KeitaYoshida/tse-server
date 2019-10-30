@@ -355,7 +355,10 @@ export default {
             assy_num: ar.item_ren,
             item_id: i.item_id,
             num_order: ar.items.num,
-            appo_num: fm.num * ar.item_use
+            appo_num:
+              ar.items.fix_num === undefined
+                ? fm.num * ar.item_use
+                : ar.items.fix_num
           };
           if (i.vendor !== undefined) {
             i.vendor.forEach((arr, nn) => {
@@ -478,6 +481,9 @@ export default {
     },
     change_num(d) {
       this.num_change_target.num = d.data[0].value;
+      if (this.fm.order_class === 3) {
+        this.num_change_target.fix_num = d.data[0].value;
+      }
       this.num_select_obj = {
         title: "手配数量変更",
         message: "手配数を変更できます。",

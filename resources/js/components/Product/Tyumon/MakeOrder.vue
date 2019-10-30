@@ -242,6 +242,9 @@ export default {
     },
     rtModel(select) {
       this.select = !this.select;
+      if (select.model_code === "TSE_RP") {
+        this.fm.order_class = 3;
+      }
       axios.get("/db/model_mst/data/" + select.model_id).then(res => {
         this.fm.model = this.search = select.model_code;
         this.fm.rev = select.model_rev;

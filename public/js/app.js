@@ -77331,7 +77331,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   }, {
     path: "/work",
     name: "work",
-    component: work
+    component: work,
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: "/sumup",
     name: "sumup",
