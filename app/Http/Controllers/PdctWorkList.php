@@ -118,4 +118,15 @@ class PdctWorkList extends Controller
     $PWLC = new PdctWorkdataList;
     $PWLC->where('worklist_id', $wid)->update(['worklist_status' => $status]);
   }
+  public function GetWorkingConstList()
+  {
+    $PWLC = new PdctWorkdataList;
+    return $PWLC
+      ->where('context', '!=', 0)
+      ->where('context', '!=', 100)
+      ->with(['status', 'class', 'model'])
+      ->with(['serials.process' => function ($q) {
+        $q->orderBy('process.row', 'asc');
+      }])->get();
+  }
 }

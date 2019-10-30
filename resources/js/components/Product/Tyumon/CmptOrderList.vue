@@ -85,7 +85,19 @@
                     </td>
                     <td class="text-xs-center">
                       <p>{{ props.item.items.item_model }}</p>
-                      <p>{{ props.item.items.item_name }} [ {{ props.item.item_use }} ]</p>
+                      <p>
+                        <span v-if="props.item.items.lot_num > 0">
+                          <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                              <v-chip small outline color="primary" class="box" v-on="on">lot</v-chip>
+                            </template>
+                            <span
+                              v-html="returnLotValue(props.item.items.lot_num, props.item.items.minimum_set)"
+                            ></span>
+                          </v-tooltip>
+                        </span>
+                        {{ props.item.items.item_name }} [ {{ props.item.item_use }} ]
+                      </p>
                     </td>
                     <td class="text-xs-center" v-if="selecter">
                       <p>
@@ -195,6 +207,7 @@ import DelChecker from "./../../com/ComCheckDialog";
 import NumChanger from "./../../com/ComFormDialog";
 import HenshuView from "./../../ItemData/Henshu";
 import AddCmptItem from "./../../com/ComFormDialog";
+import PopUpLotNum from "@/components/com/Hint";
 
 import { mapState, mapMutations } from "vuex";
 
@@ -203,7 +216,8 @@ export default {
     DelChecker,
     AddCmptItem,
     NumChanger,
-    HenshuView
+    HenshuView,
+    PopUpLotNum
   },
   computed: {
     ...mapState({
@@ -624,6 +638,12 @@ export default {
       // console.log(tmp.data);
       await this.review();
       this.delcmpt = false;
+    },
+    returnLotValue(lot, min) {
+      return `
+        <h5>Lot 手配数: ${lot}</h5>
+        <h5>最小手配数: ${min}</h5>
+      `;
     }
   }
 };
@@ -687,6 +707,10 @@ p {
 }
 .lotOrder {
   background: aliceblue;
+}
+.v-chip.v-chip.v-chip--outline.box {
+  border-radius: 0;
+  cursor: pointer;
 }
 // tr,
 // td {

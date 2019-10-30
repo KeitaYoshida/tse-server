@@ -1,7 +1,10 @@
-<template></template>
+<template>
+  <div>test</div>
+</template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import Axios from "axios";
 
 export default {
   props: [],
@@ -20,9 +23,8 @@ export default {
   methods: {
     ...mapActions([]),
     async init() {
-      const TarDay = 60;
-      let his = await axios.get("/db/inventory/history/day" + TarDay);
-      console.log(his);
+      let list = await axios.get("/db/inventory/working/const/list");
+      console.log(list.data);
     }
   }
 };
