@@ -1046,6 +1046,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1134,7 +1146,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return order_code + "<br />" + "( " + item_code + " )";
     },
     rtNyukaClass: function rtNyukaClass(item) {
-      // console.log(item);
+      console.log(item);
       var onum = item.num_order;
       var unum = item.num_recept;
 
@@ -1200,6 +1212,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else if (appo < order) {
         return "lotOrder";
       }
+    },
+    returnLotValue: function returnLotValue(lot, min) {
+      return "\n        <h5>Lot \u624B\u914D\u6570: ".concat(lot, "</h5>\n        <h5>\u6700\u5C0F\u624B\u914D\u6570: ").concat(min, "</h5>\n      ");
     }
   }
 });
@@ -1342,7 +1357,7 @@ exports.push([module.i, ".biger[data-v-7bcff8b0] {\n  font-size: 1.3rem;\n}", ""
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "p[data-v-09265ab0] {\n  margin: 0;\n}\ntd[data-v-09265ab0],\nth[data-v-09265ab0] {\n  padding: 0 !important;\n}\n.v-chip.ninsho .v-chip__content[data-v-09265ab0] {\n  height: 42px;\n}\ntd.num[data-v-09265ab0] {\n  font-size: 1.4rem;\n}\n.useLastItem[data-v-09265ab0] {\n  background: lavenderblush;\n}\n.lotOrder[data-v-09265ab0] {\n  background: aliceblue;\n}", ""]);
+exports.push([module.i, "p[data-v-09265ab0] {\n  margin: 0;\n}\ntd[data-v-09265ab0],\nth[data-v-09265ab0] {\n  padding: 0 !important;\n}\n.v-chip.ninsho .v-chip__content[data-v-09265ab0] {\n  height: 42px;\n}\ntd.num[data-v-09265ab0] {\n  font-size: 1.4rem;\n}\n.useLastItem[data-v-09265ab0] {\n  background: lavenderblush;\n}\n.lotOrder[data-v-09265ab0] {\n  background: aliceblue;\n}\n.v-chip.v-chip.v-chip--outline.box[data-v-09265ab0] {\n  border-radius: 0;\n  cursor: pointer;\n}", ""]);
 
 
 
@@ -2445,7 +2460,67 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "text-xs-center" }, [
                             _c("p", [
-                              _vm._v(_vm._s(props.item.item.item_name))
+                              props.item.item.lot_num > 0
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c(
+                                        "v-tooltip",
+                                        {
+                                          attrs: { top: "" },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "activator",
+                                                fn: function(ref) {
+                                                  var on = ref.on
+                                                  return [
+                                                    _c(
+                                                      "v-chip",
+                                                      _vm._g(
+                                                        {
+                                                          staticClass: "box",
+                                                          attrs: {
+                                                            small: "",
+                                                            outline: "",
+                                                            color: "primary"
+                                                          }
+                                                        },
+                                                        on
+                                                      ),
+                                                      [_vm._v("lot")]
+                                                    )
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            null,
+                                            true
+                                          )
+                                        },
+                                        [
+                                          _vm._v(" "),
+                                          _c("span", {
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                _vm.returnLotValue(
+                                                  props.item.item.lot_num,
+                                                  props.item.item.minimum_set
+                                                )
+                                              )
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(props.item.item.item_name) +
+                                  "\n          "
+                              )
                             ]),
                             _vm._v(" "),
                             _c("p", [
@@ -2470,7 +2545,7 @@ var render = function() {
               ],
               null,
               false,
-              3246951277
+              356988112
             )
           }),
           _vm._v(" "),
@@ -3026,6 +3101,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
 /* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTooltip */ "./node_modules/vuetify/lib/components/VTooltip/index.js");
 
 
 
@@ -3053,7 +3129,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__["VDialog"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__["VDialog"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"],VTooltip: vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_11__["VTooltip"]})
 
 
 /* hot reload */
