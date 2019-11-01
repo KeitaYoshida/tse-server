@@ -121,13 +121,7 @@
     <v-dialog v-model="detail" max-width="500px" transition="dialog-transition">
       <ReceptDetail :item="item" v-if="detail"></ReceptDetail>
     </v-dialog>
-    <v-dialog
-      v-model="make"
-      scrollable
-      hide-overlay
-      transition="dialog-bottom-transition"
-      width="550px"
-    >
+    <v-dialog v-model="make" width="700px">
       <MakePdct :target="target" v-if="make" @createPdct="createPdct"></MakePdct>
     </v-dialog>
     <v-bottom-nav fixed value="value" active.sync="value">

@@ -109,7 +109,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     changeFlg: function changeFlg() {
       this.code = this.code === "" ? this.target.const_code : this.code;
-      this.add_pdct = false;
+      this.add_pdct = false; // console.log(this.code);
+
       var f = this.code.slice(-1) === "M" ? true : false;
       var l = this.code.length;
 
@@ -433,12 +434,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PriceInfo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PriceInfo */ "./resources/js/components/ReceptList/PriceInfo.vue");
 /* harmony import */ var _SwitchViewCtrl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SwitchViewCtrl */ "./resources/js/components/ReceptList/SwitchViewCtrl.vue");
 /* harmony import */ var _MakePdct__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./MakePdct */ "./resources/js/components/ReceptList/MakePdct.vue");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -1296,7 +1291,10 @@ var render = function() {
             [
               _c(
                 "v-flex",
-                { staticClass: "pt-3 pb-3", attrs: { xs10: "" } },
+                {
+                  staticClass: "pt-3 pb-3 top-box",
+                  attrs: { xs10: "", "offset-xs1": "" }
+                },
                 [
                   _c("v-text-field", {
                     attrs: {
@@ -2221,12 +2219,7 @@ var render = function() {
       _c(
         "v-dialog",
         {
-          attrs: {
-            scrollable: "",
-            "hide-overlay": "",
-            transition: "dialog-bottom-transition",
-            width: "550px"
-          },
+          attrs: { width: "700px" },
           model: {
             value: _vm.make,
             callback: function($$v) {

@@ -5,7 +5,7 @@
       <v-chip outline color="primary">形式：{{ target.recept_code }}</v-chip>
       <v-chip outline color="primary">工事番号：{{ target.const_code }}</v-chip>
       <v-layout wrap align-space-around justify-center fill-height>
-        <v-flex xs10 class="pt-3 pb-3">
+        <v-flex xs10 offset-xs1 class="pt-3 pb-3 top-box">
           <v-text-field label="製造コード" v-model="code" prepend-icon="fas fa-sitemap"></v-text-field>
         </v-flex>
         <v-flex xs3>
@@ -92,6 +92,7 @@ export default {
     changeFlg() {
       this.code = this.code === "" ? this.target.const_code : this.code;
       this.add_pdct = false;
+      // console.log(this.code);
       let f = this.code.slice(-1) === "M" ? true : false;
       let l = this.code.length;
       switch (this.radioGroup) {
