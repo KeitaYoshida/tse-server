@@ -105,4 +105,9 @@ class PdctCtrl extends Controller
     }
     return $i;
   }
+  public function GetPdctData($pid)
+  {
+    $pdct = new Production;
+    return $pdct->where('pdct_id', $pid)->get();
+  }
 }

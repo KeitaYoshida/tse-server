@@ -1,6 +1,7 @@
 <template>
   <v-card>
     <v-card-text>
+      <v-btn color="primary" v-if="item.pdct_id !== null" @click="viewPdct(item)">製造データ閲覧</v-btn>
       <v-chip outline :class="view_class[view_flg]">{{ view_val[view_flg] }}</v-chip>
       <br />
       <v-chip outline :class="view_class[view_flg]">
@@ -62,6 +63,8 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from "vuex";
+
 export default {
   props: ["item"],
   data: function() {
@@ -86,15 +89,26 @@ export default {
         "blue--text text--darken-4",
         "green--text text--darken-4",
         "blue--text text--darken-4"
-      ]
+      ],
+      product_data: null
     };
+  },
+  computed: {
+    ...mapState({
+      tar: "target",
+      search_x: state => state.search.modelconst
+    })
   },
   created: function() {
     this.init();
   },
   methods: {
+    ...mapActions(["SEARCH_MODELCONST"]),
     init() {
       let i = this.item;
+      axios.get("/db/pdct/data/" + this.item.pdct_id).then(res => {
+        if (res.data[0] !== undefined) this.product_data = res.data[0];
+      });
       if (i.detail_code !== null) {
         this.detail_flg = true;
       }
@@ -110,6 +124,10 @@ export default {
       } else if (this.detail_flg === true && this.product_flg === true) {
         this.view_flg = 3;
       }
+    },
+    async viewPdct(item) {
+      await this.SEARCH_MODELCONST(this.product_data.const_code);
+      this.$router.push("/product_list");
     }
   }
 };

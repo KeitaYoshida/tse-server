@@ -15,9 +15,33 @@
               <v-flex xs8>{{ item.detail_code }}</v-flex>
             </template>
             <v-flex xs4>
+              <span class="mini">受注形式:</span>
+            </v-flex>
+            <v-flex xs8>{{ item.recept_code }}</v-flex>
+            <v-flex xs4>
+              <span class="mini">工事番号:</span>
+            </v-flex>
+            <v-flex xs8>{{ item.const_code }}</v-flex>
+            <v-flex xs4>
               <span class="mini">受注数:</span>
             </v-flex>
             <v-flex xs8>{{ item.order_num }}</v-flex>
+            <v-flex xs4>
+              <span class="mini">発注日:</span>
+            </v-flex>
+            <v-flex xs8>{{ item.day3_irai }}</v-flex>
+            <v-flex xs4>
+              <span class="mini">指定日:</span>
+            </v-flex>
+            <v-flex xs8>{{ item.day3_nonyu_shitei }}</v-flex>
+            <v-flex xs5>
+              <span class="mini">明細発行日:</span>
+            </v-flex>
+            <v-flex xs7>{{ item.day5hatyu }}</v-flex>
+            <v-flex xs5>
+              <span class="mini">明細指定日:</span>
+            </v-flex>
+            <v-flex xs7>{{ item.day5nonyu_yotei }}</v-flex>
             <v-flex xs12>{{ item.recept_name }}</v-flex>
             <v-flex xs12 class="text-xs-center pt-3">
               <v-btn outline small>受注データリンク解除</v-btn>
@@ -32,7 +56,9 @@
 <script>
 export default {
   props: ["target"],
-  created: function() {}
+  created: function() {
+    // console.log(this.target);
+  }
 };
 </script>
 

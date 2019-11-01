@@ -1086,9 +1086,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["target"],
-  created: function created() {}
+  created: function created() {// console.log(this.target);
+  }
 });
 
 /***/ }),
@@ -3231,11 +3256,67 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _c("v-flex", { attrs: { xs4: "" } }, [
+                        _c("span", { staticClass: "mini" }, [
+                          _vm._v("受注形式:")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs8: "" } }, [
+                        _vm._v(_vm._s(item.recept_code))
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs4: "" } }, [
+                        _c("span", { staticClass: "mini" }, [
+                          _vm._v("工事番号:")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs8: "" } }, [
+                        _vm._v(_vm._s(item.const_code))
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs4: "" } }, [
                         _c("span", { staticClass: "mini" }, [_vm._v("受注数:")])
                       ]),
                       _vm._v(" "),
                       _c("v-flex", { attrs: { xs8: "" } }, [
                         _vm._v(_vm._s(item.order_num))
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs4: "" } }, [
+                        _c("span", { staticClass: "mini" }, [_vm._v("発注日:")])
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs8: "" } }, [
+                        _vm._v(_vm._s(item.day3_irai))
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs4: "" } }, [
+                        _c("span", { staticClass: "mini" }, [_vm._v("指定日:")])
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs8: "" } }, [
+                        _vm._v(_vm._s(item.day3_nonyu_shitei))
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs5: "" } }, [
+                        _c("span", { staticClass: "mini" }, [
+                          _vm._v("明細発行日:")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs7: "" } }, [
+                        _vm._v(_vm._s(item.day5hatyu))
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs5: "" } }, [
+                        _c("span", { staticClass: "mini" }, [
+                          _vm._v("明細指定日:")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs7: "" } }, [
+                        _vm._v(_vm._s(item.day5nonyu_yotei))
                       ]),
                       _vm._v(" "),
                       _c("v-flex", { attrs: { xs12: "" } }, [

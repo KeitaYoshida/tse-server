@@ -51,7 +51,7 @@ class ReceptCtrl extends Controller
   public function Tyuzan()
   {
     $rc = new Reception;
-    return $rc->where('rcpt_status', '<', 4)->get();
+    return $rc->where('rcpt_status', '<=', 4)->get();
   }
 
   public function OneColumnUpdate($id, $col, $val)

@@ -102,6 +102,7 @@ Route::get("/db/pdct/is/this/{code}", 'PdctCtrl@CheckDup');
 Route::get("/db/pdct/list/live", 'PdctCtrl@ProductList');
 Route::get("/db/pdct/nolink/{id}", 'PdctCtrl@NoLinkUpdate');
 Route::post('/db/pdct/make/sn_process', 'PdctCtrl@MakeSerialProcess');
+Route::get("/db/pdct/data/{pid}", "PdctCtrl@GetPdctData");
 
 Route::get("/db/workdata/make/class", 'PdctCtrl@GetMakeWorkdataClass');
 Route::get("/db/workdata/get/worklist/num/{id}", 'PdctCtrl@GetWorklistNum');
