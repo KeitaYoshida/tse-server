@@ -344,32 +344,6 @@ export default {
             ? ar.day5hatyu
             : ar.day3_nonyu_shitei) +
           "\n";
-
-        // list = list + (ar.recept_id === null ? "" : ar.recept_id) + ",";
-        // list = list + (ar.rcpt_status === null ? "" : ar.rcpt_status) + ",";
-        // list = list + (ar.pdct_id === null ? "" : ar.pdct_id) + ",";
-        // list = list + (ar.nohin_num === null ? "" : ar.nohin_num) + ",";
-        // list =
-        //   list + (ar.last_nohin_day === null ? "" : ar.last_nohin_day) + ",";
-        // list = list + (ar.nyuka_num === null ? "" : ar.nyuka_num) + ",";
-        // list = list = list + (ar.ym === null ? "" : ar.ym) + ",";
-        // list = list + (ar.day3_irai === null ? "" : ar.day3_irai) + ",";
-        // list =
-        //   list +
-        //   (ar.day3_nonyu_shitei === null ? "" : ar.day3_nonyu_shitei) +
-        //   ",";
-        // list = list + (ar.day5hatyu === null ? "" : ar.day5hatyu) + ",";
-        // list =
-        //   list + (ar.day5nonyu_yotei === null ? "" : ar.day5nonyu_yotei) + ",";
-        // list = list + (ar.memo_bikou1 === null ? "" : ar.memo_bikou1) + ",";
-        // list = list + (ar.memo_bikou2 === null ? "" : ar.memo_bikou2) + ",";
-        // list = list + (ar.shiyo === null ? "" : ar.shiyo) + ",";
-        // list = list + (ar.tekiyo === null ? "" : ar.tekiyo) + ",";
-        // list =
-        //   list + (ar.set_update_time === null ? "" : ar.set_update_time) + ",";
-        // list = list + (ar.ts_update_day === null ? "" : ar.ts_update_day) + ",";
-        // list =
-        //   list + (ar.ts_update_time === null ? "" : ar.ts_update_time) + "\n";
       });
       list = iconv.encode(list, "Shift_JIS");
       let blob = new Blob([list], { type: "text/csv" });

@@ -21,11 +21,7 @@
         <br />
         <div class="mini">{{ tar.process.base.mrev.numToRev() }}</div>
       </span>
-      <span class="text">
-        {{ tar.process.base.wcode }}
-        <br />
-        <div class="mini">( id: {{ tar.process.base.wid }} )</div>
-      </span>
+      <BrotherList :prop="returnBrother()" v-if="tar.process.brother " @rtVal="selectBrother" />
       <span class="text">{{ tar.process.base.num }} ea</span>
       <span
         v-if="tar.process.base.num !== tar.process.base.all_num"
@@ -37,10 +33,13 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
+import BrotherList from "@/components/com/ComMenu";
 
 export default {
   props: [],
-  components: {},
+  components: {
+    BrotherList
+  },
   data: function() {
     return {};
   },
@@ -67,6 +66,30 @@ export default {
       axios.get("/db/workdata/set/status/" + work_id + "/" + model_status);
 
       return (f2 / fa) * 100;
+    },
+    returnBrother() {
+      let b = [];
+      this.tar.process.brother.forEach(ar => {
+        b.push(ar.worklist_code);
+      });
+      return {
+        color: "#3949AB",
+        text: this.tar.process.base.wcode,
+        value: b,
+        outline: true,
+        dark: true,
+        selected: null,
+        rad: "5px",
+        small: false
+      };
+    },
+    selectBrother(item) {
+      let select = this.tar.process.brother.filter(
+        b => b.worklist_code === item
+      )[0];
+      this.$router.push({
+        path: "/process/" + select.worklist_id
+      });
     }
   }
 };

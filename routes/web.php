@@ -103,6 +103,7 @@ Route::get("/db/pdct/list/live", 'PdctCtrl@ProductList');
 Route::get("/db/pdct/nolink/{id}", 'PdctCtrl@NoLinkUpdate');
 Route::post('/db/pdct/make/sn_process', 'PdctCtrl@MakeSerialProcess');
 Route::get("/db/pdct/data/{pid}", "PdctCtrl@GetPdctData");
+Route::get("/db/pdct/brother/{pid}", "PdctCtrl@GetPdctBrother");
 
 Route::get("/db/workdata/make/class", 'PdctCtrl@GetMakeWorkdataClass');
 Route::get("/db/workdata/get/worklist/num/{id}", 'PdctCtrl@GetWorklistNum');
@@ -112,7 +113,7 @@ Route::get("/db/workdata/get/process_status", "PdctWorkList@GetProcessStatus");
 Route::get("/db/workdata/process/status/{wid}/{row}", "PdctWorkList@GetProcessSerialStatus");
 Route::post("/db/workdata/set/sn/act/{row}", "PdctWorkList@SetSnAct");
 Route::get("/db/workdata/cmpt/items/{wid}", "PdctWorkList@GetWorkItems");
-Route::post("/db/workdata/use/item/act/{flg}", "PdctWorkList@UseItemAction");
+Route::post("/db/workdata/use/item/act/{flg}/{price}/{wid}", "PdctWorkList@UseItemAction");
 Route::get("/db/workdata/set/const/status/{wid}/{per}", "PdctWorkList@SetConstStatus");
 Route::get("/db/workdata/delete/const/{wid}", "PdctWorkList@DeleteConst");
 Route::get("/db/workdata/set/status/{wid}/{status}", "PdctWorkList@SetStatus");

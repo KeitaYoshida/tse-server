@@ -56,6 +56,7 @@ export default {
   methods: {
     ...mapActions(["PROCESS_INIT"]),
     async init() {
+      // await this.PROCESS_INIT(null);
       this.id = this.$route.params.id;
       let d = await axios.get("/db/workdata/process/" + this.id);
       // console.log(d.data);
@@ -81,12 +82,18 @@ export default {
       let tmp = await axios.post("/db/comt/get/data/arr", cmpt);
       cmpt = tmp.data;
       let pst = await axios.get("/db/workdata/get/process_status");
-      this.PROCESS_INIT({
+      let pdct_id = d.data[0].pdct_id;
+      let list = null;
+      await axios.get("/db/pdct/brother/" + pdct_id).then(res => {
+        list = res.data[0].workdata;
+      });
+      await this.PROCESS_INIT({
         serials: sn,
         process: process,
         components: cmpt,
         process_status: pst.data,
-        base: this.init_base(d.data[0], status)
+        base: this.init_base(d.data[0], status),
+        brother: list
       });
       this.loading = false;
       this.update_const_status(status);
@@ -151,6 +158,11 @@ export default {
       if (cmpt.indexOf(p.cmpt_id) === -1) {
         cmpt.push(p.cmpt_id);
       }
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.reload();
     }
   },
   beforeDestroy: function() {

@@ -110,4 +110,9 @@ class PdctCtrl extends Controller
     $pdct = new Production;
     return $pdct->where('pdct_id', $pid)->get();
   }
+  public function GetPdctBrother($pid)
+  {
+    $pdct = new Production;
+    return $pdct->where('pdct_id', $pid)->with('workdata')->get();
+  }
 }

@@ -133,6 +133,10 @@ export const mutations = {
         state.target.product.workdata = payload.workdata;
     },
     [types.PROCESS_INIT](state, payload) {
+        if (payload === null) {
+            state.target.process = {};
+            return;
+        }
         Object.keys(payload).forEach(key => {
             state.target.process[key] = payload[key];
         })

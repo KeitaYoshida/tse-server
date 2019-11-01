@@ -162,7 +162,7 @@ let router = new Router({
             component: process,
             meta: {
                 requiresAuth: true
-            }
+            },
         },
         {
             path: "/item_monitor/:work_id",

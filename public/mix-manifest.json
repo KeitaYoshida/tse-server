@@ -80,5 +80,7 @@
     "/item_data~order~product_list~readfile.js": "/item_data~order~product_list~readfile.js",
     "/item_data~order~product_list~readfile.js.map": "/item_data~order~product_list~readfile.js.map",
     "/vendors~item_data~order~product_list~readfile.js": "/vendors~item_data~order~product_list~readfile.js",
-    "/vendors~item_data~order~product_list~readfile.js.map": "/vendors~item_data~order~product_list~readfile.js.map"
+    "/vendors~item_data~order~product_list~readfile.js.map": "/vendors~item_data~order~product_list~readfile.js.map",
+    "/cmpt_work_set~process~product_list.js": "/cmpt_work_set~process~product_list.js",
+    "/cmpt_work_set~process~product_list.js.map": "/cmpt_work_set~process~product_list.js.map"
 }

@@ -4,12 +4,14 @@
       <v-card-text>
         <div class="info-area">
           <div class="text-xs-left mb-1 mt-2">
+            <v-chip v-if="tar.process.info.itemCheck === false" class="lowItem" color="error">部材不足</v-chip>
             <h3>{{ ("00" + (tar.process.info.row + 1)).slice(-2) + ": " + tar.process.info.title }}</h3>
             <v-btn
               color="#2e7d32"
               outline
               small
               v-if="tar.process.process_items.length!==0"
+              dark
               @click="itemView = !itemView"
             >部材情報</v-btn>
             <v-btn color="#2e7d32" outline small v-else disabled>使用部材なし</v-btn>
@@ -94,34 +96,36 @@
               </td>
             </tr>
           </thead>
-          <tr v-for="(cmpt, index) in tar.process.serials" :key="index">
-            <th class="no text-xs-center">
-              <v-btn
-                color="#1565c0"
-                style="border-radius:3px;"
-                dark
-                v-if="tar.process.process_status[act_val].val === rtStatus(index)"
-              >{{index + 1 }}: {{ rtStatus(index) }}</v-btn>
-              <v-btn class="act" outline v-else @click="action(index)" :loading="btn_load">
-                {{index + 1 }}: {{ rtStatus(index) }}
-                <br />
-                -> {{ tar.process.process_status[act_val].val}}
-              </v-btn>
-            </th>
-            <td
-              v-for="(item, n) in cmpt"
-              :key="n"
-              :class="'text-xs-center ' + selectCmpt(item.cmpt_id)"
-            >{{ item.serial_no }}</td>
-            <td class="text-xs-center chk-info">
-              <template v-if="tar.process.process_info[index].worker">
-                {{ tar.process.process_info[index].worker }}
-                <br />
-                {{ tar.process.process_info[index].check_time }}
-              </template>
-              <template v-else>未確認</template>
-            </td>
-          </tr>
+          <tbody>
+            <tr v-for="(cmpt, index) in tar.process.serials" :key="index">
+              <th class="no text-xs-center">
+                <v-btn
+                  color="#1565c0"
+                  style="border-radius:3px;"
+                  dark
+                  v-if="tar.process.process_status[act_val].val === rtStatus(index)"
+                >{{index + 1 }}: {{ rtStatus(index) }}</v-btn>
+                <v-btn class="act" outline v-else @click="action(index)" :loading="btn_load">
+                  {{index + 1 }}: {{ rtStatus(index) }}
+                  <br />
+                  -> {{ tar.process.process_status[act_val].val}}
+                </v-btn>
+              </th>
+              <td
+                v-for="(item, n) in cmpt"
+                :key="n"
+                :class="'text-xs-center ' + selectCmpt(item.cmpt_id)"
+              >{{ item.serial_no }}</td>
+              <td class="text-xs-center chk-info">
+                <template v-if="tar.process.process_info[index].worker">
+                  {{ tar.process.process_info[index].worker }}
+                  <br />
+                  {{ tar.process.process_info[index].check_time }}
+                </template>
+                <template v-else>未確認</template>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </v-card-text>
     </v-card>
@@ -212,15 +216,23 @@ export default {
     },
     ItemUseAction() {
       let d = this.tar.process.process_items;
-      axios.post("/db/workdata/use/item/act/add", d).then(res => {
-        // console.log(res.data);
-      });
+      let price = this.tar.process.info.setPrice;
+      let wid = this.tar.process.base.wid;
+      axios
+        .post("/db/workdata/use/item/act/rev/" + price + "/" + wid, d)
+        .then(res => {
+          // console.log(res.data);
+        });
     },
     ItemReturnAction() {
       let d = this.tar.process.process_items;
-      axios.post("/db/workdata/use/item/act/rev", d).then(res => {
-        // console.log(res.data);
-      });
+      let price = this.tar.process.info.setPrice;
+      let wid = this.tar.process.base.wid;
+      axios
+        .post("/db/workdata/use/item/act/rev/" + price + "/" + wid, d)
+        .then(res => {
+          // console.log(res.data);
+        });
     },
     async action(n, loopflg = false) {
       if (loopflg === false) {
@@ -280,7 +292,7 @@ export default {
       this.btn_load = false;
     },
     alertFail() {
-      console.log(this.alertMessage);
+      // console.log(this.alertMessage);
       if (this.alertMessage.length === 0) return;
       let mess = "排他処理エラー：別作業者により更新済みデータです\n";
       this.alertMessage.forEach(row => {
@@ -434,5 +446,9 @@ th.no {
 }
 td.chk-info {
   font-size: 0.9rem;
+}
+.lowItem {
+  border-radius: 5px;
+  color: white;
 }
 </style>

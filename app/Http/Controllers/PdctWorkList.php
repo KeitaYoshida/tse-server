@@ -79,7 +79,7 @@ class PdctWorkList extends Controller
     $CM = new RCmptItem;
     return $CM->where('work_id', $wid)->with('items')->get();
   }
-  public function UseItemAction(Request $req, $flg)
+  public function UseItemAction(Request $req, $flg, $price, $wid)
   {
     $IT = new Item;
     foreach ($req->all() as $val) {
@@ -90,6 +90,13 @@ class PdctWorkList extends Controller
         $IT->where('item_id', $val['item_id'])->increment('last_num', $val['item_use']);
         $IT->where('item_id', $val['item_id'])->increment('appo_num', $val['item_use']);
       }
+    }
+
+    $PWLC = new PdctWorkdataList;
+    if ($flg === 'add') {
+      $PWLC->where("worklist_id", $wid)->decrement('use_item_price', $price);
+    } else {
+      $PWLC->where("worklist_id", $wid)->increment('use_item_price', $price);
     }
   }
   public function SetConstStatus($id, $per)

@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     init() {
+      // console.log(this.prop);
       Object.keys(this.prop).forEach(key => {
         this.menu[key] = this.prop[key];
       });

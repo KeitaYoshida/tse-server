@@ -97,6 +97,9 @@ export default {
     },
     async selectProcess(i) {
       let wid = this.tar.process.base.wid;
+      let pInfo = {};
+      let sInfo = {};
+      let items = null;
       await this.PROCESS_SERIAL_INFO({});
       await this.PROCESS_INFO({});
       await this.wait(0.5);
@@ -113,12 +116,13 @@ export default {
             });
           });
           this.PROCESS_SERIAL_INFO(d);
-          this.PROCESS_INFO(i);
+          sInfo = d;
+          pInfo = i;
         });
       await axios.get("/db/workdata/cmpt/items/" + i.work_id).then(res => {
         // console.log(i.work_id);
-        // console.log(res.data);
         let d = [];
+        let price = 0;
         res.data.forEach(cmpt => {
           // console.log("test");
           let item = cmpt.items;
@@ -137,9 +141,26 @@ export default {
             order_num: item.order_num,
             inv_num: item.inv_num
           });
+          price = price + Number(item.item_price);
         });
+        items = d;
+        pInfo.itemCheck = true;
+        pInfo.setPrice = price;
         this.PROCESS_ITEMS_SET(d);
       });
+      let allNum = sInfo.length;
+      let finNum = sInfo.filter(ar => ar.process_status === 2).length;
+      let makeNum = allNum - finNum;
+
+      // console.log(pInfo);
+      // console.log(sInfo);
+      // console.log(items);
+      items.forEach(item => {
+        let useNum = item.item_use * makeNum;
+        if (item.last_num < useNum) pInfo.itemCheck = false;
+      });
+      this.PROCESS_INFO(pInfo);
+      // console.log(finNum + " / " + allNum);
     }
   }
 };
