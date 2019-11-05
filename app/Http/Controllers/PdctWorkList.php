@@ -94,10 +94,15 @@ class PdctWorkList extends Controller
 
     $PWLC = new PdctWorkdataList;
     if ($flg === 'add') {
-      $PWLC->where("worklist_id", $wid)->decrement('use_item_price', $price);
-    } else {
       $PWLC->where("worklist_id", $wid)->increment('use_item_price', $price);
+    } else {
+      $PWLC->where("worklist_id", $wid)->decrement('use_item_price', $price);
     }
+  }
+  public function SetConstUseItemPrice($wid, $price)
+  {
+    $PWLC = new PdctWorkdataList;
+    $PWLC->where("worklist_id", $wid)->update(['use_item_price' => $price]);
   }
   public function SetConstStatus($id, $per)
   {

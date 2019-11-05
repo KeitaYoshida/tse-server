@@ -154,7 +154,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                         });
                       } else {
                         tar.count = tar.count + item.item_use * process[pid];
-                        tar.total_price = tar.total_price + tar.item_price * process[pid];
+                        tar.total_price = tar.total_price + item.item_use * tar.item_price * process[pid];
                       }
 
                       _this.totalPrice = _this.totalPrice + Number(item.items.item_price) * process[pid];
@@ -185,6 +185,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }(),
     rt: function rt(i) {
       console.log(i);
+    },
+    setPrice: function setPrice() {
+      axios.get("/db/workdata/set/useitemprice/" + this.$route.params.work_id + "/" + Math.round(this.totalPrice * 100) / 100); // .then(res => {});
     }
   })
 });
@@ -245,9 +248,18 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.workdata.worklist_code))]
                 ),
                 _vm._v(" "),
-                _c("v-btn", { attrs: { color: "primary", flat: "" } }, [
-                  _vm._v("金額：" + _vm._s(_vm.totalPrice.toLocaleString()))
-                ])
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { color: "primary", outline: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.setPrice()
+                      }
+                    }
+                  },
+                  [_vm._v("金額：" + _vm._s(_vm.totalPrice.toLocaleString()))]
+                )
               ]
             : _vm._e(),
           _vm._v(" "),

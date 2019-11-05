@@ -23,7 +23,7 @@
         </v-flex>
         <v-flex xs5 pt-3 pl-2>
           <v-btn color="success" @click="mode='history'">履歴</v-btn>
-          <v-btn color="success" @click="mode='working'">仕掛り</v-btn>
+          <v-btn color="success" to="/workingList">仕掛り</v-btn>
         </v-flex>
         <v-flex xs5 pt-3 pr-3>
           <v-chip outline small color="green darken-3">工事リスト</v-chip>
@@ -61,9 +61,6 @@
       <v-container grid-list-xs v-else-if="mode==='history'">
         <History @rt="mode='def'"></History>
       </v-container>
-      <v-container grid-list-xs v-else-if="mode==='working'">
-        <Working @rt="mode='def'"></Working>
-      </v-container>
     </v-container>
   </v-app>
 </template>
@@ -76,7 +73,6 @@ import ConstUkeire from "@/components/sumup/constUkeire";
 import PieChart from "@/components/com/PieChart";
 import BarChart from "@/components/com/BarChart";
 import History from "@/components/sumup/history";
-import Working from "@/components/sumup/working";
 
 export default {
   props: [],
@@ -86,8 +82,7 @@ export default {
     ConstUkeire,
     PieChart,
     BarChart,
-    History,
-    Working
+    History
   },
   data: function() {
     return {

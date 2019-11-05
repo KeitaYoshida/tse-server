@@ -117,6 +117,7 @@ Route::post("/db/workdata/use/item/act/{flg}/{price}/{wid}", "PdctWorkList@UseIt
 Route::get("/db/workdata/set/const/status/{wid}/{per}", "PdctWorkList@SetConstStatus");
 Route::get("/db/workdata/delete/const/{wid}", "PdctWorkList@DeleteConst");
 Route::get("/db/workdata/set/status/{wid}/{status}", "PdctWorkList@SetStatus");
+Route::get("/db/workdata/set/useitemprice/{wid}/{price}", "PdctWorkList@SetConstUseItemPrice");
 
 Route::get("/db/works/get/list/way/day/{before}/{after}", "PdctWorkList@GetWorkListWayToDay");
 Route::get("/db/works/set/day/{id}/{sday}/{eday}", "PdctWorkList@SetWorkListDate");

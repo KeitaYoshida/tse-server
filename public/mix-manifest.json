@@ -84,5 +84,9 @@
     "/cmpt_work_set~process~product_list.js": "/cmpt_work_set~process~product_list.js",
     "/cmpt_work_set~process~product_list.js.map": "/cmpt_work_set~process~product_list.js.map",
     "/workingUseItem.js": "/workingUseItem.js",
-    "/workingUseItem.js.map": "/workingUseItem.js.map"
+    "/workingUseItem.js.map": "/workingUseItem.js.map",
+    "/workingList.js": "/workingList.js",
+    "/workingList.js.map": "/workingList.js.map",
+    "/workinglist.js": "/workinglist.js",
+    "/workinglist.js.map": "/workinglist.js.map"
 }

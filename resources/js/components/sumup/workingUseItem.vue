@@ -11,7 +11,7 @@
           outline
           :to="'/process/' + $route.params.work_id"
         >{{workdata.worklist_code}}</v-btn>
-        <v-btn color="primary" flat>金額：{{ totalPrice.toLocaleString() }}</v-btn>
+        <v-btn color="primary" outline @click="setPrice()">金額：{{ totalPrice.toLocaleString() }}</v-btn>
       </template>
       <v-data-table
         :headers="headers"
@@ -105,7 +105,8 @@ export default {
               });
             } else {
               tar.count = tar.count + item.item_use * process[pid];
-              tar.total_price = tar.total_price + tar.item_price * process[pid];
+              tar.total_price =
+                tar.total_price + item.item_use * tar.item_price * process[pid];
             }
             this.totalPrice =
               this.totalPrice + Number(item.items.item_price) * process[pid];
@@ -123,6 +124,15 @@ export default {
     },
     rt(i) {
       console.log(i);
+    },
+    setPrice() {
+      axios.get(
+        "/db/workdata/set/useitemprice/" +
+          this.$route.params.work_id +
+          "/" +
+          Math.round(this.totalPrice * 100) / 100
+      );
+      // .then(res => {});
     }
   }
 };
