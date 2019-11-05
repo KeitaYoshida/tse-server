@@ -141,7 +141,7 @@ export default {
             order_num: item.order_num,
             inv_num: item.inv_num
           });
-          price = price + Number(item.item_price);
+          price = price + Number(item.item_price) * Number(cmpt.item_use);
         });
         items = d;
         pInfo.itemCheck = true;

@@ -93,26 +93,25 @@ export default {
         axios.get("/db/workdata/cmpt/items/" + pid).then(res => {
           res.data.forEach(item => {
             let tar = items.filter(ar => ar.item_id === item.items.item_id);
+            let price = Number(item.items.item_price);
+            let num = Number(item.item_use) * process[pid];
+            let totalPrice = num * price;
             if (tar.length === 0) {
-              items.push({
+              tar[0] = {
                 item_id: item.items.item_id,
                 item_code: item.items.item_code,
                 item_model: item.items.item_model,
                 item_name: item.items.item_name,
-                item_price: Number(item.items.item_price),
-                count: Number(item.item_use) * process[pid],
-                total_price:
-                  Number(item.items.item_price) *
-                  Number(item.item_use) *
-                  process[pid]
-              });
+                item_price: price,
+                count: num,
+                total_price: totalPrice
+              };
+              items.push(tar[0]);
             } else {
-              tar.count = tar.count + item.item_use * process[pid];
-              tar.total_price =
-                tar.total_price + item.item_use * tar.item_price * process[pid];
+              tar[0].count = tar[0].count + num;
+              tar[0].total_price = tar[0].total_price + totalPrice;
             }
-            this.totalPrice =
-              this.totalPrice + Number(item.items.item_price) * process[pid];
+            this.totalPrice = this.totalPrice + totalPrice;
           });
         });
       });
