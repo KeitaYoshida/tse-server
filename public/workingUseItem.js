@@ -150,7 +150,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                           item_name: item.items.item_name,
                           item_price: Number(item.items.item_price),
                           count: Number(item.item_use) * process[pid],
-                          total_price: Number(item.items.item_price) * process[pid]
+                          total_price: Number(item.items.item_price) * Number(item.item_use) * process[pid]
                         });
                       } else {
                         tar.count = tar.count + item.item_use * process[pid];
