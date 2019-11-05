@@ -837,7 +837,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
       var d = this.tar.process.process_items;
       var price = this.tar.process.info.setPrice;
       var wid = this.tar.process.base.wid;
-      axios.post("/db/workdata/use/item/act/rev/" + price + "/" + wid, d).then(function (res) {// console.log(res.data);
+      axios.post("/db/workdata/use/item/act/add/" + price + "/" + wid, d).then(function (res) {// console.log(res.data);
       });
     },
     ItemReturnAction: function ItemReturnAction() {

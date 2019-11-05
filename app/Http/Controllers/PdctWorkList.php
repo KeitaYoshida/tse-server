@@ -132,8 +132,9 @@ class PdctWorkList extends Controller
       ->where('context', '!=', 0)
       ->where('context', '!=', 100)
       ->with(['status', 'class', 'model'])
-      ->with(['serials.process' => function ($q) {
-        $q->orderBy('process.row', 'asc');
-      }])->get();
+      ->get();
+    // ->with(['status', 'class', 'model' => function ($q) {
+    //   $q->orderBy('model.model_code', 'asc');
+    // }])
   }
 }

@@ -219,7 +219,7 @@ export default {
       let price = this.tar.process.info.setPrice;
       let wid = this.tar.process.base.wid;
       axios
-        .post("/db/workdata/use/item/act/rev/" + price + "/" + wid, d)
+        .post("/db/workdata/use/item/act/add/" + price + "/" + wid, d)
         .then(res => {
           // console.log(res.data);
         });

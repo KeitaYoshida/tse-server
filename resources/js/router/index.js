@@ -28,6 +28,7 @@ const item_monitor = () => import( /* webpackChunkName: "item_monitor" */ "../co
 const work = () => import( /* webpackChunkName: "work" */ "../components/Work/work.vue");
 const iMonitor = () => import( /* webpackChunkName: "iMonitor" */ "@/components/monitor/monitor.vue");
 const sumup = () => import( /* webpackChunkName: "sum_up" */ "@/components/sumup/sumup.vue");
+const workingUseItem = () => import( /* webpackChunkName: "workingUseItem" */ "@/components/sumup/workingUseItem.vue");
 
 let Auth = {
     login: async function () {
@@ -187,8 +188,14 @@ let router = new Router({
             meta: {
                 requiresAuth: true
             },
-        },
-        {
+        }, {
+            path: "/workingUseItem/:work_id",
+            name: "workingUseItem",
+            component: workingUseItem,
+            meta: {
+                requiresAuth: true
+            },
+        }, {
             path: "/item/monitor",
             name: "iMonitor",
             component: iMonitor,
