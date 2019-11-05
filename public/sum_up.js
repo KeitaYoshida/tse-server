@@ -2340,7 +2340,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-btn",
-                        { attrs: { color: "success", to: "/workingList" } },
+                        { attrs: { color: "success", to: "/workinglist" } },
                         [_vm._v("仕掛り")]
                       )
                     ],

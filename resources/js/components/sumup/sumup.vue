@@ -23,7 +23,7 @@
         </v-flex>
         <v-flex xs5 pt-3 pl-2>
           <v-btn color="success" @click="mode='history'">履歴</v-btn>
-          <v-btn color="success" to="/workingList">仕掛り</v-btn>
+          <v-btn color="success" to="/workinglist">仕掛り</v-btn>
         </v-flex>
         <v-flex xs5 pt-3 pr-3>
           <v-chip outline small color="green darken-3">工事リスト</v-chip>
