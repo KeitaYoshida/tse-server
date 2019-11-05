@@ -38,6 +38,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
@@ -45,6 +67,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       items: [],
+      workdata: {},
       headers: [{
         text: "品目コード",
         value: "item_code",
@@ -70,8 +93,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         descending: false,
         page: 1,
         rowsPerPage: 1000,
-        sortBy: "model.model_code"
-      }
+        sortBy: "item_name"
+      },
+      totalPrice: 0
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -85,6 +109,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _init = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this = this;
+
         var Fin, list, process, items;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -96,6 +122,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
                 list = _context.sent;
+                this.workdata = list.data[0];
                 process = {}; // console.log(list.data[0]);
                 // worklist -> serial[] -> process[]
 
@@ -107,35 +134,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 }); // console.log(process);
 
-                items = {};
+                items = [];
                 Object.keys(process).forEach(function (pid) {
                   axios.get("/db/workdata/cmpt/items/" + pid).then(function (res) {
                     res.data.forEach(function (item) {
-                      var i = items[item.items.item_id];
+                      var tar = items.filter(function (ar) {
+                        return ar.item_id === item.items.item_id;
+                      });
 
-                      if (i === undefined) {
-                        i = items[item.items.item_id] = {
+                      if (tar.length === 0) {
+                        items.push({
+                          item_id: item.items.item_id,
                           item_code: item.items.item_code,
                           item_model: item.items.item_model,
                           item_name: item.items.item_name,
                           item_price: Number(item.items.item_price),
-                          count: 0,
-                          total_price: 0
-                        };
+                          count: Number(item.item_use) * process[pid],
+                          total_price: Number(item.items.item_price) * process[pid]
+                        });
+                      } else {
+                        tar.count = tar.count + item.item_use * process[pid];
+                        tar.total_price = tar.total_price + tar.item_price * process[pid];
                       }
 
-                      i.count = i.count + item.item_use * process[pid];
-                      i.total_price = i.total_price + i.item_price * process[pid];
+                      _this.totalPrice = _this.totalPrice + Number(item.items.item_price) * process[pid];
                     });
                   });
                 });
-                this.items = items; // console.log(items);
+                this.items = items; // console.log(this.items);
+                // console.log(items);
                 // this.items = Object.keys(items).map(key => {
                 //   console.log(key);
                 //   return items[key];
                 // });
-
-                console.log(this.items);
+                // console.log(this.items);
 
               case 10:
               case "end":
@@ -150,7 +182,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return init;
-    }()
+    }(),
+    rt: function rt(i) {
+      console.log(i);
+    }
   })
 });
 
@@ -174,19 +209,95 @@ var render = function() {
   return _c(
     "v-app",
     [
-      _c("v-container", { attrs: { "grid-list-xs": "" } }, [
-        _vm._v("\n    test\n    "),
-        _c(
-          "table",
-          _vm._l(_vm.items, function(item, index) {
-            return _c("tr", { key: index }, [
-              _vm._v("\n        test\n        "),
-              _c("td", [_vm._v(_vm._s(item.item_code))])
+      _c(
+        "v-container",
+        { attrs: { "grid-list-xs": "" } },
+        [
+          _vm.totalPrice !== 0
+            ? [
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { icon: "", color: "primary", flat: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.$router.go(-1)
+                      }
+                    }
+                  },
+                  [_c("v-icon", [_vm._v("fas fa-angle-double-left")])],
+                  1
+                ),
+                _vm._v(" "),
+                _c("v-btn", { attrs: { color: "primary", outline: "" } }, [
+                  _vm._v(_vm._s(_vm.workdata.model.model_code))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    attrs: {
+                      color: "primary",
+                      outline: "",
+                      to: "/process/" + _vm.$route.params.work_id
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.workdata.worklist_code))]
+                ),
+                _vm._v(" "),
+                _c("v-btn", { attrs: { color: "primary", flat: "" } }, [
+                  _vm._v("金額：" + _vm._s(_vm.totalPrice.toLocaleString()))
+                ])
+              ]
+            : _vm._e(),
+          _vm._v(" "),
+          _c("v-data-table", {
+            staticClass: "elevation-1 mt-3",
+            attrs: {
+              headers: _vm.headers,
+              items: _vm.items,
+              "hide-actions": "",
+              pagination: _vm.pagination,
+              "item-key": "item_id",
+              loading: _vm.items.length === 0
+            },
+            on: {
+              "update:pagination": function($event) {
+                _vm.pagination = $event
+              }
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "items",
+                fn: function(props) {
+                  return [
+                    _c("td", { staticClass: "text-xs-center" }, [
+                      _vm._v(_vm._s(props.item.item_code))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-center" }, [
+                      _vm._v(_vm._s(props.item.item_model))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-center" }, [
+                      _vm._v(_vm._s(props.item.item_name))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-center" }, [
+                      _vm._v(_vm._s(props.item.count))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-xs-center" }, [
+                      _vm._v(_vm._s(props.item.total_price.toLocaleString()))
+                    ])
+                  ]
+                }
+              }
             ])
-          }),
-          0
-        )
-      ])
+          })
+        ],
+        2
+      )
     ],
     1
   )
@@ -213,7 +324,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VApp */ "./node_modules/vuetify/lib/components/VApp/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 
 
 
@@ -236,7 +350,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__["VApp"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_5__["VContainer"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_7__["VDataTable"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"]})
 
 
 /* hot reload */

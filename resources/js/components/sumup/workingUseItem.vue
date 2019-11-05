@@ -1,13 +1,35 @@
 <template>
   <v-app>
     <v-container grid-list-xs>
-      test
-      <table>
-        <tr v-for="(item, index) in items" :key="index">
-          test
-          <td>{{item.item_code}}</td>
-        </tr>
-      </table>
+      <template v-if="totalPrice!==0">
+        <v-btn icon color="primary" flat @click="$router.go(-1)">
+          <v-icon>fas fa-angle-double-left</v-icon>
+        </v-btn>
+        <v-btn color="primary" outline>{{workdata.model.model_code}}</v-btn>
+        <v-btn
+          color="primary"
+          outline
+          :to="'/process/' + $route.params.work_id"
+        >{{workdata.worklist_code}}</v-btn>
+        <v-btn color="primary" flat>金額：{{ totalPrice.toLocaleString() }}</v-btn>
+      </template>
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        hide-actions
+        class="elevation-1 mt-3"
+        :pagination.sync="pagination"
+        item-key="item_id"
+        :loading="items.length===0"
+      >
+        <template v-slot:items="props" :class="rt(props)">
+          <td class="text-xs-center">{{props.item.item_code }}</td>
+          <td class="text-xs-center">{{props.item.item_model }}</td>
+          <td class="text-xs-center">{{props.item.item_name }}</td>
+          <td class="text-xs-center">{{props.item.count }}</td>
+          <td class="text-xs-center">{{props.item.total_price.toLocaleString() }}</td>
+        </template>
+      </v-data-table>
     </v-container>
   </v-app>
 </template>
@@ -21,6 +43,7 @@ export default {
   data: function() {
     return {
       items: [],
+      workdata: {},
       headers: [
         { text: "品目コード", value: "item_code", align: "center" },
         { text: "形式", value: "item_model", align: "center" },
@@ -32,8 +55,9 @@ export default {
         descending: false,
         page: 1,
         rowsPerPage: 1000,
-        sortBy: "model.model_code"
-      }
+        sortBy: "item_name"
+      },
+      totalPrice: 0
     };
   },
   computed: {
@@ -51,6 +75,7 @@ export default {
       let list = await axios.get(
         "/db/workdata/process/" + this.$route.params.work_id
       );
+      this.workdata = list.data[0];
       let process = {};
       // console.log(list.data[0]);
       // worklist -> serial[] -> process[]
@@ -63,33 +88,41 @@ export default {
         });
       });
       // console.log(process);
-      let items = {};
+      let items = [];
       Object.keys(process).forEach(pid => {
         axios.get("/db/workdata/cmpt/items/" + pid).then(res => {
           res.data.forEach(item => {
-            let i = items[item.items.item_id];
-            if (i === undefined) {
-              i = items[item.items.item_id] = {
+            let tar = items.filter(ar => ar.item_id === item.items.item_id);
+            if (tar.length === 0) {
+              items.push({
+                item_id: item.items.item_id,
                 item_code: item.items.item_code,
                 item_model: item.items.item_model,
                 item_name: item.items.item_name,
                 item_price: Number(item.items.item_price),
-                count: 0,
-                total_price: 0
-              };
+                count: Number(item.item_use) * process[pid],
+                total_price: Number(item.items.item_price) * process[pid]
+              });
+            } else {
+              tar.count = tar.count + item.item_use * process[pid];
+              tar.total_price = tar.total_price + tar.item_price * process[pid];
             }
-            i.count = i.count + item.item_use * process[pid];
-            i.total_price = i.total_price + i.item_price * process[pid];
+            this.totalPrice =
+              this.totalPrice + Number(item.items.item_price) * process[pid];
           });
         });
       });
       this.items = items;
+      // console.log(this.items);
       // console.log(items);
       // this.items = Object.keys(items).map(key => {
       //   console.log(key);
       //   return items[key];
       // });
-      console.log(this.items);
+      // console.log(this.items);
+    },
+    rt(i) {
+      console.log(i);
     }
   }
 };
