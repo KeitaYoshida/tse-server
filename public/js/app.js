@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki":"cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki","cmpt_work_set~process~product_list":"cmpt_work_set~process~product_list","cmpt_work_set":"cmpt_work_set","process":"process","equip_start_check":"equip_start_check","home":"home","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~iMonitor~inventory~recept_list~sum_up":"vendors~iMonitor~inventory~recept_list~sum_up","iMonitor":"iMonitor","sum_up":"sum_up","inventory":"inventory","vendors~order_list~readfile~recept_list~tehaisaki":"vendors~order_list~readfile~recept_list~tehaisaki","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","order":"order","product_list":"product_list","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","item_data":"item_data","vendors~order_list~readfile":"vendors~order_list~readfile","readfile":"readfile","vendors~item_list":"vendors~item_list","item_list":"item_list","tehaisaki":"tehaisaki","order_list":"order_list","work":"work","workingUseItem":"workingUseItem","workinglist":"workinglist"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"addlastitem":"addlastitem","cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki":"cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki","cmpt_work_set~process~product_list":"cmpt_work_set~process~product_list","cmpt_work_set":"cmpt_work_set","process":"process","equip_start_check":"equip_start_check","home":"home","ichecker":"ichecker","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~iMonitor~inventory~recept_list~sum_up":"vendors~iMonitor~inventory~recept_list~sum_up","iMonitor":"iMonitor","sum_up":"sum_up","inventory":"inventory","vendors~order_list~readfile~recept_list~tehaisaki":"vendors~order_list~readfile~recept_list~tehaisaki","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","order":"order","product_list":"product_list","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","item_data":"item_data","vendors~order_list~readfile":"vendors~order_list~readfile","readfile":"readfile","vendors~item_list":"vendors~item_list","item_list":"item_list","tehaisaki":"tehaisaki","order_list":"order_list","work":"work","workingUseItem":"workingUseItem","workinglist":"workinglist"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -77191,6 +77191,14 @@ var workingUseItem = function workingUseItem() {
   return __webpack_require__.e(/*! import() | workingUseItem */ "workingUseItem").then(__webpack_require__.bind(null, /*! @/components/sumup/workingUseItem.vue */ "./resources/js/components/sumup/workingUseItem.vue"));
 };
 
+var ichecker = function ichecker() {
+  return __webpack_require__.e(/*! import() | ichecker */ "ichecker").then(__webpack_require__.bind(null, /*! @/components/ichecker/ichecker.vue */ "./resources/js/components/ichecker/ichecker.vue"));
+};
+
+var addlastitem = function addlastitem() {
+  return __webpack_require__.e(/*! import() | addlastitem */ "addlastitem").then(__webpack_require__.bind(null, /*! @/components/addlastitem/addlastitem.vue */ "./resources/js/components/addlastitem/addlastitem.vue"));
+};
+
 var Auth = {
   login: function () {
     var _login = _asyncToGenerator(
@@ -77361,6 +77369,20 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/workingUseItem/:work_id",
     name: "workingUseItem",
     component: workingUseItem,
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: "/ichecker",
+    name: "ichecker",
+    component: ichecker,
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: "/addlastitem",
+    name: "addlastitem",
+    component: addlastitem,
     meta: {
       requiresAuth: true
     }

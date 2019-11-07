@@ -238,4 +238,13 @@ class CntOrderCtrl extends Controller
     // return date("Y-m-d", strtotime("-3 year"));
     return $col->where('updated_at', '>',  date("Y-m-d", strtotime("-3 year")))->get(['cnt_orderlist_id', 'cnt_model', 'cnt_order_code']);
   }
+  public function GetAllOrder()
+  {
+    $co = new CntOrder;
+    // return $co->all();
+    return $co->with('item')->get();
+    // return $co->with(['item' => function ($q) {
+    //   $q->select('item_id', 'item_code', 'item_model', 'item_name');
+    // }])->get();
+  }
 }

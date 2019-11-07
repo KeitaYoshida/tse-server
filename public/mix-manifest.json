@@ -72,5 +72,9 @@
     "/workingUseItem.js": "/workingUseItem.js",
     "/workingUseItem.js.map": "/workingUseItem.js.map",
     "/workinglist.js": "/workinglist.js",
-    "/workinglist.js.map": "/workinglist.js.map"
+    "/workinglist.js.map": "/workinglist.js.map",
+    "/ichecker.js": "/ichecker.js",
+    "/ichecker.js.map": "/ichecker.js.map",
+    "/addlastitem.js": "/addlastitem.js",
+    "/addlastitem.js.map": "/addlastitem.js.map"
 }

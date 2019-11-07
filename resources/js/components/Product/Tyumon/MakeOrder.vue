@@ -18,7 +18,7 @@
               ></v-text-field>
             </v-flex>
             <v-flex xs6 class="mt-2">
-              <CalendarText label="指定納期（基準納期）" @select="date_select"></CalendarText>
+              <CalendarText label="指定納期（基準納期）" @select="date_select" :date="null"></CalendarText>
             </v-flex>
             <v-flex xs6 class="pr-5 mt-4">
               <v-text-field
@@ -64,7 +64,13 @@
       </v-layout>
       <v-card-actions class="text-xs-center">
         <v-btn color="primary" flat class="action" @click="setOrder()" disabled>セット手配</v-btn>
-        <v-btn color="primary" flat class="action" v-if="fm.model===''" disabled>形式を選択</v-btn>
+        <v-btn
+          color="primary"
+          flat
+          class="action"
+          v-if="fm.model===''||fm.order_day===null"
+          disabled
+        >形式を選択</v-btn>
         <v-btn
           color="primary"
           flat
@@ -120,7 +126,7 @@ export default {
         model: "",
         rev: 0,
         num: 0,
-        order_day: new Date().toISOString().substr(0, 10),
+        order_day: null,
         pdct_id: 0,
         user: "GUEST",
         order_class: 0
@@ -239,6 +245,7 @@ export default {
     model_select() {
       this.select = !this.select;
       this.tar_model = null;
+      console.log(this.fm.order_day);
     },
     rtModel(select) {
       this.select = !this.select;

@@ -30,6 +30,8 @@ const iMonitor = () => import( /* webpackChunkName: "iMonitor" */ "@/components/
 const sumup = () => import( /* webpackChunkName: "sum_up" */ "@/components/sumup/sumup.vue");
 const workinglist = () => import( /* webpackChunkName: "workinglist" */ "@/components/sumup/working.vue");
 const workingUseItem = () => import( /* webpackChunkName: "workingUseItem" */ "@/components/sumup/workingUseItem.vue");
+const ichecker = () => import( /* webpackChunkName: "ichecker" */ "@/components/ichecker/ichecker.vue");
+const addlastitem = () => import( /* webpackChunkName: "addlastitem" */ "@/components/addlastitem/addlastitem.vue");
 
 let Auth = {
     login: async function () {
@@ -200,6 +202,20 @@ let router = new Router({
             path: "/workingUseItem/:work_id",
             name: "workingUseItem",
             component: workingUseItem,
+            meta: {
+                requiresAuth: true
+            },
+        }, {
+            path: "/ichecker",
+            name: "ichecker",
+            component: ichecker,
+            meta: {
+                requiresAuth: true
+            },
+        }, {
+            path: "/addlastitem",
+            name: "addlastitem",
+            component: addlastitem,
             meta: {
                 requiresAuth: true
             },

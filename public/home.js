@@ -206,6 +206,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -873,13 +876,6 @@ var render = function() {
               _c(
                 "v-flex",
                 { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
-                [_c("common-cards", { attrs: { card_name: "inventory" } })],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
                 [_c("common-cards", { attrs: { card_name: "readfile" } })],
                 1
               ),
@@ -952,6 +948,20 @@ var render = function() {
                 "v-flex",
                 { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
                 [_c("common-cards", { attrs: { card_name: "sumup" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
+                [_c("common-cards", { attrs: { card_name: "ichecker" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { "d-flex": "", xs6: "", md4: "", lg3: "" } },
+                [_c("common-cards", { attrs: { card_name: "addlastitem" } })],
                 1
               )
             ],
@@ -1332,6 +1342,24 @@ var _card_data = (_card_data2 = {
   class_text: COLOR_DEF,
   color: TEXT_COLOR,
   text: ["工事リスト・工程管理表・作業データ登録"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _defineProperty(_card_data2, "addlastitem", {
+  title: "残物品計測",
+  class_text: COLOR_WORK_LESS,
+  color: TEXT_COLOR,
+  text: ["残部品計測"],
+  details: [""].join(""),
+  links: "",
+  button: false,
+  button_text: BUTON_TEXT
+}), _defineProperty(_card_data2, "ichecker", {
+  title: "部材検証システム",
+  class_text: COLOR_WORK_LESS,
+  color: TEXT_COLOR,
+  text: ["手配データ・使用数算出システム・現在庫数"],
   details: [""].join(""),
   links: "",
   button: false,

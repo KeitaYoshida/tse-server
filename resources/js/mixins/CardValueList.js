@@ -148,6 +148,26 @@ const _card_data = {
         button: false,
         button_text: BUTON_TEXT
     },
+    addlastitem: {
+        title: "残物品計測",
+        class_text: COLOR_WORK_LESS,
+        color: TEXT_COLOR,
+        text: ["残部品計測"],
+        details: [""].join(""),
+        links: "",
+        button: false,
+        button_text: BUTON_TEXT
+    },
+    ichecker: {
+        title: "部材検証システム",
+        class_text: COLOR_WORK_LESS,
+        color: TEXT_COLOR,
+        text: ["手配データ・使用数算出システム・現在庫数"],
+        details: [""].join(""),
+        links: "",
+        button: false,
+        button_text: BUTON_TEXT
+    },
     tehaisaki: {
         title: "手配先",
         class_text: COLOR_WORK_LESS,

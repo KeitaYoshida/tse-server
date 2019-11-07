@@ -8,6 +8,7 @@ use App\Model\ItemCountHistory;
 use App\Model\ItemClass;
 use App\Model\CntOrder;
 use App\Model\InventoryHistory;
+use App\Model\itemLastHistory;
 use Auth;
 
 class ItemsCtrl extends Controller
@@ -87,5 +88,19 @@ class ItemsCtrl extends Controller
     //   'appo_num' => $req->appo_num,
     //   'order_num' => $req->order_num
     // ]);
+  }
+  public function ItemAll()
+  {
+    $i = new Item;
+    return $i->all();
+  }
+  public function AddLastNum(Request $req)
+  {
+    // return $req;
+    $ih = new itemLastHistory;
+    $ih->create($req->all());
+    $i = new Item;
+    $i->where('item_id', $req->item_id)->update(['location' => $req->location]);
+    $i->where('item_id', $req->item_id)->increment('last_num', $req->act_num);
   }
 }

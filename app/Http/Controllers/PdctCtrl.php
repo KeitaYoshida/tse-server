@@ -72,6 +72,11 @@ class PdctCtrl extends Controller
     $wdlist = new PdctWorkdataList;
     return $wdlist->where('pdct_id', $id)->count();
   }
+  public function GetWorklistNotStart()
+  {
+    $wdlist = new PdctWorkdataList;
+    return $wdlist->where('context', '!=', 0)->get();
+  }
   public function MakeSerialProcess(Request $req)
   {
     $wdlist = new PdctWorkdataList;

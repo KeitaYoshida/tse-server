@@ -37,12 +37,14 @@ Route::get('/checkdata/day/{date}', 'CheckdataController@daylist');
 Route::post('/errordata', 'ErrorDataDailyController@store')->middleware('auth');
 
 Route::get('/items/itemlist', 'ItemsCtrl@itemlist');
+Route::get("/items/all", "ItemsCtrl@ItemAll");
 Route::get("/items/itemClass", "ItemsCtrl@ItemClass");
 Route::get('/items/iteminfo/{code}/{rev}', 'ItemsCtrl@iteminfo');
 Route::get('/items/item_inv_his/{id}/{rev}', 'ItemCountHistoryCtrl@history');
 Route::get('/items/order_price/{id}', 'ItemsCtrl@item_order_price');
 Route::get('/items/up_item_num_inv/{id}/{rev}/{num}/{order}/{assy}', 'ItemsCtrl@up_item_num_inv')->middleware('auth');
 Route::get('/items/mini', 'ItemsCtrl@itemListMini');
+Route::post("/db/add/last/item", "ItemsCtrl@AddLastNum");
 
 Route::get('/vendor/list', 'VendorCtrl@vendor_list');
 Route::post('/vendor-item/up/{id}', 'MVendorItemCtrl@up_vendor_item');
@@ -107,6 +109,7 @@ Route::get("/db/pdct/brother/{pid}", "PdctCtrl@GetPdctBrother");
 
 Route::get("/db/workdata/make/class", 'PdctCtrl@GetMakeWorkdataClass');
 Route::get("/db/workdata/get/worklist/num/{id}", 'PdctCtrl@GetWorklistNum');
+Route::get("/db/workdata/get/worklist/not/start", 'PdctCtrl@GetWorklistNotStart');
 Route::get("/db/workdata/process/{id}", "PdctWorkList@GetProcessData");
 Route::get("/db/workdata/process/cmpt_row/{mid}", "PdctWorkList@GetProcessCmptRowData");
 Route::get("/db/workdata/get/process_status", "PdctWorkList@GetProcessStatus");
@@ -137,6 +140,7 @@ Route::get("/db/order/list/yoyaku", 'CntOrderCtrl@OrderListYoyaku');
 Route::get("/db/order/torikeshi/{ocode}", 'CntOrderCtrl@OrderTorikeshi');
 Route::get("/db/order/ukeire/cnt/list", 'CntOrderCtrl@OrderUkeireCntList');
 Route::get("/db/order/mini", 'CntOrderCtrl@OrderListMini');
+Route::get("/db/order/get/all/order", 'CntOrderCtrl@GetAllOrder');
 
 Route::get('/db/ukeire/all/list', "CntOrderCtrl@GetUkeireAllList");
 Route::post("/db/ukeire/action", "CntOrderCtrl@UkeireAction");

@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  props: ["label"],
+  props: ["label", "date"],
   data: function() {
     return {
       sday: new Date().toISOString().substr(0, 10),
@@ -32,6 +32,9 @@ export default {
     };
   },
   created: function() {
+    if (this.date === null) {
+      this.sday = null;
+    }
     this.date_select();
   },
   methods: {

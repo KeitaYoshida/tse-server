@@ -733,6 +733,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
@@ -757,7 +763,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
         model: "",
         rev: 0,
         num: 0,
-        order_day: new Date().toISOString().substr(0, 10),
+        order_day: null,
         pdct_id: 0,
         user: "GUEST",
         order_class: 0
@@ -897,6 +903,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
     model_select: function model_select() {
       this.select = !this.select;
       this.tar_model = null;
+      console.log(this.fm.order_day);
     },
     rtModel: function rtModel(select) {
       var _this3 = this;
@@ -1462,7 +1469,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["label"],
+  props: ["label", "date"],
   data: function data() {
     return {
       sday: new Date().toISOString().substr(0, 10),
@@ -1470,6 +1477,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
+    if (this.date === null) {
+      this.sday = null;
+    }
+
     this.date_select();
   },
   methods: {
@@ -2759,7 +2770,10 @@ var render = function() {
                         { staticClass: "mt-2", attrs: { xs6: "" } },
                         [
                           _c("CalendarText", {
-                            attrs: { label: "指定納期（基準納期）" },
+                            attrs: {
+                              label: "指定納期（基準納期）",
+                              date: null
+                            },
                             on: { select: _vm.date_select }
                           })
                         ],
@@ -2896,7 +2910,7 @@ var render = function() {
                 [_vm._v("セット手配")]
               ),
               _vm._v(" "),
-              _vm.fm.model === ""
+              _vm.fm.model === "" || _vm.fm.order_day === null
                 ? _c(
                     "v-btn",
                     {

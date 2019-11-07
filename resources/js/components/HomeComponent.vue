@@ -105,9 +105,6 @@
           <common-cards card_name="petition"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
-          <common-cards card_name="inventory"></common-cards>
-        </v-flex>
-        <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="readfile"></common-cards>
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
@@ -136,6 +133,12 @@
         </v-flex>
         <v-flex d-flex xs6 md4 lg3>
           <common-cards card_name="sumup"></common-cards>
+        </v-flex>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="ichecker"></common-cards>
+        </v-flex>
+        <v-flex d-flex xs6 md4 lg3>
+          <common-cards card_name="addlastitem"></common-cards>
         </v-flex>
       </v-layout>
     </v-container>
