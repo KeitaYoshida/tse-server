@@ -177,6 +177,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -291,6 +292,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                       corder_num_org: order.item.order_num,
                       // --- counter
                       cnt_order_code: [{
+                        order_id: order.cnt_order_id,
                         order_code: order.cnt_order_code,
                         order_num: order.num_order,
                         appo_num: order.appo_num,
@@ -309,6 +311,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     orderSum.push(tar[0]);
                   } else {
                     tar[0].cnt_order_code.push({
+                      order_id: order.cnt_order_id,
                       order_code: order.cnt_order_code,
                       order_num: order.num_order,
                       appo_num: order.appo_num,
@@ -993,6 +996,15 @@ var render = function() {
                                                             "工事番号：" +
                                                               _vm._s(
                                                                 order.order_code
+                                                              )
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("p", [
+                                                          _vm._v(
+                                                            "注文ID：" +
+                                                              _vm._s(
+                                                                order.order_id
                                                               )
                                                           )
                                                         ]),

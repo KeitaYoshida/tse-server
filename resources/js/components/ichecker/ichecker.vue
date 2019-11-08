@@ -86,6 +86,7 @@
                         <v-card :class="'pa-2 ' + returnOrderClass(order)" color="primary--text">
                           <p>形式番号：{{order.model_code}}</p>
                           <p>工事番号：{{order.order_code}}</p>
+                          <p>注文ID：{{order.order_id}}</p>
                           <p>発注数：{{order.order_num}}</p>
                           <p>予約数：{{order.appo_num}}</p>
                           <p>受入数：{{order.recept_num}}</p>
@@ -199,6 +200,7 @@ export default {
               // --- counter
               cnt_order_code: [
                 {
+                  order_id: order.cnt_order_id,
                   order_code: order.cnt_order_code,
                   order_num: order.num_order,
                   appo_num: order.appo_num,
@@ -222,6 +224,7 @@ export default {
           orderSum.push(tar[0]);
         } else {
           tar[0].cnt_order_code.push({
+            order_id: order.cnt_order_id,
             order_code: order.cnt_order_code,
             order_num: order.num_order,
             appo_num: order.appo_num,
