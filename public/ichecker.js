@@ -134,6 +134,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -146,6 +189,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       orders: null,
       orderSum: null,
       worklist: null,
+      models: null,
       checkWorklist: null,
       pagination: {
         descending: true,
@@ -180,7 +224,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value: "item_code",
         align: "center"
       }],
-      search: ""
+      search: "",
+      dialog: false,
+      progress: 0
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -194,7 +240,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _init = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var orders, worklist, orderSum;
+        var orders, worklist, models, orderlist, orderSum;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -211,12 +257,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 6:
                 worklist = _context.sent;
                 this.worklist = worklist = worklist.data;
+                _context.next = 10;
+                return axios.get("/db/model_mst/list");
+
+              case 10:
+                models = _context.sent;
+                this.models = models = models.data;
+                _context.next = 14;
+                return axios.get("/db/order/mini");
+
+              case 14:
+                orderlist = _context.sent;
+                orderlist = orderlist.data;
                 orderSum = [];
                 orders.forEach(function (order) {
                   var iid = order.item_id;
                   var tar = orderSum.filter(function (ar) {
                     return ar.item_id === iid;
                   });
+                  var model = orderlist.filter(function (ar) {
+                    return ar.cnt_order_code === order.cnt_order_code;
+                  });
+                  model = model[0].cnt_model;
 
                   if (tar.length === 0) {
                     tar = [{
@@ -228,7 +290,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                       cappo_num_org: order.item.appo_num,
                       corder_num_org: order.item.order_num,
                       // --- counter
-                      cnt_order_code: [order.cnt_order_code],
+                      cnt_order_code: [{
+                        order_code: order.cnt_order_code,
+                        order_num: order.num_order,
+                        appo_num: order.appo_num,
+                        recept_num: order.num_recept,
+                        model_code: model
+                      }],
+                      process: [],
                       num_order: order.num_order,
                       num_appo: order.appo_num,
                       num_recept: order.num_recept,
@@ -239,7 +308,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     }];
                     orderSum.push(tar[0]);
                   } else {
-                    tar[0].cnt_order_code.push(order.cnt_order_code);
+                    tar[0].cnt_order_code.push({
+                      order_code: order.cnt_order_code,
+                      order_num: order.num_order,
+                      appo_num: order.appo_num,
+                      recept_num: order.num_recept,
+                      model_code: model
+                    });
                     tar[0].num_order = tar[0].num_order + order.num_order;
                     tar[0].num_recept = tar[0].num_recept + order.num_recept;
                     tar[0].num_appo = tar[0].num_appo + order.appo_num;
@@ -252,7 +327,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 console.log(worklist);
                 console.log(orderSum);
 
-              case 13:
+              case 21:
               case "end":
                 return _context.stop();
             }
@@ -273,6 +348,127 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return "bigSet";
       } else {
         return "even";
+      }
+    },
+    getProcessData: function () {
+      var _getProcessData = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var _this = this;
+
+        var progressNum, i;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                this.dialog = true;
+                progressNum = this.worklist.length;
+                i = 0;
+                this.worklist.forEach(
+                /*#__PURE__*/
+                function () {
+                  var _ref = _asyncToGenerator(
+                  /*#__PURE__*/
+                  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(work, index) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                      while (1) {
+                        switch (_context2.prev = _context2.next) {
+                          case 0:
+                            _this.oneProcessData(work.worklist_id, work.worklist_code); // this.progress = (i + 1 / progressNum) * 100;
+
+
+                          case 1:
+                          case "end":
+                            return _context2.stop();
+                        }
+                      }
+                    }, _callee2);
+                  }));
+
+                  return function (_x, _x2) {
+                    return _ref.apply(this, arguments);
+                  };
+                }()); // console.log(this.worklist);
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function getProcessData() {
+        return _getProcessData.apply(this, arguments);
+      }
+
+      return getProcessData;
+    }(),
+    oneProcessData: function () {
+      var _oneProcessData = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(id, code) {
+        var Fin, list, process, items;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                Fin = 2;
+                _context4.next = 3;
+                return axios.get("/db/workdata/process/" + id);
+
+              case 3:
+                list = _context4.sent;
+                process = {};
+                list.data[0].serials.forEach(function (serial) {
+                  serial.process.forEach(function (p) {
+                    if (p.process_status === Fin) {
+                      process[p.work_id] = process[p.work_id] === undefined ? 1 : process[p.work_id] + 1;
+                    }
+                  });
+                }); // console.log(process);
+
+                items = this.orderSum;
+                Object.keys(process).forEach(function (pid) {
+                  axios.get("/db/workdata/cmpt/items/" + pid).then(function (res) {
+                    res.data.forEach(function (item) {
+                      var tar = items.filter(function (ar) {
+                        return ar.item_id === item.item_id;
+                      });
+                      tar[0].clast_num_set = tar[0].clast_num_set - Number(item.item_use) * process[pid];
+                      tar[0].cappo_num_set = tar[0].cappo_num_set - Number(item.item_use) * process[pid];
+                      tar[0].process.push({
+                        work_id: id,
+                        work_code: code,
+                        fin_serial: process[pid],
+                        cmpt_use_num: item.item_use,
+                        use_num: process[pid] * Number(item.item_use)
+                      });
+                      console.log(Number(item.item_use) * process[pid]);
+                    });
+                  });
+                });
+                return _context4.abrupt("return", 1);
+
+              case 9:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function oneProcessData(_x3, _x4) {
+        return _oneProcessData.apply(this, arguments);
+      }
+
+      return oneProcessData;
+    }(),
+    returnOrderClass: function returnOrderClass(order) {
+      if (order.order_num === order.appo_num && order.order_num === order.recept_num) {
+        return "recepted";
+      } else {
+        return "norecept";
       }
     }
   })
@@ -304,7 +500,7 @@ exports.push([module.i, ".cover[data-v-220b7293] {\n  height: 90%;\n}\n@-webkit-
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".coverNum[data-v-10024074] {\n  border: 1px solid black;\n  border-radius: 3px;\n  font-size: 1.2rem;\n}\n.coverNum.bigOrg[data-v-10024074] {\n  border-color: #2e7d32;\n  color: #2e7d32;\n}\n.coverNum.bigSet[data-v-10024074] {\n  border-color: #ef6c00;\n  color: #ef6c00;\n}\n.coverNum.even[data-v-10024074] {\n  border-color: #283593;\n  color: #283593;\n}\np[data-v-10024074] {\n  margin: 0;\n}\n.flash[data-v-10024074] {\n  -webkit-animation: flash-data-v-10024074 2s linear infinite;\n          animation: flash-data-v-10024074 2s linear infinite;\n  margin-top: 10%;\n  text-align: center;\n  color: cornflowerblue;\n}\n@-webkit-keyframes flash-data-v-10024074 {\n0%, 100% {\n    opacity: 1;\n}\n50% {\n    opacity: 0;\n}\n}\n@keyframes flash-data-v-10024074 {\n0%, 100% {\n    opacity: 1;\n}\n50% {\n    opacity: 0;\n}\n}", ""]);
+exports.push([module.i, ".recepted[data-v-10024074] {\n  color: dimgrey !important;\n}\n.coverNum[data-v-10024074] {\n  border: 1px solid black;\n  border-radius: 3px;\n  font-size: 1.2rem;\n}\n.coverNum.bigOrg[data-v-10024074] {\n  border-color: #2e7d32;\n  color: #2e7d32;\n}\n.coverNum.bigSet[data-v-10024074] {\n  border-color: #ef6c00;\n  color: #ef6c00;\n}\n.coverNum.even[data-v-10024074] {\n  border-color: #283593;\n  color: #283593;\n}\np[data-v-10024074] {\n  margin: 0;\n}\n.flash[data-v-10024074] {\n  -webkit-animation: flash-data-v-10024074 2s linear infinite;\n          animation: flash-data-v-10024074 2s linear infinite;\n  margin-top: 10%;\n  text-align: center;\n  color: cornflowerblue;\n}\n@-webkit-keyframes flash-data-v-10024074 {\n0%, 100% {\n    opacity: 1;\n}\n50% {\n    opacity: 0;\n}\n}\n@keyframes flash-data-v-10024074 {\n0%, 100% {\n    opacity: 1;\n}\n50% {\n    opacity: 0;\n}\n}", ""]);
 
 
 
@@ -498,7 +694,14 @@ var render = function() {
                       [
                         _c(
                           "v-btn",
-                          { attrs: { color: "primary", large: "" } },
+                          {
+                            attrs: { color: "primary", large: "" },
+                            on: {
+                              click: function($event) {
+                                return _vm.getProcessData()
+                              }
+                            }
+                          },
                           [_vm._v("工事データ取り込み")]
                         ),
                         _vm._v(" "),
@@ -537,166 +740,377 @@ var render = function() {
                               key: "items",
                               fn: function(props) {
                                 return [
-                                  _c("td", { staticClass: "text-xs-center" }, [
-                                    _vm._v(_vm._s(props.item.item_code))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-xs-center" }, [
-                                    _c("p", [
-                                      _vm._v(_vm._s(props.item.item_model))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _vm._v(_vm._s(props.item.item_name))
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
                                   _c(
-                                    "td",
-                                    { staticClass: "text-xs-center py-2" },
+                                    "tr",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          props.expanded = !props.expanded
+                                        }
+                                      }
+                                    },
                                     [
                                       _c(
-                                        "div",
-                                        {
-                                          class:
-                                            "coverNum " +
-                                            _vm.rtClass(
-                                              props.item.clast_num_org,
-                                              props.item.clast_num_set
-                                            )
-                                        },
+                                        "td",
+                                        { staticClass: "text-xs-center" },
+                                        [_vm._v(_vm._s(props.item.item_code))]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticClass: "text-xs-center" },
                                         [
                                           _c("p", [
                                             _vm._v(
-                                              "実：" +
-                                                _vm._s(props.item.clast_num_org)
+                                              _vm._s(props.item.item_model)
                                             )
                                           ]),
                                           _vm._v(" "),
                                           _c("p", [
-                                            _vm._v(
-                                              "計：" +
-                                                _vm._s(props.item.clast_num_set)
-                                            )
+                                            _vm._v(_vm._s(props.item.item_name))
                                           ])
                                         ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticClass: "text-xs-center py-2" },
-                                    [
+                                      ),
+                                      _vm._v(" "),
                                       _c(
-                                        "div",
-                                        {
-                                          class:
-                                            "coverNum " +
-                                            _vm.rtClass(
-                                              props.item.cappo_num_org,
-                                              props.item.cappo_num_set
-                                            )
-                                        },
+                                        "td",
+                                        { staticClass: "text-xs-center py-2" },
                                         [
-                                          _c("p", [
-                                            _vm._v(
-                                              "実：" +
-                                                _vm._s(props.item.cappo_num_org)
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("p", [
-                                            _vm._v(
-                                              "計：" +
-                                                _vm._s(props.item.cappo_num_set)
-                                            )
-                                          ])
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticClass: "text-xs-center py-2" },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          class:
-                                            "coverNum " +
-                                            _vm.rtClass(
-                                              props.item.corder_num_org,
-                                              props.item.corder_num_set
-                                            )
-                                        },
-                                        [
-                                          _c("p", [
-                                            _vm._v(
-                                              "実：" +
-                                                _vm._s(
-                                                  props.item.corder_num_org
+                                          _c(
+                                            "div",
+                                            {
+                                              class:
+                                                "coverNum " +
+                                                _vm.rtClass(
+                                                  props.item.clast_num_org,
+                                                  props.item.clast_num_set
                                                 )
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("p", [
-                                            _vm._v(
-                                              "計：" +
-                                                _vm._s(
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "実：" +
+                                                    _vm._s(
+                                                      props.item.clast_num_org
+                                                    )
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v(
+                                                  "計：" +
+                                                    _vm._s(
+                                                      props.item.clast_num_set
+                                                    )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticClass: "text-xs-center py-2" },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              class:
+                                                "coverNum " +
+                                                _vm.rtClass(
+                                                  props.item.cappo_num_org,
+                                                  props.item.cappo_num_set
+                                                )
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "実：" +
+                                                    _vm._s(
+                                                      props.item.cappo_num_org
+                                                    )
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v(
+                                                  "計：" +
+                                                    _vm._s(
+                                                      props.item.cappo_num_set
+                                                    )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticClass: "text-xs-center py-2" },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              class:
+                                                "coverNum " +
+                                                _vm.rtClass(
+                                                  props.item.corder_num_org,
                                                   props.item.corder_num_set
                                                 )
-                                            )
-                                          ])
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "実：" +
+                                                    _vm._s(
+                                                      props.item.corder_num_org
+                                                    )
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v(
+                                                  "計：" +
+                                                    _vm._s(
+                                                      props.item.corder_num_set
+                                                    )
+                                                )
+                                              ])
+                                            ]
+                                          )
                                         ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticClass: "text-xs-center py-2" },
-                                    [
+                                      ),
+                                      _vm._v(" "),
                                       _c(
-                                        "div",
-                                        {
-                                          class:
-                                            "coverNum " +
-                                            _vm.rtClass(
-                                              props.item.corder_num_org +
-                                                props.item.clast_num_org -
-                                                props.item.cappo_num_org,
-                                              props.item.corder_num_set +
-                                                props.item.clast_num_set -
-                                                props.item.cappo_num_set
-                                            )
-                                        },
+                                        "td",
+                                        { staticClass: "text-xs-center py-2" },
                                         [
-                                          _c("p", [
-                                            _vm._v(
-                                              "実：" +
-                                                _vm._s(
+                                          _c(
+                                            "div",
+                                            {
+                                              class:
+                                                "coverNum " +
+                                                _vm.rtClass(
                                                   props.item.corder_num_org +
                                                     props.item.clast_num_org -
-                                                    props.item.cappo_num_org
-                                                )
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("p", [
-                                            _vm._v(
-                                              "計：" +
-                                                _vm._s(
+                                                    props.item.cappo_num_org,
                                                   props.item.corder_num_set +
                                                     props.item.clast_num_set -
                                                     props.item.cappo_num_set
                                                 )
-                                            )
-                                          ])
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "実：" +
+                                                    _vm._s(
+                                                      props.item
+                                                        .corder_num_org +
+                                                        props.item
+                                                          .clast_num_org -
+                                                        props.item.cappo_num_org
+                                                    )
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v(
+                                                  "計：" +
+                                                    _vm._s(
+                                                      props.item
+                                                        .corder_num_set +
+                                                        props.item
+                                                          .clast_num_set -
+                                                        props.item.cappo_num_set
+                                                    )
+                                                )
+                                              ])
+                                            ]
+                                          )
                                         ]
                                       )
                                     ]
+                                  )
+                                ]
+                              }
+                            },
+                            {
+                              key: "expand",
+                              fn: function(props) {
+                                return [
+                                  _c(
+                                    "v-layout",
+                                    {
+                                      attrs: { row: "", wrap: "", "pa-1": "" }
+                                    },
+                                    [
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs6: "", "pa-1": "" } },
+                                        [
+                                          _c(
+                                            "v-layout",
+                                            { attrs: { row: "", wrap: "" } },
+                                            _vm._l(
+                                              props.item.cnt_order_code,
+                                              function(order, index) {
+                                                return _c(
+                                                  "v-flex",
+                                                  {
+                                                    key: index,
+                                                    attrs: {
+                                                      xs6: "",
+                                                      "pa-1": ""
+                                                    }
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "v-card",
+                                                      {
+                                                        class:
+                                                          "pa-2 " +
+                                                          _vm.returnOrderClass(
+                                                            order
+                                                          ),
+                                                        attrs: {
+                                                          color: "primary--text"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("p", [
+                                                          _vm._v(
+                                                            "形式番号：" +
+                                                              _vm._s(
+                                                                order.model_code
+                                                              )
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("p", [
+                                                          _vm._v(
+                                                            "工事番号：" +
+                                                              _vm._s(
+                                                                order.order_code
+                                                              )
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("p", [
+                                                          _vm._v(
+                                                            "発注数：" +
+                                                              _vm._s(
+                                                                order.order_num
+                                                              )
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("p", [
+                                                          _vm._v(
+                                                            "予約数：" +
+                                                              _vm._s(
+                                                                order.appo_num
+                                                              )
+                                                          )
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c("p", [
+                                                          _vm._v(
+                                                            "受入数：" +
+                                                              _vm._s(
+                                                                order.recept_num
+                                                              )
+                                                          )
+                                                        ])
+                                                      ]
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              }
+                                            ),
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs6: "", "pa-2": "" } },
+                                        [
+                                          _c(
+                                            "v-layout",
+                                            { attrs: { row: "", wrap: "" } },
+                                            _vm._l(props.item.process, function(
+                                              process,
+                                              index
+                                            ) {
+                                              return _c(
+                                                "v-flex",
+                                                {
+                                                  key: index,
+                                                  attrs: { xs6: "", "pa-1": "" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "v-card",
+                                                    {
+                                                      staticClass: "pa-2",
+                                                      attrs: {
+                                                        color: "success--text"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("p", [
+                                                        _vm._v(
+                                                          "工事番号：" +
+                                                            _vm._s(
+                                                              process.work_code
+                                                            )
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("p", [
+                                                        _vm._v(
+                                                          "員数：" +
+                                                            _vm._s(
+                                                              process.cmpt_use_num
+                                                            )
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("p", [
+                                                        _vm._v(
+                                                          "完了台数：" +
+                                                            _vm._s(
+                                                              process.fin_serial
+                                                            )
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("p", [
+                                                        _vm._v(
+                                                          "使用数：" +
+                                                            _vm._s(
+                                                              process.use_num
+                                                            )
+                                                        )
+                                                      ])
+                                                    ]
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            }),
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
                                   )
                                 ]
                               }
@@ -710,6 +1124,39 @@ var render = function() {
                 : _vm._e()
             ],
             2
+          ),
+          _vm._v(" "),
+          _c(
+            "v-dialog",
+            {
+              attrs: { "max-width": "500px", transition: "dialog-transition" },
+              model: {
+                value: _vm.dialog,
+                callback: function($$v) {
+                  _vm.dialog = $$v
+                },
+                expression: "dialog"
+              }
+            },
+            [
+              _c(
+                "v-card",
+                [
+                  _c(
+                    "v-alert",
+                    { attrs: { type: "info", value: true, outline: "" } },
+                    [
+                      _c("v-progress-linear", {
+                        attrs: { value: _vm.progress }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
           )
         ],
         1
@@ -839,11 +1286,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VApp */ "./node_modules/vuetify/lib/components/VApp/index.js");
-/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VAlert */ "./node_modules/vuetify/lib/components/VAlert/index.js");
+/* harmony import */ var vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VApp */ "./node_modules/vuetify/lib/components/VApp/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VProgressLinear__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VProgressLinear */ "./node_modules/vuetify/lib/components/VProgressLinear/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -870,7 +1321,13 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["VBtn"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__["VDataTable"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__["VTextField"]})
+
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VAlert: vuetify_lib_components_VAlert__WEBPACK_IMPORTED_MODULE_5__["VAlert"],VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_6__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["VCard"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_11__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VFlex"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VLayout"],VProgressLinear: vuetify_lib_components_VProgressLinear__WEBPACK_IMPORTED_MODULE_12__["VProgressLinear"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_13__["VTextField"]})
 
 
 /* hot reload */

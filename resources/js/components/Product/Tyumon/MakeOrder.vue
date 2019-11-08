@@ -245,7 +245,6 @@ export default {
     model_select() {
       this.select = !this.select;
       this.tar_model = null;
-      console.log(this.fm.order_day);
     },
     rtModel(select) {
       this.select = !this.select;

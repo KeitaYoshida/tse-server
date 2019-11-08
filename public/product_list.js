@@ -903,7 +903,6 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
     model_select: function model_select() {
       this.select = !this.select;
       this.tar_model = null;
-      console.log(this.fm.order_day);
     },
     rtModel: function rtModel(select) {
       var _this3 = this;
