@@ -159,6 +159,7 @@ Route::get("/db/monitor/init_month", "monitor@InitMonth");
 
 Route::get("/db/inventory/history/day/{day}", "ItemsCtrl@inventoryHistory");
 Route::get("/db/inventory/working/const/list", "PdctWorkList@GetWorkingConstList");
+Route::get("/db/inventory/worklist/check/{wid}/{day}/{uid}", "PdctWorkList@SetWorklistCheckInfo");
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 

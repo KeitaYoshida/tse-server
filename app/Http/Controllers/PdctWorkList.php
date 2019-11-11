@@ -136,10 +136,16 @@ class PdctWorkList extends Controller
     return $PWLC
       ->where('context', '!=', 0)
       ->where('context', '!=', 100)
-      ->with(['status', 'class', 'model'])
+      ->with(['status', 'class', 'model', 'user'])
       ->get();
     // ->with(['status', 'class', 'model' => function ($q) {
     //   $q->orderBy('model.model_code', 'asc');
     // }])
+  }
+
+  public function SetWorklistCheckInfo($wid, $day, $uid)
+  {
+    $PWLC = new PdctWorkdataList;
+    $PWLC->where('worklist_id', $wid)->update(['inv_loginid' => $uid, 'inv_day' => $day]);
   }
 }

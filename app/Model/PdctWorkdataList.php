@@ -34,4 +34,9 @@ class PdctWorkdataList extends Model
   {
     return $this->hasMany('App\Model\Serials', 'worklist_id', 'worklist_id')->orderBy('serial_id');
   }
+
+  public function user()
+  {
+    return $this->hasMany('App\Model\User', 'loginid', 'inv_loginid');
+  }
 }
