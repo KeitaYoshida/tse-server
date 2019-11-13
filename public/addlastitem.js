@@ -88,6 +88,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
@@ -393,7 +401,35 @@ var render = function() {
                                     _c(
                                       "td",
                                       { staticClass: "text-xs-center" },
-                                      [_vm._v(_vm._s(props.item.item_code))]
+                                      [
+                                        _vm._v(
+                                          "\n                " +
+                                            _vm._s(props.item.item_code) +
+                                            "\n                "
+                                        ),
+                                        props.item.order_code.trim() !=
+                                          props.item.item_code.trim() &&
+                                        props.item.order_code != "" &&
+                                        props.item.order_code !== null
+                                          ? [
+                                              _c("br"),
+                                              _vm._v(" "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "daigae" },
+                                                [
+                                                  _vm._v(
+                                                    "代: " +
+                                                      _vm._s(
+                                                        props.item.order_code
+                                                      )
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          : _vm._e()
+                                      ],
+                                      2
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -513,7 +549,7 @@ var render = function() {
                           ],
                           null,
                           false,
-                          1250940748
+                          116537313
                         )
                       })
                     ],
