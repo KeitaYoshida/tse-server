@@ -715,6 +715,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -730,7 +738,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         align: "center"
       }, {
         text: "品名/形式",
-        value: "item_name",
+        value: "order_code",
         align: "center"
       }, {
         text: "在庫数/集計数",
@@ -805,15 +813,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
                 ss.allPrice = Math.round(ss.allPrice);
                 ss.finPrice = Math.round(ss.finPrice);
-                _context.next = 12;
+                console.log(this.items);
+                _context.next = 13;
                 return this.INVENTORY_SET({
                   status: ss
                 });
 
-              case 12:
+              case 13:
                 this.inited = true;
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -1155,7 +1164,7 @@ exports.push([module.i, "td[data-v-a2d7e020] {\n  padding: 0 !important;\n}\n.te
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td[data-v-112b7625] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-112b7625] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}\n.num[data-v-112b7625] {\n  font-size: 1.5rem;\n}\n.daigae[data-v-112b7625] {\n  font-size: 0.7rem;\n  display: block;\n}", ""]);
+exports.push([module.i, "td[data-v-112b7625] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-112b7625] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}\n.num[data-v-112b7625] {\n  font-size: 1.5rem;\n}\n.daigae[data-v-112b7625] {\n  font-size: 0.9rem;\n  display: block;\n}", ""]);
 
 
 
@@ -2201,28 +2210,30 @@ var render = function() {
                             "v-btn",
                             {
                               staticClass: "link",
-                              attrs: { color: "success", flat: "", large: "" },
+                              attrs: { color: "success", flat: "", small: "" },
                               on: {
                                 click: function($event) {
                                   return _vm.shukeiAct(props.item)
                                 }
                               }
                             },
-                            [
-                              _vm._v(
-                                "\n          " +
-                                  _vm._s(props.item.item_code) +
-                                  "\n          "
-                              ),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c("strong", { staticClass: "daigae" }, [
-                                _vm._v("test")
-                              ])
-                            ]
-                          )
+                            [_vm._v(_vm._s(props.item.item_code))]
+                          ),
+                          _vm._v(" "),
+                          props.item.order_code.trim() !=
+                            props.item.item_code.trim() &&
+                          props.item.order_code != "" &&
+                          props.item.order_code !== null
+                            ? [
+                                _c("br"),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "daigae" }, [
+                                  _vm._v("代: " + _vm._s(props.item.order_code))
+                                ])
+                              ]
+                            : _vm._e()
                         ],
-                        1
+                        2
                       ),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-xs-center" }, [
@@ -2267,7 +2278,7 @@ var render = function() {
               ],
               null,
               false,
-              1622970998
+              1767800314
             )
           })
         : _vm._e(),

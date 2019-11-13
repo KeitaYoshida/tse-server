@@ -12,11 +12,19 @@
     >
       <template v-slot:items="props">
         <td class="text-xs-center">
-          <v-btn color="success" flat class="link" large @click="shukeiAct(props.item)">
-            {{ props.item.item_code }}
+          <v-btn
+            color="success"
+            flat
+            class="link"
+            small
+            @click="shukeiAct(props.item)"
+          >{{ props.item.item_code }}</v-btn>
+          <template
+            v-if="props.item.order_code.trim() != props.item.item_code.trim() && props.item.order_code != '' && props.item.order_code !== null"
+          >
             <br />
-            <strong class="daigae">test</strong>
-          </v-btn>
+            <span class="daigae">代: {{props.item.order_code }}</span>
+          </template>
         </td>
         <td class="text-xs-center">
           {{ props.item.item_name }}
@@ -47,7 +55,7 @@ export default {
     return {
       headers: [
         { text: "品目コード", value: "item_code", align: "center" },
-        { text: "品名/形式", value: "item_name", align: "center" },
+        { text: "品名/形式", value: "order_code", align: "center" },
         { text: "在庫数/集計数", value: "item_model", align: "center" }
       ],
       inited: false,
@@ -104,6 +112,7 @@ export default {
       });
       ss.allPrice = Math.round(ss.allPrice);
       ss.finPrice = Math.round(ss.finPrice);
+      console.log(this.items);
       await this.INVENTORY_SET({ status: ss });
       this.inited = true;
     },
@@ -163,7 +172,7 @@ button.link {
   font-size: 1.5rem;
 }
 .daigae {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   display: block;
 }
 </style>

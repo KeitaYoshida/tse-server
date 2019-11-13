@@ -113,6 +113,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -444,9 +452,32 @@ var render = function() {
                       fn: function(props) {
                         return [
                           _c("tr", [
-                            _c("td", { staticClass: "text-xs-center" }, [
-                              _vm._v(_vm._s(props.item.item_code))
-                            ]),
+                            _c(
+                              "td",
+                              { staticClass: "text-xs-center" },
+                              [
+                                _vm._v(
+                                  "\n            " +
+                                    _vm._s(props.item.item_code) +
+                                    "\n            "
+                                ),
+                                props.item.order_code.trim() !=
+                                  props.item.item_code.trim() &&
+                                props.item.order_code != "" &&
+                                props.item.order_code !== null
+                                  ? [
+                                      _c("br"),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: "daigae" }, [
+                                        _vm._v(
+                                          "代: " + _vm._s(props.item.order_code)
+                                        )
+                                      ])
+                                    ]
+                                  : _vm._e()
+                              ],
+                              2
+                            ),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-xs-center" }, [
                               _vm._v(_vm._s(_vm.get__rev(props.item.item_rev)))
@@ -515,7 +546,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  3604980418
+                  2065628719
                 )
               }),
               _vm._v(" "),
@@ -1363,7 +1394,7 @@ var _data_table_common_setting = {
     }, {
       text: "在庫数",
       align: "center",
-      value: "last_num"
+      value: "order_code"
     }]
   }
 };

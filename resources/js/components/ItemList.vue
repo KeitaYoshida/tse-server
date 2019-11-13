@@ -21,7 +21,15 @@
       >
         <template v-slot:items="props">
           <tr>
-            <td class="text-xs-center">{{ props.item.item_code }}</td>
+            <td class="text-xs-center">
+              {{ props.item.item_code }}
+              <template
+                v-if="props.item.order_code.trim() != props.item.item_code.trim() && props.item.order_code != '' && props.item.order_code !== null"
+              >
+                <br />
+                <span class="daigae">代: {{props.item.order_code }}</span>
+              </template>
+            </td>
             <td class="text-xs-center">{{ get__rev(props.item.item_rev) }}</td>
             <td class="text-xs-center">{{ props.item.item_name }}</td>
             <td class="text-xs-center">{{ props.item.item_model }}</td>
