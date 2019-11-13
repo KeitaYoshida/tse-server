@@ -110,7 +110,7 @@ export default {
     getCsv() {
       let list = "";
       var csv = "";
-      csv = csv + "形式,工事番号,台数,金額";
+      csv = csv + "形式,工事番号,台数(分割),台数(全体),金額";
       list = csv + "\n";
       // console.log(this.list);
       // return;
@@ -118,7 +118,8 @@ export default {
       this.list.forEach((ar, n) => {
         list = list + ar.model.model_code + ",";
         list = list + ar.worklist_code + ",";
-        list = list + ar.num + "/" + ar.all_num + ",";
+        list = list + ar.num + ",";
+        list = list + ar.all_num + ",";
         list = list + ar.use_item_price + ",";
         list = list + "\n";
       });

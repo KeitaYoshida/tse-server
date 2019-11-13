@@ -12,12 +12,11 @@
     >
       <template v-slot:items="props">
         <td class="text-xs-center">
-          <v-btn
-            color="success"
-            flat
-            class="link"
-            @click="shukeiAct(props.item)"
-          >{{ props.item.item_code }}</v-btn>
+          <v-btn color="success" flat class="link" large @click="shukeiAct(props.item)">
+            {{ props.item.item_code }}
+            <br />
+            <strong class="daigae">test</strong>
+          </v-btn>
         </td>
         <td class="text-xs-center">
           {{ props.item.item_name }}
@@ -162,5 +161,9 @@ button.link {
 }
 .num {
   font-size: 1.5rem;
+}
+.daigae {
+  font-size: 0.7rem;
+  display: block;
 }
 </style>
