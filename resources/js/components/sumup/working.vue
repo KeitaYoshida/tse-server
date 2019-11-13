@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container fluid>
+    <v-container fluid id="list">
       <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       <v-data-table
         :headers="headers"
@@ -35,6 +35,16 @@
         </template>
       </v-data-table>
     </v-container>
+    <v-bottom-nav fixed :active.sync="main_action" v-model="main_action">
+      <v-btn flat value="list" color="primary">
+        <span>仕掛り工事リスト</span>
+        <v-icon>far fa-list-alt</v-icon>
+      </v-btn>
+      <v-btn flat value="csv" color="primary" @click="getCsv()">
+        <span>ＣＳＶ出力</span>
+        <v-icon>fas fa-file-csv</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-app>
 </template>
 
@@ -43,6 +53,7 @@ import { mapState, mapActions } from "vuex";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 dayjs.locale("ja");
+var iconv = require("iconv-lite");
 
 export default {
   props: [],
@@ -66,7 +77,8 @@ export default {
         rowsPerPage: 1000,
         sortBy: "model.model_code"
       },
-      search: ""
+      search: "",
+      main_action: "list"
     };
   },
   computed: {
@@ -86,6 +98,7 @@ export default {
     check(item) {
       let checkDay = dayjs(Date.now()).format("YYYY-MM-DD HH:mm");
       let wid = item.worklist_id;
+      item.user = [{ name: this.user.name }];
       let user = this.user.name;
       let loginid = this.user.loginid;
       axios.get(
@@ -93,6 +106,32 @@ export default {
       );
       item.inv_day = checkDay;
       item.user.name = user;
+    },
+    getCsv() {
+      let list = "";
+      var csv = "";
+      csv = csv + "形式,工事番号,台数,金額";
+      list = csv + "\n";
+      // console.log(this.list);
+      // return;
+
+      this.list.forEach((ar, n) => {
+        list = list + ar.model.model_code + ",";
+        list = list + ar.worklist_code + ",";
+        list = list + ar.num + "/" + ar.all_num + ",";
+        list = list + ar.use_item_price + ",";
+        list = list + "\n";
+      });
+      list = iconv.encode(list, "Shift_JIS");
+      let blob = new Blob([list], { type: "text/csv" });
+      let link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      let day = dayjs().format("YYYYMMDDHHmmss");
+      let daynum = Number(day);
+      let day16 = daynum.toString(16);
+      let csv_name = "TSE_INVENTORY_LIST_" + day16 + ".csv";
+      link.download = csv_name;
+      link.click();
     }
   }
 };
@@ -101,5 +140,8 @@ export default {
 <style lang="scss" scoped>
 td {
   padding: 0 !important;
+}
+#list {
+  margin-bottom: 64px;
 }
 </style>

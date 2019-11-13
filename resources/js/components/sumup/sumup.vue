@@ -1,57 +1,64 @@
 <template>
   <v-app>
-    <v-container fluid>
+    <v-container fluid id="inventory">
       <v-layout wrap v-if="mode==='def'">
-        <v-flex xs3>
+        <v-flex lg2 xs3 pt-3 px-4>
+          <v-btn color="primary" @click="mode='history'" block outline>履歴</v-btn>
+        </v-flex>
+        <v-flex lg2 xs3 pt-3 px-4>
+          <v-btn color="primary" to="/workinglist" block outline>仕掛り</v-btn>
+        </v-flex>
+        <v-flex lg3 xs6>
           <v-text-field
             :value="search"
             @input="SEARCH_INVENTORY($event)"
             append-icon="search"
-            label="検索"
+            label="検索[発注番号・品目コード]"
             clearable
             autofocus
           ></v-text-field>
         </v-flex>
-        <v-flex xs4 class="px-3">
+        <v-flex lg2 xs4 px-3>
           <v-text-field
             v-model="fixMassage"
-            label="固定メッセージ"
-            append-icon="search"
+            label="数量"
+            prepend-inner-icon="fas fa-sort-numeric-up"
             clearable
             hint="部材集計時のメッセージに入力値を登録します"
           ></v-text-field>
         </v-flex>
-        <v-flex xs5 pt-3 pl-2>
-          <v-btn color="success" @click="mode='history'">履歴</v-btn>
-          <v-btn color="success" to="/workinglist">仕掛り</v-btn>
+        <v-flex lg3 xs8 px-3>
+          <v-text-field
+            v-model="fixMassage"
+            label="コメント"
+            prepend-inner-icon="far fa-comment"
+            clearable
+            hint="部材集計時のメッセージに入力値を登録します"
+          ></v-text-field>
         </v-flex>
         <v-flex xs5 pt-3 pr-3>
-          <v-chip outline small color="green darken-3">工事リスト</v-chip>
+          <v-chip outline color="green darken-3">工事リスト</v-chip>
           <ConstList @act="selectConst()"></ConstList>
         </v-flex>
         <v-flex xs7 pt-3 pl-3>
-          <v-chip outline small color="green darken-3">部材リスト</v-chip>
+          <v-chip outline color="green darken-3">部材リスト</v-chip>
           <ItemList :massage="fixMassage"></ItemList>
         </v-flex>
         <v-flex xs3 mt-3>
-          <v-chip outline small color="green darken-3">集計数</v-chip>
+          <v-chip outline color="green darken-3">集計数</v-chip>
           <template v-if="inv.status">
             <PieChart :d="setNumChart()" :height="240"></PieChart>
           </template>
         </v-flex>
         <v-flex xs3 mt-3>
-          <v-chip outline small color="green darken-3">集計金額</v-chip>
+          <v-chip outline color="green darken-3">集計金額</v-chip>
           <template v-if="inv.status">
             <PieChart :d="setPriceChart()" :height="240"></PieChart>
           </template>
         </v-flex>
         <v-flex xs6 v-if="inv.status" mt-3>
-          <v-chip outline small color="green darken-3">集計差額</v-chip>
-          <v-chip
-            outline
-            small
-            color="green darken-3"
-          >{{ Math.round( margePrice()).toLocaleString() }}</v-chip>
+          <v-chip outline color="green darken-3">集計差額</v-chip>
+          <v-chip outline color="green darken-3">{{ Math.round( margePrice()).toLocaleString() }}</v-chip>
           <BarChart :d="setBarChart()" :height="240"></BarChart>
         </v-flex>
       </v-layout>
@@ -62,6 +69,20 @@
         <History @rt="mode='def'"></History>
       </v-container>
     </v-container>
+    <v-bottom-nav fixed :active.sync="main_action" v-model="main_action">
+      <v-btn flat value="inv" color="primary">
+        <span>棚卸し集計</span>
+        <v-icon>far fa-list-alt</v-icon>
+      </v-btn>
+      <v-btn flat value="cnt" color="primary">
+        <span>完了データ登録</span>
+        <v-icon>fas fa-stamp</v-icon>
+      </v-btn>
+      <v-btn flat value="all" color="primary">
+        <span>過去データ</span>
+        <v-icon>fas fa-history</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-app>
 </template>
 
@@ -87,7 +108,8 @@ export default {
   data: function() {
     return {
       mode: "def",
-      fixMassage: ""
+      fixMassage: "",
+      main_action: null
     };
   },
   computed: {
@@ -157,5 +179,8 @@ export default {
 <style lang="scss" scoped>
 #app {
   background-color: #fff;
+}
+#inventory {
+  margin-bottom: 64px;
 }
 </style>

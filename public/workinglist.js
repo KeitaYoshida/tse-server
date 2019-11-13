@@ -68,10 +68,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 dayjs__WEBPACK_IMPORTED_MODULE_2___default.a.locale("ja");
+
+var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib/index.js");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
   components: {},
@@ -117,7 +130,8 @@ dayjs__WEBPACK_IMPORTED_MODULE_2___default.a.locale("ja");
         rowsPerPage: 1000,
         sortBy: "model.model_code"
       },
-      search: ""
+      search: "",
+      main_action: "list"
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -160,11 +174,41 @@ dayjs__WEBPACK_IMPORTED_MODULE_2___default.a.locale("ja");
     check: function check(item) {
       var checkDay = dayjs__WEBPACK_IMPORTED_MODULE_2___default()(Date.now()).format("YYYY-MM-DD HH:mm");
       var wid = item.worklist_id;
+      item.user = [{
+        name: this.user.name
+      }];
       var user = this.user.name;
       var loginid = this.user.loginid;
       axios.get("/db/inventory/worklist/check/" + wid + "/" + checkDay + "/" + loginid);
       item.inv_day = checkDay;
       item.user.name = user;
+    },
+    getCsv: function getCsv() {
+      var list = "";
+      var csv = "";
+      csv = csv + "形式,工事番号,台数,金額";
+      list = csv + "\n"; // console.log(this.list);
+      // return;
+
+      this.list.forEach(function (ar, n) {
+        list = list + ar.model.model_code + ",";
+        list = list + ar.worklist_code + ",";
+        list = list + ar.num + "/" + ar.all_num + ",";
+        list = list + ar.use_item_price + ",";
+        list = list + "\n";
+      });
+      list = iconv.encode(list, "Shift_JIS");
+      var blob = new Blob([list], {
+        type: "text/csv"
+      });
+      var link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      var day = dayjs__WEBPACK_IMPORTED_MODULE_2___default()().format("YYYYMMDDHHmmss");
+      var daynum = Number(day);
+      var day16 = daynum.toString(16);
+      var csv_name = "TSE_INVENTORY_LIST_" + day16 + ".csv";
+      link.download = csv_name;
+      link.click();
     }
   })
 });
@@ -180,7 +224,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_2___default.a.locale("ja");
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td[data-v-bd647fe6] {\n  padding: 0 !important;\n}", ""]);
+exports.push([module.i, "td[data-v-bd647fe6] {\n  padding: 0 !important;\n}\n#list[data-v-bd647fe6] {\n  margin-bottom: 64px;\n}", ""]);
 
 
 
@@ -260,7 +304,7 @@ var render = function() {
     [
       _c(
         "v-container",
-        { attrs: { fluid: "" } },
+        { attrs: { fluid: "", id: "list" } },
         [
           _c("v-text-field", {
             attrs: {
@@ -383,6 +427,56 @@ var render = function() {
           })
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-bottom-nav",
+        {
+          attrs: { fixed: "", active: _vm.main_action },
+          on: {
+            "update:active": function($event) {
+              _vm.main_action = $event
+            }
+          },
+          model: {
+            value: _vm.main_action,
+            callback: function($$v) {
+              _vm.main_action = $$v
+            },
+            expression: "main_action"
+          }
+        },
+        [
+          _c(
+            "v-btn",
+            { attrs: { flat: "", value: "list", color: "primary" } },
+            [
+              _c("span", [_vm._v("仕掛り工事リスト")]),
+              _vm._v(" "),
+              _c("v-icon", [_vm._v("far fa-list-alt")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { flat: "", value: "csv", color: "primary" },
+              on: {
+                click: function($event) {
+                  return _vm.getCsv()
+                }
+              }
+            },
+            [
+              _c("span", [_vm._v("ＣＳＶ出力")]),
+              _vm._v(" "),
+              _c("v-icon", [_vm._v("fas fa-file-csv")])
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
@@ -411,10 +505,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VApp */ "./node_modules/vuetify/lib/components/VApp/index.js");
-/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VBottomNav */ "./node_modules/vuetify/lib/components/VBottomNav/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -441,7 +537,9 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["VBtn"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__["VDataTable"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__["VTextField"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBottomNav: vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_6__["VBottomNav"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__["VDataTable"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
 
 
 /* hot reload */
@@ -496,6 +594,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_working_vue_vue_type_template_id_bd647fe6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ 1:
+/*!***************************!*\
+  !*** ./streams (ignored) ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 2:
+/*!*******************************!*\
+  !*** ./extend-node (ignored) ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 

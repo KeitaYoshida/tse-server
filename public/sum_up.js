@@ -114,6 +114,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
@@ -714,6 +715,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -728,11 +730,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value: "item_code",
         align: "center"
       }, {
-        text: "品名/在庫数",
+        text: "品名/形式",
         value: "item_name",
         align: "center"
       }, {
-        text: "形式/集計数",
+        text: "在庫数/集計数",
         value: "item_model",
         align: "center"
       }],
@@ -891,7 +893,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return returnNum;
-    }()
+    }(),
+    rtNumClass: function rtNumClass(last_num, inv_num) {
+      if (last_num > inv_num) {
+        return "overLast";
+      } else if (last_num < inv_num) {
+        return "overInv";
+      } else {
+        return "even";
+      }
+    }
   })
 });
 
@@ -986,6 +997,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1006,7 +1038,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       mode: "def",
-      fixMassage: ""
+      fixMassage: "",
+      main_action: null
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -1078,7 +1111,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td[data-v-b89ca306] {\n  padding: 0 !important;\n}\nbutton.link[data-v-b89ca306] {\n  font-size: 1.2rem;\n}", ""]);
+exports.push([module.i, "td[data-v-b89ca306] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-b89ca306] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-b89ca306] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}", ""]);
 
 
 
@@ -1123,7 +1156,7 @@ exports.push([module.i, "td[data-v-a2d7e020] {\n  padding: 0 !important;\n}\n.te
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td[data-v-112b7625] {\n  padding: 0 !important;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.2rem;\n}", ""]);
+exports.push([module.i, "td[data-v-112b7625] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-112b7625] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}\n.num[data-v-112b7625] {\n  font-size: 1.5rem;\n}", ""]);
 
 
 
@@ -1138,7 +1171,7 @@ exports.push([module.i, "td[data-v-112b7625] {\n  padding: 0 !important;\n}\nbut
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "#app[data-v-36225982] {\n  background-color: #fff;\n}", ""]);
+exports.push([module.i, "#app[data-v-36225982] {\n  background-color: #fff;\n}\n#inventory[data-v-36225982] {\n  margin-bottom: 64px;\n}", ""]);
 
 
 
@@ -1603,12 +1636,13 @@ var render = function() {
           "item-key": "cnt_orderlist_id",
           loading: "true",
           "rows-per-page-items": [
-            3,
+            6,
             10,
             25,
             { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }
           ],
-          search: _vm.search
+          search: _vm.search,
+          "rows-per-page-text": "page"
         },
         scopedSlots: _vm._u(
           [
@@ -2146,11 +2180,12 @@ var render = function() {
               "item-key": "index",
               loading: "true",
               "rows-per-page-items": [
-                3,
+                5,
                 10,
                 25,
                 { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }
               ],
+              "rows-per-page-text": "page",
               search: _vm.search
             },
             scopedSlots: _vm._u(
@@ -2189,29 +2224,40 @@ var render = function() {
                         _c("br"),
                         _vm._v(
                           "\n        " +
-                            _vm._s(props.item.last_num) +
+                            _vm._s(props.item.item_model) +
                             "\n      "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "text-xs-center" }, [
-                        _vm._v(
-                          "\n        " +
-                            _vm._s(props.item.item_model) +
-                            "\n        "
-                        ),
-                        _c("br"),
-                        _vm._v(
-                          "\n        " + _vm._s(props.item.inv_num) + "\n      "
-                        )
-                      ])
+                      _c(
+                        "td",
+                        {
+                          class:
+                            "text-xs-center " +
+                            _vm.rtNumClass(
+                              props.item.last_num,
+                              props.item.inv_num
+                            )
+                        },
+                        [
+                          _c("span", { staticClass: "num" }, [
+                            _vm._v(_vm._s(props.item.last_num))
+                          ]),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "num" }, [
+                            _vm._v(_vm._s(props.item.inv_num))
+                          ])
+                        ]
+                      )
                     ]
                   }
                 }
               ],
               null,
               false,
-              3177590268
+              70783879
             )
           })
         : _vm._e(),
@@ -2269,7 +2315,7 @@ var render = function() {
     [
       _c(
         "v-container",
-        { attrs: { fluid: "" } },
+        { attrs: { fluid: "", id: "inventory" } },
         [
           _vm.mode === "def"
             ? _c(
@@ -2278,13 +2324,53 @@ var render = function() {
                 [
                   _c(
                     "v-flex",
-                    { attrs: { xs3: "" } },
+                    { attrs: { lg2: "", xs3: "", "pt-3": "", "px-4": "" } },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary", block: "", outline: "" },
+                          on: {
+                            click: function($event) {
+                              _vm.mode = "history"
+                            }
+                          }
+                        },
+                        [_vm._v("履歴")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { lg2: "", xs3: "", "pt-3": "", "px-4": "" } },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            color: "primary",
+                            to: "/workinglist",
+                            block: "",
+                            outline: ""
+                          }
+                        },
+                        [_vm._v("仕掛り")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { lg3: "", xs6: "" } },
                     [
                       _c("v-text-field", {
                         attrs: {
                           value: _vm.search,
                           "append-icon": "search",
-                          label: "検索",
+                          label: "検索[発注番号・品目コード]",
                           clearable: "",
                           autofocus: ""
                         },
@@ -2300,12 +2386,12 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-flex",
-                    { staticClass: "px-3", attrs: { xs4: "" } },
+                    { attrs: { lg2: "", xs4: "", "px-3": "" } },
                     [
                       _c("v-text-field", {
                         attrs: {
-                          label: "固定メッセージ",
-                          "append-icon": "search",
+                          label: "数量",
+                          "prepend-inner-icon": "fas fa-sort-numeric-up",
                           clearable: "",
                           hint: "部材集計時のメッセージに入力値を登録します"
                         },
@@ -2323,26 +2409,23 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-flex",
-                    { attrs: { xs5: "", "pt-3": "", "pl-2": "" } },
+                    { attrs: { lg3: "", xs8: "", "px-3": "" } },
                     [
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: { color: "success" },
-                          on: {
-                            click: function($event) {
-                              _vm.mode = "history"
-                            }
-                          }
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "コメント",
+                          "prepend-inner-icon": "far fa-comment",
+                          clearable: "",
+                          hint: "部材集計時のメッセージに入力値を登録します"
                         },
-                        [_vm._v("履歴")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        { attrs: { color: "success", to: "/workinglist" } },
-                        [_vm._v("仕掛り")]
-                      )
+                        model: {
+                          value: _vm.fixMassage,
+                          callback: function($$v) {
+                            _vm.fixMassage = $$v
+                          },
+                          expression: "fixMassage"
+                        }
+                      })
                     ],
                     1
                   ),
@@ -2353,13 +2436,7 @@ var render = function() {
                     [
                       _c(
                         "v-chip",
-                        {
-                          attrs: {
-                            outline: "",
-                            small: "",
-                            color: "green darken-3"
-                          }
-                        },
+                        { attrs: { outline: "", color: "green darken-3" } },
                         [_vm._v("工事リスト")]
                       ),
                       _vm._v(" "),
@@ -2380,13 +2457,7 @@ var render = function() {
                     [
                       _c(
                         "v-chip",
-                        {
-                          attrs: {
-                            outline: "",
-                            small: "",
-                            color: "green darken-3"
-                          }
-                        },
+                        { attrs: { outline: "", color: "green darken-3" } },
                         [_vm._v("部材リスト")]
                       ),
                       _vm._v(" "),
@@ -2401,13 +2472,7 @@ var render = function() {
                     [
                       _c(
                         "v-chip",
-                        {
-                          attrs: {
-                            outline: "",
-                            small: "",
-                            color: "green darken-3"
-                          }
-                        },
+                        { attrs: { outline: "", color: "green darken-3" } },
                         [_vm._v("集計数")]
                       ),
                       _vm._v(" "),
@@ -2428,13 +2493,7 @@ var render = function() {
                     [
                       _c(
                         "v-chip",
-                        {
-                          attrs: {
-                            outline: "",
-                            small: "",
-                            color: "green darken-3"
-                          }
-                        },
+                        { attrs: { outline: "", color: "green darken-3" } },
                         [_vm._v("集計金額")]
                       ),
                       _vm._v(" "),
@@ -2456,25 +2515,13 @@ var render = function() {
                         [
                           _c(
                             "v-chip",
-                            {
-                              attrs: {
-                                outline: "",
-                                small: "",
-                                color: "green darken-3"
-                              }
-                            },
+                            { attrs: { outline: "", color: "green darken-3" } },
                             [_vm._v("集計差額")]
                           ),
                           _vm._v(" "),
                           _c(
                             "v-chip",
-                            {
-                              attrs: {
-                                outline: "",
-                                small: "",
-                                color: "green darken-3"
-                              }
-                            },
+                            { attrs: { outline: "", color: "green darken-3" } },
                             [
                               _vm._v(
                                 _vm._s(
@@ -2525,6 +2572,60 @@ var render = function() {
                 1
               )
             : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-bottom-nav",
+        {
+          attrs: { fixed: "", active: _vm.main_action },
+          on: {
+            "update:active": function($event) {
+              _vm.main_action = $event
+            }
+          },
+          model: {
+            value: _vm.main_action,
+            callback: function($$v) {
+              _vm.main_action = $$v
+            },
+            expression: "main_action"
+          }
+        },
+        [
+          _c(
+            "v-btn",
+            { attrs: { flat: "", value: "inv", color: "primary" } },
+            [
+              _c("span", [_vm._v("棚卸し集計")]),
+              _vm._v(" "),
+              _c("v-icon", [_vm._v("far fa-list-alt")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            { attrs: { flat: "", value: "cnt", color: "primary" } },
+            [
+              _c("span", [_vm._v("完了データ登録")]),
+              _vm._v(" "),
+              _c("v-icon", [_vm._v("fas fa-stamp")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            { attrs: { flat: "", value: "all", color: "primary" } },
+            [
+              _c("span", [_vm._v("過去データ")]),
+              _vm._v(" "),
+              _c("v-icon", [_vm._v("fas fa-history")])
+            ],
+            1
+          )
         ],
         1
       )
@@ -3057,10 +3158,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VApp */ "./node_modules/vuetify/lib/components/VApp/index.js");
-/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VChip */ "./node_modules/vuetify/lib/components/VChip/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VBottomNav */ "./node_modules/vuetify/lib/components/VBottomNav/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VChip */ "./node_modules/vuetify/lib/components/VChip/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -3089,7 +3192,9 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_7__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VContainer"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VFlex"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VLayout"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__["VTextField"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBottomNav: vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_6__["VBottomNav"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VContainer"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VLayout"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
 
 
 /* hot reload */

@@ -6,7 +6,8 @@
       :items="items"
       item-key="index"
       loading="true"
-      :rows-per-page-items="[3,10,25,{'text':'$vuetify.dataIterator.rowsPerPageAll','value':-1}]"
+      :rows-per-page-items="[5,10,25,{'text':'$vuetify.dataIterator.rowsPerPageAll','value':-1}]"
+      rows-per-page-text="page"
       :search="search"
     >
       <template v-slot:items="props">
@@ -21,12 +22,12 @@
         <td class="text-xs-center">
           {{ props.item.item_name }}
           <br />
-          {{ props.item.last_num }}
-        </td>
-        <td class="text-xs-center">
           {{ props.item.item_model }}
+        </td>
+        <td :class="'text-xs-center ' + rtNumClass(props.item.last_num, props.item.inv_num)">
+          <span class="num">{{ props.item.last_num }}</span>
           <br />
-          {{ props.item.inv_num }}
+          <span class="num">{{ props.item.inv_num }}</span>
         </td>
       </template>
     </v-data-table>
@@ -47,8 +48,8 @@ export default {
     return {
       headers: [
         { text: "品目コード", value: "item_code", align: "center" },
-        { text: "品名/在庫数", value: "item_name", align: "center" },
-        { text: "形式/集計数", value: "item_model", align: "center" }
+        { text: "品名/形式", value: "item_name", align: "center" },
+        { text: "在庫数/集計数", value: "item_model", align: "center" }
       ],
       inited: false,
       items: null,
@@ -134,6 +135,15 @@ export default {
       await axios.post("/db/shukei/set/item", pdata);
       await this.init();
       this.shukeiView = !this.shukeiView;
+    },
+    rtNumClass(last_num, inv_num) {
+      if (last_num > inv_num) {
+        return "overLast";
+      } else if (last_num < inv_num) {
+        return "overInv";
+      } else {
+        return "even";
+      }
     }
   }
 };
@@ -143,7 +153,14 @@ export default {
 td {
   padding: 0 !important;
 }
+table.v-table tbody td {
+  font-size: 1.3rem;
+}
 button.link {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.num {
+  font-size: 1.5rem;
 }
 </style>

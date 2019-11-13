@@ -5,8 +5,9 @@
     :items="items"
     item-key="cnt_orderlist_id"
     loading="true"
-    :rows-per-page-items="[3,10,25,{'text':'$vuetify.dataIterator.rowsPerPageAll','value':-1}]"
+    :rows-per-page-items="[6,10,25,{'text':'$vuetify.dataIterator.rowsPerPageAll','value':-1}]"
     :search="search"
+    rows-per-page-text="page"
   >
     <template v-slot:items="props">
       <td class="text-xs-center">{{ props.item.cnt_model }}</td>
@@ -73,7 +74,11 @@ export default {
 td {
   padding: 0 !important;
 }
+table.v-table tbody td {
+  font-size: 1.3rem;
+}
 button.link {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 </style>
