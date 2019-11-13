@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container grid-list-xs>
+    <v-container fluid>
       <v-layout row wrap>
         <v-flex xs12>
           <v-text-field
@@ -95,7 +95,8 @@ export default {
         { text: "形式", value: "item_model", align: "center" },
         { text: "品名", value: "item_name", align: "center" },
         { text: "在庫数", value: "last_num", align: "center" },
-        { text: "残物品数", value: "", align: "center" },
+        { text: "残物品数", value: "order_code", align: "center" },
+
         { text: "残数処理", value: "", align: "center" },
         { text: "履歴", value: "", align: "center" }
       ],

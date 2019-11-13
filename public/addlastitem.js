@@ -132,7 +132,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         align: "center"
       }, {
         text: "残物品数",
-        value: "",
+        value: "order_code",
         align: "center"
       }, {
         text: "残数処理",
@@ -302,7 +302,7 @@ var render = function() {
     [
       _c(
         "v-container",
-        { attrs: { "grid-list-xs": "" } },
+        { attrs: { fluid: "" } },
         [
           _c(
             "v-layout",
