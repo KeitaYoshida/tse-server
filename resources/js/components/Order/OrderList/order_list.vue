@@ -222,13 +222,14 @@ export default {
             ? row.item.order_code
             : row.item.item_code;
         let tekiyo =
-          row.order_key +
-          "#" +
           String(row.cnt_order_code).slice(4) +
+          "#" +
+          row.order_key +
           "#" +
           String(row.listdata.cnt_model).slice(0, 11) +
           "#" +
-          String(row.cmpt.cmpt_code).slice(0, 11);
+          String(row.cmpt.cmpt_code).slice(0, 1) +
+          String(row.cmpt.cmpt_code).slice(3);
         csv = csv + 1451 + ",";
         csv = csv + code[vnd] + ",";
         csv = csv + order_cd + ",";

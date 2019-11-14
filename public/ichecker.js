@@ -446,8 +446,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                         fin_serial: process[pid],
                         cmpt_use_num: item.item_use,
                         use_num: process[pid] * Number(item.item_use)
-                      });
-                      console.log(Number(item.item_use) * process[pid]);
+                      }); // console.log(Number(item.item_use) * process[pid]);
                     });
                   });
                 });

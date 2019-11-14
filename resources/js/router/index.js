@@ -5,34 +5,6 @@ Vue.use(Router);
 import "@fortawesome/fontawesome-free/css/all.css";
 
 // import home from '../components/HomeComponent.vue';
-const home = () => import( /* webpackChunkName: "home" */ "../components/HomeComponent.vue");
-const item_list = () => import( /* webpackChunkName: "item_list" */ "../components/ItemList.vue");
-const item_data = () => import( /* webpackChunkName: "item_data" */ "../components/ItemData.vue");
-const readfile = () => import( /* webpackChunkName: "readfile" */ "../components/ReadFile/ReadFile.vue");
-const equip_start_check = () => import( /* webpackChunkName: "equip_start_check" */ "../components/equipStartCheck.vue");
-const est_kokuin = () => import( /* webpackChunkName: "est_kokuin" */ "../components/equipStartCheck/estKokuin.vue");
-const petition_menu = () => import( /* webpackChunkName: "petition_menu" */ "../components/petition/menu.vue");
-const petition_kyuka = () => import( /* webpackChunkName: "petition_kyuka" */ "../components/petition/Kyuka.vue");
-const inventory = () => import( /* webpackChunkName: "inventory" */ "../components/Inventory/index.vue");
-const model_mst = () => import( /* webpackChunkName: "model_mst" */ "../components/ModelMst/index.vue");
-const cmpt_work_set = () => import( /* webpackChunkName: "cmpt_work_set" */ "../components/ModelMst/WorkSet/cmpt.vue");
-const recept_list = () => import( /* webpackChunkName: "recept_list" */ "../components/ReceptList/index.vue");
-const product_list = () => import( /* webpackChunkName: "product_list" */ "../components/Product/index.vue");
-const order = () => import( /* webpackChunkName: "order" */ "../components/Product/Tyumon/CmptOrderList.vue");
-const user_info = () => import( /* webpackChunkName: "user_info" */ "../components/UserInfo/index.vue");
-const order_list = () => import( /* webpackChunkName: "order_list" */ "../components/Order/OrderList/order_list.vue");
-const ukeire = () => import( /* webpackChunkName: "order_list" */ "../components/Ukeire/ukeire.vue")
-const tehaisaki = () => import( /* webpackChunkName: "tehaisaki" */ "../components/com/Tehaisaki.vue")
-const process = () => import( /* webpackChunkName: "process" */ "../components/Process.vue");
-const item_monitor = () => import( /* webpackChunkName: "item_monitor" */ "../components/com/ItemMonitorGet.vue");
-const work = () => import( /* webpackChunkName: "work" */ "../components/Work/work.vue");
-const iMonitor = () => import( /* webpackChunkName: "iMonitor" */ "@/components/monitor/monitor.vue");
-const sumup = () => import( /* webpackChunkName: "sum_up" */ "@/components/sumup/sumup.vue");
-const workinglist = () => import( /* webpackChunkName: "workinglist" */ "@/components/sumup/working.vue");
-const workingUseItem = () => import( /* webpackChunkName: "workingUseItem" */ "@/components/sumup/workingUseItem.vue");
-const ichecker = () => import( /* webpackChunkName: "ichecker" */ "@/components/ichecker/ichecker.vue");
-const addlastitem = () => import( /* webpackChunkName: "addlastitem" */ "@/components/addlastitem/addlastitem.vue");
-
 let Auth = {
     login: async function () {
         var rtval = false;
@@ -57,70 +29,64 @@ let router = new Router({
     routes: [{
             path: "/",
             name: "home",
-            component: home
+            component: () => import( /* webpackChunkName: "home" */ "../components/HomeComponent.vue")
         },
         {
             path: "/item/:item_code/:item_rev",
             name: "item_data",
-            component: item_data
+            component: () => import( /* webpackChunkName: "item_data" */ "../components/ItemData.vue")
         },
         {
             path: "/work/equipStartCheck",
             name: "work_equip_start_check",
-            component: equip_start_check
+            component: () => import( /* webpackChunkName: "equip_start_check" */ "../components/equipStartCheck.vue")
         },
         {
             path: "/work/equipStartCheck/kokuin",
             name: "est_kokuin",
-            component: est_kokuin,
+            component: () => import( /* webpackChunkName: "est_kokuin" */ "../components/equipStartCheck/estKokuin.vue"),
             meta: {
                 requiresAuth: true
             }
         },
         {
             path: "/data_table/:page_id/",
-            name: "data_table",
-            component: item_list
+            component: () => import( /* webpackChunkName: "item_list" */ "../components/ItemList.vue")
         },
         {
             path: "/petition",
             name: "petition",
-            component: petition_menu
+            component: () => import( /* webpackChunkName: "petition_menu" */ "../components/petition/menu.vue")
         },
         {
             path: "/petition/kyuka",
             name: "kyuka",
-            component: petition_kyuka
-        },
-        {
-            path: "/inventory",
-            name: "inventory",
-            component: inventory
+            component: () => import( /* webpackChunkName: "petition_kyuka" */ "../components/petition/Kyuka.vue")
         },
         {
             path: "/readfile",
             name: "readfile",
-            component: readfile
+            component: import( /* webpackChunkName: "readfile" */ "../components/ReadFile/ReadFile.vue")
         },
         {
             path: "/model_mst/:cmpt",
             name: "model_mst",
-            component: model_mst
+            component: () => import( /* webpackChunkName: "model_mst" */ "../components/ModelMst/index.vue")
         },
         {
             path: "/model_mst/work_set/cmpt",
             name: "cmpt_work_set",
-            component: cmpt_work_set
+            component: () => import( /* webpackChunkName: "cmpt_work_set" */ "../components/ModelMst/WorkSet/cmpt.vue")
         },
         {
             path: "/recept_list",
             name: "recept_list",
-            component: recept_list
+            component: () => import( /* webpackChunkName: "recept_list" */ "../components/ReceptList/index.vue")
         },
         {
             path: "/product_list",
             name: "product_list",
-            component: product_list,
+            component: () => import( /* webpackChunkName: "product_list" */ "../components/Product/index.vue"),
             meta: {
                 requiresAuth: true
             },
@@ -128,13 +94,13 @@ let router = new Router({
         {
             path: "/product_list/order/",
             name: "order",
-            component: order,
+            component: () => import( /* webpackChunkName: "order" */ "../components/Product/Tyumon/CmptOrderList.vue"),
             props: true
         },
         {
             path: "/order_list/:cnt_order_code",
             name: "order_list",
-            component: order_list,
+            component: () => import( /* webpackChunkName: "order_list" */ "../components/Order/OrderList/order_list.vue"),
             meta: {
                 requiresAuth: true
             }
@@ -142,7 +108,7 @@ let router = new Router({
         {
             path: "/user_info",
             name: "user_info",
-            component: user_info,
+            component: () => import( /* webpackChunkName: "user_info" */ "../components/UserInfo/index.vue"),
             meta: {
                 requiresAuth: true
             }
@@ -150,7 +116,7 @@ let router = new Router({
         {
             path: "/ukeire/:pid",
             name: "ukeire",
-            component: ukeire,
+            component: () => import( /* webpackChunkName: "order_list" */ "../components/Ukeire/ukeire.vue"),
             meta: {
                 requiresAuth: true
             }
@@ -158,12 +124,12 @@ let router = new Router({
         {
             path: "/tehaisaki",
             name: "tehaisaki",
-            component: tehaisaki,
+            component: () => import( /* webpackChunkName: "tehaisaki" */ "../components/com/Tehaisaki.vue"),
         },
         {
             path: "/process/:id",
             name: "process",
-            component: process,
+            component: () => import( /* webpackChunkName: "process" */ "../components/Process.vue"),
             meta: {
                 requiresAuth: true
             },
@@ -171,7 +137,7 @@ let router = new Router({
         {
             path: "/item_monitor/:work_id",
             name: "item_monitor",
-            component: item_monitor,
+            component: () => import( /* webpackChunkName: "item_monitor" */ "../components/com/ItemMonitorGet.vue"),
             meta: {
                 requiresAuth: true
             },
@@ -179,7 +145,7 @@ let router = new Router({
         {
             path: "/work",
             name: "work",
-            component: work,
+            component: () => import( /* webpackChunkName: "work" */ "../components/Work/work.vue"),
             meta: {
                 requiresAuth: true
             },
@@ -187,42 +153,50 @@ let router = new Router({
         {
             path: "/sumup",
             name: "sumup",
-            component: sumup,
+            component: () => import( /* webpackChunkName: "sum_up" */ "@/components/sumup/sumup.vue"),
+            meta: {
+                requiresAuth: true
+            },
+        },
+        {
+            path: "/sumup/fin",
+            name: "sumup_fin",
+            component: () => import( /* webpackChunkName: "sum_up_fin" */ "@/components/sumup/fin.vue"),
             meta: {
                 requiresAuth: true
             },
         }, {
             path: "/workinglist",
             name: "workinglist",
-            component: workinglist,
+            component: () => import( /* webpackChunkName: "workinglist" */ "@/components/sumup/working.vue"),
             meta: {
                 requiresAuth: true
             },
         }, {
             path: "/workingUseItem/:work_id",
             name: "workingUseItem",
-            component: workingUseItem,
+            component: () => import( /* webpackChunkName: "workingUseItem" */ "@/components/sumup/workingUseItem.vue"),
             meta: {
                 requiresAuth: true
             },
         }, {
             path: "/ichecker",
             name: "ichecker",
-            component: ichecker,
+            component: () => import( /* webpackChunkName: "ichecker" */ "@/components/ichecker/ichecker.vue"),
             meta: {
                 requiresAuth: true
             },
         }, {
             path: "/addlastitem",
             name: "addlastitem",
-            component: addlastitem,
+            component: () => import( /* webpackChunkName: "addlastitem" */ "@/components/addlastitem/addlastitem.vue"),
             meta: {
                 requiresAuth: true
             },
         }, {
             path: "/item/monitor",
             name: "iMonitor",
-            component: iMonitor,
+            component: () => import( /* webpackChunkName: "iMonitor" */ "@/components/monitor/monitor.vue"),
             meta: {
                 requiresAuth: true
             },
@@ -230,7 +204,7 @@ let router = new Router({
         {
             path: "/*",
             name: "j-home",
-            component: home
+            component: () => import( /* webpackChunkName: "home" */ "../components/HomeComponent.vue")
         }
     ],
     scrollBehavior(to, from, savedPosition) {

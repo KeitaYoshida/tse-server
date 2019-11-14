@@ -69,12 +69,15 @@
         <History @rt="mode='def'"></History>
       </v-container>
     </v-container>
+    <v-dialog v-model="finCheck" max-width="500px">
+      <FinCheckForm :data="finData" v-if="finCheck" @rt="rtFinCheckPass"></FinCheckForm>
+    </v-dialog>
     <v-bottom-nav fixed :active.sync="main_action" v-model="main_action">
       <v-btn flat value="inv" color="primary">
         <span>棚卸し集計</span>
         <v-icon>far fa-list-alt</v-icon>
       </v-btn>
-      <v-btn flat value="cnt" color="primary">
+      <v-btn flat value="cnt" color="primary" @click="finCheck=true">
         <span>完了データ登録</span>
         <v-icon>fas fa-stamp</v-icon>
       </v-btn>
@@ -94,6 +97,7 @@ import ConstUkeire from "@/components/sumup/constUkeire";
 import PieChart from "@/components/com/PieChart";
 import BarChart from "@/components/com/BarChart";
 import History from "@/components/sumup/history";
+import FinCheckForm from "@/components/com/ComFormDialog";
 
 export default {
   props: [],
@@ -103,13 +107,30 @@ export default {
     ConstUkeire,
     PieChart,
     BarChart,
-    History
+    History,
+    FinCheckForm
   },
   data: function() {
     return {
       mode: "def",
       fixMassage: "",
-      main_action: null
+      main_action: null,
+      finCheck: null,
+      finData: {
+        title: "棚卸し完了データ登録",
+        message:
+          "※完了データは保存され進行データはリセットされます<br />完了用パスフレーズを入力して下さい",
+        data: [
+          {
+            name: "fin_pass",
+            label: "パスフレーズ",
+            id: "fin_pass",
+            hint: null,
+            type: null,
+            value: null
+          }
+        ]
+      }
     };
   },
   computed: {
@@ -168,6 +189,16 @@ export default {
     selectConst() {
       this.mode = "const";
       this.INVENTORY_SET({});
+    },
+    rtFinCheckPass(d) {
+      this.finCheck = !this.finCheck;
+      const FinPass = "fin pass";
+      let inputPass = d.data[0].value;
+      if (FinPass !== inputPass) {
+        alert("パスフレーズが間違っています");
+      } else {
+        this.$router.push("/sumup/fin");
+      }
     }
   },
   beforeDestroy: function() {

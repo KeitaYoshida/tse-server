@@ -78,6 +78,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -225,7 +235,7 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td[data-v-bd647fe6] {\n  padding: 0 !important;\n}\n#list[data-v-bd647fe6] {\n  margin-bottom: 64px;\n}", ""]);
+exports.push([module.i, "td[data-v-bd647fe6] {\n  padding: 0 !important;\n}\n#list[data-v-bd647fe6] {\n  margin-bottom: 64px;\n}\n.shukei_link[data-v-bd647fe6] {\n  color: #5c6bc0;\n}\n.shukei_link[data-v-bd647fe6]:hover {\n  color: #1a237e;\n  cursor: pointer;\n}", ""]);
 
 
 
@@ -307,7 +317,24 @@ var render = function() {
         "v-container",
         { attrs: { fluid: "", id: "list" } },
         [
+          _c("h1", { staticClass: "mb-3" }, [
+            _c(
+              "span",
+              {
+                staticClass: "shukei_link",
+                on: {
+                  click: function($event) {
+                    return _vm.$router.push("/sumup")
+                  }
+                }
+              },
+              [_vm._v("集計")]
+            ),
+            _vm._v(" >> 仕掛り工事\n    ")
+          ]),
+          _vm._v(" "),
           _c("v-text-field", {
+            staticClass: "mb-3",
             attrs: {
               "append-icon": "search",
               label: "Search",

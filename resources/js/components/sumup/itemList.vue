@@ -112,7 +112,7 @@ export default {
       });
       ss.allPrice = Math.round(ss.allPrice);
       ss.finPrice = Math.round(ss.finPrice);
-      console.log(this.items);
+      // console.log(this.items);
       await this.INVENTORY_SET({ status: ss });
       this.inited = true;
     },

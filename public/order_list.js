@@ -325,7 +325,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
         var vnd = row.price[0].vendor_code;
         var oday = row.price[0].order_day.replace(/\-+/g, "");
         var order_cd = row.item.item_code !== row.item.order_code && row.item.order_code !== "" ? row.item.order_code : row.item.item_code;
-        var tekiyo = row.order_key + "#" + String(row.cnt_order_code).slice(4) + "#" + String(row.listdata.cnt_model).slice(0, 11) + "#" + String(row.cmpt.cmpt_code).slice(0, 11);
+        var tekiyo = String(row.cnt_order_code).slice(4) + "#" + row.order_key + "#" + String(row.listdata.cnt_model).slice(0, 11) + "#" + String(row.cmpt.cmpt_code).slice(0, 1) + String(row.cmpt.cmpt_code).slice(3);
         csv = csv + 1451 + ",";
         csv = csv + code[vnd] + ",";
         csv = csv + order_cd + ",";

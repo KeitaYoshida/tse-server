@@ -1,7 +1,17 @@
 <template>
   <v-app>
     <v-container fluid id="list">
-      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+      <h1 class="mb-3">
+        <span class="shukei_link" @click="$router.push('/sumup')">集計</span> >> 仕掛り工事
+      </h1>
+      <v-text-field
+        v-model="search"
+        class="mb-3"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
       <v-data-table
         :headers="headers"
         :items="list"
@@ -144,5 +154,12 @@ td {
 }
 #list {
   margin-bottom: 64px;
+}
+.shukei_link {
+  color: #5c6bc0;
+  &:hover {
+    color: #1a237e;
+    cursor: pointer;
+  }
 }
 </style>

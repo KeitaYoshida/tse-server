@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"addlastitem":"addlastitem","cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki":"cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki","cmpt_work_set~process~product_list":"cmpt_work_set~process~product_list","cmpt_work_set":"cmpt_work_set","process":"process","equip_start_check":"equip_start_check","home":"home","ichecker":"ichecker","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~iMonitor~inventory~recept_list~sum_up":"vendors~iMonitor~inventory~recept_list~sum_up","iMonitor":"iMonitor","sum_up":"sum_up","inventory":"inventory","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","order":"order","product_list":"product_list","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","item_data":"item_data","vendors~item_list":"vendors~item_list","item_list":"item_list","vendors~order_list~readfile~recept_list~tehaisaki~workinglist":"vendors~order_list~readfile~recept_list~tehaisaki~workinglist","tehaisaki":"tehaisaki","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~order_list~readfile":"vendors~order_list~readfile","readfile":"readfile","order_list":"order_list","workinglist":"workinglist","work":"work","workingUseItem":"workingUseItem"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"addlastitem":"addlastitem","cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki":"cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki","cmpt_work_set~process~product_list":"cmpt_work_set~process~product_list","cmpt_work_set":"cmpt_work_set","process":"process","equip_start_check":"equip_start_check","home":"home","ichecker":"ichecker","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","sum_up_fin":"sum_up_fin","user_info":"user_info","vendors~est_kokuin":"vendors~est_kokuin","est_kokuin":"est_kokuin","vendors~iMonitor~recept_list~sum_up":"vendors~iMonitor~recept_list~sum_up","iMonitor":"iMonitor","sum_up":"sum_up","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","order":"order","product_list":"product_list","model_mst~readfile":"model_mst~readfile","model_mst":"model_mst","item_data":"item_data","vendors~item_list":"vendors~item_list","item_list":"item_list","vendors~order_list~readfile~recept_list~tehaisaki~workinglist":"vendors~order_list~readfile~recept_list~tehaisaki~workinglist","tehaisaki":"tehaisaki","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~order_list~readfile":"vendors~order_list~readfile","readfile":"readfile","order_list":"order_list","workinglist":"workinglist","work":"work","workingUseItem":"workingUseItem"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -77091,114 +77091,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
  // import home from '../components/HomeComponent.vue';
 
-var home = function home() {
-  return __webpack_require__.e(/*! import() | home */ "home").then(__webpack_require__.bind(null, /*! ../components/HomeComponent.vue */ "./resources/js/components/HomeComponent.vue"));
-};
-
-var item_list = function item_list() {
-  return Promise.all(/*! import() | item_list */[__webpack_require__.e("vendors~item_list"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_list")]).then(__webpack_require__.bind(null, /*! ../components/ItemList.vue */ "./resources/js/components/ItemList.vue"));
-};
-
-var item_data = function item_data() {
-  return Promise.all(/*! import() | item_data */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("item_data")]).then(__webpack_require__.bind(null, /*! ../components/ItemData.vue */ "./resources/js/components/ItemData.vue"));
-};
-
-var readfile = function readfile() {
-  return Promise.all(/*! import() | readfile */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("readfile")]).then(__webpack_require__.bind(null, /*! ../components/ReadFile/ReadFile.vue */ "./resources/js/components/ReadFile/ReadFile.vue"));
-};
-
-var equip_start_check = function equip_start_check() {
-  return __webpack_require__.e(/*! import() | equip_start_check */ "equip_start_check").then(__webpack_require__.bind(null, /*! ../components/equipStartCheck.vue */ "./resources/js/components/equipStartCheck.vue"));
-};
-
-var est_kokuin = function est_kokuin() {
-  return Promise.all(/*! import() | est_kokuin */[__webpack_require__.e("vendors~est_kokuin"), __webpack_require__.e("est_kokuin")]).then(__webpack_require__.bind(null, /*! ../components/equipStartCheck/estKokuin.vue */ "./resources/js/components/equipStartCheck/estKokuin.vue"));
-};
-
-var petition_menu = function petition_menu() {
-  return __webpack_require__.e(/*! import() | petition_menu */ "petition_menu").then(__webpack_require__.bind(null, /*! ../components/petition/menu.vue */ "./resources/js/components/petition/menu.vue"));
-};
-
-var petition_kyuka = function petition_kyuka() {
-  return __webpack_require__.e(/*! import() | petition_kyuka */ "petition_kyuka").then(__webpack_require__.bind(null, /*! ../components/petition/Kyuka.vue */ "./resources/js/components/petition/Kyuka.vue"));
-};
-
-var inventory = function inventory() {
-  return Promise.all(/*! import() | inventory */[__webpack_require__.e("vendors~iMonitor~inventory~recept_list~sum_up"), __webpack_require__.e("inventory")]).then(__webpack_require__.bind(null, /*! ../components/Inventory/index.vue */ "./resources/js/components/Inventory/index.vue"));
-};
-
-var model_mst = function model_mst() {
-  return Promise.all(/*! import() | model_mst */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("model_mst")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/index.vue */ "./resources/js/components/ModelMst/index.vue"));
-};
-
-var cmpt_work_set = function cmpt_work_set() {
-  return Promise.all(/*! import() | cmpt_work_set */[__webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("cmpt_work_set~process~product_list"), __webpack_require__.e("cmpt_work_set")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/WorkSet/cmpt.vue */ "./resources/js/components/ModelMst/WorkSet/cmpt.vue"));
-};
-
-var recept_list = function recept_list() {
-  return Promise.all(/*! import() | recept_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~iMonitor~inventory~recept_list~sum_up"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("recept_list")]).then(__webpack_require__.bind(null, /*! ../components/ReceptList/index.vue */ "./resources/js/components/ReceptList/index.vue"));
-};
-
-var product_list = function product_list() {
-  return Promise.all(/*! import() | product_list */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~process~product_list"), __webpack_require__.e("order"), __webpack_require__.e("product_list")]).then(__webpack_require__.bind(null, /*! ../components/Product/index.vue */ "./resources/js/components/Product/index.vue"));
-};
-
-var order = function order() {
-  return Promise.all(/*! import() | order */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("order")]).then(__webpack_require__.bind(null, /*! ../components/Product/Tyumon/CmptOrderList.vue */ "./resources/js/components/Product/Tyumon/CmptOrderList.vue"));
-};
-
-var user_info = function user_info() {
-  return __webpack_require__.e(/*! import() | user_info */ "user_info").then(__webpack_require__.bind(null, /*! ../components/UserInfo/index.vue */ "./resources/js/components/UserInfo/index.vue"));
-};
-
-var order_list = function order_list() {
-  return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Order/OrderList/order_list.vue */ "./resources/js/components/Order/OrderList/order_list.vue"));
-};
-
-var ukeire = function ukeire() {
-  return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Ukeire/ukeire.vue */ "./resources/js/components/Ukeire/ukeire.vue"));
-};
-
-var tehaisaki = function tehaisaki() {
-  return Promise.all(/*! import() | tehaisaki */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("tehaisaki")]).then(__webpack_require__.bind(null, /*! ../components/com/Tehaisaki.vue */ "./resources/js/components/com/Tehaisaki.vue"));
-};
-
-var process = function process() {
-  return Promise.all(/*! import() | process */[__webpack_require__.e("cmpt_work_set~process~product_list"), __webpack_require__.e("process")]).then(__webpack_require__.bind(null, /*! ../components/Process.vue */ "./resources/js/components/Process.vue"));
-};
-
-var item_monitor = function item_monitor() {
-  return __webpack_require__.e(/*! import() | item_monitor */ "item_monitor").then(__webpack_require__.bind(null, /*! ../components/com/ItemMonitorGet.vue */ "./resources/js/components/com/ItemMonitorGet.vue"));
-};
-
-var work = function work() {
-  return __webpack_require__.e(/*! import() | work */ "work").then(__webpack_require__.bind(null, /*! ../components/Work/work.vue */ "./resources/js/components/Work/work.vue"));
-};
-
-var iMonitor = function iMonitor() {
-  return Promise.all(/*! import() | iMonitor */[__webpack_require__.e("vendors~iMonitor~inventory~recept_list~sum_up"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("iMonitor")]).then(__webpack_require__.bind(null, /*! @/components/monitor/monitor.vue */ "./resources/js/components/monitor/monitor.vue"));
-};
-
-var sumup = function sumup() {
-  return Promise.all(/*! import() | sum_up */[__webpack_require__.e("vendors~iMonitor~inventory~recept_list~sum_up"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("sum_up")]).then(__webpack_require__.bind(null, /*! @/components/sumup/sumup.vue */ "./resources/js/components/sumup/sumup.vue"));
-};
-
-var workinglist = function workinglist() {
-  return Promise.all(/*! import() | workinglist */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("workinglist")]).then(__webpack_require__.bind(null, /*! @/components/sumup/working.vue */ "./resources/js/components/sumup/working.vue"));
-};
-
-var workingUseItem = function workingUseItem() {
-  return __webpack_require__.e(/*! import() | workingUseItem */ "workingUseItem").then(__webpack_require__.bind(null, /*! @/components/sumup/workingUseItem.vue */ "./resources/js/components/sumup/workingUseItem.vue"));
-};
-
-var ichecker = function ichecker() {
-  return __webpack_require__.e(/*! import() | ichecker */ "ichecker").then(__webpack_require__.bind(null, /*! @/components/ichecker/ichecker.vue */ "./resources/js/components/ichecker/ichecker.vue"));
-};
-
-var addlastitem = function addlastitem() {
-  return __webpack_require__.e(/*! import() | addlastitem */ "addlastitem").then(__webpack_require__.bind(null, /*! @/components/addlastitem/addlastitem.vue */ "./resources/js/components/addlastitem/addlastitem.vue"));
-};
-
 var Auth = {
   login: function () {
     var _login = _asyncToGenerator(
@@ -77245,158 +77137,214 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   routes: [{
     path: "/",
     name: "home",
-    component: home
+    component: function component() {
+      return __webpack_require__.e(/*! import() | home */ "home").then(__webpack_require__.bind(null, /*! ../components/HomeComponent.vue */ "./resources/js/components/HomeComponent.vue"));
+    }
   }, {
     path: "/item/:item_code/:item_rev",
     name: "item_data",
-    component: item_data
+    component: function component() {
+      return Promise.all(/*! import() | item_data */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("item_data")]).then(__webpack_require__.bind(null, /*! ../components/ItemData.vue */ "./resources/js/components/ItemData.vue"));
+    }
   }, {
     path: "/work/equipStartCheck",
     name: "work_equip_start_check",
-    component: equip_start_check
+    component: function component() {
+      return __webpack_require__.e(/*! import() | equip_start_check */ "equip_start_check").then(__webpack_require__.bind(null, /*! ../components/equipStartCheck.vue */ "./resources/js/components/equipStartCheck.vue"));
+    }
   }, {
     path: "/work/equipStartCheck/kokuin",
     name: "est_kokuin",
-    component: est_kokuin,
+    component: function component() {
+      return Promise.all(/*! import() | est_kokuin */[__webpack_require__.e("vendors~est_kokuin"), __webpack_require__.e("est_kokuin")]).then(__webpack_require__.bind(null, /*! ../components/equipStartCheck/estKokuin.vue */ "./resources/js/components/equipStartCheck/estKokuin.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/data_table/:page_id/",
-    name: "data_table",
-    component: item_list
+    component: function component() {
+      return Promise.all(/*! import() | item_list */[__webpack_require__.e("vendors~item_list"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_list")]).then(__webpack_require__.bind(null, /*! ../components/ItemList.vue */ "./resources/js/components/ItemList.vue"));
+    }
   }, {
     path: "/petition",
     name: "petition",
-    component: petition_menu
+    component: function component() {
+      return __webpack_require__.e(/*! import() | petition_menu */ "petition_menu").then(__webpack_require__.bind(null, /*! ../components/petition/menu.vue */ "./resources/js/components/petition/menu.vue"));
+    }
   }, {
     path: "/petition/kyuka",
     name: "kyuka",
-    component: petition_kyuka
-  }, {
-    path: "/inventory",
-    name: "inventory",
-    component: inventory
+    component: function component() {
+      return __webpack_require__.e(/*! import() | petition_kyuka */ "petition_kyuka").then(__webpack_require__.bind(null, /*! ../components/petition/Kyuka.vue */ "./resources/js/components/petition/Kyuka.vue"));
+    }
   }, {
     path: "/readfile",
     name: "readfile",
-    component: readfile
+    component: Promise.all(/*! import() | readfile */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("readfile")]).then(__webpack_require__.bind(null, /*! ../components/ReadFile/ReadFile.vue */ "./resources/js/components/ReadFile/ReadFile.vue"))
   }, {
     path: "/model_mst/:cmpt",
     name: "model_mst",
-    component: model_mst
+    component: function component() {
+      return Promise.all(/*! import() | model_mst */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("model_mst")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/index.vue */ "./resources/js/components/ModelMst/index.vue"));
+    }
   }, {
     path: "/model_mst/work_set/cmpt",
     name: "cmpt_work_set",
-    component: cmpt_work_set
+    component: function component() {
+      return Promise.all(/*! import() | cmpt_work_set */[__webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("cmpt_work_set~process~product_list"), __webpack_require__.e("cmpt_work_set")]).then(__webpack_require__.bind(null, /*! ../components/ModelMst/WorkSet/cmpt.vue */ "./resources/js/components/ModelMst/WorkSet/cmpt.vue"));
+    }
   }, {
     path: "/recept_list",
     name: "recept_list",
-    component: recept_list
+    component: function component() {
+      return Promise.all(/*! import() | recept_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~iMonitor~recept_list~sum_up"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("recept_list")]).then(__webpack_require__.bind(null, /*! ../components/ReceptList/index.vue */ "./resources/js/components/ReceptList/index.vue"));
+    }
   }, {
     path: "/product_list",
     name: "product_list",
-    component: product_list,
+    component: function component() {
+      return Promise.all(/*! import() | product_list */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~process~product_list"), __webpack_require__.e("order"), __webpack_require__.e("product_list")]).then(__webpack_require__.bind(null, /*! ../components/Product/index.vue */ "./resources/js/components/Product/index.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/product_list/order/",
     name: "order",
-    component: order,
+    component: function component() {
+      return Promise.all(/*! import() | order */[__webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("order")]).then(__webpack_require__.bind(null, /*! ../components/Product/Tyumon/CmptOrderList.vue */ "./resources/js/components/Product/Tyumon/CmptOrderList.vue"));
+    },
     props: true
   }, {
     path: "/order_list/:cnt_order_code",
     name: "order_list",
-    component: order_list,
+    component: function component() {
+      return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Order/OrderList/order_list.vue */ "./resources/js/components/Order/OrderList/order_list.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/user_info",
     name: "user_info",
-    component: user_info,
+    component: function component() {
+      return __webpack_require__.e(/*! import() | user_info */ "user_info").then(__webpack_require__.bind(null, /*! ../components/UserInfo/index.vue */ "./resources/js/components/UserInfo/index.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/ukeire/:pid",
     name: "ukeire",
-    component: ukeire,
+    component: function component() {
+      return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Ukeire/ukeire.vue */ "./resources/js/components/Ukeire/ukeire.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/tehaisaki",
     name: "tehaisaki",
-    component: tehaisaki
+    component: function component() {
+      return Promise.all(/*! import() | tehaisaki */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("tehaisaki")]).then(__webpack_require__.bind(null, /*! ../components/com/Tehaisaki.vue */ "./resources/js/components/com/Tehaisaki.vue"));
+    }
   }, {
     path: "/process/:id",
     name: "process",
-    component: process,
+    component: function component() {
+      return Promise.all(/*! import() | process */[__webpack_require__.e("cmpt_work_set~process~product_list"), __webpack_require__.e("process")]).then(__webpack_require__.bind(null, /*! ../components/Process.vue */ "./resources/js/components/Process.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/item_monitor/:work_id",
     name: "item_monitor",
-    component: item_monitor,
+    component: function component() {
+      return __webpack_require__.e(/*! import() | item_monitor */ "item_monitor").then(__webpack_require__.bind(null, /*! ../components/com/ItemMonitorGet.vue */ "./resources/js/components/com/ItemMonitorGet.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/work",
     name: "work",
-    component: work,
+    component: function component() {
+      return __webpack_require__.e(/*! import() | work */ "work").then(__webpack_require__.bind(null, /*! ../components/Work/work.vue */ "./resources/js/components/Work/work.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/sumup",
     name: "sumup",
-    component: sumup,
+    component: function component() {
+      return Promise.all(/*! import() | sum_up */[__webpack_require__.e("vendors~iMonitor~recept_list~sum_up"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("sum_up")]).then(__webpack_require__.bind(null, /*! @/components/sumup/sumup.vue */ "./resources/js/components/sumup/sumup.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: "/sumup/fin",
+    name: "sumup_fin",
+    component: function component() {
+      return __webpack_require__.e(/*! import() | sum_up_fin */ "sum_up_fin").then(__webpack_require__.bind(null, /*! @/components/sumup/fin.vue */ "./resources/js/components/sumup/fin.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/workinglist",
     name: "workinglist",
-    component: workinglist,
+    component: function component() {
+      return Promise.all(/*! import() | workinglist */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("workinglist")]).then(__webpack_require__.bind(null, /*! @/components/sumup/working.vue */ "./resources/js/components/sumup/working.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/workingUseItem/:work_id",
     name: "workingUseItem",
-    component: workingUseItem,
+    component: function component() {
+      return __webpack_require__.e(/*! import() | workingUseItem */ "workingUseItem").then(__webpack_require__.bind(null, /*! @/components/sumup/workingUseItem.vue */ "./resources/js/components/sumup/workingUseItem.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/ichecker",
     name: "ichecker",
-    component: ichecker,
+    component: function component() {
+      return __webpack_require__.e(/*! import() | ichecker */ "ichecker").then(__webpack_require__.bind(null, /*! @/components/ichecker/ichecker.vue */ "./resources/js/components/ichecker/ichecker.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/addlastitem",
     name: "addlastitem",
-    component: addlastitem,
+    component: function component() {
+      return __webpack_require__.e(/*! import() | addlastitem */ "addlastitem").then(__webpack_require__.bind(null, /*! @/components/addlastitem/addlastitem.vue */ "./resources/js/components/addlastitem/addlastitem.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/item/monitor",
     name: "iMonitor",
-    component: iMonitor,
+    component: function component() {
+      return Promise.all(/*! import() | iMonitor */[__webpack_require__.e("vendors~iMonitor~recept_list~sum_up"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("iMonitor")]).then(__webpack_require__.bind(null, /*! @/components/monitor/monitor.vue */ "./resources/js/components/monitor/monitor.vue"));
+    },
     meta: {
       requiresAuth: true
     }
   }, {
     path: "/*",
     name: "j-home",
-    component: home
+    component: function component() {
+      return __webpack_require__.e(/*! import() | home */ "home").then(__webpack_require__.bind(null, /*! ../components/HomeComponent.vue */ "./resources/js/components/HomeComponent.vue"));
+    }
   }],
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {
     return {

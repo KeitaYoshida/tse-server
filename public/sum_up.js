@@ -812,17 +812,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   ss.allPrice = ss.allPrice + item.last_num * item.item_price;
                 });
                 ss.allPrice = Math.round(ss.allPrice);
-                ss.finPrice = Math.round(ss.finPrice);
-                console.log(this.items);
-                _context.next = 13;
+                ss.finPrice = Math.round(ss.finPrice); // console.log(this.items);
+
+                _context.next = 12;
                 return this.INVENTORY_SET({
                   status: ss
                 });
 
-              case 13:
+              case 12:
                 this.inited = true;
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -932,6 +932,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_com_PieChart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/com/PieChart */ "./resources/js/components/com/PieChart.vue");
 /* harmony import */ var _components_com_BarChart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/com/BarChart */ "./resources/js/components/com/BarChart.vue");
 /* harmony import */ var _components_sumup_history__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/sumup/history */ "./resources/js/components/sumup/history.vue");
+/* harmony import */ var _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/com/ComFormDialog */ "./resources/js/components/com/ComFormDialog.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1026,6 +1027,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -1041,13 +1046,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ConstUkeire: _components_sumup_constUkeire__WEBPACK_IMPORTED_MODULE_3__["default"],
     PieChart: _components_com_PieChart__WEBPACK_IMPORTED_MODULE_4__["default"],
     BarChart: _components_com_BarChart__WEBPACK_IMPORTED_MODULE_5__["default"],
-    History: _components_sumup_history__WEBPACK_IMPORTED_MODULE_6__["default"]
+    History: _components_sumup_history__WEBPACK_IMPORTED_MODULE_6__["default"],
+    FinCheckForm: _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   data: function data() {
     return {
       mode: "def",
       fixMassage: "",
-      main_action: null
+      main_action: null,
+      finCheck: null,
+      finData: {
+        title: "棚卸し完了データ登録",
+        message: "※完了データは保存され進行データはリセットされます<br />完了用パスフレーズを入力して下さい",
+        data: [{
+          name: "fin_pass",
+          label: "パスフレーズ",
+          id: "fin_pass",
+          hint: null,
+          type: null,
+          value: null
+        }]
+      }
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -1101,6 +1120,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     selectConst: function selectConst() {
       this.mode = "const";
       this.INVENTORY_SET({});
+    },
+    rtFinCheckPass: function rtFinCheckPass(d) {
+      this.finCheck = !this.finCheck;
+      var FinPass = "fin pass";
+      var inputPass = d.data[0].value;
+
+      if (FinPass !== inputPass) {
+        alert("パスフレーズが間違っています");
+      } else {
+        this.$router.push("/sumup/fin");
+      }
     }
   }),
   beforeDestroy: function beforeDestroy() {
@@ -2598,6 +2628,29 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "500px" },
+          model: {
+            value: _vm.finCheck,
+            callback: function($$v) {
+              _vm.finCheck = $$v
+            },
+            expression: "finCheck"
+          }
+        },
+        [
+          _vm.finCheck
+            ? _c("FinCheckForm", {
+                attrs: { data: _vm.finData },
+                on: { rt: _vm.rtFinCheckPass }
+              })
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "v-bottom-nav",
         {
           attrs: { fixed: "", active: _vm.main_action },
@@ -2628,7 +2681,14 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-btn",
-            { attrs: { flat: "", value: "cnt", color: "primary" } },
+            {
+              attrs: { flat: "", value: "cnt", color: "primary" },
+              on: {
+                click: function($event) {
+                  _vm.finCheck = true
+                }
+              }
+            },
             [
               _c("span", [_vm._v("完了データ登録")]),
               _vm._v(" "),
@@ -3183,8 +3243,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VChip */ "./node_modules/vuetify/lib/components/VChip/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -3215,7 +3276,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBottomNav: vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_6__["VBottomNav"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VContainer"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VLayout"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBottomNav: vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_6__["VBottomNav"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_8__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VLayout"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"]})
 
 
 /* hot reload */
