@@ -69,7 +69,7 @@ export default {
   },
   data: function() {
     return {
-      items: null,
+      items: [],
       lists: null,
       history: null,
       worklist_length: 1,
@@ -91,10 +91,12 @@ export default {
     ...mapActions([]),
     async init() {
       let item = await axios.get("/items/mini");
-      this.items = item.data;
       for (let it of item.data) {
         this.price_items_total =
           this.price_items_total + Number(it.item_price) * Number(it.inv_num);
+        this.items.push({
+          inv_date
+        });
       }
       let his = await axios.get("/db/inventory/history/day/" + 60);
       this.history = his.data;

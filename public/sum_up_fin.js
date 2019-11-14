@@ -122,7 +122,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      items: null,
+      items: [],
       lists: null,
       history: null,
       worklist_length: 1,
@@ -156,58 +156,60 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 2:
                 item = _context2.sent;
-                this.items = item.data;
                 _iteratorNormalCompletion = true;
                 _didIteratorError = false;
                 _iteratorError = undefined;
-                _context2.prev = 7;
+                _context2.prev = 6;
 
                 for (_iterator = item.data[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                   it = _step.value;
                   this.price_items_total = this.price_items_total + Number(it.item_price) * Number(it.inv_num);
+                  this.items.push({
+                    inv_date: inv_date
+                  });
                 }
 
-                _context2.next = 15;
+                _context2.next = 14;
                 break;
 
-              case 11:
-                _context2.prev = 11;
-                _context2.t0 = _context2["catch"](7);
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2["catch"](6);
                 _didIteratorError = true;
                 _iteratorError = _context2.t0;
 
-              case 15:
+              case 14:
+                _context2.prev = 14;
                 _context2.prev = 15;
-                _context2.prev = 16;
 
                 if (!_iteratorNormalCompletion && _iterator["return"] != null) {
                   _iterator["return"]();
                 }
 
-              case 18:
-                _context2.prev = 18;
+              case 17:
+                _context2.prev = 17;
 
                 if (!_didIteratorError) {
-                  _context2.next = 21;
+                  _context2.next = 20;
                   break;
                 }
 
                 throw _iteratorError;
 
+              case 20:
+                return _context2.finish(17);
+
               case 21:
-                return _context2.finish(18);
+                return _context2.finish(14);
 
               case 22:
-                return _context2.finish(15);
-
-              case 23:
-                _context2.next = 25;
+                _context2.next = 24;
                 return axios.get("/db/inventory/history/day/" + 60);
 
-              case 25:
+              case 24:
                 his = _context2.sent;
                 this.history = his.data;
-                _context2.next = 29;
+                _context2.next = 28;
                 return axios.get("/db/inventory/working/const/list").then(
                 /*#__PURE__*/
                 function () {
@@ -295,16 +297,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   };
                 }());
 
-              case 29:
+              case 28:
                 this.price_items_total = Math.round(this.price_items_total);
                 this.price_working_total = Math.round(this.price_working_total);
 
-              case 31:
+              case 30:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[7, 11, 15, 23], [16,, 18, 22]]);
+        }, _callee2, this, [[6, 10, 14, 22], [15,, 17, 21]]);
       }));
 
       function init() {
