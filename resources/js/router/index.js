@@ -66,7 +66,7 @@ let router = new Router({
         {
             path: "/readfile",
             name: "readfile",
-            component: import( /* webpackChunkName: "readfile" */ "../components/ReadFile/ReadFile.vue")
+            component: () => import( /* webpackChunkName: "readfile" */ "../components/ReadFile/ReadFile.vue")
         },
         {
             path: "/model_mst/:cmpt",

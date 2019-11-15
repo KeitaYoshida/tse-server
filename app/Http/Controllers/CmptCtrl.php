@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Components;
 use App\Model\RModelCmpt;
+use App\Model\RCmptItem;
 
 class CmptCtrl extends Controller
 {
@@ -29,5 +30,10 @@ class CmptCtrl extends Controller
     // return $mid . ' - ' . $cid;
     $rmc = new RModelCmpt;
     $rmc->where('model_id', $mid)->where('cmpt_id', $cid)->delete();
+  }
+  public function GetAllNotDetail()
+  {
+    $rmc = new RCmptItem;
+    return $rmc->all();
   }
 }

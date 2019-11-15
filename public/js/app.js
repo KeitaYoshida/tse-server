@@ -77181,7 +77181,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   }, {
     path: "/readfile",
     name: "readfile",
-    component: Promise.all(/*! import() | readfile */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("readfile")]).then(__webpack_require__.bind(null, /*! ../components/ReadFile/ReadFile.vue */ "./resources/js/components/ReadFile/ReadFile.vue"))
+    component: function component() {
+      return Promise.all(/*! import() | readfile */[__webpack_require__.e("vendors~order_list~readfile~recept_list~tehaisaki~workinglist"), __webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sum_up~tehaisaki"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("readfile")]).then(__webpack_require__.bind(null, /*! ../components/ReadFile/ReadFile.vue */ "./resources/js/components/ReadFile/ReadFile.vue"));
+    }
   }, {
     path: "/model_mst/:cmpt",
     name: "model_mst",

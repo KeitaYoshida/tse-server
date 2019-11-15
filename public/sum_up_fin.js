@@ -41,6 +41,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _components_com_Loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/com/Loading */ "./resources/js/components/com/Loading.vue");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! dayjs/locale/ja */ "./node_modules/dayjs/locale/ja.js");
+/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_4__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -113,8 +117,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
+
+
+dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
   components: {
@@ -123,8 +144,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       items: [],
-      lists: null,
-      history: null,
+      history: [],
+      lists: [],
+      all_item: {},
+      all_cmpt: null,
+      list_items: [],
       worklist_length: 1,
       worklist_fin_num: 0,
       tar_worklist_code: "",
@@ -145,109 +169,231 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var _this = this;
 
-        var item, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, it, his;
+        var inv_date, item, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, it, his, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, hs, alli, _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, ai, allc;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                inv_date = dayjs__WEBPACK_IMPORTED_MODULE_3___default()(Date.now()).format("YYYY-MM-DD HH:mm");
+                _context2.next = 3;
                 return axios.get("/items/mini");
 
-              case 2:
+              case 3:
                 item = _context2.sent;
                 _iteratorNormalCompletion = true;
                 _didIteratorError = false;
                 _iteratorError = undefined;
-                _context2.prev = 6;
+                _context2.prev = 7;
 
                 for (_iterator = item.data[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                   it = _step.value;
                   this.price_items_total = this.price_items_total + Number(it.item_price) * Number(it.inv_num);
                   this.items.push({
-                    inv_date: inv_date
+                    inv_date: inv_date,
+                    last_num: it.last_num,
+                    inv_num: it.inv_num,
+                    item_price: it.item_price,
+                    item_code: it.item_code,
+                    item_model: it.item_model,
+                    item_name: it.item_name
                   });
                 }
 
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
 
-              case 10:
-                _context2.prev = 10;
-                _context2.t0 = _context2["catch"](6);
+              case 11:
+                _context2.prev = 11;
+                _context2.t0 = _context2["catch"](7);
                 _didIteratorError = true;
                 _iteratorError = _context2.t0;
 
-              case 14:
-                _context2.prev = 14;
+              case 15:
                 _context2.prev = 15;
+                _context2.prev = 16;
 
                 if (!_iteratorNormalCompletion && _iterator["return"] != null) {
                   _iterator["return"]();
                 }
 
-              case 17:
-                _context2.prev = 17;
+              case 18:
+                _context2.prev = 18;
 
                 if (!_didIteratorError) {
-                  _context2.next = 20;
+                  _context2.next = 21;
                   break;
                 }
 
                 throw _iteratorError;
 
-              case 20:
-                return _context2.finish(17);
-
               case 21:
-                return _context2.finish(14);
+                return _context2.finish(18);
 
               case 22:
-                _context2.next = 24;
+                return _context2.finish(15);
+
+              case 23:
+                _context2.next = 25;
                 return axios.get("/db/inventory/history/day/" + 60);
 
-              case 24:
+              case 25:
                 his = _context2.sent;
-                this.history = his.data;
-                _context2.next = 28;
+                _iteratorNormalCompletion2 = true;
+                _didIteratorError2 = false;
+                _iteratorError2 = undefined;
+                _context2.prev = 29;
+
+                for (_iterator2 = his.data[Symbol.iterator](); !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                  hs = _step2.value;
+                  this.history.push({
+                    inv_date: inv_date,
+                    item_code: hs.items.item_code,
+                    item_model: hs.items.item_model,
+                    item_name: hs.items.item_name,
+                    user_name: hs.users.name,
+                    his_time: hs.created_at,
+                    act_num: hs.add_num,
+                    memo: hs.memo
+                  });
+                }
+
+                _context2.next = 37;
+                break;
+
+              case 33:
+                _context2.prev = 33;
+                _context2.t1 = _context2["catch"](29);
+                _didIteratorError2 = true;
+                _iteratorError2 = _context2.t1;
+
+              case 37:
+                _context2.prev = 37;
+                _context2.prev = 38;
+
+                if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+                  _iterator2["return"]();
+                }
+
+              case 40:
+                _context2.prev = 40;
+
+                if (!_didIteratorError2) {
+                  _context2.next = 43;
+                  break;
+                }
+
+                throw _iteratorError2;
+
+              case 43:
+                return _context2.finish(40);
+
+              case 44:
+                return _context2.finish(37);
+
+              case 45:
+                _context2.next = 47;
+                return axios.get("/items/all");
+
+              case 47:
+                alli = _context2.sent;
+                _iteratorNormalCompletion3 = true;
+                _didIteratorError3 = false;
+                _iteratorError3 = undefined;
+                _context2.prev = 51;
+
+                for (_iterator3 = alli.data[Symbol.iterator](); !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                  ai = _step3.value;
+                  this.all_item[ai.item_id] = ai;
+                }
+
+                _context2.next = 59;
+                break;
+
+              case 55:
+                _context2.prev = 55;
+                _context2.t2 = _context2["catch"](51);
+                _didIteratorError3 = true;
+                _iteratorError3 = _context2.t2;
+
+              case 59:
+                _context2.prev = 59;
+                _context2.prev = 60;
+
+                if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+                  _iterator3["return"]();
+                }
+
+              case 62:
+                _context2.prev = 62;
+
+                if (!_didIteratorError3) {
+                  _context2.next = 65;
+                  break;
+                }
+
+                throw _iteratorError3;
+
+              case 65:
+                return _context2.finish(62);
+
+              case 66:
+                return _context2.finish(59);
+
+              case 67:
+                _context2.next = 69;
+                return axios.get("/db/cmpt/all/not/itemdetail");
+
+              case 69:
+                allc = _context2.sent;
+                this.all_cmpt = allc.data;
+                _context2.next = 73;
                 return axios.get("/db/inventory/working/const/list").then(
                 /*#__PURE__*/
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
                   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
-                    var lists, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, list;
+                    var lists, _iteratorNormalCompletion4, _didIteratorError4, _iteratorError4, _iterator4, _step4, list;
 
                     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
                         switch (_context.prev = _context.next) {
                           case 0:
                             lists = res.data;
-                            _this.lists = lists;
-                            _this.worklist_length = lists.length;
-                            _iteratorNormalCompletion2 = true;
-                            _didIteratorError2 = false;
-                            _iteratorError2 = undefined;
-                            _context.prev = 6;
-                            _iterator2 = lists[Symbol.iterator]();
+                            _this.worklist_length = res.data.length;
+                            _iteratorNormalCompletion4 = true;
+                            _didIteratorError4 = false;
+                            _iteratorError4 = undefined;
+                            _context.prev = 5;
+                            _iterator4 = res.data[Symbol.iterator]();
 
-                          case 8:
-                            if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
+                          case 7:
+                            if (_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done) {
                               _context.next = 17;
                               break;
                             }
 
-                            list = _step2.value;
+                            list = _step4.value;
                             _this.tar_worklist_code = list.worklist_code;
+
+                            _this.lists.push({
+                              inv_date: inv_date,
+                              worklist_code: list.worklist_code,
+                              items_price: list.use_item_price,
+                              working_price: 0,
+                              make_user: _this.user.name
+                            });
+
                             _context.next = 13;
-                            return _this.workItems(list.worklist_id, list.worklist_code, list);
+                            return _this.workItems(list.worklist_id, list.worklist_code);
 
                           case 13:
                             _this.worklist_fin_num = _this.worklist_fin_num + 1;
 
                           case 14:
-                            _iteratorNormalCompletion2 = true;
-                            _context.next = 8;
+                            _iteratorNormalCompletion4 = true;
+                            _context.next = 7;
                             break;
 
                           case 17:
@@ -256,27 +402,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                           case 19:
                             _context.prev = 19;
-                            _context.t0 = _context["catch"](6);
-                            _didIteratorError2 = true;
-                            _iteratorError2 = _context.t0;
+                            _context.t0 = _context["catch"](5);
+                            _didIteratorError4 = true;
+                            _iteratorError4 = _context.t0;
 
                           case 23:
                             _context.prev = 23;
                             _context.prev = 24;
 
-                            if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-                              _iterator2["return"]();
+                            if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+                              _iterator4["return"]();
                             }
 
                           case 26:
                             _context.prev = 26;
 
-                            if (!_didIteratorError2) {
+                            if (!_didIteratorError4) {
                               _context.next = 29;
                               break;
                             }
 
-                            throw _iteratorError2;
+                            throw _iteratorError4;
 
                           case 29:
                             return _context.finish(26);
@@ -289,7 +435,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                             return _context.stop();
                         }
                       }
-                    }, _callee, null, [[6, 19, 23, 31], [24,, 26, 30]]);
+                    }, _callee, null, [[5, 19, 23, 31], [24,, 26, 30]]);
                   }));
 
                   return function (_x) {
@@ -297,16 +443,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   };
                 }());
 
-              case 28:
+              case 73:
                 this.price_items_total = Math.round(this.price_items_total);
                 this.price_working_total = Math.round(this.price_working_total);
 
-              case 30:
+              case 75:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[6, 10, 14, 22], [15,, 17, 21]]);
+        }, _callee2, this, [[7, 11, 15, 23], [16,, 18, 22], [29, 33, 37, 45], [38,, 40, 44], [51, 55, 59, 67], [60,, 62, 66]]);
       }));
 
       function init() {
@@ -318,215 +464,217 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     workItems: function () {
       var _workItems = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id, code, li) {
-        var Fin, list, process, _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, serial, _iteratorNormalCompletion4, _didIteratorError4, _iteratorError4, _iterator4, _step4, p, _loop, _i, _Object$keys;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id, code) {
+        var _this2 = this;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context4) {
+        var Fin, list_item, list, process, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, serial, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _iterator6, _step6, p, _loop, _i, _Object$keys, _ret;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                return _context4.abrupt("return");
+                // return;
+                Fin = 2;
+                list_item = {
+                  worklist_code: code
+                };
+                _context3.next = 4;
+                return axios.get("/db/workdata/process/" + id);
 
-              case 6:
-                list = _context4.sent;
+              case 4:
+                list = _context3.sent;
                 process = {};
-                _iteratorNormalCompletion3 = true;
-                _didIteratorError3 = false;
-                _iteratorError3 = undefined;
-                _context4.prev = 11;
-                _iterator3 = list.data[0].serials[Symbol.iterator]();
+                _iteratorNormalCompletion5 = true;
+                _didIteratorError5 = false;
+                _iteratorError5 = undefined;
+                _context3.prev = 9;
+                _iterator5 = list.data[0].serials[Symbol.iterator]();
 
-              case 13:
-                if (_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done) {
-                  _context4.next = 37;
+              case 11:
+                if (_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done) {
+                  _context3.next = 35;
                   break;
                 }
 
-                serial = _step3.value;
-                _iteratorNormalCompletion4 = true;
-                _didIteratorError4 = false;
-                _iteratorError4 = undefined;
-                _context4.prev = 18;
+                serial = _step5.value;
+                _iteratorNormalCompletion6 = true;
+                _didIteratorError6 = false;
+                _iteratorError6 = undefined;
+                _context3.prev = 16;
 
-                for (_iterator4 = serial.process[Symbol.iterator](); !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-                  p = _step4.value;
+                for (_iterator6 = serial.process[Symbol.iterator](); !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+                  p = _step6.value;
 
                   if (p.process_status === Fin) {
                     process[p.work_id] = process[p.work_id] === undefined ? 1 : process[p.work_id] + 1;
                   }
                 }
 
-                _context4.next = 26;
+                _context3.next = 24;
                 break;
 
-              case 22:
-                _context4.prev = 22;
-                _context4.t0 = _context4["catch"](18);
-                _didIteratorError4 = true;
-                _iteratorError4 = _context4.t0;
+              case 20:
+                _context3.prev = 20;
+                _context3.t0 = _context3["catch"](16);
+                _didIteratorError6 = true;
+                _iteratorError6 = _context3.t0;
 
-              case 26:
-                _context4.prev = 26;
-                _context4.prev = 27;
+              case 24:
+                _context3.prev = 24;
+                _context3.prev = 25;
 
-                if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-                  _iterator4["return"]();
+                if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
+                  _iterator6["return"]();
                 }
 
-              case 29:
-                _context4.prev = 29;
+              case 27:
+                _context3.prev = 27;
 
-                if (!_didIteratorError4) {
-                  _context4.next = 32;
+                if (!_didIteratorError6) {
+                  _context3.next = 30;
                   break;
                 }
 
-                throw _iteratorError4;
+                throw _iteratorError6;
+
+              case 30:
+                return _context3.finish(27);
+
+              case 31:
+                return _context3.finish(24);
 
               case 32:
-                return _context4.finish(29);
+                _iteratorNormalCompletion5 = true;
+                _context3.next = 11;
+                break;
 
-              case 33:
-                return _context4.finish(26);
-
-              case 34:
-                _iteratorNormalCompletion3 = true;
-                _context4.next = 13;
+              case 35:
+                _context3.next = 41;
                 break;
 
               case 37:
-                _context4.next = 43;
-                break;
+                _context3.prev = 37;
+                _context3.t1 = _context3["catch"](9);
+                _didIteratorError5 = true;
+                _iteratorError5 = _context3.t1;
 
-              case 39:
-                _context4.prev = 39;
-                _context4.t1 = _context4["catch"](11);
-                _didIteratorError3 = true;
-                _iteratorError3 = _context4.t1;
+              case 41:
+                _context3.prev = 41;
+                _context3.prev = 42;
 
-              case 43:
-                _context4.prev = 43;
-                _context4.prev = 44;
-
-                if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-                  _iterator3["return"]();
+                if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
+                  _iterator5["return"]();
                 }
 
-              case 46:
-                _context4.prev = 46;
+              case 44:
+                _context3.prev = 44;
 
-                if (!_didIteratorError3) {
-                  _context4.next = 49;
+                if (!_didIteratorError5) {
+                  _context3.next = 47;
                   break;
                 }
 
-                throw _iteratorError3;
+                throw _iteratorError5;
+
+              case 47:
+                return _context3.finish(44);
+
+              case 48:
+                return _context3.finish(41);
 
               case 49:
-                return _context4.finish(46);
+                _loop = function _loop() {
+                  var work_id = _Object$keys[_i];
 
-              case 50:
-                return _context4.finish(43);
+                  var cmpt_items = _this2.all_cmpt.filter(function (cmpt) {
+                    return cmpt.work_id == work_id;
+                  });
 
-              case 51:
-                _loop =
-                /*#__PURE__*/
-                _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _loop() {
-                  var pid;
-                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _loop$(_context3) {
-                    while (1) {
-                      switch (_context3.prev = _context3.next) {
-                        case 0:
-                          pid = _Object$keys[_i];
-                          _context3.next = 3;
-                          return axios.get("/db/workdata/cmpt/items/" + pid).then(function (res) {
-                            var _iteratorNormalCompletion5 = true;
-                            var _didIteratorError5 = false;
-                            var _iteratorError5 = undefined;
+                  if (cmpt_items.length === 0) return "continue";
+                  var _iteratorNormalCompletion7 = true;
+                  var _didIteratorError7 = false;
+                  var _iteratorError7 = undefined;
 
-                            try {
-                              var _loop2 = function _loop2() {
-                                var item = _step5.value;
-                                var tar = li.items.filter(function (ar) {
-                                  return ar.item_id === item.item_id;
-                                });
-                                li.reCheckPrice = li.reCheckPrice + Number(item.item_use) * process[pid] * item.items.item_price;
+                  try {
+                    var _loop2 = function _loop2() {
+                      var item = _step7.value;
+                      var tar = li.items.filter(function (ar) {
+                        return ar.item_id === item.item_id;
+                      });
+                      li.reCheckPrice = li.reCheckPrice + Number(item.item_use) * process[work_id] * item.items.item_price;
 
-                                if (tar.length === 0) {
-                                  tar = [{
-                                    item_id: item.item_id,
-                                    item_use: Number(item.item_use) * process[pid],
-                                    item_code: item.items.item_code,
-                                    item_model: item.items.item_model,
-                                    item_name: item.items.item_name,
-                                    item_price: item.items.item_price
-                                  }];
-                                  li.items.push(tar[0]);
-                                } else {
-                                  tar[0].item_use = Number(tar[0].item_use) + Number(item.item_use) * process[pid];
-                                }
-                              };
+                      if (tar.length === 0) {
+                        tar = [{
+                          item_id: item.item_id,
+                          item_use: Number(item.item_use) * process[work_id],
+                          item_code: item.items.item_code,
+                          item_model: item.items.item_model,
+                          item_name: item.items.item_name,
+                          item_price: item.items.item_price
+                        }];
+                        li.items.push(tar[0]);
+                      } else {
+                        tar[0].item_use = Number(tar[0].item_use) + Number(item.item_use) * process[pid];
+                      }
+                    };
 
-                              for (var _iterator5 = res.data[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                                _loop2();
-                              }
-                            } catch (err) {
-                              _didIteratorError5 = true;
-                              _iteratorError5 = err;
-                            } finally {
-                              try {
-                                if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
-                                  _iterator5["return"]();
-                                }
-                              } finally {
-                                if (_didIteratorError5) {
-                                  throw _iteratorError5;
-                                }
-                              }
-                            }
-                          });
-
-                        case 3:
-                        case "end":
-                          return _context3.stop();
+                    for (var _iterator7 = cmpt_items[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                      _loop2();
+                    }
+                  } catch (err) {
+                    _didIteratorError7 = true;
+                    _iteratorError7 = err;
+                  } finally {
+                    try {
+                      if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
+                        _iterator7["return"]();
+                      }
+                    } finally {
+                      if (_didIteratorError7) {
+                        throw _iteratorError7;
                       }
                     }
-                  }, _loop);
-                });
+                  }
+                };
+
                 _i = 0, _Object$keys = Object.keys(process);
 
-              case 53:
+              case 51:
                 if (!(_i < _Object$keys.length)) {
-                  _context4.next = 58;
+                  _context3.next = 58;
                   break;
                 }
 
-                return _context4.delegateYield(_loop(), "t2", 55);
+                _ret = _loop();
+
+                if (!(_ret === "continue")) {
+                  _context3.next = 55;
+                  break;
+                }
+
+                return _context3.abrupt("continue", 55);
 
               case 55:
                 _i++;
-                _context4.next = 53;
+                _context3.next = 51;
                 break;
 
               case 58:
-                this.price_working_total = this.price_working_total + li.reCheckPrice;
-
-              case 59:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee3, this, [[11, 39, 43, 51], [18, 22, 26, 34], [27,, 29, 33], [44,, 46, 50]]);
+        }, _callee3, null, [[9, 37, 41, 49], [16, 20, 24, 32], [25,, 27, 31], [42,, 44, 48]]);
       }));
 
-      function workItems(_x2, _x3, _x4) {
+      function workItems(_x2, _x3) {
         return _workItems.apply(this, arguments);
       }
 
       return workItems;
     }(),
     alfin: function alfin() {
-      console.log(this.items);
+      console.log(this.history);
     }
   })
 });
@@ -559,6 +707,30 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 // Module
 exports.push([module.i, ".flash[data-v-6f7f25e7] {\n  -webkit-animation: flash-data-v-6f7f25e7 2s linear infinite;\n          animation: flash-data-v-6f7f25e7 2s linear infinite;\n  margin-top: 5%;\n  text-align: center;\n  color: cornflowerblue;\n}\n.flash2[data-v-6f7f25e7] {\n  -webkit-animation: flash-data-v-6f7f25e7 2s linear infinite;\n          animation: flash-data-v-6f7f25e7 2s linear infinite;\n  margin-top: 3%;\n  text-align: center;\n  color: cornflowerblue;\n}\n.flash3[data-v-6f7f25e7] {\n  -webkit-animation: flash-data-v-6f7f25e7 2s linear infinite;\n          animation: flash-data-v-6f7f25e7 2s linear infinite;\n  margin-top: 0%;\n  text-align: center;\n  color: cornflowerblue;\n}\n.total[data-v-6f7f25e7] {\n  font-size: 1.8rem;\n}\n@-webkit-keyframes flash-data-v-6f7f25e7 {\n0%, 100% {\n    opacity: 1;\n}\n50% {\n    opacity: 0;\n}\n}\n@keyframes flash-data-v-6f7f25e7 {\n0%, 100% {\n    opacity: 1;\n}\n50% {\n    opacity: 0;\n}\n}", ""]);
 
+
+
+/***/ }),
+
+/***/ "./node_modules/dayjs/dayjs.min.js":
+/*!*****************************************!*\
+  !*** ./node_modules/dayjs/dayjs.min.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,n){ true?module.exports=n():undefined}(this,function(){"use strict";var t="millisecond",n="second",e="minute",r="hour",i="day",s="week",u="month",o="quarter",a="year",h=/^(\d{4})-?(\d{1,2})-?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d{1,3})?$/,f=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,c=function(t,n,e){var r=String(t);return!r||r.length>=n?t:""+Array(n+1-r.length).join(e)+t},d={s:c,z:function(t){var n=-t.utcOffset(),e=Math.abs(n),r=Math.floor(e/60),i=e%60;return(n<=0?"+":"-")+c(r,2,"0")+":"+c(i,2,"0")},m:function(t,n){var e=12*(n.year()-t.year())+(n.month()-t.month()),r=t.clone().add(e,u),i=n-r<0,s=t.clone().add(e+(i?-1:1),u);return Number(-(e+(n-r)/(i?r-s:s-r))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:a,w:s,d:i,h:r,m:e,s:n,ms:t,Q:o}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},$={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},l="en",m={};m[l]=$;var y=function(t){return t instanceof v},M=function(t,n,e){var r;if(!t)return l;if("string"==typeof t)m[t]&&(r=t),n&&(m[t]=n,r=t);else{var i=t.name;m[i]=t,r=i}return e||(l=r),r},g=function(t,n,e){if(y(t))return t.clone();var r=n?"string"==typeof n?{format:n,pl:e}:n:{};return r.date=t,new v(r)},D=d;D.l=M,D.i=y,D.w=function(t,n){return g(t,{locale:n.$L,utc:n.$u})};var v=function(){function c(t){this.$L=this.$L||M(t.locale,null,!0),this.parse(t)}var d=c.prototype;return d.parse=function(t){this.$d=function(t){var n=t.date,e=t.utc;if(null===n)return new Date(NaN);if(D.u(n))return new Date;if(n instanceof Date)return new Date(n);if("string"==typeof n&&!/Z$/i.test(n)){var r=n.match(h);if(r)return e?new Date(Date.UTC(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)):new Date(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)}return new Date(n)}(t),this.init()},d.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},d.$utils=function(){return D},d.isValid=function(){return!("Invalid Date"===this.$d.toString())},d.isSame=function(t,n){var e=g(t);return this.startOf(n)<=e&&e<=this.endOf(n)},d.isAfter=function(t,n){return g(t)<this.startOf(n)},d.isBefore=function(t,n){return this.endOf(n)<g(t)},d.$g=function(t,n,e){return D.u(t)?this[n]:this.set(e,t)},d.year=function(t){return this.$g(t,"$y",a)},d.month=function(t){return this.$g(t,"$M",u)},d.day=function(t){return this.$g(t,"$W",i)},d.date=function(t){return this.$g(t,"$D","date")},d.hour=function(t){return this.$g(t,"$H",r)},d.minute=function(t){return this.$g(t,"$m",e)},d.second=function(t){return this.$g(t,"$s",n)},d.millisecond=function(n){return this.$g(n,"$ms",t)},d.unix=function(){return Math.floor(this.valueOf()/1e3)},d.valueOf=function(){return this.$d.getTime()},d.startOf=function(t,o){var h=this,f=!!D.u(o)||o,c=D.p(t),d=function(t,n){var e=D.w(h.$u?Date.UTC(h.$y,n,t):new Date(h.$y,n,t),h);return f?e:e.endOf(i)},$=function(t,n){return D.w(h.toDate()[t].apply(h.toDate(),(f?[0,0,0,0]:[23,59,59,999]).slice(n)),h)},l=this.$W,m=this.$M,y=this.$D,M="set"+(this.$u?"UTC":"");switch(c){case a:return f?d(1,0):d(31,11);case u:return f?d(1,m):d(0,m+1);case s:var g=this.$locale().weekStart||0,v=(l<g?l+7:l)-g;return d(f?y-v:y+(6-v),m);case i:case"date":return $(M+"Hours",0);case r:return $(M+"Minutes",1);case e:return $(M+"Seconds",2);case n:return $(M+"Milliseconds",3);default:return this.clone()}},d.endOf=function(t){return this.startOf(t,!1)},d.$set=function(s,o){var h,f=D.p(s),c="set"+(this.$u?"UTC":""),d=(h={},h[i]=c+"Date",h.date=c+"Date",h[u]=c+"Month",h[a]=c+"FullYear",h[r]=c+"Hours",h[e]=c+"Minutes",h[n]=c+"Seconds",h[t]=c+"Milliseconds",h)[f],$=f===i?this.$D+(o-this.$W):o;if(f===u||f===a){var l=this.clone().set("date",1);l.$d[d]($),l.init(),this.$d=l.set("date",Math.min(this.$D,l.daysInMonth())).toDate()}else d&&this.$d[d]($);return this.init(),this},d.set=function(t,n){return this.clone().$set(t,n)},d.get=function(t){return this[D.p(t)]()},d.add=function(t,o){var h,f=this;t=Number(t);var c=D.p(o),d=function(n){var e=g(f);return D.w(e.date(e.date()+Math.round(n*t)),f)};if(c===u)return this.set(u,this.$M+t);if(c===a)return this.set(a,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(h={},h[e]=6e4,h[r]=36e5,h[n]=1e3,h)[c]||1,l=this.valueOf()+t*$;return D.w(l,this)},d.subtract=function(t,n){return this.add(-1*t,n)},d.format=function(t){var n=this;if(!this.isValid())return"Invalid Date";var e=t||"YYYY-MM-DDTHH:mm:ssZ",r=D.z(this),i=this.$locale(),s=this.$H,u=this.$m,o=this.$M,a=i.weekdays,h=i.months,c=function(t,r,i,s){return t&&(t[r]||t(n,e))||i[r].substr(0,s)},d=function(t){return D.s(s%12||12,t,"0")},$=i.meridiem||function(t,n,e){var r=t<12?"AM":"PM";return e?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:o+1,MM:D.s(o+1,2,"0"),MMM:c(i.monthsShort,o,h,3),MMMM:h[o]||h(this,e),D:this.$D,DD:D.s(this.$D,2,"0"),d:String(this.$W),dd:c(i.weekdaysMin,this.$W,a,2),ddd:c(i.weekdaysShort,this.$W,a,3),dddd:a[this.$W],H:String(s),HH:D.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:D.s(u,2,"0"),s:String(this.$s),ss:D.s(this.$s,2,"0"),SSS:D.s(this.$ms,3,"0"),Z:r};return e.replace(f,function(t,n){return n||l[t]||r.replace(":","")})},d.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},d.diff=function(t,h,f){var c,d=D.p(h),$=g(t),l=6e4*($.utcOffset()-this.utcOffset()),m=this-$,y=D.m(this,$);return y=(c={},c[a]=y/12,c[u]=y,c[o]=y/3,c[s]=(m-l)/6048e5,c[i]=(m-l)/864e5,c[r]=m/36e5,c[e]=m/6e4,c[n]=m/1e3,c)[d]||m,f?y:D.a(y)},d.daysInMonth=function(){return this.endOf(u).$D},d.$locale=function(){return m[this.$L]},d.locale=function(t,n){if(!t)return this.$L;var e=this.clone();return e.$L=M(t,n,!0),e},d.clone=function(){return D.w(this.toDate(),this)},d.toDate=function(){return new Date(this.$d)},d.toJSON=function(){return this.toISOString()},d.toISOString=function(){return this.$d.toISOString()},d.toString=function(){return this.$d.toUTCString()},c}();return g.prototype=v.prototype,g.extend=function(t,n){return t(n,v,g),g},g.locale=M,g.isDayjs=y,g.unix=function(t){return g(1e3*t)},g.en=m[l],g.Ls=m,g});
+
+
+/***/ }),
+
+/***/ "./node_modules/dayjs/locale/ja.js":
+/*!*****************************************!*\
+  !*** ./node_modules/dayjs/locale/ja.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,_){ true?module.exports=_(__webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js")):undefined}(this,function(e){"use strict";e=e&&e.hasOwnProperty("default")?e.default:e;var _={name:"ja",weekdays:"日曜日_月曜日_火曜日_水曜日_木曜日_金曜日_土曜日".split("_"),weekdaysShort:"日_月_火_水_木_金_土".split("_"),weekdaysMin:"日_月_火_水_木_金_土".split("_"),months:"1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),ordinal:function(e){return e+"日"},formats:{LT:"HH:mm",LTS:"HH:mm:ss",L:"YYYY/MM/DD",LL:"YYYY年M月D日",LLL:"YYYY年M月D日 HH:mm",LLLL:"YYYY年M月D日 dddd HH:mm",l:"YYYY/MM/DD",ll:"YYYY年M月D日",lll:"YYYY年M月D日 HH:mm",llll:"YYYY年M月D日(ddd) HH:mm"},meridiem:function(e){return e<12?"午前":"午後"},relativeTime:{future:"%s後",past:"%s前",s:"数秒",m:"1分",mm:"%d分",h:"1時間",hh:"%d時間",d:"1日",dd:"%d日",M:"1ヶ月",MM:"%dヶ月",y:"1年",yy:"%d年"}};return e.locale(_,null,!0),_});
 
 
 /***/ }),
@@ -745,6 +917,42 @@ var render = function() {
                         _vm._v(" "),
                         _c("h3", { staticClass: "flash" }, [
                           _vm._v("部材データ --> 集計履歴取得中")
+                        ]),
+                        _vm._v(" "),
+                        _c("Loading")
+                      ],
+                      1
+                    )
+                  ]
+                : !_vm.all_item
+                ? [
+                    _c(
+                      "div",
+                      [
+                        _c("h2", { staticClass: "flash2" }, [
+                          _vm._v("データ取得中")
+                        ]),
+                        _vm._v(" "),
+                        _c("h3", { staticClass: "flash" }, [
+                          _vm._v("部材データ --> 全部材データ取得中")
+                        ]),
+                        _vm._v(" "),
+                        _c("Loading")
+                      ],
+                      1
+                    )
+                  ]
+                : !_vm.all_cmpt
+                ? [
+                    _c(
+                      "div",
+                      [
+                        _c("h2", { staticClass: "flash2" }, [
+                          _vm._v("データ取得中")
+                        ]),
+                        _vm._v(" "),
+                        _c("h3", { staticClass: "flash" }, [
+                          _vm._v("部材データ --> 全基盤使用部材データ取得中")
                         ]),
                         _vm._v(" "),
                         _c("Loading")

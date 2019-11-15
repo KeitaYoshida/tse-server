@@ -82,6 +82,7 @@ Route::post("/db/model_mst/copy/model/{tar_id}", "ModelCtrl@CopyModel");
 Route::post("/db/model_mst/copy/cmpt/{model_id}", "ModelCtrl@CopyCmptToModel");
 
 Route::get("/db/cmpt/data/{id}", "CmptCtrl@GetCmptData");
+Route::get("/db/cmpt/all/not/itemdetail", "CmptCtrl@GetAllNotDetail");
 Route::post("/db/comt/get/data/arr", "CmptCtrl@GetCmptDataArr");
 Route::get("/db/cmpt/delete/cmpt/{mid}/{cid}", "CmptCtrl@DeleteCmpt");
 
