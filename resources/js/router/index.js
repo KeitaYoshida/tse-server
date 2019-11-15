@@ -153,7 +153,7 @@ let router = new Router({
         {
             path: "/sumup",
             name: "sumup",
-            component: () => import( /* webpackChunkName: "sum_up" */ "@/components/sumup/sumup.vue"),
+            component: () => import( /* webpackChunkName: "sumup" */ "@/components/sumup/sumup.vue"),
             meta: {
                 requiresAuth: true
             },
@@ -161,7 +161,15 @@ let router = new Router({
         {
             path: "/sumup/fin",
             name: "sumup_fin",
-            component: () => import( /* webpackChunkName: "sum_up_fin" */ "@/components/sumup/fin.vue"),
+            component: () => import( /* webpackChunkName: "sumup_fin" */ "@/components/sumup/fin.vue"),
+            meta: {
+                requiresAuth: true
+            },
+        },
+        {
+            path: "/sumup/history",
+            name: "sumup_history",
+            component: () => import( /* webpackChunkName: "sumup_history" */ "@/components/sumup/sumHistory.vue"),
             meta: {
                 requiresAuth: true
             },

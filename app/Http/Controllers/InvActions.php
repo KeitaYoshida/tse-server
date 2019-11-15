@@ -8,6 +8,9 @@ use App\Model\InvItem;
 use App\Model\InvHistory;
 use App\Model\InvWorklist;
 use App\Model\InvWorklistItem;
+use App\Model\Item;
+use App\Model\CntOrder;
+use App\Model\InventoryHistory;
 
 class InvActions extends Controller
 {
@@ -24,5 +27,17 @@ class InvActions extends Controller
     $InvWorkList->insert($req->inv_worklist);
     $InvWorkListItem->insert($req->inv_worklist_items);
     // return $req->inv_list;
+    $Item = new Item;
+    $CntOrder = new CntOrder;
+    $InventoryHistory = new InventoryHistory;
+    $Item->where('inv_num', '>', 0)->update(['inv_num' => 0]);
+    $CntOrder->where('num_inv', '>', 0)->update(['num_inv' => 0]);
+    $InventoryHistory->query()->delete();
+  }
+
+  public function InvHistoryList()
+  {
+    $InvList = new InvList;
+    return $InvList->all();
   }
 }

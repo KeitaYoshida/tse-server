@@ -72,6 +72,9 @@
     <v-dialog v-model="finCheck" max-width="500px">
       <FinCheckForm :data="finData" v-if="finCheck" @rt="rtFinCheckPass"></FinCheckForm>
     </v-dialog>
+    <v-dialog v-model="oldCheck" max-width="500px">
+      <FinCheckForm :data="oldData" v-if="oldCheck" @rt="rtOldCheckPass"></FinCheckForm>
+    </v-dialog>
     <v-bottom-nav fixed :active.sync="main_action" v-model="main_action">
       <v-btn flat value="inv" color="primary">
         <span>棚卸し集計</span>
@@ -81,7 +84,7 @@
         <span>完了データ登録</span>
         <v-icon>fas fa-stamp</v-icon>
       </v-btn>
-      <v-btn flat value="all" color="primary">
+      <v-btn flat value="all" color="primary" @click="oldCheck=true">
         <span>過去データ</span>
         <v-icon>fas fa-history</v-icon>
       </v-btn>
@@ -125,6 +128,21 @@ export default {
             name: "fin_pass",
             label: "パスフレーズ",
             id: "fin_pass",
+            hint: null,
+            type: null,
+            value: null
+          }
+        ]
+      },
+      oldCheck: null,
+      oldData: {
+        title: "完了済みデータ閲覧",
+        message: "閲覧・調整用パスフレーズを入力して下さい",
+        data: [
+          {
+            name: "view_pass",
+            label: "パスフレーズ",
+            id: "view_pass",
             hint: null,
             type: null,
             value: null
@@ -198,6 +216,16 @@ export default {
         alert("パスフレーズが間違っています");
       } else {
         this.$router.push("/sumup/fin");
+      }
+    },
+    rtOldCheckPass(d) {
+      this.oldCheck = !this.oldCheck;
+      const OldPass = "old pass";
+      let inputPass = d.data[0].value;
+      if (OldPass !== inputPass) {
+        alert("パスフレーズが間違っています");
+      } else {
+        this.$router.push("/sumup/history");
       }
     }
   },

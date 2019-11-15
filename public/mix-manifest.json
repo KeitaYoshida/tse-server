@@ -86,5 +86,15 @@
     "/vendors~iMonitor~recept_list~sum_up.js": "/vendors~iMonitor~recept_list~sum_up.js",
     "/vendors~iMonitor~recept_list~sum_up.js.map": "/vendors~iMonitor~recept_list~sum_up.js.map",
     "/sum_up_fin.js": "/sum_up_fin.js",
-    "/sum_up_fin.js.map": "/sum_up_fin.js.map"
+    "/sum_up_fin.js.map": "/sum_up_fin.js.map",
+    "/cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sumup~tehaisaki.js": "/cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sumup~tehaisaki.js",
+    "/cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sumup~tehaisaki.js.map": "/cmpt_work_set~iMonitor~item_list~model_mst~order~order_list~product_list~readfile~sumup~tehaisaki.js.map",
+    "/sumup.js": "/sumup.js",
+    "/sumup.js.map": "/sumup.js.map",
+    "/sumup_fin.js": "/sumup_fin.js",
+    "/sumup_fin.js.map": "/sumup_fin.js.map",
+    "/vendors~iMonitor~recept_list~sumup.js": "/vendors~iMonitor~recept_list~sumup.js",
+    "/vendors~iMonitor~recept_list~sumup.js.map": "/vendors~iMonitor~recept_list~sumup.js.map",
+    "/sumup_history.js": "/sumup_history.js",
+    "/sumup_history.js.map": "/sumup_history.js.map"
 }

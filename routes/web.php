@@ -162,6 +162,7 @@ Route::get("/db/inventory/history/day/{day}", "ItemsCtrl@inventoryHistory");
 Route::get("/db/inventory/working/const/list", "PdctWorkList@GetWorkingConstList");
 Route::get("/db/inventory/worklist/check/{wid}/{day}/{uid}", "PdctWorkList@SetWorklistCheckInfo");
 Route::post("/db/inventory/add/findate", "InvActions@AddInvDate");
+Route::get("/db/inventory/sum/history/list", "InvActions@InvHistoryList");
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 
