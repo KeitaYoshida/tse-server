@@ -190,9 +190,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 2:
                 order_data = _context2.sent;
-                order_data = order_data.data.filter(function (o) {
-                  return o.num_recept > 0;
-                });
+                order_data = order_data.data;
                 _context2.next = 6;
                 return this.ORDERS_ONE_INIT_SET({
                   id: model_id,
@@ -726,7 +724,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["massage"],
+  props: ["massage", "set_num"],
   components: {
     ShukeiNum: _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -812,17 +810,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   ss.allPrice = ss.allPrice + item.last_num * item.item_price;
                 });
                 ss.allPrice = Math.round(ss.allPrice);
-                ss.finPrice = Math.round(ss.finPrice); // console.log(this.items);
-
-                _context.next = 12;
+                ss.finPrice = Math.round(ss.finPrice);
+                console.log(this.items);
+                _context.next = 13;
                 return this.INVENTORY_SET({
                   status: ss
                 });
 
-              case 12:
+              case 13:
                 this.inited = true;
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -838,6 +836,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }(),
     shukeiAct: function shukeiAct(item) {
       this.shukeiData.title = item.item_code;
+      this.shukeiData.data[0].value = this.set_num;
       this.shukeiData.data[1].value = this.massage;
       this.item_id = item.item_id;
       this.shukeiView = !this.shukeiView;
@@ -1033,6 +1032,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -1056,6 +1056,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       mode: "def",
       fixMassage: "",
+      fixNum: "",
       main_action: null,
       finCheck: null,
       finData: {
@@ -2470,15 +2471,16 @@ var render = function() {
                         attrs: {
                           label: "数量",
                           "prepend-inner-icon": "fas fa-sort-numeric-up",
+                          type: "number",
                           clearable: "",
                           hint: "部材集計時のメッセージに入力値を登録します"
                         },
                         model: {
-                          value: _vm.fixMassage,
+                          value: _vm.fixNum,
                           callback: function($$v) {
-                            _vm.fixMassage = $$v
+                            _vm.fixNum = $$v
                           },
-                          expression: "fixMassage"
+                          expression: "fixNum"
                         }
                       })
                     ],
@@ -2539,7 +2541,9 @@ var render = function() {
                         [_vm._v("部材リスト")]
                       ),
                       _vm._v(" "),
-                      _c("ItemList", { attrs: { massage: _vm.fixMassage } })
+                      _c("ItemList", {
+                        attrs: { set_num: _vm.fixNum, massage: _vm.fixMassage }
+                      })
                     ],
                     1
                   ),

@@ -58,7 +58,7 @@ export default {
     },
     async act(model_id, order_code) {
       let order_data = await axios.get("/db/order/list/one/" + order_code);
-      order_data = order_data.data.filter(o => o.num_recept > 0);
+      order_data = order_data.data;
       await this.ORDERS_ONE_INIT_SET({
         id: model_id,
         code: order_code,

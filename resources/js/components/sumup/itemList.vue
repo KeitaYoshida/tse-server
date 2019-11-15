@@ -49,7 +49,7 @@ import { mapState, mapActions } from "vuex";
 import ShukeiNum from "@/components/com/ComFormDialog";
 
 export default {
-  props: ["massage"],
+  props: ["massage", "set_num"],
   components: { ShukeiNum },
   data: function() {
     return {
@@ -112,12 +112,13 @@ export default {
       });
       ss.allPrice = Math.round(ss.allPrice);
       ss.finPrice = Math.round(ss.finPrice);
-      // console.log(this.items);
+      console.log(this.items);
       await this.INVENTORY_SET({ status: ss });
       this.inited = true;
     },
     shukeiAct(item) {
       this.shukeiData.title = item.item_code;
+      this.shukeiData.data[0].value = this.set_num;
       this.shukeiData.data[1].value = this.massage;
       this.item_id = item.item_id;
       this.shukeiView = !this.shukeiView;

@@ -20,9 +20,10 @@
         </v-flex>
         <v-flex lg2 xs4 px-3>
           <v-text-field
-            v-model="fixMassage"
+            v-model="fixNum"
             label="数量"
             prepend-inner-icon="fas fa-sort-numeric-up"
+            type="number"
             clearable
             hint="部材集計時のメッセージに入力値を登録します"
           ></v-text-field>
@@ -42,7 +43,7 @@
         </v-flex>
         <v-flex xs7 pt-3 pl-3>
           <v-chip outline color="green darken-3">部材リスト</v-chip>
-          <ItemList :massage="fixMassage"></ItemList>
+          <ItemList :set_num="fixNum" :massage="fixMassage"></ItemList>
         </v-flex>
         <v-flex xs3 mt-3>
           <v-chip outline color="green darken-3">集計数</v-chip>
@@ -117,6 +118,7 @@ export default {
     return {
       mode: "def",
       fixMassage: "",
+      fixNum: "",
       main_action: null,
       finCheck: null,
       finData: {
