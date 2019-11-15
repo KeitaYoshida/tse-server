@@ -130,7 +130,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -153,7 +152,9 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
       worklist_fin_num: 0,
       tar_worklist_code: "",
       price_working_total: 0,
-      price_items_total: 0
+      price_items_total: 0,
+      price_theoretical: 0,
+      inv_date: null
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -176,19 +177,21 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
             switch (_context2.prev = _context2.next) {
               case 0:
                 inv_date = dayjs__WEBPACK_IMPORTED_MODULE_3___default()(Date.now()).format("YYYY-MM-DD HH:mm");
-                _context2.next = 3;
+                this.inv_date = inv_date;
+                _context2.next = 4;
                 return axios.get("/items/mini");
 
-              case 3:
+              case 4:
                 item = _context2.sent;
                 _iteratorNormalCompletion = true;
                 _didIteratorError = false;
                 _iteratorError = undefined;
-                _context2.prev = 7;
+                _context2.prev = 8;
 
                 for (_iterator = item.data[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                   it = _step.value;
                   this.price_items_total = this.price_items_total + Number(it.item_price) * Number(it.inv_num);
+                  this.price_theoretical = this.price_theoretical + Number(it.item_price) * Number(it.last_num);
                   this.items.push({
                     inv_date: inv_date,
                     last_num: it.last_num,
@@ -200,49 +203,49 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                   });
                 }
 
-                _context2.next = 15;
+                _context2.next = 16;
                 break;
 
-              case 11:
-                _context2.prev = 11;
-                _context2.t0 = _context2["catch"](7);
+              case 12:
+                _context2.prev = 12;
+                _context2.t0 = _context2["catch"](8);
                 _didIteratorError = true;
                 _iteratorError = _context2.t0;
 
-              case 15:
-                _context2.prev = 15;
+              case 16:
                 _context2.prev = 16;
+                _context2.prev = 17;
 
                 if (!_iteratorNormalCompletion && _iterator["return"] != null) {
                   _iterator["return"]();
                 }
 
-              case 18:
-                _context2.prev = 18;
+              case 19:
+                _context2.prev = 19;
 
                 if (!_didIteratorError) {
-                  _context2.next = 21;
+                  _context2.next = 22;
                   break;
                 }
 
                 throw _iteratorError;
 
-              case 21:
-                return _context2.finish(18);
-
               case 22:
-                return _context2.finish(15);
+                return _context2.finish(19);
 
               case 23:
-                _context2.next = 25;
+                return _context2.finish(16);
+
+              case 24:
+                _context2.next = 26;
                 return axios.get("/db/inventory/history/day/" + 60);
 
-              case 25:
+              case 26:
                 his = _context2.sent;
                 _iteratorNormalCompletion2 = true;
                 _didIteratorError2 = false;
                 _iteratorError2 = undefined;
-                _context2.prev = 29;
+                _context2.prev = 30;
 
                 for (_iterator2 = his.data[Symbol.iterator](); !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                   hs = _step2.value;
@@ -258,184 +261,187 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                   });
                 }
 
-                _context2.next = 37;
+                _context2.next = 38;
                 break;
 
-              case 33:
-                _context2.prev = 33;
-                _context2.t1 = _context2["catch"](29);
+              case 34:
+                _context2.prev = 34;
+                _context2.t1 = _context2["catch"](30);
                 _didIteratorError2 = true;
                 _iteratorError2 = _context2.t1;
 
-              case 37:
-                _context2.prev = 37;
+              case 38:
                 _context2.prev = 38;
+                _context2.prev = 39;
 
                 if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
                   _iterator2["return"]();
                 }
 
-              case 40:
-                _context2.prev = 40;
+              case 41:
+                _context2.prev = 41;
 
                 if (!_didIteratorError2) {
-                  _context2.next = 43;
+                  _context2.next = 44;
                   break;
                 }
 
                 throw _iteratorError2;
 
-              case 43:
-                return _context2.finish(40);
-
               case 44:
-                return _context2.finish(37);
+                return _context2.finish(41);
 
               case 45:
-                _context2.next = 47;
+                return _context2.finish(38);
+
+              case 46:
+                _context2.next = 48;
                 return axios.get("/items/all");
 
-              case 47:
+              case 48:
                 alli = _context2.sent;
                 _iteratorNormalCompletion3 = true;
                 _didIteratorError3 = false;
                 _iteratorError3 = undefined;
-                _context2.prev = 51;
+                _context2.prev = 52;
 
                 for (_iterator3 = alli.data[Symbol.iterator](); !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
                   ai = _step3.value;
                   this.all_item[ai.item_id] = ai;
                 }
 
-                _context2.next = 59;
+                _context2.next = 60;
                 break;
 
-              case 55:
-                _context2.prev = 55;
-                _context2.t2 = _context2["catch"](51);
+              case 56:
+                _context2.prev = 56;
+                _context2.t2 = _context2["catch"](52);
                 _didIteratorError3 = true;
                 _iteratorError3 = _context2.t2;
 
-              case 59:
-                _context2.prev = 59;
+              case 60:
                 _context2.prev = 60;
+                _context2.prev = 61;
 
                 if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
                   _iterator3["return"]();
                 }
 
-              case 62:
-                _context2.prev = 62;
+              case 63:
+                _context2.prev = 63;
 
                 if (!_didIteratorError3) {
-                  _context2.next = 65;
+                  _context2.next = 66;
                   break;
                 }
 
                 throw _iteratorError3;
 
-              case 65:
-                return _context2.finish(62);
-
               case 66:
-                return _context2.finish(59);
+                return _context2.finish(63);
 
               case 67:
-                _context2.next = 69;
+                return _context2.finish(60);
+
+              case 68:
+                _context2.next = 70;
                 return axios.get("/db/cmpt/all/not/itemdetail");
 
-              case 69:
+              case 70:
                 allc = _context2.sent;
                 this.all_cmpt = allc.data;
-                _context2.next = 73;
+                _context2.next = 74;
                 return axios.get("/db/inventory/working/const/list").then(
                 /*#__PURE__*/
                 function () {
                   var _ref = _asyncToGenerator(
                   /*#__PURE__*/
                   _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(res) {
-                    var lists, _iteratorNormalCompletion4, _didIteratorError4, _iteratorError4, _iterator4, _step4, list;
+                    var _iteratorNormalCompletion4, _didIteratorError4, _iteratorError4, _iterator4, _step4, list;
 
                     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                       while (1) {
                         switch (_context.prev = _context.next) {
                           case 0:
-                            lists = res.data;
                             _this.worklist_length = res.data.length;
                             _iteratorNormalCompletion4 = true;
                             _didIteratorError4 = false;
                             _iteratorError4 = undefined;
-                            _context.prev = 5;
+                            _context.prev = 4;
                             _iterator4 = res.data[Symbol.iterator]();
 
-                          case 7:
+                          case 6:
                             if (_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done) {
-                              _context.next = 17;
+                              _context.next = 16;
                               break;
                             }
 
                             list = _step4.value;
                             _this.tar_worklist_code = list.worklist_code;
+                            _context.next = 11;
+                            return _this.workItems(list.worklist_id, list.worklist_code, list);
+
+                          case 11:
+                            _this.worklist_fin_num = _this.worklist_fin_num + 1; // console.log(list);
 
                             _this.lists.push({
                               inv_date: inv_date,
                               worklist_code: list.worklist_code,
-                              items_price: list.use_item_price,
-                              working_price: 0,
-                              make_user: _this.user.name
+                              use_item_price: Number(list.use_item_price),
+                              work_context_price: 0,
+                              all_num: list.all_num,
+                              const_num: list.num,
+                              check_day: list.inv_day,
+                              check_user: list.user[0] ? list.user[0].name : "",
+                              context: list.context,
+                              model_code: list.model.model_code
                             });
 
-                            _context.next = 13;
-                            return _this.workItems(list.worklist_id, list.worklist_code);
-
                           case 13:
-                            _this.worklist_fin_num = _this.worklist_fin_num + 1;
-
-                          case 14:
                             _iteratorNormalCompletion4 = true;
-                            _context.next = 7;
+                            _context.next = 6;
                             break;
 
-                          case 17:
-                            _context.next = 23;
+                          case 16:
+                            _context.next = 22;
                             break;
 
-                          case 19:
-                            _context.prev = 19;
-                            _context.t0 = _context["catch"](5);
+                          case 18:
+                            _context.prev = 18;
+                            _context.t0 = _context["catch"](4);
                             _didIteratorError4 = true;
                             _iteratorError4 = _context.t0;
 
-                          case 23:
+                          case 22:
+                            _context.prev = 22;
                             _context.prev = 23;
-                            _context.prev = 24;
 
                             if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
                               _iterator4["return"]();
                             }
 
-                          case 26:
-                            _context.prev = 26;
+                          case 25:
+                            _context.prev = 25;
 
                             if (!_didIteratorError4) {
-                              _context.next = 29;
+                              _context.next = 28;
                               break;
                             }
 
                             throw _iteratorError4;
 
+                          case 28:
+                            return _context.finish(25);
+
                           case 29:
-                            return _context.finish(26);
+                            return _context.finish(22);
 
                           case 30:
-                            return _context.finish(23);
-
-                          case 31:
                           case "end":
                             return _context.stop();
                         }
                       }
-                    }, _callee, null, [[5, 19, 23, 31], [24,, 26, 30]]);
+                    }, _callee, null, [[4, 18, 22, 30], [23,, 25, 29]]);
                   }));
 
                   return function (_x) {
@@ -443,16 +449,16 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                   };
                 }());
 
-              case 73:
+              case 74:
                 this.price_items_total = Math.round(this.price_items_total);
                 this.price_working_total = Math.round(this.price_working_total);
 
-              case 75:
+              case 76:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[7, 11, 15, 23], [16,, 18, 22], [29, 33, 37, 45], [38,, 40, 44], [51, 55, 59, 67], [60,, 62, 66]]);
+        }, _callee2, this, [[8, 12, 16, 24], [17,, 19, 23], [30, 34, 38, 46], [39,, 41, 45], [52, 56, 60, 68], [61,, 63, 67]]);
       }));
 
       function init() {
@@ -464,10 +470,10 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
     workItems: function () {
       var _workItems = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id, code) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id, code, li) {
         var _this2 = this;
 
-        var Fin, list_item, list, process, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, serial, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _iterator6, _step6, p, _loop, _i, _Object$keys, _ret;
+        var Fin, list_item, in_list_price, list, process, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, serial, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _iterator6, _step6, p, _loop, _i, _Object$keys, _ret;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
@@ -475,24 +481,23 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
               case 0:
                 // return;
                 Fin = 2;
-                list_item = {
-                  worklist_code: code
-                };
-                _context3.next = 4;
+                list_item = [];
+                in_list_price = 0;
+                _context3.next = 5;
                 return axios.get("/db/workdata/process/" + id);
 
-              case 4:
+              case 5:
                 list = _context3.sent;
                 process = {};
                 _iteratorNormalCompletion5 = true;
                 _didIteratorError5 = false;
                 _iteratorError5 = undefined;
-                _context3.prev = 9;
+                _context3.prev = 10;
                 _iterator5 = list.data[0].serials[Symbol.iterator]();
 
-              case 11:
+              case 12:
                 if (_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done) {
-                  _context3.next = 35;
+                  _context3.next = 36;
                   break;
                 }
 
@@ -500,7 +505,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                 _iteratorNormalCompletion6 = true;
                 _didIteratorError6 = false;
                 _iteratorError6 = undefined;
-                _context3.prev = 16;
+                _context3.prev = 17;
 
                 for (_iterator6 = serial.process[Symbol.iterator](); !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
                   p = _step6.value;
@@ -510,79 +515,79 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                   }
                 }
 
-                _context3.next = 24;
+                _context3.next = 25;
                 break;
 
-              case 20:
-                _context3.prev = 20;
-                _context3.t0 = _context3["catch"](16);
+              case 21:
+                _context3.prev = 21;
+                _context3.t0 = _context3["catch"](17);
                 _didIteratorError6 = true;
                 _iteratorError6 = _context3.t0;
 
-              case 24:
-                _context3.prev = 24;
+              case 25:
                 _context3.prev = 25;
+                _context3.prev = 26;
 
                 if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
                   _iterator6["return"]();
                 }
 
-              case 27:
-                _context3.prev = 27;
+              case 28:
+                _context3.prev = 28;
 
                 if (!_didIteratorError6) {
-                  _context3.next = 30;
+                  _context3.next = 31;
                   break;
                 }
 
                 throw _iteratorError6;
 
-              case 30:
-                return _context3.finish(27);
-
               case 31:
-                return _context3.finish(24);
+                return _context3.finish(28);
 
               case 32:
+                return _context3.finish(25);
+
+              case 33:
                 _iteratorNormalCompletion5 = true;
-                _context3.next = 11;
+                _context3.next = 12;
                 break;
 
-              case 35:
-                _context3.next = 41;
+              case 36:
+                _context3.next = 42;
                 break;
 
-              case 37:
-                _context3.prev = 37;
-                _context3.t1 = _context3["catch"](9);
+              case 38:
+                _context3.prev = 38;
+                _context3.t1 = _context3["catch"](10);
                 _didIteratorError5 = true;
                 _iteratorError5 = _context3.t1;
 
-              case 41:
-                _context3.prev = 41;
+              case 42:
                 _context3.prev = 42;
+                _context3.prev = 43;
 
                 if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
                   _iterator5["return"]();
                 }
 
-              case 44:
-                _context3.prev = 44;
+              case 45:
+                _context3.prev = 45;
 
                 if (!_didIteratorError5) {
-                  _context3.next = 47;
+                  _context3.next = 48;
                   break;
                 }
 
                 throw _iteratorError5;
 
-              case 47:
-                return _context3.finish(44);
-
               case 48:
-                return _context3.finish(41);
+                return _context3.finish(45);
 
               case 49:
+                return _context3.finish(42);
+
+              case 50:
                 _loop = function _loop() {
                   var work_id = _Object$keys[_i];
 
@@ -596,30 +601,22 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                   var _iteratorError7 = undefined;
 
                   try {
-                    var _loop2 = function _loop2() {
-                      var item = _step7.value;
-                      var tar = li.items.filter(function (ar) {
-                        return ar.item_id === item.item_id;
-                      });
-                      li.reCheckPrice = li.reCheckPrice + Number(item.item_use) * process[work_id] * item.items.item_price;
-
-                      if (tar.length === 0) {
-                        tar = [{
-                          item_id: item.item_id,
-                          item_use: Number(item.item_use) * process[work_id],
-                          item_code: item.items.item_code,
-                          item_model: item.items.item_model,
-                          item_name: item.items.item_name,
-                          item_price: item.items.item_price
-                        }];
-                        li.items.push(tar[0]);
-                      } else {
-                        tar[0].item_use = Number(tar[0].item_use) + Number(item.item_use) * process[pid];
-                      }
-                    };
-
                     for (var _iterator7 = cmpt_items[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                      _loop2();
+                      var item = _step7.value;
+                      var fin_num = process[work_id];
+                      in_list_price = in_list_price + item.item_use * fin_num * Number(_this2.all_item[item.item_id].item_price);
+
+                      _this2.list_items.push({
+                        worklist_code: code,
+                        cmpt_id: item.cmpt_id,
+                        inv_date: _this2.inv_date,
+                        item_num: item.item_use * fin_num,
+                        item_code: _this2.all_item[item.item_id].item_code,
+                        item_model: _this2.all_item[item.item_id].item_model,
+                        item_name: _this2.all_item[item.item_id].item_name,
+                        item_price: _this2.all_item[item.item_id].item_price,
+                        total_price: item.item_use * fin_num * Number(_this2.all_item[item.item_id].item_price)
+                      });
                     }
                   } catch (err) {
                     _didIteratorError7 = true;
@@ -639,43 +636,87 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
 
                 _i = 0, _Object$keys = Object.keys(process);
 
-              case 51:
+              case 52:
                 if (!(_i < _Object$keys.length)) {
-                  _context3.next = 58;
+                  _context3.next = 59;
                   break;
                 }
 
                 _ret = _loop();
 
                 if (!(_ret === "continue")) {
-                  _context3.next = 55;
+                  _context3.next = 56;
                   break;
                 }
 
-                return _context3.abrupt("continue", 55);
+                return _context3.abrupt("continue", 56);
 
-              case 55:
+              case 56:
                 _i++;
-                _context3.next = 51;
+                _context3.next = 52;
                 break;
 
-              case 58:
+              case 59:
+                li.checkPrice = in_list_price;
+                this.price_working_total = this.price_working_total + in_list_price;
+
+              case 61:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[9, 37, 41, 49], [16, 20, 24, 32], [25,, 27, 31], [42,, 44, 48]]);
+        }, _callee3, this, [[10, 38, 42, 50], [17, 21, 25, 33], [26,, 28, 32], [43,, 45, 49]]);
       }));
 
-      function workItems(_x2, _x3) {
+      function workItems(_x2, _x3, _x4) {
         return _workItems.apply(this, arguments);
       }
 
       return workItems;
     }(),
-    alfin: function alfin() {
-      console.log(this.history);
-    }
+    alfin: function () {
+      var _alfin = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var post, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                post = {
+                  inv_worklist: this.lists,
+                  inv_worklist_items: this.list_items,
+                  inv_items: this.items,
+                  inv_history: this.history,
+                  inv_list: {
+                    inv_date: this.inv_date,
+                    items_price: this.price_items_total,
+                    working_price: this.price_working_total,
+                    theoretical_price: this.price_theoretical,
+                    make_user: this.user.name
+                  }
+                };
+                _context4.next = 3;
+                return axios.post("/db/inventory/add/findate", post);
+
+              case 3:
+                res = _context4.sent;
+                console.log(res.data);
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function alfin() {
+        return _alfin.apply(this, arguments);
+      }
+
+      return alfin;
+    }()
   })
 });
 
@@ -1032,12 +1073,23 @@ var render = function() {
                                     attrs: { large: "", outline: "" }
                                   },
                                   [
-                                    _vm._v(
-                                      "総部材集計金額: " +
-                                        _vm._s(
-                                          _vm.price_items_total.toLocaleString()
-                                        )
-                                    )
+                                    _c("p", [
+                                      _vm._v(
+                                        "総部材集計金額: " +
+                                          _vm._s(
+                                            _vm.price_items_total.toLocaleString()
+                                          )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("p", [
+                                      _vm._v(
+                                        "部材理論金額: " +
+                                          _vm._s(
+                                            _vm.price_theoretical.toLocaleString()
+                                          )
+                                      )
+                                    ])
                                   ]
                                 )
                               ]

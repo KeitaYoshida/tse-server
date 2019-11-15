@@ -47,11 +47,10 @@
             <p>作業中に完了にしないよう注意してください</p>
             <v-layout row wrap pt-4>
               <v-flex xs5 offset-xs1 class="text-xs-center">
-                <strong
-                  large
-                  outline
-                  class="total primary--text"
-                >総部材集計金額: {{price_items_total.toLocaleString()}}</strong>
+                <strong large outline class="total primary--text">
+                  <p>総部材集計金額: {{price_items_total.toLocaleString()}}</p>
+                  <p>部材理論金額: {{price_theoretical.toLocaleString()}}</p>
+                </strong>
               </v-flex>
               <v-flex xs5 class="text-xs-center">
                 <strong
@@ -96,7 +95,9 @@ export default {
       worklist_fin_num: 0,
       tar_worklist_code: "",
       price_working_total: 0,
-      price_items_total: 0
+      price_items_total: 0,
+      price_theoretical: 0,
+      inv_date: null
     };
   },
   computed: {
@@ -111,11 +112,14 @@ export default {
     ...mapActions([]),
     async init() {
       let inv_date = dayjs(Date.now()).format("YYYY-MM-DD HH:mm");
+      this.inv_date = inv_date;
 
       let item = await axios.get("/items/mini");
       for (let it of item.data) {
         this.price_items_total =
           this.price_items_total + Number(it.item_price) * Number(it.inv_num);
+        this.price_theoretical =
+          this.price_theoretical + Number(it.item_price) * Number(it.last_num);
         this.items.push({
           inv_date: inv_date,
           last_num: it.last_num,
@@ -146,30 +150,34 @@ export default {
       let allc = await axios.get("/db/cmpt/all/not/itemdetail");
       this.all_cmpt = allc.data;
       await axios.get("/db/inventory/working/const/list").then(async res => {
-        let lists = res.data;
         this.worklist_length = res.data.length;
         for (let list of res.data) {
           this.tar_worklist_code = list.worklist_code;
+          await this.workItems(list.worklist_id, list.worklist_code, list);
+          this.worklist_fin_num = this.worklist_fin_num + 1;
+          // console.log(list);
           this.lists.push({
             inv_date: inv_date,
             worklist_code: list.worklist_code,
-            items_price: list.use_item_price,
-            working_price: 0,
-            make_user: this.user.name
+            use_item_price: Number(list.use_item_price),
+            work_context_price: 0,
+            all_num: list.all_num,
+            const_num: list.num,
+            check_day: list.inv_day,
+            check_user: list.user[0] ? list.user[0].name : "",
+            context: list.context,
+            model_code: list.model.model_code
           });
-          await this.workItems(list.worklist_id, list.worklist_code);
-          this.worklist_fin_num = this.worklist_fin_num + 1;
         }
       });
       this.price_items_total = Math.round(this.price_items_total);
       this.price_working_total = Math.round(this.price_working_total);
     },
-    async workItems(id, code) {
+    async workItems(id, code, li) {
       // return;
       const Fin = 2;
-      let list_item = {
-        worklist_code: code
-      };
+      let list_item = [];
+      let in_list_price = 0;
       let list = await axios.get("/db/workdata/process/" + id);
       let process = {};
       for (let serial of list.data[0].serials) {
@@ -184,32 +192,47 @@ export default {
         let cmpt_items = this.all_cmpt.filter(cmpt => cmpt.work_id == work_id);
         if (cmpt_items.length === 0) continue;
         for (let item of cmpt_items) {
-          let tar = li.items.filter(ar => ar.item_id === item.item_id);
-          li.reCheckPrice =
-            li.reCheckPrice +
-            Number(item.item_use) * process[work_id] * item.items.item_price;
-          if (tar.length === 0) {
-            tar = [
-              {
-                item_id: item.item_id,
-                item_use: Number(item.item_use) * process[work_id],
-                item_code: item.items.item_code,
-                item_model: item.items.item_model,
-                item_name: item.items.item_name,
-                item_price: item.items.item_price
-              }
-            ];
-            li.items.push(tar[0]);
-          } else {
-            tar[0].item_use =
-              Number(tar[0].item_use) + Number(item.item_use) * process[pid];
-          }
+          let fin_num = process[work_id];
+          in_list_price =
+            in_list_price +
+            item.item_use *
+              fin_num *
+              Number(this.all_item[item.item_id].item_price);
+          this.list_items.push({
+            worklist_code: code,
+            cmpt_id: item.cmpt_id,
+            inv_date: this.inv_date,
+            item_num: item.item_use * fin_num,
+            item_code: this.all_item[item.item_id].item_code,
+            item_model: this.all_item[item.item_id].item_model,
+            item_name: this.all_item[item.item_id].item_name,
+            item_price: this.all_item[item.item_id].item_price,
+            total_price:
+              item.item_use *
+              fin_num *
+              Number(this.all_item[item.item_id].item_price)
+          });
         }
       }
-      // this.price_working_total = this.price_working_total + li.reCheckPrice;
+      li.checkPrice = in_list_price;
+      this.price_working_total = this.price_working_total + in_list_price;
     },
-    alfin() {
-      console.log(this.history);
+    async alfin() {
+      let post = {
+        inv_worklist: this.lists,
+        inv_worklist_items: this.list_items,
+        inv_items: this.items,
+        inv_history: this.history,
+        inv_list: {
+          inv_date: this.inv_date,
+          items_price: this.price_items_total,
+          working_price: this.price_working_total,
+          theoretical_price: this.price_theoretical,
+          make_user: this.user.name
+        }
+      };
+      let res = await axios.post("/db/inventory/add/findate", post);
+      console.log(res.data);
     }
   }
 };
