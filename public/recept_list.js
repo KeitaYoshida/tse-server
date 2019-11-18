@@ -805,8 +805,8 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
         list = list + (ar.nohin_num === null ? "" : ar.order_num - ar.nohin_num) + ",";
         list = list + (ar.order_price_one === null ? "" : ar.order_price_one) + ",";
         list = list + (ar.order_price_one === null ? "" : ar.order_price_one * ar.order_num) + ",";
-        list = list + (ar.day3_irai === null ? ar.day5nonyu_yotei : ar.day3_irai) + ",";
-        list = list + (ar.day3_nonyu_shitei === null ? ar.day5hatyu : ar.day3_nonyu_shitei) + "\n";
+        list = list + (ar.day3_irai === null ? ar.day5hatyu : ar.day3_irai) + ",";
+        list = list + (ar.day5nonyu_yotei === null ? ar.day3_nonyu_shitei : ar.day5nonyu_yotei) + "\n";
       });
       list = iconv.encode(list, "Shift_JIS");
       var blob = new Blob([list], {
@@ -1799,7 +1799,7 @@ var render = function() {
                           headers: _vm.headers,
                           items: _vm.views,
                           "item-key": "order_code",
-                          search: _vm.search,
+                          search: _vm.search_x,
                           "rows-per-page-items": [
                             25,
                             50,

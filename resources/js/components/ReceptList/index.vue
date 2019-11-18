@@ -27,7 +27,7 @@
             :headers="headers"
             :items="views"
             item-key="order_code"
-            :search="search"
+            :search="search_x"
             :rows-per-page-items="[25,50,{'text':'All','value':-1}]"
             :pagination.sync="pagination"
           >
@@ -343,14 +343,12 @@ export default {
             : ar.order_price_one * ar.order_num) +
           ",";
         list =
-          list +
-          (ar.day3_irai === null ? ar.day5nonyu_yotei : ar.day3_irai) +
-          ",";
+          list + (ar.day3_irai === null ? ar.day5hatyu : ar.day3_irai) + ",";
         list =
           list +
-          (ar.day3_nonyu_shitei === null
-            ? ar.day5hatyu
-            : ar.day3_nonyu_shitei) +
+          (ar.day5nonyu_yotei === null
+            ? ar.day3_nonyu_shitei
+            : ar.day5nonyu_yotei) +
           "\n";
       });
       list = iconv.encode(list, "Shift_JIS");
