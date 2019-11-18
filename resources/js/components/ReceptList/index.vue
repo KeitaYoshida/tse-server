@@ -6,20 +6,21 @@
         <div v-else>
           <h1>受注データ</h1>
           <v-layout row wrap class="pt-3 pb-3">
-            <v-flex xs8 offset-xs1>
+            <v-flex xs8>
               総受注金額：{{ price_all.toLocaleString() }}
               <span class="mini">¥</span>
             </v-flex>
-            <v-flex xs8 offset-xs1>
+            <!-- <v-flex xs8 offset-xs1>
               <PriceInfo :price="price" v-if="price"></PriceInfo>
-            </v-flex>
+            </v-flex>-->
           </v-layout>
           <SwitchViewCtrl :check="check" @remakeView="remakeView"></SwitchViewCtrl>
           <v-text-field
             name="search"
             label="検索"
             id="search"
-            v-model="search"
+            :value="search_x"
+            @input="SEARCH_MODELCONST($event)"
             prepend-inner-icon="fas fa-search"
           ></v-text-field>
           <v-data-table
@@ -143,6 +144,7 @@ import ReceptDetail from "./../ReadFile/ReceptDetail";
 import PriceInfo from "./PriceInfo";
 import SwitchViewCtrl from "./SwitchViewCtrl";
 import MakePdct from "./MakePdct";
+import { mapState, mapActions } from "vuex";
 
 export default {
   components: {
@@ -200,10 +202,16 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapState({
+      search_x: state => state.search.modelconst
+    })
+  },
   created: function() {
     this.init();
   },
   methods: {
+    ...mapActions(["SEARCH_MODELCONST"]),
     init() {
       axios.get("/db/recept/tyuzan/data/").then(res => {
         this.items = res.data;

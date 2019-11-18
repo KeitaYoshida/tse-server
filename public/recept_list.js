@@ -434,6 +434,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PriceInfo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PriceInfo */ "./resources/js/components/ReceptList/PriceInfo.vue");
 /* harmony import */ var _SwitchViewCtrl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SwitchViewCtrl */ "./resources/js/components/ReceptList/SwitchViewCtrl.vue");
 /* harmony import */ var _MakePdct__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./MakePdct */ "./resources/js/components/ReceptList/MakePdct.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
 //
 //
 //
@@ -580,6 +588,7 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Loading: _com_Loading__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -645,10 +654,15 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
       }
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapState"])({
+    search_x: function search_x(state) {
+      return state.search.modelconst;
+    }
+  })),
   created: function created() {
     this.init();
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapActions"])(["SEARCH_MODELCONST"]), {
     init: function init() {
       var _this = this;
 
@@ -807,7 +821,7 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
       link.download = csv_name;
       link.click();
     }
-  }
+  })
 });
 
 /***/ }),
@@ -1748,31 +1762,14 @@ var render = function() {
                           attrs: { row: "", wrap: "" }
                         },
                         [
-                          _c(
-                            "v-flex",
-                            { attrs: { xs8: "", "offset-xs1": "" } },
-                            [
-                              _vm._v(
-                                "\n            総受注金額：" +
-                                  _vm._s(_vm.price_all.toLocaleString()) +
-                                  "\n            "
-                              ),
-                              _c("span", { staticClass: "mini" }, [_vm._v("¥")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-flex",
-                            { attrs: { xs8: "", "offset-xs1": "" } },
-                            [
-                              _vm.price
-                                ? _c("PriceInfo", {
-                                    attrs: { price: _vm.price }
-                                  })
-                                : _vm._e()
-                            ],
-                            1
-                          )
+                          _c("v-flex", { attrs: { xs8: "" } }, [
+                            _vm._v(
+                              "\n            総受注金額：" +
+                                _vm._s(_vm.price_all.toLocaleString()) +
+                                "\n            "
+                            ),
+                            _c("span", { staticClass: "mini" }, [_vm._v("¥")])
+                          ])
                         ],
                         1
                       ),
@@ -1787,14 +1784,13 @@ var render = function() {
                           name: "search",
                           label: "検索",
                           id: "search",
+                          value: _vm.search_x,
                           "prepend-inner-icon": "fas fa-search"
                         },
-                        model: {
-                          value: _vm.search,
-                          callback: function($$v) {
-                            _vm.search = $$v
-                          },
-                          expression: "search"
+                        on: {
+                          input: function($event) {
+                            return _vm.SEARCH_MODELCONST($event)
+                          }
                         }
                       }),
                       _vm._v(" "),

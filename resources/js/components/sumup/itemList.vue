@@ -107,12 +107,14 @@ export default {
           ss.finNum = ss.finNum + 1;
           ss.finPrice = ss.finPrice + item.inv_num * item.item_price;
         }
-        ss.allNum = ss.allNum + 1;
-        ss.allPrice = ss.allPrice + item.last_num * item.item_price;
+        if (item.last_num > 0) {
+          ss.allNum = ss.allNum + 1;
+          ss.allPrice = ss.allPrice + item.last_num * item.item_price;
+        }
       });
       ss.allPrice = Math.round(ss.allPrice);
       ss.finPrice = Math.round(ss.finPrice);
-      console.log(this.items);
+      // console.log(this.items);
       await this.INVENTORY_SET({ status: ss });
       this.inited = true;
     },

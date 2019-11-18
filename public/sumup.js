@@ -806,21 +806,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     ss.finPrice = ss.finPrice + item.inv_num * item.item_price;
                   }
 
-                  ss.allNum = ss.allNum + 1;
-                  ss.allPrice = ss.allPrice + item.last_num * item.item_price;
+                  if (item.last_num > 0) {
+                    ss.allNum = ss.allNum + 1;
+                    ss.allPrice = ss.allPrice + item.last_num * item.item_price;
+                  }
                 });
                 ss.allPrice = Math.round(ss.allPrice);
-                ss.finPrice = Math.round(ss.finPrice);
-                console.log(this.items);
-                _context.next = 13;
+                ss.finPrice = Math.round(ss.finPrice); // console.log(this.items);
+
+                _context.next = 12;
                 return this.INVENTORY_SET({
                   status: ss
                 });
 
-              case 13:
+              case 12:
                 this.inited = true;
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }

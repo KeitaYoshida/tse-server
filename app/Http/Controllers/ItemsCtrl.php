@@ -65,7 +65,7 @@ class ItemsCtrl extends Controller
   public function itemListMini()
   {
     $i = new Item;
-    return $i->where('last_num', '>', 0)->get(['item_id', 'item_code', 'item_name', 'item_model', 'last_num', 'inv_num', 'item_price', 'order_code']);
+    return $i->where('item_class', '<>', 1)->get(['item_id', 'item_code', 'item_name', 'item_model', 'last_num', 'inv_num', 'item_price', 'order_code']);
   }
 
   public function inventoryHistory($day)
