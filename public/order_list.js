@@ -1058,6 +1058,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1215,6 +1232,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     returnLotValue: function returnLotValue(lot, min) {
       return "\n        <h5>Lot \u624B\u914D\u6570: ".concat(lot, "</h5>\n        <h5>\u6700\u5C0F\u624B\u914D\u6570: ").concat(min, "</h5>\n      ");
+    },
+    goItemEdit: function goItemEdit(code, rev) {
+      window.open("/item/" + code + "/" + rev, "_blank");
     }
   }
 });
@@ -1357,7 +1377,7 @@ exports.push([module.i, ".biger[data-v-7bcff8b0] {\n  font-size: 1.3rem;\n}", ""
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "p[data-v-09265ab0] {\n  margin: 0;\n}\ntd[data-v-09265ab0],\nth[data-v-09265ab0] {\n  padding: 0 !important;\n}\n.v-chip.ninsho .v-chip__content[data-v-09265ab0] {\n  height: 42px;\n}\ntd.num[data-v-09265ab0] {\n  font-size: 1.4rem;\n}\n.useLastItem[data-v-09265ab0] {\n  background: lavenderblush;\n}\n.lotOrder[data-v-09265ab0] {\n  background: aliceblue;\n}\n.v-chip.v-chip.v-chip--outline.box[data-v-09265ab0] {\n  border-radius: 0;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, "p[data-v-09265ab0] {\n  margin: 0;\n}\ntd[data-v-09265ab0],\nth[data-v-09265ab0] {\n  padding: 0 !important;\n}\n.v-chip.ninsho .v-chip__content[data-v-09265ab0] {\n  height: 42px;\n}\ntd.num[data-v-09265ab0] {\n  font-size: 1.4rem;\n}\n.useLastItem[data-v-09265ab0] {\n  background: lavenderblush;\n}\n.lotOrder[data-v-09265ab0] {\n  background: aliceblue;\n}\n.v-chip.v-chip.v-chip--outline.box[data-v-09265ab0] {\n  border-radius: 0;\n  cursor: pointer;\n}\n.box.to-item-edit[data-v-09265ab0] {\n  cursor: pointer;\n}", ""]);
 
 
 
@@ -2529,7 +2549,79 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-xs-center num" }, [
-                            _c("p", [_vm._v(_vm._s(props.item.appo_num))])
+                            _c("p", [
+                              props.item.appo_num !== props.item.num_order
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c(
+                                        "v-tooltip",
+                                        {
+                                          attrs: { top: "" },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "activator",
+                                                fn: function(ref) {
+                                                  var on = ref.on
+                                                  return [
+                                                    _c(
+                                                      "v-chip",
+                                                      _vm._g(
+                                                        {
+                                                          staticClass:
+                                                            "box to-item-edit",
+                                                          attrs: {
+                                                            small: "",
+                                                            outline: "",
+                                                            color: "warning"
+                                                          },
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              return _vm.goItemEdit(
+                                                                props.item.item
+                                                                  .item_code,
+                                                                props.item.item
+                                                                  .item_rev
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        on
+                                                      ),
+                                                      [_vm._v("出庫")]
+                                                    )
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            null,
+                                            true
+                                          )
+                                        },
+                                        [
+                                          _vm._v(" "),
+                                          _c("span", {
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                props.item.item.location
+                                              )
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(props.item.appo_num) +
+                                  "\n          "
+                              )
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-xs-center num" }, [
@@ -2545,7 +2637,7 @@ var render = function() {
               ],
               null,
               false,
-              356988112
+              313684575
             )
           }),
           _vm._v(" "),

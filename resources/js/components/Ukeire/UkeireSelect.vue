@@ -85,7 +85,24 @@
             <p>{{ props.item.item.item_model }}</p>
           </td>
           <td class="text-xs-center num">
-            <p>{{ props.item.appo_num }}</p>
+            <p>
+              <span v-if="props.item.appo_num !== props.item.num_order">
+                <v-tooltip top>
+                  <template v-slot:activator="{ on }">
+                    <v-chip
+                      small
+                      outline
+                      color="warning"
+                      class="box to-item-edit"
+                      v-on="on"
+                      @click="goItemEdit(props.item.item.item_code, props.item.item.item_rev)"
+                    >出庫</v-chip>
+                  </template>
+                  <span v-html="props.item.item.location"></span>
+                </v-tooltip>
+              </span>
+              {{ props.item.appo_num }}
+            </p>
           </td>
           <td class="text-xs-center num">
             <p>{{ props.item.num_order }}</p>
@@ -256,6 +273,9 @@ export default {
         <h5>Lot 手配数: ${lot}</h5>
         <h5>最小手配数: ${min}</h5>
       `;
+    },
+    goItemEdit(code, rev) {
+      window.open("/item/" + code + "/" + rev, "_blank");
     }
   }
 };
@@ -283,6 +303,9 @@ td.num {
 }
 .v-chip.v-chip.v-chip--outline.box {
   border-radius: 0;
+  cursor: pointer;
+}
+.box.to-item-edit {
   cursor: pointer;
 }
 </style>
