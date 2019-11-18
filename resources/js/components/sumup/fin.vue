@@ -176,7 +176,7 @@ export default {
     async workItems(id, code, li) {
       // return;
       const Fin = 2;
-      const UseItemAddMode = true;
+      const UseItemAddMode = false;
       let list_item = [];
       let in_list_price = 0;
       let list = await axios.get("/db/workdata/process/" + id);

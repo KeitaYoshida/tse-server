@@ -481,7 +481,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
               case 0:
                 // return;
                 Fin = 2;
-                UseItemAddMode = true;
+                UseItemAddMode = false;
                 list_item = [];
                 in_list_price = 0;
                 _context4.next = 6;
