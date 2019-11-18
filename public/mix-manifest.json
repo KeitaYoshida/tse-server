@@ -96,5 +96,11 @@
     "/vendors~iMonitor~recept_list~sumup.js": "/vendors~iMonitor~recept_list~sumup.js",
     "/vendors~iMonitor~recept_list~sumup.js.map": "/vendors~iMonitor~recept_list~sumup.js.map",
     "/sumup_history.js": "/sumup_history.js",
-    "/sumup_history.js.map": "/sumup_history.js.map"
+    "/sumup_history.js.map": "/sumup_history.js.map",
+    "/vendors~iMonitor~sumup.js": "/vendors~iMonitor~sumup.js",
+    "/vendors~iMonitor~sumup.js.map": "/vendors~iMonitor~sumup.js.map",
+    "/vendors~order_list~readfile~tehaisaki~workinglist.js": "/vendors~order_list~readfile~tehaisaki~workinglist.js",
+    "/vendors~order_list~readfile~tehaisaki~workinglist.js.map": "/vendors~order_list~readfile~tehaisaki~workinglist.js.map",
+    "/cmpt_work_set~product_list.js": "/cmpt_work_set~product_list.js",
+    "/cmpt_work_set~product_list.js.map": "/cmpt_work_set~product_list.js.map"
 }

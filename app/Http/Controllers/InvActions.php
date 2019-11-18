@@ -30,8 +30,8 @@ class InvActions extends Controller
     $Item = new Item;
     $CntOrder = new CntOrder;
     $InventoryHistory = new InventoryHistory;
-    $Item->where('inv_num', '>', 0)->update(['inv_num' => 0]);
-    $CntOrder->where('num_inv', '>', 0)->update(['num_inv' => 0]);
+    $Item->where('inv_num', '<>', 0)->update(['inv_num' => 0]);
+    $CntOrder->where('num_inv', '<>', 0)->update(['num_inv' => 0]);
     $InventoryHistory->query()->delete();
   }
 

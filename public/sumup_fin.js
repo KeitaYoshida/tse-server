@@ -473,31 +473,32 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id, code, li) {
         var _this2 = this;
 
-        var Fin, list_item, in_list_price, list, process, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, serial, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _iterator6, _step6, p, _loop, _i, _Object$keys, _ret;
+        var Fin, UseItemAddMode, list_item, in_list_price, list, process, _iteratorNormalCompletion5, _didIteratorError5, _iteratorError5, _iterator5, _step5, serial, _iteratorNormalCompletion6, _didIteratorError6, _iteratorError6, _iterator6, _step6, p, _loop, _i, _Object$keys, _ret;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 // return;
                 Fin = 2;
+                UseItemAddMode = true;
                 list_item = [];
                 in_list_price = 0;
-                _context3.next = 5;
+                _context4.next = 6;
                 return axios.get("/db/workdata/process/" + id);
 
-              case 5:
-                list = _context3.sent;
+              case 6:
+                list = _context4.sent;
                 process = {};
                 _iteratorNormalCompletion5 = true;
                 _didIteratorError5 = false;
                 _iteratorError5 = undefined;
-                _context3.prev = 10;
+                _context4.prev = 11;
                 _iterator5 = list.data[0].serials[Symbol.iterator]();
 
-              case 12:
+              case 13:
                 if (_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done) {
-                  _context3.next = 36;
+                  _context4.next = 37;
                   break;
                 }
 
@@ -505,7 +506,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                 _iteratorNormalCompletion6 = true;
                 _didIteratorError6 = false;
                 _iteratorError6 = undefined;
-                _context3.prev = 17;
+                _context4.prev = 18;
 
                 for (_iterator6 = serial.process[Symbol.iterator](); !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
                   p = _step6.value;
@@ -515,157 +516,226 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                   }
                 }
 
-                _context3.next = 25;
+                _context4.next = 26;
                 break;
 
-              case 21:
-                _context3.prev = 21;
-                _context3.t0 = _context3["catch"](17);
+              case 22:
+                _context4.prev = 22;
+                _context4.t0 = _context4["catch"](18);
                 _didIteratorError6 = true;
-                _iteratorError6 = _context3.t0;
+                _iteratorError6 = _context4.t0;
 
-              case 25:
-                _context3.prev = 25;
-                _context3.prev = 26;
+              case 26:
+                _context4.prev = 26;
+                _context4.prev = 27;
 
                 if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
                   _iterator6["return"]();
                 }
 
-              case 28:
-                _context3.prev = 28;
+              case 29:
+                _context4.prev = 29;
 
                 if (!_didIteratorError6) {
-                  _context3.next = 31;
+                  _context4.next = 32;
                   break;
                 }
 
                 throw _iteratorError6;
 
-              case 31:
-                return _context3.finish(28);
-
               case 32:
-                return _context3.finish(25);
+                return _context4.finish(29);
 
               case 33:
+                return _context4.finish(26);
+
+              case 34:
                 _iteratorNormalCompletion5 = true;
-                _context3.next = 12;
+                _context4.next = 13;
                 break;
 
-              case 36:
-                _context3.next = 42;
+              case 37:
+                _context4.next = 43;
                 break;
 
-              case 38:
-                _context3.prev = 38;
-                _context3.t1 = _context3["catch"](10);
+              case 39:
+                _context4.prev = 39;
+                _context4.t1 = _context4["catch"](11);
                 _didIteratorError5 = true;
-                _iteratorError5 = _context3.t1;
+                _iteratorError5 = _context4.t1;
 
-              case 42:
-                _context3.prev = 42;
-                _context3.prev = 43;
+              case 43:
+                _context4.prev = 43;
+                _context4.prev = 44;
 
                 if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
                   _iterator5["return"]();
                 }
 
-              case 45:
-                _context3.prev = 45;
+              case 46:
+                _context4.prev = 46;
 
                 if (!_didIteratorError5) {
-                  _context3.next = 48;
+                  _context4.next = 49;
                   break;
                 }
 
                 throw _iteratorError5;
 
-              case 48:
-                return _context3.finish(45);
-
               case 49:
-                return _context3.finish(42);
+                return _context4.finish(46);
 
               case 50:
-                _loop = function _loop() {
-                  var work_id = _Object$keys[_i];
+                return _context4.finish(43);
 
-                  var cmpt_items = _this2.all_cmpt.filter(function (cmpt) {
-                    return cmpt.work_id == work_id;
-                  });
+              case 51:
+                _loop =
+                /*#__PURE__*/
+                _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _loop() {
+                  var work_id, cmpt_items, _iteratorNormalCompletion7, _didIteratorError7, _iteratorError7, _iterator7, _step7, item, fin_num, useitem;
 
-                  if (cmpt_items.length === 0) return "continue";
-                  var _iteratorNormalCompletion7 = true;
-                  var _didIteratorError7 = false;
-                  var _iteratorError7 = undefined;
+                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _loop$(_context3) {
+                    while (1) {
+                      switch (_context3.prev = _context3.next) {
+                        case 0:
+                          work_id = _Object$keys[_i];
+                          cmpt_items = _this2.all_cmpt.filter(function (cmpt) {
+                            return cmpt.work_id == work_id;
+                          });
 
-                  try {
-                    for (var _iterator7 = cmpt_items[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                      var item = _step7.value;
-                      var fin_num = process[work_id];
-                      in_list_price = in_list_price + item.item_use * fin_num * Number(_this2.all_item[item.item_id].item_price);
+                          if (!(cmpt_items.length === 0)) {
+                            _context3.next = 4;
+                            break;
+                          }
 
-                      _this2.list_items.push({
-                        worklist_code: code,
-                        cmpt_id: item.cmpt_id,
-                        inv_date: _this2.inv_date,
-                        item_num: item.item_use * fin_num,
-                        item_code: _this2.all_item[item.item_id].item_code,
-                        item_model: _this2.all_item[item.item_id].item_model,
-                        item_name: _this2.all_item[item.item_id].item_name,
-                        item_price: _this2.all_item[item.item_id].item_price,
-                        total_price: item.item_use * fin_num * Number(_this2.all_item[item.item_id].item_price)
-                      });
-                    }
-                  } catch (err) {
-                    _didIteratorError7 = true;
-                    _iteratorError7 = err;
-                  } finally {
-                    try {
-                      if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
-                        _iterator7["return"]();
+                          return _context3.abrupt("return", "continue");
+
+                        case 4:
+                          _iteratorNormalCompletion7 = true;
+                          _didIteratorError7 = false;
+                          _iteratorError7 = undefined;
+                          _context3.prev = 7;
+                          _iterator7 = cmpt_items[Symbol.iterator]();
+
+                        case 9:
+                          if (_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done) {
+                            _context3.next = 21;
+                            break;
+                          }
+
+                          item = _step7.value;
+                          fin_num = process[work_id];
+
+                          if (!UseItemAddMode) {
+                            _context3.next = 16;
+                            break;
+                          }
+
+                          useitem = {
+                            worklist_id: id,
+                            item_id: item.item_id,
+                            cmpt_id: item.cmpt_id,
+                            use_num: item.item_use * fin_num
+                          };
+                          _context3.next = 16;
+                          return axios.post("/db/workdata/worklist/useitem/set", useitem);
+
+                        case 16:
+                          in_list_price = in_list_price + item.item_use * fin_num * Number(_this2.all_item[item.item_id].item_price);
+
+                          _this2.list_items.push({
+                            worklist_code: code,
+                            cmpt_id: item.cmpt_id,
+                            inv_date: _this2.inv_date,
+                            item_num: item.item_use * fin_num,
+                            item_code: _this2.all_item[item.item_id].item_code,
+                            item_model: _this2.all_item[item.item_id].item_model,
+                            item_name: _this2.all_item[item.item_id].item_name,
+                            item_price: _this2.all_item[item.item_id].item_price,
+                            total_price: item.item_use * fin_num * Number(_this2.all_item[item.item_id].item_price)
+                          });
+
+                        case 18:
+                          _iteratorNormalCompletion7 = true;
+                          _context3.next = 9;
+                          break;
+
+                        case 21:
+                          _context3.next = 27;
+                          break;
+
+                        case 23:
+                          _context3.prev = 23;
+                          _context3.t0 = _context3["catch"](7);
+                          _didIteratorError7 = true;
+                          _iteratorError7 = _context3.t0;
+
+                        case 27:
+                          _context3.prev = 27;
+                          _context3.prev = 28;
+
+                          if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
+                            _iterator7["return"]();
+                          }
+
+                        case 30:
+                          _context3.prev = 30;
+
+                          if (!_didIteratorError7) {
+                            _context3.next = 33;
+                            break;
+                          }
+
+                          throw _iteratorError7;
+
+                        case 33:
+                          return _context3.finish(30);
+
+                        case 34:
+                          return _context3.finish(27);
+
+                        case 35:
+                        case "end":
+                          return _context3.stop();
                       }
-                    } finally {
-                      if (_didIteratorError7) {
-                        throw _iteratorError7;
-                      }
                     }
-                  }
-                };
-
+                  }, _loop, null, [[7, 23, 27, 35], [28,, 30, 34]]);
+                });
                 _i = 0, _Object$keys = Object.keys(process);
 
-              case 52:
+              case 53:
                 if (!(_i < _Object$keys.length)) {
-                  _context3.next = 59;
+                  _context4.next = 61;
                   break;
                 }
 
-                _ret = _loop();
+                return _context4.delegateYield(_loop(), "t2", 55);
+
+              case 55:
+                _ret = _context4.t2;
 
                 if (!(_ret === "continue")) {
-                  _context3.next = 56;
+                  _context4.next = 58;
                   break;
                 }
 
-                return _context3.abrupt("continue", 56);
+                return _context4.abrupt("continue", 58);
 
-              case 56:
+              case 58:
                 _i++;
-                _context3.next = 52;
+                _context4.next = 53;
                 break;
 
-              case 59:
+              case 61:
                 li.checkPrice = in_list_price;
                 this.price_working_total = this.price_working_total + in_list_price;
 
-              case 61:
+              case 63:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, this, [[10, 38, 42, 50], [17, 21, 25, 33], [26,, 28, 32], [43,, 45, 49]]);
+        }, _callee3, this, [[11, 39, 43, 51], [18, 22, 26, 34], [27,, 29, 33], [44,, 46, 50]]);
       }));
 
       function workItems(_x2, _x3, _x4) {
@@ -679,9 +749,9 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var post, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 post = {
                   inv_worklist: this.lists,
@@ -696,16 +766,16 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                     make_user: this.user.name
                   }
                 };
-                _context4.next = 3;
+                _context5.next = 3;
                 return axios.post("/db/inventory/add/findate", post);
 
               case 3:
-                res = _context4.sent;
-                console.log(res.data);
+                res = _context5.sent;
+                this.$router.push("/sumup");
 
               case 5:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
         }, _callee4, this);

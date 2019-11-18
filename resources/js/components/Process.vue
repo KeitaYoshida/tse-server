@@ -95,8 +95,34 @@ export default {
         base: this.init_base(d.data[0], status),
         brother: list
       });
-      this.loading = false;
-      this.update_const_status(status);
+      let useItemList = await axios.post(
+        "/db/workdata/process/useitem/list",
+        process.map(ar => ar.work_id)
+      );
+      useItemList = useItemList.data;
+      let cmpts = this.tar.process.components.map(ar => ar.cmpt_id);
+      let useItemModel = await axios.post(
+        "/db/cmpt/get/item/list/with/array",
+        cmpts
+      );
+      let useItemList_sum = useItemList.reduce((a, x) => a + x.r_ci_id, 0);
+      useItemModel = useItemModel.data.filter(
+        ar => [1, 3, 6].indexOf(ar.items.item_class) === -1
+      );
+      let useItemModel_sum = useItemModel.reduce((a, x) => a + x.r_ci_id, 0);
+      if (useItemList_sum !== useItemModel_sum) {
+        alert(
+          "異常データ" +
+            "\n" +
+            "\n" +
+            "部材マスタと使用登録部材が一致しません" +
+            "\n" +
+            "業務課担当者までお問い合わせ下さい"
+        );
+      } else {
+        this.loading = false;
+        this.update_const_status(status);
+      }
     },
     update_const_status(s) {
       let f0 = s["0"] !== undefined ? s["0"] : 0;

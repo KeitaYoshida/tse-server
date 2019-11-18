@@ -36,4 +36,9 @@ class CmptCtrl extends Controller
     $rmc = new RCmptItem;
     return $rmc->all();
   }
+  public function GetItemListWithArray(Request $req)
+  {
+    $rmc = new RCmptItem;
+    return $rmc->whereIn('cmpt_id', $req->all())->with('items')->get();
+  }
 }

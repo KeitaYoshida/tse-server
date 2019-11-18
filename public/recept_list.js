@@ -805,8 +805,8 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
         list = list + (ar.nohin_num === null ? "" : ar.order_num - ar.nohin_num) + ",";
         list = list + (ar.order_price_one === null ? "" : ar.order_price_one) + ",";
         list = list + (ar.order_price_one === null ? "" : ar.order_price_one * ar.order_num) + ",";
-        list = list + (ar.day3_irai === null ? ar.day5hatyu : ar.day3_irai) + ",";
-        list = list + (ar.day5nonyu_yotei === null ? ar.day3_nonyu_shitei : ar.day5nonyu_yotei) + "\n";
+        list = list + (ar.day3_irai === null ? dayjs__WEBPACK_IMPORTED_MODULE_0___default()(ar.day5hatyu).format("YYYYMMDD") : dayjs__WEBPACK_IMPORTED_MODULE_0___default()(ar.day3_irai).format("YYYYMMDD")) + ",";
+        list = list + (ar.day5nonyu_yotei === null ? dayjs__WEBPACK_IMPORTED_MODULE_0___default()(ar.day3_nonyu_shitei).format("YYYYMMDD") : dayjs__WEBPACK_IMPORTED_MODULE_0___default()(ar.day5nonyu_yotei).format("YYYYMMDD")) + "\n";
       });
       list = iconv.encode(list, "Shift_JIS");
       var blob = new Blob([list], {

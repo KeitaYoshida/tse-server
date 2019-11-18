@@ -1,5 +1,7 @@
 <template>
   <div>
+    <v-chip outline color="green darken-3">部材リスト</v-chip>
+    <v-btn color="primary" outline small>未集計</v-btn>
     <v-data-table
       v-if="inited"
       :headers="headers"

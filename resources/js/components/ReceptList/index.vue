@@ -343,12 +343,16 @@ export default {
             : ar.order_price_one * ar.order_num) +
           ",";
         list =
-          list + (ar.day3_irai === null ? ar.day5hatyu : ar.day3_irai) + ",";
+          list +
+          (ar.day3_irai === null
+            ? dayjs(ar.day5hatyu).format("YYYYMMDD")
+            : dayjs(ar.day3_irai).format("YYYYMMDD")) +
+          ",";
         list =
           list +
           (ar.day5nonyu_yotei === null
-            ? ar.day3_nonyu_shitei
-            : ar.day5nonyu_yotei) +
+            ? dayjs(ar.day3_nonyu_shitei).format("YYYYMMDD")
+            : dayjs(ar.day5nonyu_yotei).format("YYYYMMDD")) +
           "\n";
       });
       list = iconv.encode(list, "Shift_JIS");

@@ -215,24 +215,21 @@ export default {
       }
     },
     ItemUseAction() {
+      const URL = "/db/workdata/use/item/act/add/";
       let d = this.tar.process.process_items;
       let price = this.tar.process.info.setPrice;
       let wid = this.tar.process.base.wid;
-      axios
-        .post("/db/workdata/use/item/act/add/" + price + "/" + wid, d)
-        .then(res => {
-          // console.log(res.data);
-        });
+      let cmpt = this.tar.process.info.cmpt_id;
+      axios.post(URL + price + "/" + wid + "/" + cmpt, d).then(res => {});
     },
     ItemReturnAction() {
+      const URL = "/db/workdata/use/item/act/rev/";
       let d = this.tar.process.process_items;
       let price = this.tar.process.info.setPrice;
       let wid = this.tar.process.base.wid;
-      axios
-        .post("/db/workdata/use/item/act/rev/" + price + "/" + wid, d)
-        .then(res => {
-          // console.log(res.data);
-        });
+      let cmpt = this.tar.process.info.cmpt_id;
+      let pdct_id = this.tar.process.base.pdct_id;
+      axios.post(URL + price + "/" + wid + "/" + cmpt, d).then(res => {});
     },
     async action(n, loopflg = false) {
       if (loopflg === false) {

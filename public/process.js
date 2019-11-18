@@ -86,7 +86,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _this = this;
 
-        var d, cmpt_row, sn, process, cmpt, status, i, tmp, pst, pdct_id, list;
+        var d, cmpt_row, sn, process, cmpt, status, i, tmp, pst, pdct_id, list, useItemList, cmpts, useItemModel, useItemList_sum, useItemModel_sum;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -148,10 +148,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 24:
-                this.loading = false;
-                this.update_const_status(status);
+                _context.next = 26;
+                return axios.post("/db/workdata/process/useitem/list", process.map(function (ar) {
+                  return ar.work_id;
+                }));
 
               case 26:
+                useItemList = _context.sent;
+                useItemList = useItemList.data;
+                cmpts = this.tar.process.components.map(function (ar) {
+                  return ar.cmpt_id;
+                });
+                _context.next = 31;
+                return axios.post("/db/cmpt/get/item/list/with/array", cmpts);
+
+              case 31:
+                useItemModel = _context.sent;
+                useItemList_sum = useItemList.reduce(function (a, x) {
+                  return a + x.r_ci_id;
+                }, 0);
+                useItemModel = useItemModel.data.filter(function (ar) {
+                  return [1, 3, 6].indexOf(ar.items.item_class) === -1;
+                });
+                useItemModel_sum = useItemModel.reduce(function (a, x) {
+                  return a + x.r_ci_id;
+                }, 0);
+
+                if (useItemList_sum !== useItemModel_sum) {
+                  alert("異常データ" + "\n" + "\n" + "部材マスタと使用登録部材が一致しません" + "\n" + "業務課担当者までお問い合わせ下さい");
+                } else {
+                  this.loading = false;
+                  this.update_const_status(status);
+                }
+
+              case 36:
               case "end":
                 return _context.stop();
             }
@@ -550,7 +580,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   pInfo.itemCheck = true;
                   pInfo.setPrice = price;
 
-                  _this.PROCESS_ITEMS_SET(d);
+                  _this.PROCESS_ITEMS_SET(d); // console.log(d);
+
                 });
 
               case 14:
@@ -834,18 +865,21 @@ dayjs__WEBPACK_IMPORTED_MODULE_4___default.a.locale("ja");
       }
     },
     ItemUseAction: function ItemUseAction() {
+      var URL = "/db/workdata/use/item/act/add/";
       var d = this.tar.process.process_items;
       var price = this.tar.process.info.setPrice;
       var wid = this.tar.process.base.wid;
-      axios.post("/db/workdata/use/item/act/add/" + price + "/" + wid, d).then(function (res) {// console.log(res.data);
-      });
+      var cmpt = this.tar.process.info.cmpt_id;
+      axios.post(URL + price + "/" + wid + "/" + cmpt, d).then(function (res) {});
     },
     ItemReturnAction: function ItemReturnAction() {
+      var URL = "/db/workdata/use/item/act/rev/";
       var d = this.tar.process.process_items;
       var price = this.tar.process.info.setPrice;
       var wid = this.tar.process.base.wid;
-      axios.post("/db/workdata/use/item/act/rev/" + price + "/" + wid, d).then(function (res) {// console.log(res.data);
-      });
+      var cmpt = this.tar.process.info.cmpt_id;
+      var pdct_id = this.tar.process.base.pdct_id;
+      axios.post(URL + price + "/" + wid + "/" + cmpt, d).then(function (res) {});
     },
     action: function () {
       var _action = _asyncToGenerator(

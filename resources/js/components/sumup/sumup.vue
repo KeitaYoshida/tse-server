@@ -42,7 +42,6 @@
           <ConstList @act="selectConst()"></ConstList>
         </v-flex>
         <v-flex xs7 pt-3 pl-3>
-          <v-chip outline color="green darken-3">部材リスト</v-chip>
           <ItemList :set_num="fixNum" :massage="fixMassage"></ItemList>
         </v-flex>
         <v-flex xs3 mt-3>

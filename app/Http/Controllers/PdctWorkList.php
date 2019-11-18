@@ -12,6 +12,7 @@ use App\Model\ProcessStatus;
 use App\Model\RCmptItem;
 use App\Model\Item;
 use App\Model\RModelCmpt;
+use App\Model\PdctUseItem;
 
 class PdctWorkList extends Controller
 {
@@ -79,16 +80,38 @@ class PdctWorkList extends Controller
     $CM = new RCmptItem;
     return $CM->where('work_id', $wid)->with('items')->get();
   }
-  public function UseItemAction(Request $req, $flg, $price, $wid)
+  public function UseItemAction(Request $req, $flg, $price, $wid, $cmpt)
   {
+    // return $req;
     $IT = new Item;
+    $PdctUseItem = new PdctUseItem;
     foreach ($req->all() as $val) {
       if ($flg === 'add') {
         $IT->where('item_id', $val['item_id'])->decrement('last_num', $val['item_use']);
         $IT->where('item_id', $val['item_id'])->decrement('appo_num', $val['item_use']);
+        $useItem = $PdctUseItem
+          ->where('worklist_id', $wid)
+          ->where('cmpt_id', $cmpt)
+          ->where('item_id', $val['item_id']);
+        if ($useItem->exists()) {
+          $useItem->increment('use_num', $val['item_use']);
+        } else {
+          $useItem->create(['worklist_id' => $wid, 'cmpt_id' => $cmpt, 'item_id' => $val['item_id']]);
+          $useItem->increment('use_num', $val['item_use']);
+        }
       } else {
         $IT->where('item_id', $val['item_id'])->increment('last_num', $val['item_use']);
         $IT->where('item_id', $val['item_id'])->increment('appo_num', $val['item_use']);
+        $useItem = $PdctUseItem
+          ->where('worklist_id', $wid)
+          ->where('cmpt_id', $cmpt)
+          ->where('item_id', $val['item_id']);
+        if ($useItem->exists()) {
+          $useItem->decrement('use_num', $val['item_use']);
+        } else {
+          $useItem->create(['worklist_id' => $wid, 'cmpt_id' => $cmpt, 'item_id' => $val['item_id']]);
+          $useItem->decrement('use_num', $val['item_use']);
+        }
       }
     }
 
@@ -147,5 +170,17 @@ class PdctWorkList extends Controller
   {
     $PWLC = new PdctWorkdataList;
     $PWLC->where('worklist_id', $wid)->update(['inv_loginid' => $uid, 'inv_day' => $day]);
+  }
+
+  public function GetProcessUseItem(Request $req)
+  {
+    $cmpt_items = new RCmptItem;
+    return $cmpt_items->whereIn('work_id', $req->all())->get();
+  }
+
+  public function SetUseItem(Request $req)
+  {
+    $PdctUseItem = new PdctUseItem;
+    $PdctUseItem->create($req->all());
   }
 }

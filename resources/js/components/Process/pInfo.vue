@@ -147,6 +147,7 @@ export default {
         pInfo.itemCheck = true;
         pInfo.setPrice = price;
         this.PROCESS_ITEMS_SET(d);
+        // console.log(d);
       });
       let allNum = sInfo.length;
       let finNum = sInfo.filter(ar => ar.process_status === 2).length;

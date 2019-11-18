@@ -9,7 +9,6 @@ class CntOrder extends Model
   protected $table = 'cnt_orders';
   protected $primaryKey = 'cnt_order_id';
   protected $guarded = array();
-  public $timestamps = false;
 
   public function live()
   {

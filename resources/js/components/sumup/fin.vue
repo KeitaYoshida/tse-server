@@ -176,6 +176,7 @@ export default {
     async workItems(id, code, li) {
       // return;
       const Fin = 2;
+      const UseItemAddMode = true;
       let list_item = [];
       let in_list_price = 0;
       let list = await axios.get("/db/workdata/process/" + id);
@@ -193,6 +194,15 @@ export default {
         if (cmpt_items.length === 0) continue;
         for (let item of cmpt_items) {
           let fin_num = process[work_id];
+          if (UseItemAddMode) {
+            let useitem = {
+              worklist_id: id,
+              item_id: item.item_id,
+              cmpt_id: item.cmpt_id,
+              use_num: item.item_use * fin_num
+            };
+            await axios.post("/db/workdata/worklist/useitem/set", useitem);
+          }
           in_list_price =
             in_list_price +
             item.item_use *
@@ -232,7 +242,7 @@ export default {
         }
       };
       let res = await axios.post("/db/inventory/add/findate", post);
-      console.log(res.data);
+      this.$router.push("/sumup");
     }
   }
 };

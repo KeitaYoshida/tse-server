@@ -85,6 +85,7 @@ Route::get("/db/cmpt/data/{id}", "CmptCtrl@GetCmptData");
 Route::get("/db/cmpt/all/not/itemdetail", "CmptCtrl@GetAllNotDetail");
 Route::post("/db/comt/get/data/arr", "CmptCtrl@GetCmptDataArr");
 Route::get("/db/cmpt/delete/cmpt/{mid}/{cid}", "CmptCtrl@DeleteCmpt");
+Route::post("/db/cmpt/get/item/list/with/array", "CmptCtrl@GetItemListWithArray");
 
 Route::post('/db/recept/hatyu/data/list', 'ReceptCtrl@DataList');
 Route::post('/db/recept/hatyu/data/set/{setTime}/{type}', 'ReceptCtrl@SetData');
@@ -117,11 +118,13 @@ Route::get("/db/workdata/get/process_status", "PdctWorkList@GetProcessStatus");
 Route::get("/db/workdata/process/status/{wid}/{row}", "PdctWorkList@GetProcessSerialStatus");
 Route::post("/db/workdata/set/sn/act/{row}", "PdctWorkList@SetSnAct");
 Route::get("/db/workdata/cmpt/items/{wid}", "PdctWorkList@GetWorkItems");
-Route::post("/db/workdata/use/item/act/{flg}/{price}/{wid}", "PdctWorkList@UseItemAction");
+Route::post("/db/workdata/use/item/act/{flg}/{price}/{wid}/{cmpt}", "PdctWorkList@UseItemAction");
 Route::get("/db/workdata/set/const/status/{wid}/{per}", "PdctWorkList@SetConstStatus");
 Route::get("/db/workdata/delete/const/{wid}", "PdctWorkList@DeleteConst");
 Route::get("/db/workdata/set/status/{wid}/{status}", "PdctWorkList@SetStatus");
 Route::get("/db/workdata/set/useitemprice/{wid}/{price}", "PdctWorkList@SetConstUseItemPrice");
+Route::post("/db/workdata/process/useitem/list", "PdctWorkList@GetProcessUseItem");
+Route::post("/db/workdata/worklist/useitem/set", "PdctWorkList@SetUseItem");
 
 Route::get("/db/works/get/list/way/day/{before}/{after}", "PdctWorkList@GetWorkListWayToDay");
 Route::get("/db/works/set/day/{id}/{sday}/{eday}", "PdctWorkList@SetWorkListDate");
