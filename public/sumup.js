@@ -740,6 +740,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -766,7 +768,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value: "item_model",
         align: "center"
       }, {
-        text: "単価",
+        text: "単価/Rev",
         value: "item_name",
         align: "center"
       }],
@@ -1321,7 +1323,7 @@ exports.push([module.i, "td[data-v-a2d7e020] {\n  padding: 0 !important;\n}\n.te
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".toItemEdit[data-v-112b7625] {\n  cursor: pointer;\n}\n.hisHtmlCover[data-v-112b7625] {\n  color: white;\n  background: #263238;\n  opacity: 0.9;\n  padding: 2rem;\n  text-align: center;\n}\n.hisHtml[data-v-112b7625] {\n  font-size: 1.2rem;\n}\ntd[data-v-112b7625] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-112b7625] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}\n.num[data-v-112b7625] {\n  font-size: 1.5rem;\n}\n.daigae[data-v-112b7625] {\n  font-size: 0.9rem;\n  display: block;\n}", ""]);
+exports.push([module.i, ".rev[data-v-112b7625] {\n  font-size: 0.8rem;\n  color: #424242;\n}\n.toItemEdit[data-v-112b7625] {\n  cursor: pointer;\n}\n.hisHtmlCover[data-v-112b7625] {\n  color: white;\n  background: #263238;\n  opacity: 0.9;\n  padding: 2rem;\n  text-align: center;\n}\n.hisHtml[data-v-112b7625] {\n  font-size: 1.2rem;\n}\ntd[data-v-112b7625] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-112b7625] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}\n.num[data-v-112b7625] {\n  font-size: 1.5rem;\n}\n.daigae[data-v-112b7625] {\n  font-size: 0.9rem;\n  display: block;\n}", ""]);
 
 
 
@@ -2480,7 +2482,13 @@ var render = function() {
                             }
                           },
                           [_vm._v(_vm._s(props.item.item_price))]
-                        )
+                        ),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "rev" }, [
+                          _vm._v(_vm._s(props.item.item_rev.numToRev()))
+                        ])
                       ])
                     ]
                   }
@@ -2488,7 +2496,7 @@ var render = function() {
               ],
               null,
               false,
-              3450015341
+              4179430826
             )
           })
         : _vm._e(),

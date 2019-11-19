@@ -51,6 +51,8 @@
             class="toItemEdit"
             @click="toItemEdit(props.item.item_code, props.item.item_rev)"
           >{{ props.item.item_price }}</span>
+          <br />
+          <span class="rev">{{ props.item.item_rev.numToRev()}}</span>
         </td>
       </template>
     </v-data-table>
@@ -77,7 +79,7 @@ export default {
         { text: "品目コード", value: "item_code", align: "center" },
         { text: "品名/形式", value: "order_code", align: "center" },
         { text: "在庫数/集計数", value: "item_model", align: "center" },
-        { text: "単価", value: "item_name", align: "center" }
+        { text: "単価/Rev", value: "item_name", align: "center" }
       ],
       pagination: {
         descending: true,
@@ -253,6 +255,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.rev {
+  font-size: 0.8rem;
+  color: #424242;
+}
 .toItemEdit {
   cursor: pointer;
 }
