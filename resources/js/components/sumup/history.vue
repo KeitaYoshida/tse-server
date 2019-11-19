@@ -103,7 +103,7 @@ export default {
       const TarDay = 60;
       let his = await axios.get("/db/inventory/history/day/" + TarDay);
       this.items = his.data;
-      this.search = this.users.name;
+      // this.search = this.users.name;
     }
   }
 };

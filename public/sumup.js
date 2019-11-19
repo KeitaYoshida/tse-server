@@ -700,10 +700,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
                 his = _context.sent;
-                this.items = his.data;
-                this.search = this.users.name;
+                this.items = his.data; // this.search = this.users.name;
 
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
