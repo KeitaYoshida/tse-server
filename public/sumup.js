@@ -736,6 +736,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1002,6 +1006,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.inoutHis = true;
         console.log(res.data);
       });
+    },
+    toItemEdit: function toItemEdit(code, rev) {
+      window.open("/item/" + code + "/" + rev, "_blank");
     }
   })
 });
@@ -1314,7 +1321,7 @@ exports.push([module.i, "td[data-v-a2d7e020] {\n  padding: 0 !important;\n}\n.te
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".hisHtmlCover[data-v-112b7625] {\n  color: white;\n  background: #263238;\n  opacity: 0.9;\n  padding: 2rem;\n  text-align: center;\n}\n.hisHtml[data-v-112b7625] {\n  font-size: 1.2rem;\n}\ntd[data-v-112b7625] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-112b7625] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}\n.num[data-v-112b7625] {\n  font-size: 1.5rem;\n}\n.daigae[data-v-112b7625] {\n  font-size: 0.9rem;\n  display: block;\n}", ""]);
+exports.push([module.i, ".toItemEdit[data-v-112b7625] {\n  cursor: pointer;\n}\n.hisHtmlCover[data-v-112b7625] {\n  color: white;\n  background: #263238;\n  opacity: 0.9;\n  padding: 2rem;\n  text-align: center;\n}\n.hisHtml[data-v-112b7625] {\n  font-size: 1.2rem;\n}\ntd[data-v-112b7625] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-112b7625] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}\n.num[data-v-112b7625] {\n  font-size: 1.5rem;\n}\n.daigae[data-v-112b7625] {\n  font-size: 0.9rem;\n  display: block;\n}", ""]);
 
 
 
@@ -2458,7 +2465,22 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-xs-center" }, [
-                        _c("span", [_vm._v(_vm._s(props.item.item_price))])
+                        _c(
+                          "span",
+                          {
+                            staticClass: "toItemEdit",
+                            attrs: { color: "primary" },
+                            on: {
+                              click: function($event) {
+                                return _vm.toItemEdit(
+                                  props.item.item_code,
+                                  props.item.item_rev
+                                )
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(props.item.item_price))]
+                        )
                       ])
                     ]
                   }
@@ -2466,7 +2488,7 @@ var render = function() {
               ],
               null,
               false,
-              1924475059
+              3450015341
             )
           })
         : _vm._e(),

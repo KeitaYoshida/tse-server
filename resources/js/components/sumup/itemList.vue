@@ -46,7 +46,11 @@
           <span class="num">{{ props.item.inv_num }}</span>
         </td>
         <td class="text-xs-center">
-          <span>{{ props.item.item_price }}</span>
+          <span
+            color="primary"
+            class="toItemEdit"
+            @click="toItemEdit(props.item.item_code, props.item.item_rev)"
+          >{{ props.item.item_price }}</span>
         </td>
       </template>
     </v-data-table>
@@ -240,12 +244,18 @@ export default {
         this.inoutHis = true;
         console.log(res.data);
       });
+    },
+    toItemEdit(code, rev) {
+      window.open("/item/" + code + "/" + rev, "_blank");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.toItemEdit {
+  cursor: pointer;
+}
 .hisHtmlCover {
   color: white;
   background: #263238;
