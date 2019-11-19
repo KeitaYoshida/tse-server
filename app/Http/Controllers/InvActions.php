@@ -11,6 +11,9 @@ use App\Model\InvWorklistItem;
 use App\Model\Item;
 use App\Model\CntOrder;
 use App\Model\InventoryHistory;
+use App\Model\CntOrderList;
+use App\Model\PdctUseItem;
+use App\Model\itemLastHistory;
 
 class InvActions extends Controller
 {
@@ -39,5 +42,21 @@ class InvActions extends Controller
   {
     $InvList = new InvList;
     return $InvList->all();
+  }
+
+  public function InvItemOutInHistory($item_id)
+  {
+    $CntOrder = new CntOrder;
+    $PdctUseItem = new PdctUseItem;
+    $ItemLastHis = new itemLastHistory;
+
+    $coData = $CntOrder->where("item_id", $item_id)->where("num_recept", ">", 0)->with('cmpt')->orderBy("updated_at", "desc")->take(10)->get();
+    $pdData = $PdctUseItem->where("item_id", $item_id)->where("use_num", ">", 0)->with(['cmpt', 'workdata'])->orderBy("updated_at", "desc")->take(10)->get();
+    $ilData = $ItemLastHis->where("item_id", $item_id)->orderBy("updated_at", "desc")->take(10)->get();
+    return [
+      'cntOrder' => $coData,
+      'pdctUseItem' => $pdData,
+      'itemLastHis' => $ilData
+    ];
   }
 }

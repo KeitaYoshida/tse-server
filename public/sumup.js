@@ -723,6 +723,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -733,6 +746,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       headers: [{
+        text: "in/out",
+        value: "last_num",
+        align: "center"
+      }, {
         text: "品目コード",
         value: "item_code",
         align: "center"
@@ -744,7 +761,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: "在庫数/集計数",
         value: "item_model",
         align: "center"
+      }, {
+        text: "単価",
+        value: "item_name",
+        align: "center"
       }],
+      pagination: {
+        descending: true,
+        sortBy: "last_num"
+      },
       inited: false,
       items: null,
       shukeiView: false,
@@ -762,7 +787,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           label: "コメント",
           value: null
         }]
-      }
+      },
+      hisHtml: "",
+      inoutHis: false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -913,6 +940,68 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else {
         return "even";
       }
+    },
+    returnHis: function returnHis(item_id) {
+      var _this = this;
+
+      this.hisHtml = "";
+      axios.get("/db/inventory/get/outin/his/" + item_id).then(function (res) {
+        var his = res.data;
+        var ukeireHis = "";
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = his.cntOrder[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var uHis = _step.value;
+            ukeireHis = ukeireHis + "<tr>" + "<td style='padding:0.3rem 1rem;'>" + uHis.cmpt.cmpt_code + "</td>" + "<td style='padding:0.3rem 1rem;'>" + uHis.cnt_order_code + "</td>" + "<td style='padding:0.3rem 1rem;'>" + uHis.num_recept + "</td>" + "</tr>";
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+              _iterator["return"]();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        var pdctUseHis = "";
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = his.pdctUseItem[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var pHis = _step2.value;
+            pdctUseHis = pdctUseHis + "<tr>" + "<td style='padding:0.3rem 1rem;'>" + pHis.cmpt.cmpt_code + "</td>" + "<td style='padding:0.3rem 1rem;'>" + pHis.workdata.worklist_code + "</td>" + "<td style='padding:0.3rem 1rem;'>" + pHis.use_num + "</td>" + "</tr>";
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+              _iterator2["return"]();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
+          }
+        }
+
+        var html = "\n        <h3 style=\"border:1px solid white;display:inline-block;padding: 0.3rem 1rem;\">\u53D7\u5165\u5C65\u6B74</h3>\n        <table style=\"margin:0 auto\">\n          <tr>\n          <th style=\"text-align:center\">\u5B50\u5F62\u5F0F</th>\n          <th style=\"text-align:center\">\u6CE8\u6587\u756A\u53F7</th>\n          <th style=\"text-align:center\">\u53D7\u5165\u6570</th>\n          </tr>\n          ".concat(ukeireHis, "\n        </table>\n        <hr>\n        <h3 style=\"border:1px solid white;display:inline-block;padding: 0.3rem 1rem;\">\u6295\u5165\u5C65\u6B74</h3>\n        <table style=\"margin:0 auto\">\n          <tr>\n          <th style=\"text-align:center\">\u5B50\u5F62\u5F0F</th>\n          <th style=\"text-align:center\">\u5DE5\u4E8B\u756A\u53F7</th>\n          <th style=\"text-align:center\">\u6295\u5165\u6570</th>\n          </tr>\n          ").concat(pdctUseHis, "\n        </table>\n        ");
+        _this.hisHtml = html;
+        _this.inoutHis = true;
+        console.log(res.data);
+      });
     }
   })
 });
@@ -1225,7 +1314,7 @@ exports.push([module.i, "td[data-v-a2d7e020] {\n  padding: 0 !important;\n}\n.te
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td[data-v-112b7625] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-112b7625] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}\n.num[data-v-112b7625] {\n  font-size: 1.5rem;\n}\n.daigae[data-v-112b7625] {\n  font-size: 0.9rem;\n  display: block;\n}", ""]);
+exports.push([module.i, ".hisHtmlCover[data-v-112b7625] {\n  color: white;\n  background: #263238;\n  opacity: 0.9;\n  padding: 2rem;\n  text-align: center;\n}\n.hisHtml[data-v-112b7625] {\n  font-size: 1.2rem;\n}\ntd[data-v-112b7625] {\n  padding: 0 !important;\n}\ntable.v-table tbody td[data-v-112b7625] {\n  font-size: 1.3rem;\n}\nbutton.link[data-v-112b7625] {\n  font-size: 1.4rem;\n  font-weight: 600;\n}\n.num[data-v-112b7625] {\n  font-size: 1.5rem;\n}\n.daigae[data-v-112b7625] {\n  font-size: 0.9rem;\n  display: block;\n}", ""]);
 
 
 
@@ -2263,7 +2352,13 @@ var render = function() {
                 { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }
               ],
               "rows-per-page-text": "page",
+              pagination: _vm.pagination,
               search: _vm.search
+            },
+            on: {
+              "update:pagination": function($event) {
+                _vm.pagination = $event
+              }
             },
             scopedSlots: _vm._u(
               [
@@ -2271,6 +2366,26 @@ var render = function() {
                   key: "items",
                   fn: function(props) {
                     return [
+                      _c(
+                        "td",
+                        { staticClass: "text-xs-center" },
+                        [
+                          _c(
+                            "v-icon",
+                            {
+                              attrs: { color: "green darken-3" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.returnHis(props.item.item_id)
+                                }
+                              }
+                            },
+                            [_vm._v("fas fa-clipboard-list")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
                       _c(
                         "td",
                         { staticClass: "text-xs-center" },
@@ -2340,17 +2455,42 @@ var render = function() {
                             _vm._v(_vm._s(props.item.inv_num))
                           ])
                         ]
-                      )
+                      ),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-xs-center" }, [
+                        _c("span", [_vm._v(_vm._s(props.item.item_price))])
+                      ])
                     ]
                   }
                 }
               ],
               null,
               false,
-              1767800314
+              1924475059
             )
           })
         : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "650px" },
+          model: {
+            value: _vm.inoutHis,
+            callback: function($$v) {
+              _vm.inoutHis = $$v
+            },
+            expression: "inoutHis"
+          }
+        },
+        [
+          _c("v-card", {
+            staticClass: "hisHtmlCover",
+            domProps: { innerHTML: _vm._s(_vm.hisHtml) }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "v-dialog",
@@ -3205,9 +3345,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VChip */ "./node_modules/vuetify/lib/components/VChip/index.js");
-/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
-/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VChip */ "./node_modules/vuetify/lib/components/VChip/index.js");
+/* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 
 
 
@@ -3233,7 +3375,9 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__["VChip"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_7__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__["VDialog"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_7__["VChip"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__["VDialog"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"]})
 
 
 /* hot reload */
