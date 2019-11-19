@@ -103,7 +103,7 @@ export default {
     ...mapActions([]),
     async init() {
       let list = await axios.get("/db/inventory/working/const/list");
-      this.list = list.data;
+      this.list = list.data.filter(ar => ar.use_item_price > 0);
     },
     check(item) {
       let checkDay = dayjs(Date.now()).format("YYYY-MM-DD HH:mm");

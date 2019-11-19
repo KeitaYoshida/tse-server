@@ -14,6 +14,11 @@ class CmptCtrl extends Controller
     $cm = new Components;
     return $cm->where('cmpt_id', $id)->get();
   }
+  public function GetCmptDataArray(Request $req)
+  {
+    $cm = new Components;
+    return $cm->whereIn('cmpt_id', $req->all())->get();
+  }
   public function GetCmptDataArr(Request $req)
   {
     $cm = new Components;

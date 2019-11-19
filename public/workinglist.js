@@ -165,7 +165,9 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
 
               case 2:
                 list = _context.sent;
-                this.list = list.data;
+                this.list = list.data.filter(function (ar) {
+                  return ar.use_item_price > 0;
+                });
 
               case 4:
               case "end":

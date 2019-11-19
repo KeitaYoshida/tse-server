@@ -102,5 +102,7 @@
     "/vendors~order_list~readfile~tehaisaki~workinglist.js": "/vendors~order_list~readfile~tehaisaki~workinglist.js",
     "/vendors~order_list~readfile~tehaisaki~workinglist.js.map": "/vendors~order_list~readfile~tehaisaki~workinglist.js.map",
     "/cmpt_work_set~product_list.js": "/cmpt_work_set~product_list.js",
-    "/cmpt_work_set~product_list.js.map": "/cmpt_work_set~product_list.js.map"
+    "/cmpt_work_set~product_list.js.map": "/cmpt_work_set~product_list.js.map",
+    "/vendors~order_list~readfile~recept_list~tehaisaki~workingUseItem~workinglist.js": "/vendors~order_list~readfile~recept_list~tehaisaki~workingUseItem~workinglist.js",
+    "/vendors~order_list~readfile~recept_list~tehaisaki~workingUseItem~workinglist.js.map": "/vendors~order_list~readfile~recept_list~tehaisaki~workingUseItem~workinglist.js.map"
 }
