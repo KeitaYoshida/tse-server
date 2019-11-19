@@ -1,7 +1,10 @@
 <template>
   <div>
     <v-chip outline color="green darken-3">部材リスト</v-chip>
-    <ViewMenu :prop="menu" @rtVal="reMenu" />
+    <nobr>
+      <v-btn color="primary" small outline @click="init()">データ再取得</v-btn>
+      <ViewMenu :prop="menu" @rtVal="reMenu" />
+    </nobr>
     <v-data-table
       v-if="inited"
       :headers="headers"

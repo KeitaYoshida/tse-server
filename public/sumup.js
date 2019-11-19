@@ -815,6 +815,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2552,7 +2555,29 @@ var render = function() {
         _vm._v("部材リスト")
       ]),
       _vm._v(" "),
-      _c("ViewMenu", { attrs: { prop: _vm.menu }, on: { rtVal: _vm.reMenu } }),
+      _c(
+        "nobr",
+        [
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "primary", small: "", outline: "" },
+              on: {
+                click: function($event) {
+                  return _vm.init()
+                }
+              }
+            },
+            [_vm._v("データ再取得")]
+          ),
+          _vm._v(" "),
+          _c("ViewMenu", {
+            attrs: { prop: _vm.menu },
+            on: { rtVal: _vm.reMenu }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _vm.inited
         ? _c("v-data-table", {
