@@ -66,7 +66,11 @@
         <td class="text-xs-center">{{ rtCmpt(props.item.cmpt) }}</td>
         <td class="text-xs-center">
           <p>{{ props.item.item.item_code }}</p>
-          <p>{{ rtOrderCode(props.item) }}</p>
+          <template
+            v-if="props.item.item.order_code != '' && props.item.item.order_code !== null && props.item.item.order_code.trim() != props.item.item.item_code.trim() "
+          >
+            <p class="daigae">代: {{props.item.item.order_code }}</p>
+          </template>
         </td>
         <td class="text-xs-center">
           <p>{{ props.item.item.item_name }}</p>
@@ -224,6 +228,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.daigae {
+  color: gray;
+}
 p {
   margin: 0;
 }

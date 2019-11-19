@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-chip outline color="green darken-3">部材リスト</v-chip>
-    <v-btn color="primary" outline small>未集計</v-btn>
+    <ViewMenu :prop="menu" @rtVal="reMenu" />
     <v-data-table
       v-if="inited"
       :headers="headers"
-      :items="items"
+      :items="lists"
       item-key="index"
       loading="true"
       :rows-per-page-items="[5,10,25,{'text':'$vuetify.dataIterator.rowsPerPageAll','value':-1}]"
@@ -68,12 +68,18 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import ShukeiNum from "@/components/com/ComFormDialog";
+import ViewMenu from "@/components/com/ComMenu";
 
 export default {
   props: ["massage", "set_num"],
-  components: { ShukeiNum },
+  components: { ShukeiNum, ViewMenu },
   data: function() {
     return {
+      menu: {
+        value: ["全件表示", "未集計表示", "完了表示", "超過集計表示"],
+        small: true,
+        text: "全件表示"
+      },
       headers: [
         { text: "in/out", value: "last_num", align: "center" },
         { text: "品目コード", value: "item_code", align: "center" },
@@ -107,7 +113,8 @@ export default {
         ]
       },
       hisHtml: "",
-      inoutHis: false
+      inoutHis: false,
+      lists: null
     };
   },
   computed: {
@@ -145,6 +152,7 @@ export default {
       ss.finPrice = Math.round(ss.finPrice);
       // console.log(this.items);
       await this.INVENTORY_SET({ status: ss });
+      this.lists = this.items;
       this.inited = true;
     },
     shukeiAct(item) {
@@ -249,6 +257,28 @@ export default {
     },
     toItemEdit(code, rev) {
       window.open("/item/" + code + "/" + rev, "_blank");
+    },
+    reMenu(val) {
+      switch (val) {
+        case "全件表示":
+          this.lists = this.items;
+          break;
+        case "未集計表示":
+          this.lists = this.items.filter(
+            ar => ar.last_num > ar.inv_num && ar.last_num !== 0
+          );
+          break;
+        case "完了表示":
+          this.lists = this.items.filter(
+            ar => ar.last_num === ar.inv_num && ar.last_num !== 0
+          );
+          break;
+        case "超過集計表示":
+          this.lists = this.items.filter(
+            ar => ar.last_num < ar.inv_num && ar.last_num !== 0
+          );
+          break;
+      }
     }
   }
 };
