@@ -110,7 +110,7 @@ export default {
         ar => [1, 3, 6].indexOf(ar.items.item_class) === -1
       );
       let useItemModel_sum = useItemModel.reduce((a, x) => a + x.r_ci_id, 0);
-      if (useItemList_sum !== useItemModel_sum) {
+      if (useItemList_sum !== useItemModel_sum || useItemList_sum === 0) {
         alert(
           "異常データ" +
             "\n" +

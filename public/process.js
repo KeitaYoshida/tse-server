@@ -174,7 +174,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   return a + x.r_ci_id;
                 }, 0);
 
-                if (useItemList_sum !== useItemModel_sum) {
+                if (useItemList_sum !== useItemModel_sum || useItemList_sum === 0) {
                   alert("異常データ" + "\n" + "\n" + "部材マスタと使用登録部材が一致しません" + "\n" + "業務課担当者までお問い合わせ下さい");
                 } else {
                   this.loading = false;
