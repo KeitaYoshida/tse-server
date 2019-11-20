@@ -625,6 +625,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -777,6 +787,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           value: ""
         }]
       };
+    },
+    returnLotValue: function returnLotValue(lot, min) {
+      return "\n        <h5>Lot \u624B\u914D\u6570: ".concat(lot, "</h5>\n        <h5>\u6700\u5C0F\u624B\u914D\u6570: ").concat(min, "</h5>\n      ");
     }
   }
 });
@@ -1188,8 +1201,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         iAddNumOrder = Number(-num_order) + Number(num_recept);
       } else if (num_recept > num_order && setNum > num_order) {
         iAddNumOrder = 0;
-      } // document.getElementById("searchText").focus();
-
+      }
 
       axios.post("/db/ukeire/action", {
         orders: {
@@ -2081,7 +2093,69 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-xs-center val" }, [
-                        _c("p", [_vm._v(_vm._s(props.item.item.item_name))]),
+                        _c("p", [
+                          props.item.item.lot_num > 0
+                            ? _c(
+                                "span",
+                                [
+                                  _c(
+                                    "v-tooltip",
+                                    {
+                                      attrs: { top: "" },
+                                      scopedSlots: _vm._u(
+                                        [
+                                          {
+                                            key: "activator",
+                                            fn: function(ref) {
+                                              var on = ref.on
+                                              return [
+                                                _c(
+                                                  "v-chip",
+                                                  _vm._g(
+                                                    {
+                                                      staticClass: "box",
+                                                      attrs: {
+                                                        small: "",
+                                                        outline: "",
+                                                        color: "primary"
+                                                      }
+                                                    },
+                                                    on
+                                                  ),
+                                                  [_vm._v("lot")]
+                                                )
+                                              ]
+                                            }
+                                          }
+                                        ],
+                                        null,
+                                        true
+                                      )
+                                    },
+                                    [
+                                      _vm._v(" "),
+                                      _c("span", {
+                                        domProps: {
+                                          innerHTML: _vm._s(
+                                            _vm.returnLotValue(
+                                              props.item.item.lot_num,
+                                              props.item.item.minimum_set
+                                            )
+                                          )
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(
+                            "\n          " +
+                              _vm._s(props.item.item.item_name) +
+                              "\n        "
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("p", [_vm._v(_vm._s(props.item.item.item_model))])
                       ]),
@@ -2097,7 +2171,7 @@ var render = function() {
               ],
               null,
               false,
-              152856319
+              600019490
             )
           }),
           _vm._v(" "),
@@ -2985,6 +3059,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
 /* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTooltip */ "./node_modules/vuetify/lib/components/VTooltip/index.js");
 
 
 
@@ -3012,7 +3087,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__["VDialog"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VChip: vuetify_lib_components_VChip__WEBPACK_IMPORTED_MODULE_6__["VChip"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__["VDialog"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"],VTooltip: vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_11__["VTooltip"]})
 
 
 /* hot reload */

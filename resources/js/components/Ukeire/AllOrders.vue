@@ -63,7 +63,17 @@
           <p>{{ props.item.item.item_code }}</p>
         </td>
         <td class="text-xs-center val">
-          <p>{{ props.item.item.item_name }}</p>
+          <p>
+            <span v-if="props.item.item.lot_num > 0">
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <v-chip small outline color="primary" class="box" v-on="on">lot</v-chip>
+                </template>
+                <span v-html="returnLotValue(props.item.item.lot_num, props.item.item.minimum_set)"></span>
+              </v-tooltip>
+            </span>
+            {{ props.item.item.item_name }}
+          </p>
           <p>{{ props.item.item.item_model }}</p>
         </td>
         <td class="text-xs-center num">
@@ -199,6 +209,12 @@ export default {
           }
         ]
       };
+    },
+    returnLotValue(lot, min) {
+      return `
+        <h5>Lot 手配数: ${lot}</h5>
+        <h5>最小手配数: ${min}</h5>
+      `;
     }
   }
 };

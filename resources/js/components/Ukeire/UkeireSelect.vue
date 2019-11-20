@@ -224,7 +224,6 @@ export default {
       } else if (num_recept > num_order && setNum > num_order) {
         iAddNumOrder = 0;
       }
-      // document.getElementById("searchText").focus();
 
       axios.post("/db/ukeire/action", {
         orders: {
