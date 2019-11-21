@@ -177,7 +177,7 @@ class CntOrderCtrl extends Controller
   {
     $it = new Item;
     $invhis = new InventoryHistory;
-    $it->where('item_code', $req->item_code)->increment('inv_num', $req->shuke_num);
+    $it->where('item_id', $req->item_id)->increment('inv_num', $req->shuke_num);
     $invhis->create([
       'loginid' => $req->loginid,
       'item_id' => $req->item_id,
