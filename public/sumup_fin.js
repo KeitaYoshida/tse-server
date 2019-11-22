@@ -197,9 +197,12 @@ dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
                     last_num: it.last_num,
                     inv_num: it.inv_num,
                     item_price: it.item_price,
+                    item_id: it.item_id,
                     item_code: it.item_code,
                     item_model: it.item_model,
-                    item_name: it.item_name
+                    item_name: it.item_name,
+                    order_code: it.order_code,
+                    item_rev: it.item_rev
                   });
                 }
 

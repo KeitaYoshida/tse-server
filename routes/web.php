@@ -168,6 +168,8 @@ Route::get("/db/inventory/worklist/check/{wid}/{day}/{uid}", "PdctWorkList@SetWo
 Route::post("/db/inventory/add/findate", "InvActions@AddInvDate");
 Route::get("/db/inventory/sum/history/list", "InvActions@InvHistoryList");
 Route::get("/db/inventory/get/outin/his/{item_id}", "InvActions@InvItemOutInHistory");
+Route::get("/db/inv/his/items/{date}", "InvActions@GetInvHisItems");
+Route::post("/db/inv/fix/item/", "InvActions@FixInvHisItems");
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 

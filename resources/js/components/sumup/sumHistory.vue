@@ -20,7 +20,11 @@
           <td class="text-xs-center">{{ Math.round(props.item.theoretical_price).toLocaleString()}}</td>
           <td class="text-xs-center">{{ Math.round(props.item.working_price).toLocaleString() }}</td>
           <td>
-            <v-btn color="primary" outline>部材</v-btn>
+            <v-btn
+              color="primary"
+              outline
+              @click="$router.push('/inv/his/items/' + props.item.inv_date)"
+            >部材</v-btn>
           </td>
           <td>
             <v-btn color="primary" outline>工事</v-btn>

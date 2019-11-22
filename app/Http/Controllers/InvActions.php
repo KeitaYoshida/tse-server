@@ -14,6 +14,7 @@ use App\Model\InventoryHistory;
 use App\Model\CntOrderList;
 use App\Model\PdctUseItem;
 use App\Model\itemLastHistory;
+use App\Model\InvFixHistory;
 
 class InvActions extends Controller
 {
@@ -58,5 +59,22 @@ class InvActions extends Controller
       'pdctUseItem' => $pdData,
       'itemLastHis' => $ilData
     ];
+  }
+
+  public function GetInvHisItems($date)
+  {
+    $invItem = new InvItem;
+    return $invItem->where('inv_date', $date)->with('item_info.item_class_val')->get();
+  }
+
+  public function FixInvHisItems(Request $req)
+  {
+    $invItem = new InvItem;
+    $invList = new InvList;
+    $invFixHis = new InvFixHistory;
+    $invFixHis->insert($req->history);
+    $invItem->where('inv_item_id', $req->history['inv_item_id'])->update([$req->history['tar_column'] => $req->history['fix_val']]);
+    $invList->where('inv_date', $req->history['inv_date'])->update(['items_price' => $req->total_price]);
+    return $req;
   }
 }

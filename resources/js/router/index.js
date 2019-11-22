@@ -202,6 +202,13 @@ let router = new Router({
                 requiresAuth: true
             },
         }, {
+            path: "/inv/his/items/:date",
+            name: "inv_history_date",
+            component: () => import( /* webpackChunkName: "inv_history_date" */ "@/components/sumup/inv_history/items.vue"),
+            meta: {
+                requiresAuth: true
+            },
+        }, {
             path: "/item/monitor",
             name: "iMonitor",
             component: () => import( /* webpackChunkName: "iMonitor" */ "@/components/monitor/monitor.vue"),

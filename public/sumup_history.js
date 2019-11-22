@@ -63,6 +63,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
@@ -309,7 +313,16 @@ var render = function() {
                             [
                               _c(
                                 "v-btn",
-                                { attrs: { color: "primary", outline: "" } },
+                                {
+                                  attrs: { color: "primary", outline: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.$router.push(
+                                        "/inv/his/items/" + props.item.inv_date
+                                      )
+                                    }
+                                  }
+                                },
                                 [_vm._v("部材")]
                               )
                             ],
@@ -357,7 +370,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  6672455
+                  1770660116
                 )
               })
             : _vm._e()
