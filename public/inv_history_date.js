@@ -857,13 +857,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.next = 2;
-                return axios.post("/db/inv/add/inv/item", data.send_data);
+                if (!(data.send_data === undefined)) {
+                  _context6.next = 2;
+                  break;
+                }
+
+                return _context6.abrupt("return");
 
               case 2:
+                _context6.next = 4;
+                return axios.post("/db/inv/add/inv/item", data.send_data);
+
+              case 4:
                 addInvAction = _context6.sent;
-                console.log(addInvAction);
-                console.log(this.items);
                 this.items.push(addInvAction.data[0]);
                 this.lists = this.items;
                 this.addItem = !this.addItem;

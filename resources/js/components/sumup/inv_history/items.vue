@@ -372,12 +372,13 @@ export default {
       this.addItem = !this.addItem;
     },
     async addItemAction(data) {
+      if (data.send_data === undefined) {
+        return;
+      }
       let addInvAction = await axios.post(
         "/db/inv/add/inv/item",
         data.send_data
       );
-      console.log(addInvAction);
-      console.log(this.items);
       this.items.push(addInvAction.data[0]);
       this.lists = this.items;
       this.addItem = !this.addItem;
