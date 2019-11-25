@@ -403,7 +403,7 @@ export default {
     getCsv() {
       let list = "";
       var csv = "";
-      csv = csv + "品目コード,品目形式,集計数,総定数";
+      csv = csv + "品目コード,品目形式,集計数,総定数,単価,集計額";
       list = csv + "\n";
       // console.log(this.list);
       // return;
@@ -412,7 +412,9 @@ export default {
         list = list + ar.item_code + ",";
         list = list + (ar.item_model != null ? ar.item_model + "," : ",");
         list = list + ar.inv_num + ",";
-        list = list + ar.last_num;
+        list = list + ar.last_num + ",";
+        list = list + ar.item_price + ",";
+        list = list + Number(ar.inv_num) * Number(ar.item_price);
         list = list + "\n";
       });
       list = iconv.encode(list, "Shift_JIS");

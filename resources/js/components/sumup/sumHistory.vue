@@ -12,13 +12,16 @@
       >
         <template v-slot:items="props">
           <tr class="main_info">
-            <td>
+            <td class="text-xs-center">
               <v-btn color="success" outline>表紙</v-btn>
             </td>
             <td class="text-xs-center">
-              <span>{{ props.item.inv_date.slice(2,-3) }}</span>
+              <span class="base_info">{{ props.item.inv_date.slice(2,-3) }}</span>
               <br />
-              <span>{{ props.item.make_user }}</span>
+              <span class="base_info">{{ props.item.make_user }}</span>
+            </td>
+            <td class="text-xs-center">
+              <span>571995XX</span>
             </td>
             <td class="text-xs-center">
               <span
@@ -37,25 +40,31 @@
               <span>{{ Math.round(props.item.process_price).toLocaleString()}}</span>
             </td>
             <td class="text-xs-center">
-              <span
-                class="worklist select success--text"
-                @click="$router.push('/inv/his/working/' + props.item.inv_date)"
-              >{{ Math.round(props.item.working_price).toLocaleString() }}</span>
-              <br />
-              <span>{{ Math.round(props.item.process_price).toLocaleString()}}</span>
-            </td>
-            <td>
-              <v-btn color="primary" outline>集計履歴</v-btn>
+              <span>{{ Math.round(props.item.working_price).toLocaleString() }}</span>
             </td>
             <td>
               <v-btn color="warning" outline @click="props.expanded=!props.expanded">
-                <span>その他金額</span>
+                <span>処理</span>
                 <v-icon right small>fas fa-history</v-icon>
               </v-btn>
             </td>
           </tr>
         </template>
         <template v-slot:expand="props">
+          <v-layout wrap>
+            <v-flex xs3 pa-3>
+              <v-btn color="primary" outline block>集計履歴</v-btn>
+            </v-flex>
+            <v-flex xs3 pa-3>
+              <v-btn color="primary" outline block>調整履歴</v-btn>
+            </v-flex>
+            <v-flex xs3 pa-3>
+              <v-btn color="primary" outline block>差分データマージ</v-btn>
+            </v-flex>
+            <v-flex xs3 pa-3>
+              <v-btn color="warning" outline block>その他集計項目追加</v-btn>
+            </v-flex>
+          </v-layout>
           <v-layout wrap>
             <v-flex xs2 class="text-xs-center detail-title">処理</v-flex>
             <v-flex xs2 class="text-xs-center detail-title">大項目</v-flex>
@@ -67,7 +76,7 @@
           <v-layout wrap py-3>
             <v-flex xs2 class="text-xs-center detail-act">
               <v-btn small color="primary" outline icon>
-                <v-icon small>fas fa-plus</v-icon>
+                <v-icon small>fas fa-edit</v-icon>
               </v-btn>
               <v-btn small color="warning" outline icon>
                 <v-icon small>fas fa-trash-alt</v-icon>
@@ -112,6 +121,7 @@ export default {
       headers: [
         { text: "", value: "", align: "center", sortable: false },
         { text: "登録日／登録者", value: "inv_date", align: "center" },
+        { text: "棚卸し集計額", value: "inv_date", align: "center" },
         { text: "部材集計／理論額", value: "items_price", align: "center" },
         {
           text: "仕掛部材／工数金額",
@@ -119,12 +129,11 @@ export default {
           align: "center"
         },
         {
-          text: "手書き帳票／間接部材",
+          text: "その他集計額",
           value: "",
           align: "center",
           sortable: false
         },
-        { text: "", value: "", align: "center", sortable: false },
         { text: "", value: "", align: "center", sortable: false }
       ],
       pagination: {
@@ -184,5 +193,8 @@ th {
   .v-btn {
     margin: 0 6px;
   }
+}
+span.base_info {
+  font-size: 1rem;
 }
 </style>

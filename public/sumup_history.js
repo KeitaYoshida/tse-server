@@ -126,6 +126,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
@@ -143,6 +152,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value: "inv_date",
         align: "center"
       }, {
+        text: "棚卸し集計額",
+        value: "inv_date",
+        align: "center"
+      }, {
         text: "部材集計／理論額",
         value: "items_price",
         align: "center"
@@ -151,12 +164,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value: "theoretical_price",
         align: "center"
       }, {
-        text: "手書き帳票／間接部材",
-        value: "",
-        align: "center",
-        sortable: false
-      }, {
-        text: "",
+        text: "その他集計額",
         value: "",
         align: "center",
         sortable: false
@@ -225,7 +233,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td[data-v-3846c09d],\nth[data-v-3846c09d] {\n  padding: 0 !important;\n}\n.main_info td[data-v-3846c09d] {\n  font-size: 1.5rem;\n  font-weight: bold;\n  line-height: 1.5;\n}\n.riron[data-v-3846c09d] {\n  font-size: 1.2rem;\n  color: gray;\n}\n.select[data-v-3846c09d] {\n  cursor: pointer;\n}\n.detail-title[data-v-3846c09d] {\n  font-size: 1.2rem;\n  font-weight: bold;\n  color: darkgray;\n}\n.detail-val[data-v-3846c09d] {\n  font-size: 1.4rem;\n}\n.detail-act .v-btn[data-v-3846c09d] {\n  margin: 0 6px;\n}", ""]);
+exports.push([module.i, "td[data-v-3846c09d],\nth[data-v-3846c09d] {\n  padding: 0 !important;\n}\n.main_info td[data-v-3846c09d] {\n  font-size: 1.5rem;\n  font-weight: bold;\n  line-height: 1.5;\n}\n.riron[data-v-3846c09d] {\n  font-size: 1.2rem;\n  color: gray;\n}\n.select[data-v-3846c09d] {\n  cursor: pointer;\n}\n.detail-title[data-v-3846c09d] {\n  font-size: 1.2rem;\n  font-weight: bold;\n  color: darkgray;\n}\n.detail-val[data-v-3846c09d] {\n  font-size: 1.4rem;\n}\n.detail-act .v-btn[data-v-3846c09d] {\n  margin: 0 6px;\n}\nspan.base_info[data-v-3846c09d] {\n  font-size: 1rem;\n}", ""]);
 
 
 
@@ -307,6 +315,7 @@ var render = function() {
                           _c("tr", { staticClass: "main_info" }, [
                             _c(
                               "td",
+                              { staticClass: "text-xs-center" },
                               [
                                 _c(
                                   "v-btn",
@@ -318,13 +327,19 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-xs-center" }, [
-                              _c("span", [
+                              _c("span", { staticClass: "base_info" }, [
                                 _vm._v(_vm._s(props.item.inv_date.slice(2, -3)))
                               ]),
                               _vm._v(" "),
                               _c("br"),
                               _vm._v(" "),
-                              _c("span", [_vm._v(_vm._s(props.item.make_user))])
+                              _c("span", { staticClass: "base_info" }, [
+                                _vm._v(_vm._s(props.item.make_user))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-xs-center" }, [
+                              _c("span", [_vm._v("571995XX")])
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-xs-center" }, [
@@ -403,54 +418,16 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-xs-center" }, [
-                              _c(
-                                "span",
-                                {
-                                  staticClass: "worklist select success--text",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.$router.push(
-                                        "/inv/his/working/" +
-                                          props.item.inv_date
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(
-                                      Math.round(
-                                        props.item.working_price
-                                      ).toLocaleString()
-                                    )
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("br"),
-                              _vm._v(" "),
                               _c("span", [
                                 _vm._v(
                                   _vm._s(
                                     Math.round(
-                                      props.item.process_price
+                                      props.item.working_price
                                     ).toLocaleString()
                                   )
                                 )
                               ])
                             ]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
-                                _c(
-                                  "v-btn",
-                                  { attrs: { color: "primary", outline: "" } },
-                                  [_vm._v("集計履歴")]
-                                )
-                              ],
-                              1
-                            ),
                             _vm._v(" "),
                             _c(
                               "td",
@@ -466,7 +443,7 @@ var render = function() {
                                     }
                                   },
                                   [
-                                    _c("span", [_vm._v("その他金額")]),
+                                    _c("span", [_vm._v("処理")]),
                                     _vm._v(" "),
                                     _c(
                                       "v-icon",
@@ -487,6 +464,89 @@ var render = function() {
                       key: "expand",
                       fn: function(props) {
                         return [
+                          _c(
+                            "v-layout",
+                            { attrs: { wrap: "" } },
+                            [
+                              _c(
+                                "v-flex",
+                                { attrs: { xs3: "", "pa-3": "" } },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "primary",
+                                        outline: "",
+                                        block: ""
+                                      }
+                                    },
+                                    [_vm._v("集計履歴")]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs3: "", "pa-3": "" } },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "primary",
+                                        outline: "",
+                                        block: ""
+                                      }
+                                    },
+                                    [_vm._v("調整履歴")]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs3: "", "pa-3": "" } },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "primary",
+                                        outline: "",
+                                        block: ""
+                                      }
+                                    },
+                                    [_vm._v("差分データマージ")]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs3: "", "pa-3": "" } },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "warning",
+                                        outline: "",
+                                        block: ""
+                                      }
+                                    },
+                                    [_vm._v("その他集計項目追加")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
                           _c(
                             "v-layout",
                             { attrs: { wrap: "" } },
@@ -571,7 +631,7 @@ var render = function() {
                                     },
                                     [
                                       _c("v-icon", { attrs: { small: "" } }, [
-                                        _vm._v("fas fa-plus")
+                                        _vm._v("fas fa-edit")
                                       ])
                                     ],
                                     1
@@ -749,7 +809,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  158211750
+                  2731109248
                 )
               })
             : _vm._e()
