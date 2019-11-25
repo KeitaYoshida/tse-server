@@ -27,7 +27,11 @@
             >部材</v-btn>
           </td>
           <td>
-            <v-btn color="primary" outline>工事</v-btn>
+            <v-btn
+              color="primary"
+              outline
+              @click="$router.push('/inv/his/working/' + props.item.inv_date)"
+            >工事</v-btn>
           </td>
           <td>
             <v-btn color="primary" outline>集計履歴</v-btn>

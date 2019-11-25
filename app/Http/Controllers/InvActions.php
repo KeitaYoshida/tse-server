@@ -85,4 +85,26 @@ class InvActions extends Controller
     return $invItem->where('inv_item_id', $inv_item_id)->with('item_info.item_class_val')->get();
     // return $req;
   }
+
+  public function GetInvHisWorkList($date)
+  {
+    $InvWorkList = new InvWorkList;
+    return $InvWorkList
+      ->where("inv_date", $date)
+      ->where("use_item_price", "!=", 0.00)
+      ->orderBy('model_code')
+      ->orderBy('worklist_code')
+      ->get();
+  }
+
+  public function GetInvHisWorkListItem($date, $wcode)
+  {
+    $InvWorkListItem = new InvWorklistItem;
+    return $InvWorkListItem
+      ->where('inv_date', $date)
+      ->where('worklist_code', $wcode)
+      ->with('cmpt')
+      ->orderBy('cmpt_id')
+      ->get();
+  }
 }

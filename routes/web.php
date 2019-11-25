@@ -172,6 +172,8 @@ Route::get("/db/inventory/get/outin/his/{item_id}", "InvActions@InvItemOutInHist
 Route::get("/db/inv/his/items/{date}", "InvActions@GetInvHisItems");
 Route::post("/db/inv/fix/item/", "InvActions@FixInvHisItems");
 Route::post("/db/inv/add/inv/item", "InvActions@AddInvItem");
+Route::get("/db/inv/fix/worklist/{date}", "InvActions@GetInvHisWorkList");
+Route::get("/db/inv/fix/worklist/item/{date}/{wcode}", "InvActions@GetInvHisWorkListItem");
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 
