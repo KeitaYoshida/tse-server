@@ -107,4 +107,12 @@ class InvActions extends Controller
       ->orderBy('cmpt_id')
       ->get();
   }
+
+  public function SetWorkPrice($date, $id, $price)
+  {
+    $InvList = new Invlist;
+    $InvWorkList = new InvWorklist;
+    $InvList->where('inv_date', $date)->increment('process_price', $price);
+    $InvWorkList->where('inv_worklist_id', $id)->increment('work_context_price', $price);
+  }
 }

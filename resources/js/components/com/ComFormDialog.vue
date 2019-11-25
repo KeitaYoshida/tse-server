@@ -15,10 +15,11 @@
                 :id="item.id"
                 :hint="item.hint"
                 :type="item.type"
+                :autofocus="index == 0"
                 v-model="item.value"
-                autofocus
                 v-on:keyup.enter="submit()"
                 :disabled="actionflg"
+                class="text-field"
               ></v-text-field>
             </v-flex>
           </template>

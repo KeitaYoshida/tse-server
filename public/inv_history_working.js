@@ -12,10 +12,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
-/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dayjs/locale/ja */ "./node_modules/dayjs/locale/ja.js");
-/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/com/ComFormDialog */ "./resources/js/components/com/ComFormDialog.vue");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
+/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! dayjs/locale/ja */ "./node_modules/dayjs/locale/ja.js");
+/* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_4__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -77,18 +78,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
-dayjs__WEBPACK_IMPORTED_MODULE_2___default.a.locale("ja");
+
+dayjs__WEBPACK_IMPORTED_MODULE_3___default.a.locale("ja");
 
 var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib/index.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
-  components: {},
+  components: {
+    InsProcessPrice: _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {
+      insProcessPrice: false,
+      insPPData: {
+        title: "仕掛り工数",
+        data: [{
+          label: "仕掛り工数金額",
+          hint: "（-数値）にて減算できます",
+          type: "number",
+          value: null
+        }]
+      },
       main_action: null,
       search: "",
       headers: [{
@@ -136,7 +172,8 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
       var _init = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var inv_date, res, workList;
+        var inv_date, res, workList, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, item;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -149,14 +186,56 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
                 res = _context.sent;
                 workList = res.data;
                 this.items = workList;
-                console.log(workList);
+                _iteratorNormalCompletion = true;
+                _didIteratorError = false;
+                _iteratorError = undefined;
+                _context.prev = 9;
 
-              case 7:
+                for (_iterator = workList[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                  item = _step.value;
+                  this.total_price = this.total_price + Number(item.use_item_price);
+                  this.total_process_price = this.total_process_price + Number(item.work_context_price);
+                }
+
+                _context.next = 17;
+                break;
+
+              case 13:
+                _context.prev = 13;
+                _context.t0 = _context["catch"](9);
+                _didIteratorError = true;
+                _iteratorError = _context.t0;
+
+              case 17:
+                _context.prev = 17;
+                _context.prev = 18;
+
+                if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+                  _iterator["return"]();
+                }
+
+              case 20:
+                _context.prev = 20;
+
+                if (!_didIteratorError) {
+                  _context.next = 23;
+                  break;
+                }
+
+                throw _iteratorError;
+
+              case 23:
+                return _context.finish(20);
+
+              case 24:
+                return _context.finish(17);
+
+              case 25:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[9, 13, 17, 25], [18,, 20, 24]]);
       }));
 
       function init() {
@@ -188,12 +267,106 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
       });
       var link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
-      var day = dayjs__WEBPACK_IMPORTED_MODULE_2___default()().format("YYYYMMDDHHmmss");
+      var day = dayjs__WEBPACK_IMPORTED_MODULE_3___default()().format("YYYYMMDDHHmmss");
       var daynum = Number(day);
       var day16 = daynum.toString(16);
       var csv_name = "仕掛り工事リスト_" + day16 + ".csv";
       link.download = csv_name;
       link.click();
+    },
+    setInsPPData: function () {
+      var _setInsPPData = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(data) {
+        var setVal, inv_date, inv_worklist_id, res, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, item;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                setVal = Number(data.data[0].value);
+                this.insProcessPrice = false;
+
+                if (!(setVal === 0)) {
+                  _context2.next = 4;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 4:
+                this.insPPData.target.work_context_price = Number(this.insPPData.target.work_context_price) + setVal;
+                inv_date = this.insPPData.target.inv_date;
+                inv_worklist_id = this.insPPData.target.inv_worklist_id;
+                _context2.next = 9;
+                return axios.get("/db/inv/fix/worklist/workprice/" + inv_date + "/" + inv_worklist_id + "/" + setVal);
+
+              case 9:
+                res = _context2.sent;
+                // console.log(res.data);
+                this.total_process_price = 0;
+                _iteratorNormalCompletion2 = true;
+                _didIteratorError2 = false;
+                _iteratorError2 = undefined;
+                _context2.prev = 14;
+
+                for (_iterator2 = this.items[Symbol.iterator](); !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                  item = _step2.value;
+                  this.total_process_price = Number(this.total_process_price) + Number(item.work_context_price);
+                }
+
+                _context2.next = 22;
+                break;
+
+              case 18:
+                _context2.prev = 18;
+                _context2.t0 = _context2["catch"](14);
+                _didIteratorError2 = true;
+                _iteratorError2 = _context2.t0;
+
+              case 22:
+                _context2.prev = 22;
+                _context2.prev = 23;
+
+                if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+                  _iterator2["return"]();
+                }
+
+              case 25:
+                _context2.prev = 25;
+
+                if (!_didIteratorError2) {
+                  _context2.next = 28;
+                  break;
+                }
+
+                throw _iteratorError2;
+
+              case 28:
+                return _context2.finish(25);
+
+              case 29:
+                return _context2.finish(22);
+
+              case 30:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[14, 18, 22, 30], [23,, 25, 29]]);
+      }));
+
+      function setInsPPData(_x) {
+        return _setInsPPData.apply(this, arguments);
+      }
+
+      return setInsPPData;
+    }(),
+    setProcessPrice: function setProcessPrice(data) {
+      this.insProcessPrice = true;
+      this.insPPData.target = data;
+      this.insPPData.data[0].value = null;
+      this.insPPData.message = data.work_context_price + " へ加算する（減算）値を入力して下さい";
     }
   })
 });
@@ -291,6 +464,65 @@ var render = function() {
         "v-container",
         { attrs: { "grid-list-xs": "", id: "old_inv_working" } },
         [
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
+            [
+              _c(
+                "v-flex",
+                { attrs: { xs6: "", "px-5": "" } },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        color: "primary",
+                        outline: "",
+                        large: "",
+                        block: ""
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "仕掛り工事部材金額： " +
+                          _vm._s(Math.round(_vm.total_price).toLocaleString())
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs6: "", "px-5": "" } },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        color: "primary",
+                        outline: "",
+                        large: "",
+                        block: ""
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "仕掛り工数金額： " +
+                          _vm._s(
+                            Math.round(_vm.total_process_price).toLocaleString()
+                          )
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c("v-text-field", {
             staticClass: "pb-3 px-3",
             attrs: {
@@ -364,15 +596,26 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-xs-center" }, [
-                      _c("span", { staticClass: "success--text working" }, [
-                        _vm._v(
-                          _vm._s(
-                            Math.round(
-                              props.item.work_context_price
-                            ).toLocaleString()
+                      _c(
+                        "span",
+                        {
+                          staticClass: "success--text working",
+                          on: {
+                            click: function($event) {
+                              return _vm.setProcessPrice(props.item)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(
+                              Math.round(
+                                props.item.work_context_price
+                              ).toLocaleString()
+                            )
                           )
-                        )
-                      ])
+                        ]
+                      )
                     ]),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-xs-center" }, [
@@ -383,6 +626,29 @@ var render = function() {
               }
             ])
           })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "500px", transition: "dialog-transition" },
+          model: {
+            value: _vm.insProcessPrice,
+            callback: function($$v) {
+              _vm.insProcessPrice = $$v
+            },
+            expression: "insProcessPrice"
+          }
+        },
+        [
+          _vm.insProcessPrice
+            ? _c("InsProcessPrice", {
+                attrs: { data: _vm.insPPData },
+                on: { rt: _vm.setInsPPData }
+              })
+            : _vm._e()
         ],
         1
       ),
@@ -456,8 +722,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -486,7 +753,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBottomNav: vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_6__["VBottomNav"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__["VDataTable"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_11__["VTextField"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBottomNav: vuetify_lib_components_VBottomNav__WEBPACK_IMPORTED_MODULE_6__["VBottomNav"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_9__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_10__["VDialog"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VLayout"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"]})
 
 
 /* hot reload */

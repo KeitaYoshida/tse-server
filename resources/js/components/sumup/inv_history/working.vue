@@ -1,6 +1,24 @@
 <template>
   <v-app>
     <v-container grid-list-xs id="old_inv_working">
+      <v-layout row wrap>
+        <v-flex xs6 px-5>
+          <v-btn
+            color="primary"
+            outline
+            large
+            block
+          >仕掛り工事部材金額： {{ Math.round(total_price).toLocaleString() }}</v-btn>
+        </v-flex>
+        <v-flex xs6 px-5>
+          <v-btn
+            color="primary"
+            outline
+            large
+            block
+          >仕掛り工数金額： {{ Math.round(total_process_price).toLocaleString() }}</v-btn>
+        </v-flex>
+      </v-layout>
       <v-text-field
         v-model="search"
         append-icon="search"
@@ -32,12 +50,16 @@
           <td class="text-xs-center">
             <span
               class="success--text working"
+              @click="setProcessPrice(props.item)"
             >{{ Math.round(props.item.work_context_price).toLocaleString() }}</span>
           </td>
           <td class="text-xs-center">{{ props.item.check_user }}</td>
         </template>
       </v-data-table>
     </v-container>
+    <v-dialog v-model="insProcessPrice" max-width="500px" transition="dialog-transition">
+      <InsProcessPrice :data="insPPData" @rt="setInsPPData" v-if="insProcessPrice" />
+    </v-dialog>
     <v-bottom-nav fixed :active.sync="main_action" v-model="main_action">
       <v-btn flat value="csv" color="primary" @click="getCsv()">
         <span>ＣＳＶ出力</span>
@@ -49,6 +71,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import InsProcessPrice from "@/components/com/ComFormDialog";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 dayjs.locale("ja");
@@ -56,9 +79,23 @@ var iconv = require("iconv-lite");
 
 export default {
   props: [],
-  components: {},
+  components: {
+    InsProcessPrice
+  },
   data: function() {
     return {
+      insProcessPrice: false,
+      insPPData: {
+        title: "仕掛り工数",
+        data: [
+          {
+            label: "仕掛り工数金額",
+            hint: "（-数値）にて減算できます",
+            type: "number",
+            value: null
+          }
+        ]
+      },
       main_action: null,
       search: "",
       headers: [
@@ -90,7 +127,11 @@ export default {
       let res = await axios.get("/db/inv/fix/worklist/" + inv_date);
       let workList = res.data;
       this.items = workList;
-      console.log(workList);
+      for (let item of workList) {
+        this.total_price = this.total_price + Number(item.use_item_price);
+        this.total_process_price =
+          this.total_process_price + Number(item.work_context_price);
+      }
     },
     getCsv() {
       let list = "";
@@ -122,6 +163,36 @@ export default {
       let csv_name = "仕掛り工事リスト_" + day16 + ".csv";
       link.download = csv_name;
       link.click();
+    },
+    async setInsPPData(data) {
+      let setVal = Number(data.data[0].value);
+      this.insProcessPrice = false;
+      if (setVal === 0) return;
+      this.insPPData.target.work_context_price =
+        Number(this.insPPData.target.work_context_price) + setVal;
+      let inv_date = this.insPPData.target.inv_date;
+      let inv_worklist_id = this.insPPData.target.inv_worklist_id;
+      let res = await axios.get(
+        "/db/inv/fix/worklist/workprice/" +
+          inv_date +
+          "/" +
+          inv_worklist_id +
+          "/" +
+          setVal
+      );
+      // console.log(res.data);
+      this.total_process_price = 0;
+      for (let item of this.items) {
+        this.total_process_price =
+          Number(this.total_process_price) + Number(item.work_context_price);
+      }
+    },
+    setProcessPrice(data) {
+      this.insProcessPrice = true;
+      this.insPPData.target = data;
+      this.insPPData.data[0].value = null;
+      this.insPPData.message =
+        data.work_context_price + " へ加算する（減算）値を入力して下さい";
     }
   }
 };
