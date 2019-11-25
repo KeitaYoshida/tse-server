@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container grid-list-xs>
+    <v-container grid-list-xs id="old_inv_working">
       <v-text-field
         v-model="search"
         append-icon="search"
@@ -38,17 +38,28 @@
         </template>
       </v-data-table>
     </v-container>
+    <v-bottom-nav fixed :active.sync="main_action" v-model="main_action">
+      <v-btn flat value="csv" color="primary" @click="getCsv()">
+        <span>ＣＳＶ出力</span>
+        <v-icon>fas fa-file-csv</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-app>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale("ja");
+var iconv = require("iconv-lite");
 
 export default {
   props: [],
   components: {},
   data: function() {
     return {
+      main_action: null,
       search: "",
       headers: [
         { text: "形式", value: "model_code", align: "center" },
@@ -80,6 +91,37 @@ export default {
       let workList = res.data;
       this.items = workList;
       console.log(workList);
+    },
+    getCsv() {
+      let list = "";
+      var csv = "";
+      csv =
+        csv +
+        "形式,工事番号,工事台数,工事全数,使用部材金額,仕掛り工数金額,確認者";
+      list = csv + "\n";
+      // console.log(this.list);
+      // return;
+
+      this.items.forEach((ar, n) => {
+        list = list + ar.model_code + ",";
+        list = list + ar.worklist_code + ",";
+        list = list + ar.const_num + ",";
+        list = list + ar.all_num + ",";
+        list = list + ar.use_item_price + ",";
+        list = list + ar.work_context_price + ",";
+        list = list + ar.check_user;
+        list = list + "\n";
+      });
+      list = iconv.encode(list, "Shift_JIS");
+      let blob = new Blob([list], { type: "text/csv" });
+      let link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      let day = dayjs().format("YYYYMMDDHHmmss");
+      let daynum = Number(day);
+      let day16 = daynum.toString(16);
+      let csv_name = "仕掛り工事リスト_" + day16 + ".csv";
+      link.download = csv_name;
+      link.click();
     }
   }
 };
@@ -93,5 +135,8 @@ td {
 .worklist {
   font-size: 1.3rem;
   cursor: pointer;
+}
+#old_inv_working {
+  margin-bottom: 64px;
 }
 </style>

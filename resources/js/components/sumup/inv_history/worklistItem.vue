@@ -32,12 +32,6 @@
         </template>
       </v-data-table>
     </v-container>
-    <v-bottom-nav fixed :active.sync="main_action" v-model="main_action">
-      <v-btn flat value="csv" color="primary" @click="getCsv()">
-        <span>ＣＳＶ出力</span>
-        <v-icon>fas fa-file-csv</v-icon>
-      </v-btn>
-    </v-bottom-nav>
   </v-app>
 </template>
 

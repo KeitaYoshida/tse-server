@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container fluid>
+    <v-container fluid id="old_inv_item">
       <v-layout row wrap>
         <v-flex xs4 class="text-xs-center">
           <span class="primary--text">総部材金額：</span>
@@ -133,6 +133,12 @@
     <v-dialog v-model="addItem" max-width="500px" v-if="addItem">
       <AddItem :data="addItemMessage" @rt="addItemAction"></AddItem>
     </v-dialog>
+    <v-bottom-nav fixed :active.sync="main_action" v-model="main_action">
+      <v-btn flat value="csv" color="primary" @click="getCsv()">
+        <span>ＣＳＶ出力</span>
+        <v-icon>fas fa-file-csv</v-icon>
+      </v-btn>
+    </v-bottom-nav>
   </v-app>
 </template>
 
@@ -141,6 +147,10 @@ import { mapState, mapActions } from "vuex";
 import FixNum from "@/components/com/ComFormDialog";
 import ComMenu from "@/components/com/ComMenu";
 import AddItem from "@/components/com/ComCheckDialog";
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale("ja");
+var iconv = require("iconv-lite");
 
 export default {
   props: [],
@@ -151,6 +161,7 @@ export default {
   },
   data: function() {
     return {
+      main_action: null,
       fixView: false,
       fixData: {
         title: "訂正数",
@@ -382,6 +393,32 @@ export default {
       this.items.push(addInvAction.data[0]);
       this.lists = this.items;
       this.addItem = !this.addItem;
+    },
+    getCsv() {
+      let list = "";
+      var csv = "";
+      csv = csv + "品目コード,品目形式,集計数,総定数";
+      list = csv + "\n";
+      // console.log(this.list);
+      // return;
+
+      this.items.forEach((ar, n) => {
+        list = list + ar.item_code + ",";
+        list = list + (ar.item_model != null ? ar.item_model + "," : ",");
+        list = list + ar.inv_num + ",";
+        list = list + ar.last_num;
+        list = list + "\n";
+      });
+      list = iconv.encode(list, "Shift_JIS");
+      let blob = new Blob([list], { type: "text/csv" });
+      let link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      let day = dayjs().format("YYYYMMDDHHmmss");
+      let daynum = Number(day);
+      let day16 = daynum.toString(16);
+      let csv_name = "部材集計リスト_" + day16 + ".csv";
+      link.download = csv_name;
+      link.click();
     }
   }
 };
@@ -418,5 +455,8 @@ p {
 }
 .top-chip {
   border-radius: 3px;
+}
+#old_inv_item {
+  margin-bottom: 64px;
 }
 </style>
