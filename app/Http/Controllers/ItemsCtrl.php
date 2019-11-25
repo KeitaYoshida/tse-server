@@ -103,4 +103,9 @@ class ItemsCtrl extends Controller
     $i->where('item_id', $req->item_id)->update(['location' => $req->location]);
     $i->where('item_id', $req->item_id)->increment('last_num', $req->act_num);
   }
+  public function GetItemsOfNewRev($code)
+  {
+    $i = new Item;
+    return $i->where("item_code", $code)->orderBy('item_rev', 'desc')->take(1)->get();
+  }
 }

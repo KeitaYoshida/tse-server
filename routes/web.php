@@ -45,6 +45,7 @@ Route::get('/items/order_price/{id}', 'ItemsCtrl@item_order_price');
 Route::get('/items/up_item_num_inv/{id}/{rev}/{num}/{order}/{assy}', 'ItemsCtrl@up_item_num_inv')->middleware('auth');
 Route::get('/items/mini', 'ItemsCtrl@itemListMini');
 Route::post("/db/add/last/item", "ItemsCtrl@AddLastNum");
+Route::get("/db/items/search/get/new/rev/{code}", "ItemsCtrl@GetItemsOfNewRev");
 
 Route::get('/vendor/list', 'VendorCtrl@vendor_list');
 Route::post('/vendor-item/up/{id}', 'MVendorItemCtrl@up_vendor_item');
@@ -170,6 +171,7 @@ Route::get("/db/inventory/sum/history/list", "InvActions@InvHistoryList");
 Route::get("/db/inventory/get/outin/his/{item_id}", "InvActions@InvItemOutInHistory");
 Route::get("/db/inv/his/items/{date}", "InvActions@GetInvHisItems");
 Route::post("/db/inv/fix/item/", "InvActions@FixInvHisItems");
+Route::post("/db/inv/add/inv/item", "InvActions@AddInvItem");
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 

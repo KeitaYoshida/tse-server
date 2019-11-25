@@ -21,7 +21,28 @@
         </v-flex>
       </v-layout>
       <hr />
-      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+      <v-layout row wrap>
+        <v-flex xs2 class="px-3">
+          <v-btn
+            color="primary"
+            block
+            large
+            outline
+            @click="checkAddItem()"
+            :disabled="search===''"
+          >追加</v-btn>
+        </v-flex>
+        <v-flex xs10>
+          <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+            class="pb-3 px-3"
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
       <v-data-table
         :headers="headers"
         :items="lists"
@@ -98,7 +119,7 @@
       </v-data-table>
     </v-container>
     <v-dialog v-model="class_selecter" max-width="200px" transition="dialog-transition">
-      <v-list class="text-xs-center class_list">
+      <v-list class="text-xs-center class_list" v-if="class_list">
         <v-list-tile avatar v-for="(item, index) in class_list" :key="index">
           <v-list-tile-content>
             <v-btn flat @click="select_item_class(item)">{{ item.value }}</v-btn>
@@ -109,6 +130,9 @@
     <v-dialog v-model="fixView" max-width="500px">
       <FixNum :data="fixData" v-if="fixView" @rt="returnNum"></FixNum>
     </v-dialog>
+    <v-dialog v-model="addItem" max-width="500px" v-if="addItem">
+      <AddItem :data="addItemMessage" @rt="addItemAction"></AddItem>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -116,12 +140,14 @@
 import { mapState, mapActions } from "vuex";
 import FixNum from "@/components/com/ComFormDialog";
 import ComMenu from "@/components/com/ComMenu";
+import AddItem from "@/components/com/ComCheckDialog";
 
 export default {
   props: [],
   components: {
     FixNum,
-    ComMenu
+    ComMenu,
+    AddItem
   },
   data: function() {
     return {
@@ -151,7 +177,7 @@ export default {
         { text: "集計数", value: "item_name", align: "center" },
         { text: "理論数／差数", value: "", align: "center" },
         { text: "単価／集計額", value: "", align: "center" },
-        { text: "集計差額", value: "", align: "center" }
+        { text: "集計差額", value: "inv_num * item_price", align: "center" }
       ],
       pagination: {
         descending: true,
@@ -179,7 +205,9 @@ export default {
         value: ["全件表示", "未集計表示", "完了表示", "超過集計表示"],
         small: true,
         text: "全件表示"
-      }
+      },
+      addItem: false,
+      addItemMessage: ""
     };
   },
   computed: {
@@ -201,7 +229,7 @@ export default {
           this.total_price + item.inv_num * Number(item.item_price);
       }
       let item_class = await axios.get("/db/items/class/list");
-      this.item_class = item_class = item_class.data;
+      this.class_list = this.item_class = item_class = item_class.data;
       for (let cl of item_class) {
         this.item_class_menu.value.push(cl.value);
       }
@@ -259,7 +287,6 @@ export default {
         history: his,
         total_price: this.total_price
       });
-      console.log(res.data);
       this.fixView = !this.fixView;
     },
     async reMenuClass(val) {
@@ -299,6 +326,61 @@ export default {
       this.lists = await this.lists.filter(
         ar => ar.item_info.item_class_val.value === pair_text
       );
+    },
+    async checkAddItem() {
+      let item_code = this.search;
+      let res = await axios.get("/db/items/search/get/new/rev/" + item_code);
+      let inv_date = this.items[0].inv_date;
+      if (res.data.length === 0) {
+        this.addItemMessage = {
+          title: "部材がありません",
+          message: `検索欄に正しい品目コードを入力後実行して下さい`
+        };
+      } else {
+        if (
+          this.items.filter(ar => ar.item_id === res.data[0].item_id).length !==
+          0
+        ) {
+          this.addItemMessage = {
+            title: "すでに登録済みです"
+          };
+        } else {
+          this.addItemMessage = {
+            title: "部材追加",
+            message: `下記部材をついかします`,
+            data_v2: [
+              ["品目コード", res.data[0].item_code],
+              ["rev", res.data[0].item_rev],
+              ["品名", res.data[0].item_name],
+              ["形式", res.data[0].item_model]
+            ],
+            send_data: {
+              inv_date: inv_date,
+              inv_num: 0,
+              item_code: res.data[0].item_code,
+              item_id: res.data[0].item_id,
+              item_model: res.data[0].item_model,
+              item_name: res.data[0].item_name,
+              item_price: res.data[0].item_price,
+              item_rev: res.data[0].item_rev,
+              last_num: res.data[0].last_num,
+              order_code: res.data[0].order_code
+            }
+          };
+        }
+      }
+      this.addItem = !this.addItem;
+    },
+    async addItemAction(data) {
+      let addInvAction = await axios.post(
+        "/db/inv/add/inv/item",
+        data.send_data
+      );
+      console.log(addInvAction);
+      console.log(this.items);
+      this.items.push(addInvAction.data[0]);
+      this.lists = this.items;
+      this.addItem = !this.addItem;
     }
   }
 };

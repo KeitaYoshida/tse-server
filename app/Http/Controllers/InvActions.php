@@ -72,9 +72,17 @@ class InvActions extends Controller
     $invItem = new InvItem;
     $invList = new InvList;
     $invFixHis = new InvFixHistory;
-    $invFixHis->insert($req->history);
+    $invFixHis->create($req->history);
     $invItem->where('inv_item_id', $req->history['inv_item_id'])->update([$req->history['tar_column'] => $req->history['fix_val']]);
     $invList->where('inv_date', $req->history['inv_date'])->update(['items_price' => $req->total_price]);
     return $req;
+  }
+
+  public function AddInvItem(Request $req)
+  {
+    $invItem = new InvItem;
+    $inv_item_id =  $invItem->create($req->all())->inv_item_id;
+    return $invItem->where('inv_item_id', $inv_item_id)->with('item_info.item_class_val')->get();
+    // return $req;
   }
 }
