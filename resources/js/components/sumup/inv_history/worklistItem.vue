@@ -1,18 +1,11 @@
 <template>
   <v-app>
     <v-container grid-list-xs id="work-list">
-      <template v-if="totalPrice!==0">
-        <v-btn icon color="primary" flat @click="$router.go(-1)">
-          <v-icon>fas fa-angle-double-left</v-icon>
-        </v-btn>
-        <v-btn color="primary" outline>{{workdata.model.model_code}}</v-btn>
-        <v-btn
-          color="primary"
-          outline
-          :to="'/process/' + $route.params.work_id"
-        >{{workdata.worklist_code}}</v-btn>
-        <v-btn color="primary" outline @click="setPrice()">金額：{{ totalPrice.toLocaleString() }}</v-btn>
-      </template>
+      <v-btn icon color="primary" flat @click="$router.go(-1)">
+        <v-icon>fas fa-angle-double-left</v-icon>
+      </v-btn>
+      <v-btn color="primary" outline>{{$route.params.worklist_code}}</v-btn>
+      <v-btn color="primary" outline>総部材金額： {{ Math.round(worklistPrice).toLocaleString() }}</v-btn>
       <v-data-table
         :headers="headers"
         :items="items"
@@ -22,39 +15,61 @@
         item-key="index"
         :loading="items.length===0"
       >
-        <template v-slot:items="props" :class="rt(props)">
+        <template v-slot:items="props">
           <td class="text-xs-center">{{props.item.cmpt.cmpt_code }}</td>
           <td class="text-xs-center">{{props.item.item_code }}</td>
           <td class="text-xs-center">{{props.item.item_model }}</td>
           <td class="text-xs-center">{{props.item.item_name }}</td>
           <td class="text-xs-center">{{props.item.item_num }}</td>
+          <td class="text-xs-center">
+            <span
+              class="success--text price"
+              @click="editPrice(props.item)"
+            >{{props.item.item_price }}</span>
+          </td>
           <td class="text-xs-center">{{props.item.total_price.toLocaleString() }}</td>
         </template>
       </v-data-table>
     </v-container>
+    <v-dialog v-model="insItemPrice" max-width="500px" transition="dialog-transition">
+      <InsProcessPrice :data="itemPriceData" @rt="setItemPrice" v-if="insItemPrice" />
+    </v-dialog>
   </v-app>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
+import InsProcessPrice from "@/components/com/ComFormDialog";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
+import { restProperty } from "babel-types";
 dayjs.locale("ja");
 var iconv = require("iconv-lite");
 
 export default {
   props: [],
-  components: {},
+  components: { InsProcessPrice },
   data: function() {
     return {
+      insItemPrice: false,
+      itemPriceData: {
+        title: "金額訂正",
+        message: "修正する金額を入力して下さい",
+        data: [
+          {
+            label: "訂正金額",
+            type: "number"
+          }
+        ]
+      },
       items: [],
-      workdata: {},
       headers: [
         { text: "子形式", value: "cmpt_id", align: "center" },
         { text: "品目コード", value: "item_code", align: "center" },
         { text: "形式", value: "item_model", align: "center" },
         { text: "品名", value: "item_name", align: "center" },
         { text: "数量", value: "count", align: "center" },
+        { text: "単価", value: "count", align: "center" },
         { text: "金額", value: "total_price", align: "center" }
       ],
       pagination: {
@@ -63,8 +78,7 @@ export default {
         rowsPerPage: 1000,
         sortBy: "cmpt_id"
       },
-      totalPrice: 0,
-      all_cmpt: {},
+      worklistPrice: 0,
       main_action: null
     };
   },
@@ -85,18 +99,18 @@ export default {
         "/db/inv/fix/worklist/item/" + inv_date + "/" + worklist_code
       );
       this.items = res.data;
-    },
-    rt(i) {
-      console.log(i);
-    },
-    setPrice() {
-      axios.get(
-        "/db/workdata/set/useitemprice/" +
-          this.$route.params.work_id +
+      this.worklistPrice = 0;
+      for (let item of this.items) {
+        this.worklistPrice = this.worklistPrice + Number(item.total_price);
+      }
+      let resParent = await axios.get(
+        "/db/inv/fix/worklist/set/iprice/" +
+          this.worklistPrice +
           "/" +
-          Math.round(this.totalPrice * 100) / 100
+          inv_date +
+          "/" +
+          worklist_code
       );
-      // .then(res => {});
     },
     getCsv() {
       let list = "";
@@ -126,6 +140,21 @@ export default {
       let csv_name = this.workdata.worklist_code + "_" + day16 + ".csv";
       link.download = csv_name;
       link.click();
+    },
+    editPrice(data) {
+      this.itemPriceData.data[0].value = Number(data.item_price);
+      this.itemPriceData.target = data;
+      this.insItemPrice = !this.insItemPrice;
+    },
+    async setItemPrice(data) {
+      this.insItemPrice = !this.insItemPrice;
+      let setVal = Number(data.data[0].value);
+      let id = data.target.inv_worklist_item_id;
+      let num = data.target.item_num;
+      let res = await axios.get(
+        "/db/inv/fix/worklistitem/set/iprice/" + id + "/" + setVal + "/" + num
+      );
+      await this.init();
     }
   }
 };
@@ -134,5 +163,8 @@ export default {
 <style lang="scss" scoped>
 #work-list {
   margin-bottom: 64px;
+}
+.price {
+  cursor: pointer;
 }
 </style>

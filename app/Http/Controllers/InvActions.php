@@ -115,4 +115,16 @@ class InvActions extends Controller
     $InvList->where('inv_date', $date)->increment('process_price', $price);
     $InvWorkList->where('inv_worklist_id', $id)->increment('work_context_price', $price);
   }
+
+  public function SetWorkListItemPrice($price, $date, $code)
+  {
+    $InvWorkList = new InvWorklist;
+    $InvWorkList->where('inv_date', $date)->where('worklist_code', $code)->update(['use_item_price' => $price]);
+  }
+
+  public function SetWorkListItem_ItemPrice($id, $price, $num)
+  {
+    $InvWorkListItem = new InvWorklistItem;
+    $InvWorkListItem->where('inv_worklist_item_id', $id)->update(['item_price' => $price, 'total_price' => $price * $num]);
+  }
 }

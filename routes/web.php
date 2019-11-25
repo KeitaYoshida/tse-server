@@ -175,6 +175,8 @@ Route::post("/db/inv/add/inv/item", "InvActions@AddInvItem");
 Route::get("/db/inv/fix/worklist/{date}", "InvActions@GetInvHisWorkList");
 Route::get("/db/inv/fix/worklist/item/{date}/{wcode}", "InvActions@GetInvHisWorkListItem");
 Route::get("/db/inv/fix/worklist/workprice/{date}/{id}/{price}", "InvActions@SetWorkPrice");
+Route::get("/db/inv/fix/worklist/set/iprice/{price}/{date}/{code}", "InvActions@SetWorkListItemPrice");
+Route::get("/db/inv/fix/worklistitem/set/iprice/{id}/{price}/{num}", "InvActions@SetWorkListItem_ItemPrice");
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 
