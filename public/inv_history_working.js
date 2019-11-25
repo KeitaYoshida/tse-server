@@ -100,6 +100,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -126,7 +127,6 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
         }]
       },
       main_action: null,
-      search: "",
       headers: [{
         text: "形式",
         value: "model_code",
@@ -162,17 +162,20 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
-    target: "target"
+    target: "target",
+    search_x: function search_x(state) {
+      return state.search.modelconst;
+    }
   })),
   created: function created() {
     this.init();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])([]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["SEARCH_MODELCONST"]), {
     init: function () {
       var _init = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var inv_date, res, workList, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, item;
+        var inv_date, res, workList, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, item, resSetPrice;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -231,6 +234,14 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
                 return _context.finish(17);
 
               case 25:
+                _context.next = 27;
+                return axios.get("/db/inv/fix/list/working/price/" + inv_date + "/" + this.total_price + "/" + this.total_process_price);
+
+              case 27:
+                resSetPrice = _context.sent;
+                console.log(resSetPrice.data);
+
+              case 29:
               case "end":
                 return _context.stop();
             }
@@ -529,14 +540,13 @@ var render = function() {
               "append-icon": "search",
               label: "Search",
               "single-line": "",
-              "hide-details": ""
+              "hide-details": "",
+              value: _vm.search_x
             },
-            model: {
-              value: _vm.search,
-              callback: function($$v) {
-                _vm.search = $$v
-              },
-              expression: "search"
+            on: {
+              input: function($event) {
+                return _vm.SEARCH_MODELCONST($event)
+              }
             }
           }),
           _vm._v(" "),
@@ -547,7 +557,7 @@ var render = function() {
               "hide-actions": "",
               items: _vm.items,
               "item-key": "inv_worklist_id",
-              search: _vm.search,
+              search: _vm.search_x,
               loading: _vm.items.length === 0
             },
             scopedSlots: _vm._u([

@@ -16,9 +16,17 @@
           </td>
           <td class="text-xs-center">{{ props.item.inv_date.slice(2,-3) }}</td>
           <td class="text-xs-center">{{ props.item.make_user }}</td>
-          <td class="text-xs-center">{{ Math.round(props.item.items_price).toLocaleString() }}</td>
-          <td class="text-xs-center">{{ Math.round(props.item.theoretical_price).toLocaleString()}}</td>
-          <td class="text-xs-center">{{ Math.round(props.item.working_price).toLocaleString() }}</td>
+          <td class="text-xs-center">
+            <span>{{ Math.round(props.item.items_price).toLocaleString() }}</span>
+            <br />
+            <span>{{ Math.round(props.item.theoretical_price).toLocaleString()}}</span>
+          </td>
+          <td class="text-xs-center">
+            <span>{{ Math.round(props.item.working_price).toLocaleString() }}</span>
+            <br />
+            <span>{{ Math.round(props.item.process_price).toLocaleString()}}</span>
+          </td>
+          <td class="text-xs-center"></td>
           <td>
             <v-btn
               color="primary"
@@ -58,9 +66,13 @@ export default {
         { text: "", value: "", align: "center", sortable: false },
         { text: "登録日", value: "inv_date", align: "center" },
         { text: "登録者", value: "make_user", align: "center" },
-        { text: "部材集計額", value: "items_price", align: "center" },
-        { text: "部材理論額", value: "theoretical_price", align: "center" },
-        { text: "仕掛り工事部材金額", value: "working_price", align: "center" },
+        { text: "部材集計／理論額", value: "items_price", align: "center" },
+        {
+          text: "仕掛部材／工数金額",
+          value: "theoretical_price",
+          align: "center"
+        },
+        { text: "", value: "working_price", align: "center" },
         { text: "", value: "", align: "center", sortable: false },
         { text: "", value: "", align: "center", sortable: false },
         { text: "", value: "", align: "center", sortable: false },

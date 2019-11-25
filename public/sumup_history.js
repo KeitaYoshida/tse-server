@@ -71,6 +71,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
@@ -92,15 +100,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value: "make_user",
         align: "center"
       }, {
-        text: "部材集計額",
+        text: "部材集計／理論額",
         value: "items_price",
         align: "center"
       }, {
-        text: "部材理論額",
+        text: "仕掛部材／工数金額",
         value: "theoretical_price",
         align: "center"
       }, {
-        text: "仕掛り工事部材金額",
+        text: "",
         value: "working_price",
         align: "center"
       }, {
@@ -283,34 +291,54 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-xs-center" }, [
-                            _vm._v(
-                              _vm._s(
-                                Math.round(
-                                  props.item.items_price
-                                ).toLocaleString()
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(
+                                  Math.round(
+                                    props.item.items_price
+                                  ).toLocaleString()
+                                )
                               )
-                            )
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(
+                                  Math.round(
+                                    props.item.theoretical_price
+                                  ).toLocaleString()
+                                )
+                              )
+                            ])
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-xs-center" }, [
-                            _vm._v(
-                              _vm._s(
-                                Math.round(
-                                  props.item.theoretical_price
-                                ).toLocaleString()
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(
+                                  Math.round(
+                                    props.item.working_price
+                                  ).toLocaleString()
+                                )
                               )
-                            )
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(
+                                  Math.round(
+                                    props.item.process_price
+                                  ).toLocaleString()
+                                )
+                              )
+                            ])
                           ]),
                           _vm._v(" "),
-                          _c("td", { staticClass: "text-xs-center" }, [
-                            _vm._v(
-                              _vm._s(
-                                Math.round(
-                                  props.item.working_price
-                                ).toLocaleString()
-                              )
-                            )
-                          ]),
+                          _c("td", { staticClass: "text-xs-center" }),
                           _vm._v(" "),
                           _c(
                             "td",
@@ -384,7 +412,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  3002058112
+                  1386220569
                 )
               })
             : _vm._e()

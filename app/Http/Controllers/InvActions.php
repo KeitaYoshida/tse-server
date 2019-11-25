@@ -127,4 +127,10 @@ class InvActions extends Controller
     $InvWorkListItem = new InvWorklistItem;
     $InvWorkListItem->where('inv_worklist_item_id', $id)->update(['item_price' => $price, 'total_price' => $price * $num]);
   }
+
+  public function SetListWorkingPrice($date, $iprice, $wprice)
+  {
+    $InvList = new InvList;
+    $InvList->where('inv_date', $date)->update(["working_price" => $iprice, "process_price" => $wprice]);
+  }
 }

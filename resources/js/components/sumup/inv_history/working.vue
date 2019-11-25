@@ -20,11 +20,12 @@
         </v-flex>
       </v-layout>
       <v-text-field
-        v-model="search"
         append-icon="search"
         label="Search"
         single-line
         hide-details
+        :value="search_x"
+        @input="SEARCH_MODELCONST($event)"
         class="pb-3 px-3"
       ></v-text-field>
       <v-data-table
@@ -33,7 +34,7 @@
         :items="items"
         class="elevation-1"
         item-key="inv_worklist_id"
-        :search="search"
+        :search="search_x"
         :loading="items.length===0"
       >
         <template v-slot:items="props">
@@ -97,7 +98,6 @@ export default {
         ]
       },
       main_action: null,
-      search: "",
       headers: [
         { text: "形式", value: "model_code", align: "center" },
         { text: "工事番号", value: "worklist_code", align: "center" },
@@ -114,14 +114,15 @@ export default {
   },
   computed: {
     ...mapState({
-      target: "target"
+      target: "target",
+      search_x: state => state.search.modelconst
     })
   },
   created: function() {
     this.init();
   },
   methods: {
-    ...mapActions([]),
+    ...mapActions(["SEARCH_MODELCONST"]),
     async init() {
       let inv_date = this.$route.params.date;
       let res = await axios.get("/db/inv/fix/worklist/" + inv_date);
@@ -132,6 +133,15 @@ export default {
         this.total_process_price =
           this.total_process_price + Number(item.work_context_price);
       }
+      let resSetPrice = await axios.get(
+        "/db/inv/fix/list/working/price/" +
+          inv_date +
+          "/" +
+          this.total_price +
+          "/" +
+          this.total_process_price
+      );
+      console.log(resSetPrice.data);
     },
     getCsv() {
       let list = "";
