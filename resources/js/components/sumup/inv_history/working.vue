@@ -2,6 +2,12 @@
   <v-app>
     <v-container grid-list-xs id="old_inv_working">
       <v-layout row wrap>
+        <v-flex xs12>
+          <h2>
+            <span class="primary--text before" @click="$router.push('/sumup/history')">過去データ</span> -->
+            <span>仕掛り工事リスト</span>
+          </h2>
+        </v-flex>
         <v-flex xs6 px-5>
           <v-btn
             color="primary"
@@ -219,5 +225,8 @@ td {
 }
 #old_inv_working {
   margin-bottom: 64px;
+}
+.before {
+  cursor: pointer;
 }
 </style>

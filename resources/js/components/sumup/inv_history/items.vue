@@ -2,6 +2,12 @@
   <v-app>
     <v-container fluid id="old_inv_item">
       <v-layout row wrap>
+        <v-flex xs12>
+          <h2>
+            <span class="primary--text before" @click="$router.push('/sumup/history')">過去データ</span> -->
+            <span>部材集計リスト</span>
+          </h2>
+        </v-flex>
         <v-flex xs4 class="text-xs-center">
           <span class="primary--text">総部材金額：</span>
           <v-chip
@@ -458,5 +464,8 @@ p {
 }
 #old_inv_item {
   margin-bottom: 64px;
+}
+.before {
+  cursor: pointer;
 }
 </style>

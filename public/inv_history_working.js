@@ -101,6 +101,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -393,7 +399,7 @@ var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib
 
 exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td[data-v-03207fc4] {\n  font-size: 1.3rem !important;\n}\n.working[data-v-03207fc4],\n.worklist[data-v-03207fc4] {\n  font-size: 1.3rem;\n  cursor: pointer;\n}\n#old_inv_working[data-v-03207fc4] {\n  margin-bottom: 64px;\n}", ""]);
+exports.push([module.i, "td[data-v-03207fc4] {\n  font-size: 1.3rem !important;\n}\n.working[data-v-03207fc4],\n.worklist[data-v-03207fc4] {\n  font-size: 1.3rem;\n  cursor: pointer;\n}\n#old_inv_working[data-v-03207fc4] {\n  margin-bottom: 64px;\n}\n.before[data-v-03207fc4] {\n  cursor: pointer;\n}", ""]);
 
 
 
@@ -479,6 +485,25 @@ var render = function() {
             "v-layout",
             { attrs: { row: "", wrap: "" } },
             [
+              _c("v-flex", { attrs: { xs12: "" } }, [
+                _c("h2", [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "primary--text before",
+                      on: {
+                        click: function($event) {
+                          return _vm.$router.push("/sumup/history")
+                        }
+                      }
+                    },
+                    [_vm._v("過去データ")]
+                  ),
+                  _vm._v(" -->\n          "),
+                  _c("span", [_vm._v("仕掛り工事リスト")])
+                ])
+              ]),
+              _vm._v(" "),
               _c(
                 "v-flex",
                 { attrs: { xs6: "", "px-5": "" } },

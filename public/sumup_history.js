@@ -79,6 +79,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
@@ -92,12 +139,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         align: "center",
         sortable: false
       }, {
-        text: "登録日",
+        text: "登録日／登録者",
         value: "inv_date",
-        align: "center"
-      }, {
-        text: "登録者",
-        value: "make_user",
         align: "center"
       }, {
         text: "部材集計／理論額",
@@ -108,16 +151,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value: "theoretical_price",
         align: "center"
       }, {
-        text: "",
-        value: "working_price",
-        align: "center"
-      }, {
-        text: "",
-        value: "",
-        align: "center",
-        sortable: false
-      }, {
-        text: "",
+        text: "手書き帳票／間接部材",
         value: "",
         align: "center",
         sortable: false
@@ -191,7 +225,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "td[data-v-3846c09d],\nth[data-v-3846c09d] {\n  padding: 0 !important;\n}", ""]);
+exports.push([module.i, "td[data-v-3846c09d],\nth[data-v-3846c09d] {\n  padding: 0 !important;\n}\n.main_info td[data-v-3846c09d] {\n  font-size: 1.5rem;\n  font-weight: bold;\n  line-height: 1.5;\n}\n.riron[data-v-3846c09d] {\n  font-size: 1.2rem;\n  color: gray;\n}\n.select[data-v-3846c09d] {\n  cursor: pointer;\n}\n.detail-title[data-v-3846c09d] {\n  font-size: 1.2rem;\n  font-weight: bold;\n  color: darkgray;\n}\n.detail-val[data-v-3846c09d] {\n  font-size: 1.4rem;\n}\n.detail-act .v-btn[data-v-3846c09d] {\n  margin: 0 6px;\n}", ""]);
 
 
 
@@ -270,83 +304,34 @@ var render = function() {
                       key: "items",
                       fn: function(props) {
                         return [
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "v-btn",
-                                { attrs: { color: "success", outline: "" } },
-                                [_vm._v("表紙")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-xs-center" }, [
-                            _vm._v(_vm._s(props.item.inv_date.slice(2, -3)))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-xs-center" }, [
-                            _vm._v(_vm._s(props.item.make_user))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-xs-center" }, [
-                            _c("span", [
-                              _vm._v(
-                                _vm._s(
-                                  Math.round(
-                                    props.item.items_price
-                                  ).toLocaleString()
+                          _c("tr", { staticClass: "main_info" }, [
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "v-btn",
+                                  { attrs: { color: "success", outline: "" } },
+                                  [_vm._v("表紙")]
                                 )
-                              )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-xs-center" }, [
+                              _c("span", [
+                                _vm._v(_vm._s(props.item.inv_date.slice(2, -3)))
+                              ]),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c("span", [_vm._v(_vm._s(props.item.make_user))])
                             ]),
                             _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("span", [
-                              _vm._v(
-                                _vm._s(
-                                  Math.round(
-                                    props.item.theoretical_price
-                                  ).toLocaleString()
-                                )
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-xs-center" }, [
-                            _c("span", [
-                              _vm._v(
-                                _vm._s(
-                                  Math.round(
-                                    props.item.working_price
-                                  ).toLocaleString()
-                                )
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("span", [
-                              _vm._v(
-                                _vm._s(
-                                  Math.round(
-                                    props.item.process_price
-                                  ).toLocaleString()
-                                )
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-xs-center" }),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
+                            _c("td", { staticClass: "text-xs-center" }, [
                               _c(
-                                "v-btn",
+                                "span",
                                 {
-                                  attrs: { color: "primary", outline: "" },
+                                  staticClass: "itemlist select success--text",
                                   on: {
                                     click: function($event) {
                                       return _vm.$router.push(
@@ -355,19 +340,35 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("部材")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      Math.round(
+                                        props.item.items_price
+                                      ).toLocaleString()
+                                    )
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "riron" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    Math.round(
+                                      props.item.theoretical_price
+                                    ).toLocaleString()
+                                  )
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-xs-center" }, [
                               _c(
-                                "v-btn",
+                                "span",
                                 {
-                                  attrs: { color: "primary", outline: "" },
+                                  staticClass: "worklist select success--text",
                                   on: {
                                     click: function($event) {
                                       return _vm.$router.push(
@@ -377,31 +378,367 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("工事")]
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      Math.round(
+                                        props.item.working_price
+                                      ).toLocaleString()
+                                    )
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(
+                                    Math.round(
+                                      props.item.process_price
+                                    ).toLocaleString()
+                                  )
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-xs-center" }, [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "worklist select success--text",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.$router.push(
+                                        "/inv/his/working/" +
+                                          props.item.inv_date
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      Math.round(
+                                        props.item.working_price
+                                      ).toLocaleString()
+                                    )
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(
+                                    Math.round(
+                                      props.item.process_price
+                                    ).toLocaleString()
+                                  )
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "v-btn",
+                                  { attrs: { color: "primary", outline: "" } },
+                                  [_vm._v("集計履歴")]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: { color: "warning", outline: "" },
+                                    on: {
+                                      click: function($event) {
+                                        props.expanded = !props.expanded
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("span", [_vm._v("その他金額")]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-icon",
+                                      { attrs: { right: "", small: "" } },
+                                      [_vm._v("fas fa-history")]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      }
+                    },
+                    {
+                      key: "expand",
+                      fn: function(props) {
+                        return [
+                          _c(
+                            "v-layout",
+                            { attrs: { wrap: "" } },
+                            [
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-title",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("処理")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-title",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("大項目")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-title",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("中項目")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-title",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("小項目")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-title",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("金額")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-title",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("適用")]
                               )
                             ],
                             1
                           ),
                           _vm._v(" "),
                           _c(
-                            "td",
+                            "v-layout",
+                            { attrs: { wrap: "", "py-3": "" } },
                             [
                               _c(
-                                "v-btn",
-                                { attrs: { color: "primary", outline: "" } },
-                                [_vm._v("集計履歴")]
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-act",
+                                  attrs: { xs2: "" }
+                                },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        small: "",
+                                        color: "primary",
+                                        outline: "",
+                                        icon: ""
+                                      }
+                                    },
+                                    [
+                                      _c("v-icon", { attrs: { small: "" } }, [
+                                        _vm._v("fas fa-plus")
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        small: "",
+                                        color: "warning",
+                                        outline: "",
+                                        icon: ""
+                                      }
+                                    },
+                                    [
+                                      _c("v-icon", { attrs: { small: "" } }, [
+                                        _vm._v("fas fa-trash-alt")
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val dai",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("その他 工事")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val tyu",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("スマートカム")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val sho",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("部材金額")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val val",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("5327902")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val teki",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("-")]
                               )
                             ],
                             1
                           ),
                           _vm._v(" "),
                           _c(
-                            "td",
+                            "v-layout",
+                            { attrs: { wrap: "", "pb-3": "" } },
                             [
                               _c(
-                                "v-btn",
-                                { attrs: { color: "warning", outline: "" } },
-                                [_vm._v("調整履歴")]
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-act",
+                                  attrs: { xs2: "" }
+                                },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        small: "",
+                                        color: "primary",
+                                        outline: "",
+                                        icon: ""
+                                      }
+                                    },
+                                    [
+                                      _c("v-icon", { attrs: { small: "" } }, [
+                                        _vm._v("fas fa-plus")
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        small: "",
+                                        color: "warning",
+                                        outline: "",
+                                        icon: ""
+                                      }
+                                    },
+                                    [
+                                      _c("v-icon", { attrs: { small: "" } }, [
+                                        _vm._v("fas fa-trash-alt")
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val dai",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("その他 工事")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val tyu",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("コナミ")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val sho",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("部材金額")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val val",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("557901")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                {
+                                  staticClass: "text-xs-center detail-val teki",
+                                  attrs: { xs2: "" }
+                                },
+                                [_vm._v("-")]
                               )
                             ],
                             1
@@ -412,7 +749,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  1386220569
+                  158211750
                 )
               })
             : _vm._e()
@@ -449,6 +786,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 
 
 
@@ -474,7 +812,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["VBtn"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__["VDataTable"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_6__["VBtn"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_8__["VDataTable"],VFlex: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VFlex"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__["VIcon"],VLayout: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VLayout"]})
 
 
 /* hot reload */

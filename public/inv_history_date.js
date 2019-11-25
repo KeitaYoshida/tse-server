@@ -295,6 +295,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -961,7 +967,7 @@ exports.push([module.i, "h1[data-v-6ec3e5a8] {\n  font-size: 1.5rem;\n}\n.back[d
 
 exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "p[data-v-4303bf93] {\n  margin: 0;\n}\n.item_code[data-v-4303bf93] {\n  font-size: 1.2rem;\n}\n.order_code[data-v-4303bf93] {\n  font-size: 0.9rem;\n  color: grey;\n}\n.rev[data-v-4303bf93] {\n  font-size: 0.7rem;\n}\n.fix[data-v-4303bf93] {\n  font-size: 1.3rem;\n  cursor: pointer;\n}\n.shukei[data-v-4303bf93] {\n  font-size: 1.5rem;\n}\n.sagaku[data-v-4303bf93] {\n  font-size: 1.4rem;\n}\n.class_list button[data-v-4303bf93] {\n  margin: 0 auto;\n}\n.top-chip[data-v-4303bf93] {\n  border-radius: 3px;\n}\n#old_inv_item[data-v-4303bf93] {\n  margin-bottom: 64px;\n}", ""]);
+exports.push([module.i, "p[data-v-4303bf93] {\n  margin: 0;\n}\n.item_code[data-v-4303bf93] {\n  font-size: 1.2rem;\n}\n.order_code[data-v-4303bf93] {\n  font-size: 0.9rem;\n  color: grey;\n}\n.rev[data-v-4303bf93] {\n  font-size: 0.7rem;\n}\n.fix[data-v-4303bf93] {\n  font-size: 1.3rem;\n  cursor: pointer;\n}\n.shukei[data-v-4303bf93] {\n  font-size: 1.5rem;\n}\n.sagaku[data-v-4303bf93] {\n  font-size: 1.4rem;\n}\n.class_list button[data-v-4303bf93] {\n  margin: 0 auto;\n}\n.top-chip[data-v-4303bf93] {\n  border-radius: 3px;\n}\n#old_inv_item[data-v-4303bf93] {\n  margin-bottom: 64px;\n}\n.before[data-v-4303bf93] {\n  cursor: pointer;\n}", ""]);
 
 
 
@@ -1273,6 +1279,25 @@ var render = function() {
             "v-layout",
             { attrs: { row: "", wrap: "" } },
             [
+              _c("v-flex", { attrs: { xs12: "" } }, [
+                _c("h2", [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "primary--text before",
+                      on: {
+                        click: function($event) {
+                          return _vm.$router.push("/sumup/history")
+                        }
+                      }
+                    },
+                    [_vm._v("過去データ")]
+                  ),
+                  _vm._v(" -->\n          "),
+                  _c("span", [_vm._v("部材集計リスト")])
+                ])
+              ]),
+              _vm._v(" "),
               _c(
                 "v-flex",
                 { staticClass: "text-xs-center", attrs: { xs4: "" } },
