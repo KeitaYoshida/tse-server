@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"addlastitem":"addlastitem","cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b":"cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b","cmpt_work_set":"cmpt_work_set","sumup_history":"sumup_history","equip_start_check":"equip_start_check","home":"home","ichecker":"ichecker","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","process":"process","sumup_fin":"sumup_fin","user_info":"user_info","vendors~est_kokuin~inv_history_working_item":"vendors~est_kokuin~inv_history_working_item","est_kokuin":"est_kokuin","vendors~iMonitor~recept_list~sumup":"vendors~iMonitor~recept_list~sumup","iMonitor":"iMonitor","sumup":"sumup","vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac":"vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac","inv_history_date":"inv_history_date","inv_history_working":"inv_history_working","tehaisaki":"tehaisaki","inv_history_working_item":"inv_history_working_item","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","vendors~order_list~readfile":"vendors~order_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","readfile":"readfile","order_list":"order_list","workingUseItem":"workingUseItem","workinglist":"workinglist","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~item_list":"vendors~item_list","item_list":"item_list","work":"work"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"addlastitem":"addlastitem","cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b":"cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b","cmpt_work_set":"cmpt_work_set","sumup_history":"sumup_history","equip_start_check":"equip_start_check","home":"home","ichecker":"ichecker","inv_cheker_history":"inv_cheker_history","inv_heading":"inv_heading","inv_worker_history":"inv_worker_history","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","process":"process","sumup_fin":"sumup_fin","user_info":"user_info","vendors~est_kokuin~inv_history_working_item":"vendors~est_kokuin~inv_history_working_item","est_kokuin":"est_kokuin","vendors~iMonitor~recept_list~sumup":"vendors~iMonitor~recept_list~sumup","iMonitor":"iMonitor","sumup":"sumup","vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac":"vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac","inv_history_date":"inv_history_date","inv_history_working":"inv_history_working","tehaisaki":"tehaisaki","inv_history_working_item":"inv_history_working_item","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","vendors~order_list~readfile":"vendors~order_list~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","readfile":"readfile","order_list":"order_list","workingUseItem":"workingUseItem","workinglist":"workinglist","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~item_list":"vendors~item_list","item_list":"item_list","work":"work"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -76843,6 +76843,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
     print__pdf: function print__pdf(id) {
       var element = document.getElementById(id);
       var opt = {
+        pagebreak: {
+          mode: 'avoid-all'
+        },
         margin: 0,
         filename: "myfile.pdf",
         image: {
@@ -77364,6 +77367,33 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     name: "inv_history_working_item",
     component: function component() {
       return Promise.all(/*! import() | inv_history_working_item */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("vendors~est_kokuin~inv_history_working_item"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("inv_history_working_item")]).then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/worklistItem.vue */ "./resources/js/components/sumup/inv_history/worklistItem.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: "/inv/his/cheker_history/:inv_date",
+    name: "inv_cheker_history",
+    component: function component() {
+      return __webpack_require__.e(/*! import() | inv_cheker_history */ "inv_cheker_history").then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/cheker_his.vue */ "./resources/js/components/sumup/inv_history/cheker_his.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: "/inv/his/worker_history/:inv_date",
+    name: "inv_worker_history",
+    component: function component() {
+      return __webpack_require__.e(/*! import() | inv_worker_history */ "inv_worker_history").then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/worker_his.vue */ "./resources/js/components/sumup/inv_history/worker_his.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: "/inv/his/heading/:inv_id",
+    name: "inv_heading",
+    component: function component() {
+      return __webpack_require__.e(/*! import() | inv_heading */ "inv_heading").then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/heading.vue */ "./resources/js/components/sumup/inv_history/heading.vue"));
     },
     meta: {
       requiresAuth: true

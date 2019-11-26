@@ -13,7 +13,11 @@
         <template v-slot:items="props">
           <tr class="main_info">
             <td class="text-xs-center">
-              <v-btn color="success" outline>表紙</v-btn>
+              <v-btn
+                color="success"
+                outline
+                @click="$router.push('/inv/his/heading/' + props.item.inv_id)"
+              >表紙</v-btn>
             </td>
             <td class="text-xs-center">
               <span class="base_info">{{ props.item.inv_date.slice(2,-3) }}</span>
@@ -56,10 +60,20 @@
               <v-btn color="success" outline block @click="addEtcData(props.item.inv_id)">その他集計項目追加</v-btn>
             </v-flex>
             <v-flex xs3 pa-3>
-              <v-btn color="primary" outline block>集計履歴</v-btn>
+              <v-btn
+                color="primary"
+                outline
+                block
+                @click="$router.push('/inv/his/worker_history/' + props.item.inv_date)"
+              >集計履歴</v-btn>
             </v-flex>
             <v-flex xs3 pa-3>
-              <v-btn color="primary" outline block>調整履歴</v-btn>
+              <v-btn
+                color="primary"
+                outline
+                block
+                @click="$router.push('/inv/his/cheker_history/' + props.item.inv_date)"
+              >調整履歴</v-btn>
             </v-flex>
             <v-flex xs3 pa-3>
               <v-btn color="primary" outline block>差分データマージ</v-btn>

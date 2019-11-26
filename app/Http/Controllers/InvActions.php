@@ -164,4 +164,28 @@ class InvActions extends Controller
     $InvList = new InvList;
     $InvList->where('inv_id', $inv_id)->update(["etc_price" => $price]);
   }
+
+  public function GetInvListData($inv_id)
+  {
+    $invList = new InvList;
+    $list = $invList->where('inv_id', $inv_id)->get();
+    $invEtc = new InvEtc;
+    $etc = $invEtc->where('inv_id', $inv_id)->orderBy('row')->get();
+    return [
+      'list' => $list[0],
+      'etc' => $etc
+    ];
+  }
+
+  public function GetInvHisWorkerHistory($inv_date)
+  {
+    $invHis = new InvHistory;
+    return $invHis->where('inv_date', $inv_date)->orderBy('his_time', 'desc')->get();
+  }
+
+  public function GetInvHisChekerHistory($inv_date)
+  {
+    $invFixHis = new InvFixHistory;
+    return $invFixHis->where('inv_date', $inv_date)->with(['user', 'inv_item'])->orderBy('inv_fix_his_id', 'desc')->get();
+  }
 }

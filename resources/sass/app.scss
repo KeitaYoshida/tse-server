@@ -11,19 +11,24 @@
     size: A4;
     margin: 0;
 }
+
 * {
     -webkit-overflow-scrolling: touch;
 }
+
 body {
     height: calc(100vh - 64px) !important;
 }
+
 .application--wrap {
     min-height: calc(100vh - 64px) !important;
     overflow: scroll;
 }
+
 #app {
     height: 100%;
 }
+
 #main-content {
     margin-top: 64px;
     height: calc(100%);
@@ -31,10 +36,13 @@ body {
 
 .a4 {
     display: block;
-    background: white; /* 背景を白く */
+    background: white;
+    /* 背景を白く */
     width: 210mm !important;
-    height: 296mm !important; /* 1mm余裕をもたせる */
+    height: 296mm !important;
+    /* 1mm余裕をもたせる */
     page-break-after: always;
+    margin: 0 auto;
 }
 
 .a4-back {
@@ -44,34 +52,41 @@ body {
 .a4-area {
     margin: 0 auto;
     width: 210mm !important;
+
     .row {
         margin: 0 auto;
     }
+
     .page_index {
         font-size: 0.5rem;
     }
 }
+
 .v-text-field .v-input__icon--prepend-inner .v-icon {
     font-size: 1.2rem;
 }
 
 .v-chip.v-chip.v-chip--outline {
     border-radius: 10px;
+
     &.noselect {
         color: #424242;
         border-color: #424242;
     }
+
     &.cShoninEtc,
     &.cZumen {
         color: #4e342e;
         border-color: #4e342e;
     }
+
     &.cBuzai,
     &.cHuryoTehai,
     &.cShoninmachi {
         color: #ef6c00;
         border-color: #ef6c00;
     }
+
     &.cSet,
     &.cTehaiEtc,
     &.cSetCPB,
@@ -79,6 +94,7 @@ body {
         color: #4527a0;
         border-color: #4527a0;
     }
+
     &.cHatyuzumi,
     &.cKoziTehai,
     &.cBankin,
@@ -86,17 +102,20 @@ body {
         color: #1565c0;
         border-color: #1565c0;
     }
+
     &.cHoryu,
     &.cTuikaTehai,
     &.cNezi {
         color: #2e7d32;
         border-color: #2e7d32;
     }
+
     &.cChip {
         color: #00695c;
         border-color: #00695c;
     }
 }
+
 // .outline {
 //   .v-badge__badge{
 //     background-color: #fff !important;
@@ -112,10 +131,12 @@ body {
 }
 
 .tyuzan_view_selector {
+
     .v-input__slot,
     .v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
         margin-bottom: 0;
     }
+
     .v-input--selection-controls {
         margin-top: 0;
     }
@@ -130,97 +151,112 @@ body {
     font-size: 18px;
     font-weight: 400;
 }
+
 h1.page-title {
     margin-top: 1rem;
     margin-bottom: 2.5rem;
+
     .v-icon {
         vertical-align: baseline;
         margin-right: 0.8rem;
     }
 }
+
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+    {
     opacity: 0;
 }
+
 .container .layout .flex {
     padding: 4px;
 }
+
 a:hover {
     text-decoration: none;
 }
+
 .v-card {
+
     h2,
     .headline {
         text-align: center;
         margin: 0 auto;
     }
 }
-.v-date-picker-table.v-date-picker-table--date
-    > table
-    > tbody
-    tr
-    td:nth-child(7)
-    .v-btn__content {
+
+.v-date-picker-table.v-date-picker-table--date>table>tbody tr td:nth-child(7) .v-btn__content {
     color: blue;
 }
-.v-date-picker-table.v-date-picker-table--date
-    > table
-    > tbody
-    tr
-    td:nth-child(1)
-    .v-btn__content {
+
+.v-date-picker-table.v-date-picker-table--date>table>tbody tr td:nth-child(1) .v-btn__content {
     color: red;
 }
+
 table {
     &.center {
         td {
             text-align: center;
         }
     }
+
     &#chk_info,
     &#error_set,
     &.torks_com {
         width: 90%;
         margin: 0 auto;
+
         td {
             padding: 0.8rem;
             border-bottom: 0.1px dashed #ccc;
             font-size: 1.4rem;
         }
+
         .index {
             text-align: center;
             max-width: 2rem;
             width: 5%;
         }
+
         .chk_name {
             text-align: center;
             min-width: 12rem;
             width: 30%;
         }
+
         .chk_how {
             min-width: 20rem;
             width: 55%;
         }
+
         .chk_val {
             text-align: center;
             min-width: 4rem;
             width: 10%;
         }
+
         .chk_er {
             width: 65%;
         }
+
         .title {
             min-width: 7rem;
             width: 25%;
         }
+
         .icon {
             text-align: center;
             min-width: 2.2rem;
             width: 4%;
         }
+
         .value {
             width: 71%;
         }

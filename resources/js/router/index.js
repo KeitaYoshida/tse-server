@@ -223,6 +223,27 @@ let router = new Router({
                 requiresAuth: true
             },
         }, {
+            path: "/inv/his/cheker_history/:inv_date",
+            name: "inv_cheker_history",
+            component: () => import( /* webpackChunkName: "inv_cheker_history" */ "@/components/sumup/inv_history/cheker_his.vue"),
+            meta: {
+                requiresAuth: true
+            },
+        }, {
+            path: "/inv/his/worker_history/:inv_date",
+            name: "inv_worker_history",
+            component: () => import( /* webpackChunkName: "inv_worker_history" */ "@/components/sumup/inv_history/worker_his.vue"),
+            meta: {
+                requiresAuth: true
+            },
+        }, {
+            path: "/inv/his/heading/:inv_id",
+            name: "inv_heading",
+            component: () => import( /* webpackChunkName: "inv_heading" */ "@/components/sumup/inv_history/heading.vue"),
+            meta: {
+                requiresAuth: true
+            },
+        }, {
             path: "/item/monitor",
             name: "iMonitor",
             component: () => import( /* webpackChunkName: "iMonitor" */ "@/components/monitor/monitor.vue"),

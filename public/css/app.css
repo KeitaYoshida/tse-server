@@ -10954,6 +10954,7 @@ body {
   height: 296mm !important;
   /* 1mm余裕をもたせる */
   page-break-after: always;
+  margin: 0 auto;
 }
 
 .a4-back {

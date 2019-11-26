@@ -147,6 +147,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -638,7 +652,17 @@ var render = function() {
                               [
                                 _c(
                                   "v-btn",
-                                  { attrs: { color: "success", outline: "" } },
+                                  {
+                                    attrs: { color: "success", outline: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.$router.push(
+                                          "/inv/his/heading/" +
+                                            props.item.inv_id
+                                        )
+                                      }
+                                    }
+                                  },
                                   [_vm._v("表紙")]
                                 )
                               ],
@@ -826,6 +850,14 @@ var render = function() {
                                         color: "primary",
                                         outline: "",
                                         block: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.$router.push(
+                                            "/inv/his/worker_history/" +
+                                              props.item.inv_date
+                                          )
+                                        }
                                       }
                                     },
                                     [_vm._v("集計履歴")]
@@ -845,6 +877,14 @@ var render = function() {
                                         color: "primary",
                                         outline: "",
                                         block: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.$router.push(
+                                            "/inv/his/cheker_history/" +
+                                              props.item.inv_date
+                                          )
+                                        }
                                       }
                                     },
                                     [_vm._v("調整履歴")]
@@ -1128,7 +1168,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  3274525657
+                  1683349817
                 )
               })
             : _vm._e()
