@@ -15,6 +15,7 @@ use App\Model\CntOrderList;
 use App\Model\PdctUseItem;
 use App\Model\itemLastHistory;
 use App\Model\InvFixHistory;
+use App\Model\InvEtc;
 
 class InvActions extends Controller
 {
@@ -132,5 +133,35 @@ class InvActions extends Controller
   {
     $InvList = new InvList;
     $InvList->where('inv_date', $date)->update(["working_price" => $iprice, "process_price" => $wprice]);
+  }
+
+  public function GetInvEtcList($inv_id)
+  {
+    $invEtc = new InvEtc;
+    return $invEtc->where('inv_id', $inv_id)->orderBy('row')->get();
+  }
+
+  public function AddInvEtc(Request $req)
+  {
+    $invEtc = new InvEtc;
+    $invEtc->create($req->all());
+  }
+
+  public function IncrementInvEtc($inv_etc_id, $num)
+  {
+    $invEtc = new InvEtc;
+    $invEtc->where('inv_etc_id', $inv_etc_id)->increment('row', $num);
+  }
+
+  public function EditInvEtc(Request $req, $inv_etc_id)
+  {
+    $invEtc = new InvEtc;
+    $invEtc->where('inv_etc_id', $inv_etc_id)->update($req->all());
+  }
+
+  public function SetInvListEtcPrice($inv_id, $price)
+  {
+    $InvList = new InvList;
+    $InvList->where('inv_id', $inv_id)->update(["etc_price" => $price]);
   }
 }
