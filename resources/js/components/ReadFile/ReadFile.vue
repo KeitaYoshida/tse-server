@@ -69,35 +69,19 @@ export default {
       let reader = new FileReader();
 
       reader.onload = e => {
-        let csv = [];
         let f = e.target.result;
         let enc = jschardet.detect(f).encoding;
         // console.log(enc);
         if (enc === "IBM855") enc = "SHIFT_JIS";
         if (enc === "KOI8-R") enc = "SHIFT_JIS";
         let res = iconv.decode(f, enc, { stripBOM: false });
-        let colCnt = 0;
-        let colNum = 0;
-        const lines = res.split("\n");
-        lines.forEach((ar, index) => {
-          let sp = ar.split(",");
-          if (sp.length === 1) {
-            return; //最終行が空行の場合終了
-          }
-          csv.push(sp);
-          if (colNum !== sp.length) {
-            colNum = sp.length;
-            colCnt = colCnt + 1;
-          }
-        });
+        const parse = require("csv-parse/lib/es5/sync");
+        let csv = parse(res);
 
-        if (colCnt > 1) {
-          console.log("異常データ");
-          console.log(colCnt);
-          return;
-        }
+        let colNum = 0;
+
         if (csv.length <= 1) {
-          console.log("データ行数が足りていません");
+          alert("データ行数が足りていません");
           return;
         }
 
