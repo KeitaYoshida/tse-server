@@ -1057,12 +1057,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Drag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Drag */ "./resources/js/components/ReadFile/Drag.vue");
-/* harmony import */ var _CsvRead_CsvRead__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../CsvRead/CsvRead */ "./resources/js/components/CsvRead/CsvRead.vue");
-/* harmony import */ var _Model_Step__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Model/Step */ "./resources/js/components/ReadFile/Model/Step.vue");
-/* harmony import */ var _Hatyu_Step__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Hatyu/Step */ "./resources/js/components/ReadFile/Hatyu/Step.vue");
-/* harmony import */ var _Tyuzan_Tyuzan__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Tyuzan/Tyuzan */ "./resources/js/components/ReadFile/Tyuzan/Tyuzan.vue");
-/* harmony import */ var _Nohin_nohin__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Nohin/nohin */ "./resources/js/components/ReadFile/Nohin/nohin.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Drag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Drag */ "./resources/js/components/ReadFile/Drag.vue");
+/* harmony import */ var _CsvRead_CsvRead__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../CsvRead/CsvRead */ "./resources/js/components/CsvRead/CsvRead.vue");
+/* harmony import */ var _Model_Step__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Model/Step */ "./resources/js/components/ReadFile/Model/Step.vue");
+/* harmony import */ var _Hatyu_Step__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Hatyu/Step */ "./resources/js/components/ReadFile/Hatyu/Step.vue");
+/* harmony import */ var _Tyuzan_Tyuzan__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Tyuzan/Tyuzan */ "./resources/js/components/ReadFile/Tyuzan/Tyuzan.vue");
+/* harmony import */ var _Nohin_nohin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Nohin/nohin */ "./resources/js/components/ReadFile/Nohin/nohin.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1075,6 +1082,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 var iconv = __webpack_require__(/*! iconv-lite */ "./node_modules/iconv-lite/lib/index.js");
 
 iconv.skipDecodeWarning = true;
@@ -1089,11 +1098,11 @@ var jschardet = __webpack_require__(/*! jschardet */ "./node_modules/jschardet/i
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Drag: _Drag__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Model: _Model_Step__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Hatyu: _Hatyu_Step__WEBPACK_IMPORTED_MODULE_3__["default"],
-    Tyuzan: _Tyuzan_Tyuzan__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Nohin: _Nohin_nohin__WEBPACK_IMPORTED_MODULE_5__["default"]
+    Drag: _Drag__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Model: _Model_Step__WEBPACK_IMPORTED_MODULE_3__["default"],
+    Hatyu: _Hatyu_Step__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Tyuzan: _Tyuzan_Tyuzan__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Nohin: _Nohin_nohin__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   data: function data() {
     return {
@@ -1103,7 +1112,8 @@ var jschardet = __webpack_require__(/*! jschardet */ "./node_modules/jschardet/i
       col: ""
     };
   },
-  methods: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({})),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["CSV_SET"]), {
     fileRead: function fileRead(file) {
       var _this = this;
 
@@ -1161,7 +1171,13 @@ var jschardet = __webpack_require__(/*! jschardet */ "./node_modules/jschardet/i
         var topVal = csv[1][0];
         var mode_title = "";
 
-        if (topCol === "情報区分" && topVal === "1301") {
+        if (file.name.slice(0, 12) === "price_change") {
+          _this.CSV_SET(csv.filter(function (ar) {
+            return ar[8] != 0;
+          }));
+
+          return;
+        } else if (topCol === "情報区分" && topVal === "1301") {
           _this.csv = csv;
           _this.mode = "hatyu_entry";
           _this.type = "1301";
@@ -1206,7 +1222,7 @@ var jschardet = __webpack_require__(/*! jschardet */ "./node_modules/jschardet/i
       this.mode = "";
       this.csv = [];
     }
-  }
+  })
 });
 
 /***/ }),

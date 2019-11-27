@@ -33,6 +33,9 @@ export const state = {
     inventory: {
         status: null
     },
+    csv: {
+        data: null
+    },
     target: {
         code: null,
         data: null,
@@ -175,5 +178,8 @@ export const mutations = {
     },
     [types.INVENTORY_SET](state, payload) {
         state.inventory = payload;
+    },
+    [types.CSV_SET](state, payload) {
+        state.csv.data = payload;
     }
 }

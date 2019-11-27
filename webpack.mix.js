@@ -23,24 +23,23 @@ require('laravel-mix-stylelint');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-  .sass('resources/sass/app.scss', 'public/css')
-  .webpackConfig({
-    module: {
-      rules: [{
-      }],
-    },
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'resources/js')
-      }
-    },
-    // devtool: 'inline-source-map',
-    devtool: 'source-map',
-    plugins: [
-      new VuetifyLoaderPlugin()
-    ]
-  })
-  .babelConfig({
-    "presets": ["@babel/preset-env"],
-    "plugins": ["@babel/plugin-syntax-dynamic-import"]
-  });
+    .sass('resources/sass/app.scss', 'public/css')
+    .webpackConfig({
+        module: {
+            rules: [{}],
+        },
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, 'resources/js')
+            }
+        },
+        // devtool: 'inline-source-map',
+        devtool: 'source-map',
+        plugins: [
+            new VuetifyLoaderPlugin()
+        ]
+    })
+    .babelConfig({
+        "presets": ["@babel/preset-env"],
+        "plugins": ["@babel/plugin-syntax-dynamic-import"]
+    });

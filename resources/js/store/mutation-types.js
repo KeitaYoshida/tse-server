@@ -32,3 +32,4 @@ export const ITEMS_SET = "ITEMS_SET";
 export const SEARCH_INVENTORY = "SEARCH_INVENTORY";
 
 export const INVENTORY_SET = "INVENTORY_SET";
+export const CSV_SET = "CSV_SET";

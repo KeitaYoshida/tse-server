@@ -77500,7 +77500,7 @@ router.beforeEach(function (to, from, next) {
 /*!***************************************!*\
   !*** ./resources/js/store/actions.js ***!
   \***************************************/
-/*! exports provided: SET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_RESET, WORK_ABOUT_SET, WORK_ABOUT_RESET, PDCT_ABOUT_SET, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY, SEARCH_MODELCONST, ORDERS_ONE_INIT_SET, ITEMS_SET, SEARCH_INVENTORY, INVENTORY_SET */
+/*! exports provided: SET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_RESET, WORK_ABOUT_SET, WORK_ABOUT_RESET, PDCT_ABOUT_SET, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY, SEARCH_MODELCONST, ORDERS_ONE_INIT_SET, ITEMS_SET, SEARCH_INVENTORY, INVENTORY_SET, CSV_SET */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77526,6 +77526,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ITEMS_SET", function() { return ITEMS_SET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_INVENTORY", function() { return SEARCH_INVENTORY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVENTORY_SET", function() { return INVENTORY_SET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CSV_SET", function() { return CSV_SET; });
 /* harmony import */ var _mutation_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mutation-types */ "./resources/js/store/mutation-types.js");
 
 var SET_COMPONENT_COM = function SET_COMPONENT_COM(_ref, cmpt) {
@@ -77624,6 +77625,10 @@ var INVENTORY_SET = function INVENTORY_SET(_ref21, payload) {
   var commit = _ref21.commit;
   commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["INVENTORY_SET"], payload);
 };
+var CSV_SET = function CSV_SET(_ref22, payload) {
+  var commit = _ref22.commit;
+  commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["CSV_SET"], payload);
+};
 
 /***/ }),
 
@@ -77674,7 +77679,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*!**********************************************!*\
   !*** ./resources/js/store/mutation-types.js ***!
   \**********************************************/
-/*! exports provided: MESSAGE_UPDATE, USER_INFO, SEARCH_MODELCONST, SET_COMPONENT_COM, RESET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_SET_OBJECT, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY, WORK_ABOUT_SET, SET_MODEL_COM, PDCT_ABOUT_SET, ORDERS_ONE_INIT_SET, ITEMS_SET, SEARCH_INVENTORY, INVENTORY_SET */
+/*! exports provided: MESSAGE_UPDATE, USER_INFO, SEARCH_MODELCONST, SET_COMPONENT_COM, RESET_COMPONENT_COM, CMPT_SEARCH_VAL, CMPT_SEARCH_LENGTH, CMPT_SEARCH_PAGE_ADD, CMPT_SEARCH_PAGE_BELOW, CMPT_SEARCH_SET_OBJECT, PROCESS_INIT, PROCESS_SERIAL_INFO, PROCESS_INFO, PROCESS_STATUS_UPDATE, PROCESS_ITEMS_SET, WORKS_INIT_DAY_PROCESS, WORKS_EDIT_WORK_DAY, WORK_ABOUT_SET, SET_MODEL_COM, PDCT_ABOUT_SET, ORDERS_ONE_INIT_SET, ITEMS_SET, SEARCH_INVENTORY, INVENTORY_SET, CSV_SET */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77703,6 +77708,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ITEMS_SET", function() { return ITEMS_SET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_INVENTORY", function() { return SEARCH_INVENTORY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVENTORY_SET", function() { return INVENTORY_SET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CSV_SET", function() { return CSV_SET; });
 var MESSAGE_UPDATE = "MESSAGE_UPDATE";
 var USER_INFO = "USER_INFO";
 var SEARCH_MODELCONST = "SEARCH_MODELCONST";
@@ -77727,6 +77733,7 @@ var ORDERS_ONE_INIT_SET = "ORDERS_ONE_INIT_SET";
 var ITEMS_SET = "ITEMS_SET";
 var SEARCH_INVENTORY = "SEARCH_INVENTORY";
 var INVENTORY_SET = "INVENTORY_SET";
+var CSV_SET = "CSV_SET";
 
 /***/ }),
 
@@ -77779,6 +77786,9 @@ var state = {
   },
   inventory: {
     status: null
+  },
+  csv: {
+    data: null
   },
   target: {
     code: null,
@@ -77898,6 +77908,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
   state.search.inventory = payload;
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["INVENTORY_SET"], function (state, payload) {
   state.inventory = payload;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["CSV_SET"], function (state, payload) {
+  state.csv.data = payload;
 }), _mutations);
 
 /***/ }),

@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 var iconv = require("iconv-lite");
 iconv.skipDecodeWarning = true;
 var jschardet = require("jschardet");
@@ -38,7 +39,11 @@ export default {
       col: ""
     };
   },
+  computed: {
+    ...mapState({})
+  },
   methods: {
+    ...mapActions(["CSV_SET"]),
     fileRead: function(file) {
       let expansion = file.name.split(".").pop();
       if (expansion === "xlsx") {
@@ -88,7 +93,10 @@ export default {
         let topCol = csv[0][0];
         let topVal = csv[1][0];
         let mode_title = "";
-        if (topCol === "情報区分" && topVal === "1301") {
+        if (file.name.slice(0, 12) === "price_change") {
+          this.CSV_SET(csv.filter(ar => ar[8] != 0));
+          return;
+        } else if (topCol === "情報区分" && topVal === "1301") {
           this.csv = csv;
           this.mode = "hatyu_entry";
           this.type = "1301";
