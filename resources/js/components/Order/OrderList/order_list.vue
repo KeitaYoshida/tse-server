@@ -200,8 +200,10 @@ export default {
         );
       });
 
-      const Dai2BuCode = "LZS0080";
-      const Dai2SoCode = "LZS0090";
+      // const Dai2BuCode = "LZS0080";
+      // const Dai2SoCode = "LZS0090";
+      const Dai2BuCode = "LZS0360";
+      const Dai2SoCode = "LZS0360";
       const Dai1BuCode = "LZS0060";
       const Dai3BuCode = "LZS0100";
       const Hukuchi1Code = "LZS0130";
