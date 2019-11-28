@@ -46,6 +46,7 @@ Route::get('/items/up_item_num_inv/{id}/{rev}/{num}/{order}/{assy}', 'ItemsCtrl@
 Route::get('/items/mini', 'ItemsCtrl@itemListMini');
 Route::post("/db/add/last/item", "ItemsCtrl@AddLastNum");
 Route::get("/db/items/search/get/new/rev/{code}", "ItemsCtrl@GetItemsOfNewRev");
+Route::get("/db/items/fix/price/{item_id}/{vend_id}/{price}", "ItemsCtrl@FixItemPrice");
 
 Route::get('/vendor/list', 'VendorCtrl@vendor_list');
 Route::post('/vendor-item/up/{id}', 'MVendorItemCtrl@up_vendor_item');

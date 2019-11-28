@@ -9,6 +9,7 @@ use App\Model\ItemClass;
 use App\Model\CntOrder;
 use App\Model\InventoryHistory;
 use App\Model\itemLastHistory;
+use App\Model\MVendorItem;
 use Auth;
 
 class ItemsCtrl extends Controller
@@ -107,5 +108,13 @@ class ItemsCtrl extends Controller
   {
     $i = new Item;
     return $i->where("item_code", $code)->orderBy('item_rev', 'desc')->take(1)->get();
+  }
+  public function FixItemPrice($item_id, $vend_id, $price)
+  {
+    $item = new Item;
+    $vendItem = new MVendorItem;
+    $item->where('item_id', $item_id)->update(['item_price' => $price]);
+    $vendItem->where('item_id', $item_id)->delete();
+    $vendItem->create(['vendor_code' => $vend_id, 'item_id' => $item_id, 'vendor_item_price' => $price]);
   }
 }

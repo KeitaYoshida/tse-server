@@ -55,6 +55,8 @@
     "/process.js.map": "/process.js.map",
     "/product_list.js": "/product_list.js",
     "/product_list.js.map": "/product_list.js.map",
+    "/readPriceChange.js": "/readPriceChange.js",
+    "/readPriceChange.js.map": "/readPriceChange.js.map",
     "/readfile.js": "/readfile.js",
     "/readfile.js.map": "/readfile.js.map",
     "/readfile~recept_list.js": "/readfile~recept_list.js",
@@ -83,12 +85,16 @@
     "/vendors~item_list.js.map": "/vendors~item_list.js.map",
     "/vendors~order_list~readfile.js": "/vendors~order_list~readfile.js",
     "/vendors~order_list~readfile.js.map": "/vendors~order_list~readfile.js.map",
+    "/vendors~readfile.js": "/vendors~readfile.js",
+    "/vendors~readfile.js.map": "/vendors~readfile.js.map",
     "/work.js": "/work.js",
     "/work.js.map": "/work.js.map",
     "/workingUseItem.js": "/workingUseItem.js",
     "/workingUseItem.js.map": "/workingUseItem.js.map",
     "/workinglist.js": "/workinglist.js",
     "/workinglist.js.map": "/workinglist.js.map",
-    "/vendors~readfile.js": "/vendors~readfile.js",
-    "/vendors~readfile.js.map": "/vendors~readfile.js.map"
+    "/vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5.js": "/vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5.js",
+    "/vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5.js.map": "/vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5.js.map",
+    "/vendors~order_list~readPriceChange~readfile.js": "/vendors~order_list~readPriceChange~readfile.js",
+    "/vendors~order_list~readPriceChange~readfile.js.map": "/vendors~order_list~readPriceChange~readfile.js.map"
 }

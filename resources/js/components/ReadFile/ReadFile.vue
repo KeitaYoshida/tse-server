@@ -94,7 +94,8 @@ export default {
         let topVal = csv[1][0];
         let mode_title = "";
         if (file.name.slice(0, 12) === "price_change") {
-          this.CSV_SET(csv.filter(ar => ar[8] != 0));
+          this.CSV_SET(csv);
+          this.$router.push("/read/price/change");
           return;
         } else if (topCol === "情報区分" && topVal === "1301") {
           this.csv = csv;

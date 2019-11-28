@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"addlastitem":"addlastitem","cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b":"cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b","cmpt_work_set":"cmpt_work_set","sumup_history":"sumup_history","equip_start_check":"equip_start_check","home":"home","ichecker":"ichecker","inv_cheker_history":"inv_cheker_history","inv_heading":"inv_heading","inv_worker_history":"inv_worker_history","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","process":"process","sumup_fin":"sumup_fin","user_info":"user_info","vendors~est_kokuin~inv_history_working_item":"vendors~est_kokuin~inv_history_working_item","est_kokuin":"est_kokuin","vendors~iMonitor~recept_list~sumup":"vendors~iMonitor~recept_list~sumup","iMonitor":"iMonitor","sumup":"sumup","vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac":"vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac","inv_history_date":"inv_history_date","inv_history_working":"inv_history_working","tehaisaki":"tehaisaki","inv_history_working_item":"inv_history_working_item","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","vendors~order_list~readfile":"vendors~order_list~readfile","vendors~readfile":"vendors~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","readfile":"readfile","order_list":"order_list","workingUseItem":"workingUseItem","workinglist":"workinglist","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~item_list":"vendors~item_list","item_list":"item_list","work":"work"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"addlastitem":"addlastitem","cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b":"cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b","cmpt_work_set":"cmpt_work_set","sumup_history":"sumup_history","equip_start_check":"equip_start_check","home":"home","ichecker":"ichecker","inv_cheker_history":"inv_cheker_history","inv_heading":"inv_heading","inv_worker_history":"inv_worker_history","item_monitor":"item_monitor","petition_kyuka":"petition_kyuka","petition_menu":"petition_menu","process":"process","sumup_fin":"sumup_fin","user_info":"user_info","vendors~est_kokuin~inv_history_working_item":"vendors~est_kokuin~inv_history_working_item","est_kokuin":"est_kokuin","vendors~iMonitor~recept_list~sumup":"vendors~iMonitor~recept_list~sumup","iMonitor":"iMonitor","sumup":"sumup","vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5":"vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5","inv_history_date":"inv_history_date","inv_history_working":"inv_history_working","tehaisaki":"tehaisaki","inv_history_working_item":"inv_history_working_item","readfile~recept_list":"readfile~recept_list","recept_list":"recept_list","vendors~item_data~model_mst~order~product_list~readfile":"vendors~item_data~model_mst~order~product_list~readfile","vendors~order_list~readPriceChange~readfile":"vendors~order_list~readPriceChange~readfile","vendors~readfile":"vendors~readfile","item_data~model_mst~order~product_list~readfile":"item_data~model_mst~order~product_list~readfile","model_mst~readfile":"model_mst~readfile","readfile":"readfile","order_list":"order_list","readPriceChange":"readPriceChange","workingUseItem":"workingUseItem","workinglist":"workinglist","model_mst":"model_mst","order":"order","product_list":"product_list","item_data":"item_data","vendors~item_list":"vendors~item_list","item_list":"item_list","work":"work"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -77239,7 +77239,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/readfile",
     name: "readfile",
     component: function component() {
-      return Promise.all(/*! import() | readfile */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("vendors~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("readfile")]).then(__webpack_require__.bind(null, /*! ../components/ReadFile/ReadFile.vue */ "./resources/js/components/ReadFile/ReadFile.vue"));
+      return Promise.all(/*! import() | readfile */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("vendors~item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("vendors~order_list~readPriceChange~readfile"), __webpack_require__.e("vendors~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("item_data~model_mst~order~product_list~readfile"), __webpack_require__.e("model_mst~readfile"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("readfile")]).then(__webpack_require__.bind(null, /*! ../components/ReadFile/ReadFile.vue */ "./resources/js/components/ReadFile/ReadFile.vue"));
+    }
+  }, {
+    path: "/read/price/change",
+    name: "readPriceChange",
+    component: function component() {
+      return Promise.all(/*! import() | readPriceChange */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("vendors~order_list~readPriceChange~readfile"), __webpack_require__.e("readPriceChange")]).then(__webpack_require__.bind(null, /*! ../components/ReadFile/PriceChange.vue */ "./resources/js/components/ReadFile/PriceChange.vue"));
     }
   }, {
     path: "/model_mst/:cmpt",
@@ -77257,7 +77263,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/recept_list",
     name: "recept_list",
     component: function component() {
-      return Promise.all(/*! import() | recept_list */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("vendors~iMonitor~recept_list~sumup"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("recept_list")]).then(__webpack_require__.bind(null, /*! ../components/ReceptList/index.vue */ "./resources/js/components/ReceptList/index.vue"));
+      return Promise.all(/*! import() | recept_list */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("vendors~iMonitor~recept_list~sumup"), __webpack_require__.e("readfile~recept_list"), __webpack_require__.e("recept_list")]).then(__webpack_require__.bind(null, /*! ../components/ReceptList/index.vue */ "./resources/js/components/ReceptList/index.vue"));
     }
   }, {
     path: "/product_list",
@@ -77279,7 +77285,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/order_list/:cnt_order_code",
     name: "order_list",
     component: function component() {
-      return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Order/OrderList/order_list.vue */ "./resources/js/components/Order/OrderList/order_list.vue"));
+      return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("vendors~order_list~readPriceChange~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Order/OrderList/order_list.vue */ "./resources/js/components/Order/OrderList/order_list.vue"));
     },
     meta: {
       requiresAuth: true
@@ -77297,7 +77303,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/ukeire/:pid",
     name: "ukeire",
     component: function component() {
-      return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("vendors~order_list~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Ukeire/ukeire.vue */ "./resources/js/components/Ukeire/ukeire.vue"));
+      return Promise.all(/*! import() | order_list */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("vendors~order_list~readPriceChange~readfile"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("order_list")]).then(__webpack_require__.bind(null, /*! ../components/Ukeire/ukeire.vue */ "./resources/js/components/Ukeire/ukeire.vue"));
     },
     meta: {
       requiresAuth: true
@@ -77306,7 +77312,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/tehaisaki",
     name: "tehaisaki",
     component: function component() {
-      return Promise.all(/*! import() | tehaisaki */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("tehaisaki")]).then(__webpack_require__.bind(null, /*! ../components/com/Tehaisaki.vue */ "./resources/js/components/com/Tehaisaki.vue"));
+      return Promise.all(/*! import() | tehaisaki */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("tehaisaki")]).then(__webpack_require__.bind(null, /*! ../components/com/Tehaisaki.vue */ "./resources/js/components/com/Tehaisaki.vue"));
     }
   }, {
     path: "/process/:id",
@@ -77366,7 +77372,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/workinglist",
     name: "workinglist",
     component: function component() {
-      return Promise.all(/*! import() | workinglist */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("workinglist")]).then(__webpack_require__.bind(null, /*! @/components/sumup/working.vue */ "./resources/js/components/sumup/working.vue"));
+      return Promise.all(/*! import() | workinglist */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("workinglist")]).then(__webpack_require__.bind(null, /*! @/components/sumup/working.vue */ "./resources/js/components/sumup/working.vue"));
     },
     meta: {
       requiresAuth: true
@@ -77375,7 +77381,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/workingUseItem/:work_id",
     name: "workingUseItem",
     component: function component() {
-      return Promise.all(/*! import() | workingUseItem */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("workingUseItem")]).then(__webpack_require__.bind(null, /*! @/components/sumup/workingUseItem.vue */ "./resources/js/components/sumup/workingUseItem.vue"));
+      return Promise.all(/*! import() | workingUseItem */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("workingUseItem")]).then(__webpack_require__.bind(null, /*! @/components/sumup/workingUseItem.vue */ "./resources/js/components/sumup/workingUseItem.vue"));
     },
     meta: {
       requiresAuth: true
@@ -77402,7 +77408,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/inv/his/items/:date",
     name: "inv_history_date",
     component: function component() {
-      return Promise.all(/*! import() | inv_history_date */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("inv_history_date")]).then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/items.vue */ "./resources/js/components/sumup/inv_history/items.vue"));
+      return Promise.all(/*! import() | inv_history_date */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("inv_history_date")]).then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/items.vue */ "./resources/js/components/sumup/inv_history/items.vue"));
     },
     meta: {
       requiresAuth: true
@@ -77411,7 +77417,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/inv/his/working/:date",
     name: "inv_history_working",
     component: function component() {
-      return Promise.all(/*! import() | inv_history_working */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("inv_history_working")]).then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/working.vue */ "./resources/js/components/sumup/inv_history/working.vue"));
+      return Promise.all(/*! import() | inv_history_working */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("inv_history_working")]).then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/working.vue */ "./resources/js/components/sumup/inv_history/working.vue"));
     },
     meta: {
       requiresAuth: true
@@ -77420,7 +77426,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: "/inv/his/working/item/:date/:worklist_code",
     name: "inv_history_working_item",
     component: function component() {
-      return Promise.all(/*! import() | inv_history_working_item */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readfile~recept_lis~ef95afac"), __webpack_require__.e("vendors~est_kokuin~inv_history_working_item"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("inv_history_working_item")]).then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/worklistItem.vue */ "./resources/js/components/sumup/inv_history/worklistItem.vue"));
+      return Promise.all(/*! import() | inv_history_working_item */[__webpack_require__.e("vendors~inv_history_date~inv_history_working~inv_history_working_item~order_list~readPriceChange~rea~e5b1d7d5"), __webpack_require__.e("vendors~est_kokuin~inv_history_working_item"), __webpack_require__.e("cmpt_work_set~iMonitor~inv_history_date~inv_history_working~inv_history_working_item~item_list~model~29257f8b"), __webpack_require__.e("inv_history_working_item")]).then(__webpack_require__.bind(null, /*! @/components/sumup/inv_history/worklistItem.vue */ "./resources/js/components/sumup/inv_history/worklistItem.vue"));
     },
     meta: {
       requiresAuth: true

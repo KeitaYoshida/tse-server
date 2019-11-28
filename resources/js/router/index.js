@@ -69,6 +69,11 @@ let router = new Router({
             component: () => import( /* webpackChunkName: "readfile" */ "../components/ReadFile/ReadFile.vue")
         },
         {
+            path: "/read/price/change",
+            name: "readPriceChange",
+            component: () => import( /* webpackChunkName: "readPriceChange" */ "../components/ReadFile/PriceChange.vue")
+        },
+        {
             path: "/model_mst/:cmpt",
             name: "model_mst",
             component: () => import( /* webpackChunkName: "model_mst" */ "../components/ModelMst/index.vue")

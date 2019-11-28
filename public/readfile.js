@@ -1172,9 +1172,9 @@ var jschardet = __webpack_require__(/*! jschardet */ "./node_modules/jschardet/i
         var mode_title = "";
 
         if (file.name.slice(0, 12) === "price_change") {
-          _this.CSV_SET(csv.filter(function (ar) {
-            return ar[8] != 0;
-          }));
+          _this.CSV_SET(csv);
+
+          _this.$router.push("/read/price/change");
 
           return;
         } else if (topCol === "情報区分" && topVal === "1301") {
