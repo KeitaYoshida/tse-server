@@ -103,6 +103,7 @@ Route::get('/db/recept/oneupdate/{id}/{col}/{val}', 'ReceptCtrl@OneColumnUpdate'
 Route::post('/db/recept/nohin/list/', 'ReceptCtrl@GetNohinList');
 
 Route::post('/db/pdct/create/{rid}', 'PdctCtrl@CreatePdct');
+Route::get('/db/pdct/create/{model_code}/{pdct_name}/{class}', 'PdctCtrl@CreatePdctWithGet');
 Route::get('/db/pdct/list/from/model/{id}', 'PdctCtrl@PdctListFromModel');
 Route::get('/db/pdct/add/rcpt/{code}/{rid}', 'PdctCtrl@AddRecept');
 Route::get("/db/pdct/is/this/{code}", 'PdctCtrl@CheckDup');

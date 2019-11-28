@@ -15,9 +15,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dayjs/locale/ja */ "./node_modules/dayjs/locale/ja.js");
 /* harmony import */ var dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dayjs_locale_ja__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../com/ComCheckDialog */ "./resources/js/components/com/ComCheckDialog.vue");
-/* harmony import */ var _com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../com/ComFormDialog */ "./resources/js/components/com/ComFormDialog.vue");
-/* harmony import */ var _ItemData_Henshu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../ItemData/Henshu */ "./resources/js/components/ItemData/Henshu.vue");
+/* harmony import */ var _components_com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/com/ComCheckDialog */ "./resources/js/components/com/ComCheckDialog.vue");
+/* harmony import */ var _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/com/ComFormDialog */ "./resources/js/components/com/ComFormDialog.vue");
+/* harmony import */ var _components_ItemData_Henshu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/ItemData/Henshu */ "./resources/js/components/ItemData/Henshu.vue");
 /* harmony import */ var _components_com_Hint__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/com/Hint */ "./resources/js/components/com/Hint.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
@@ -243,10 +243,10 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    DelChecker: _com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__["default"],
-    AddCmptItem: _com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__["default"],
-    NumChanger: _com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__["default"],
-    HenshuView: _ItemData_Henshu__WEBPACK_IMPORTED_MODULE_5__["default"],
+    DelChecker: _components_com_ComCheckDialog__WEBPACK_IMPORTED_MODULE_3__["default"],
+    AddCmptItem: _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__["default"],
+    NumChanger: _components_com_ComFormDialog__WEBPACK_IMPORTED_MODULE_4__["default"],
+    HenshuView: _components_ItemData_Henshu__WEBPACK_IMPORTED_MODULE_5__["default"],
     PopUpLotNum: _components_com_Hint__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapState"])({
@@ -351,9 +351,7 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       }
 
       if (this.tarModel === undefined) {
-        this.$router.push({
-          name: "home"
-        });
+        this.$router.go(-1);
         return;
       }
 

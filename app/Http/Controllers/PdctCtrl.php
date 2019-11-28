@@ -28,6 +28,12 @@ class PdctCtrl extends Controller
     return $pid;
   }
 
+  public function CreatePdctWithGet($model_code, $pdct_name, $class)
+  {
+    $pd = new Production;
+    $pd->create(['model_id' => $model_code, 'const_code' => $pdct_name, 'pdct_class' => $class]);
+  }
+
   public function CheckDup($code)
   {
     $pd = new Production;

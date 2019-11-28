@@ -203,10 +203,10 @@ import dayjs from "dayjs";
 import "dayjs/locale/ja";
 dayjs.locale("ja");
 
-import DelChecker from "./../../com/ComCheckDialog";
-import NumChanger from "./../../com/ComFormDialog";
-import HenshuView from "./../../ItemData/Henshu";
-import AddCmptItem from "./../../com/ComFormDialog";
+import DelChecker from "@/components/com/ComCheckDialog";
+import NumChanger from "@/components/com/ComFormDialog";
+import HenshuView from "@/components/ItemData/Henshu";
+import AddCmptItem from "@/components/com/ComFormDialog";
 import PopUpLotNum from "@/components/com/Hint";
 
 import { mapState, mapMutations } from "vuex";
@@ -297,7 +297,7 @@ export default {
         ];
       }
       if (this.tarModel === undefined) {
-        this.$router.push({ name: "home" });
+        this.$router.go(-1);
         return;
       }
       this.tarModel.cmpt.forEach(c => {

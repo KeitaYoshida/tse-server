@@ -5,6 +5,10 @@
         <Loading v-if="loading"></Loading>
         <div v-else>
           <h1>製造データ</h1>
+          <v-btn small outline color="primary" @click="orderedPdct">発注済み</v-btn>
+          <v-btn small outline color="primary" @click="workedPdct">起工済み</v-btn>
+          <v-btn small outline color="primary" @click="allPdct">全件データ</v-btn>
+          <v-btn small outline color="success" @click="addProductView=!addProductView">空製造データ作成</v-btn>
           <v-text-field
             label="検索"
             :value="search_x"
@@ -117,6 +121,34 @@
         </div>
       </transition>
       <v-dialog
+        v-model="addProductView"
+        max-width="500px"
+        transition="dialog-transition"
+        persistent
+      >
+        <v-card v-if="addProductView">
+          <v-btn small icon @click="closeProductView()">
+            <v-icon small>fas fa-times</v-icon>
+          </v-btn>
+          <v-card-text>
+            <v-text-field
+              name="model-select"
+              label="形式検索"
+              v-bind:value="modelSelect"
+              autofocus
+              @input="changeModelSelectValue($event)"
+            ></v-text-field>
+            <template v-if="selectModels!==null">
+              <div>
+                <v-select :items="selectModels" v-model="selectModelData" label="形式"></v-select>
+                <v-text-field name="pdct-name" label="製造コード" v-model="makePdctName"></v-text-field>
+                <v-btn block outline @click="makePdct()">作成</v-btn>
+              </div>
+            </template>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+      <v-dialog
         v-model="make_order"
         scrollable
         hide-overlay
@@ -145,8 +177,14 @@ export default {
   },
   data: function() {
     return {
+      makePdctName: "",
+      selectModels: null,
+      selectModelData: "",
+      modelSelect: "",
+      addProductView: false,
       loading: true,
       pdct: null,
+      items: null,
       headers: [
         { text: "区分", value: "pdct_class", align: "center" },
         { text: "形式", value: "model_id", align: "center" },
@@ -176,7 +214,8 @@ export default {
     ...mapActions(["PDCT_ABOUT_SET", "SEARCH_MODELCONST"]),
     init() {
       axios.get("/db/pdct/list/live").then(res => {
-        let d = (this.pdct = res.data);
+        let d = (this.pdct = this.items = res.data);
+
         this.loading = false;
         d.forEach((ar, index) => {
           if (ar.pdct_status !== 9) {
@@ -256,6 +295,46 @@ export default {
         sum = sum + ar.context;
       });
       return sum / count;
+    },
+    orderedPdct() {
+      this.pdct = this.items.filter(ar => ar.orders.length > 0);
+    },
+    workedPdct() {
+      this.pdct = this.items.filter(ar => ar.workdata.length > 0);
+    },
+    allPdct() {
+      this.pdct = this.items;
+    },
+    changeModelSelectValue(e) {
+      let target = this.model_data.filter(ar => {
+        let ml = ar.model_code.toLowerCase();
+        let el = e.toLowerCase();
+        return ml.indexOf(el) >= 0;
+      });
+      if (target.length < 10 && target.length !== 0) {
+        this.selectModels = target.map(ar => ar.model_code);
+        this.selectModelData = target[0].model_code;
+      } else {
+        this.selectModels = null;
+        this.selectModelData = "";
+      }
+    },
+    closeProductView() {
+      this.addProductView = false;
+      this.selectModels = null;
+      this.selectModelData = "";
+    },
+    async makePdct() {
+      const Pdct_class = "TSE";
+      let mName = this.selectModelData;
+      let pName = this.makePdctName;
+      if (pName == false) return;
+      await axios.get(
+        "/db/pdct/create/" + mName + "/" + pName + "/" + Pdct_class
+      );
+      this.SEARCH_MODELCONST(pName);
+      this.addProductView = false;
+      this.init();
     }
   },
   beforeDestroy: function() {
@@ -318,5 +397,8 @@ td {
 }
 .v-progress-linear {
   margin: 0;
+}
+h1 {
+  display: inline-block;
 }
 </style>
