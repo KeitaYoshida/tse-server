@@ -1160,7 +1160,7 @@ var jschardet = __webpack_require__(/*! jschardet */ "./node_modules/jschardet/i
         var parse = __webpack_require__(/*! csv-parse/lib/es5/sync */ "./node_modules/csv-parse/lib/es5/sync.js");
 
         var csv = parse(res);
-        var colNum = 0;
+        var colNum = csv[0].length;
 
         if (csv.length <= 1) {
           alert("データ行数が足りていません");
@@ -1211,6 +1211,7 @@ var jschardet = __webpack_require__(/*! jschardet */ "./node_modules/jschardet/i
               break;
 
             default:
+              console.log(csv);
               console.log(colNum);
           }
         }

@@ -102,5 +102,9 @@
     "/item_data~model_mst~order~readfile.js": "/item_data~model_mst~order~readfile.js",
     "/item_data~model_mst~order~readfile.js.map": "/item_data~model_mst~order~readfile.js.map",
     "/vendors~item_data~model_mst~order~readfile.js": "/vendors~item_data~model_mst~order~readfile.js",
-    "/vendors~item_data~model_mst~order~readfile.js.map": "/vendors~item_data~model_mst~order~readfile.js.map"
+    "/vendors~item_data~model_mst~order~readfile.js.map": "/vendors~item_data~model_mst~order~readfile.js.map",
+    "/vendors~inv_history_date~inv_history_working~inv_history_working_item~readPriceChange~readfile~recep~f03b9a1f.js": "/vendors~inv_history_date~inv_history_working~inv_history_working_item~readPriceChange~readfile~recep~f03b9a1f.js",
+    "/vendors~inv_history_date~inv_history_working~inv_history_working_item~readPriceChange~readfile~recep~f03b9a1f.js.map": "/vendors~inv_history_date~inv_history_working~inv_history_working_item~readPriceChange~readfile~recep~f03b9a1f.js.map",
+    "/vendors~readPriceChange~readfile.js": "/vendors~readPriceChange~readfile.js",
+    "/vendors~readPriceChange~readfile.js.map": "/vendors~readPriceChange~readfile.js.map"
 }

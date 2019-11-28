@@ -193,17 +193,24 @@ export default {
       const Dai1BuVnd = "k0076";
       const Dai3BuVnd = "k0078";
       const Hukuchi1Vnd = "k0097";
-      let pass = [Dai2BuVnd, Dai2SoVnd, Dai1BuVnd, Dai3BuVnd, Hukuchi1Vnd];
+      const DuSoukoVnd = "k0112";
+      let pass = [
+        Dai2BuVnd,
+        Dai2SoVnd,
+        Dai1BuVnd,
+        Dai3BuVnd,
+        Hukuchi1Vnd,
+        DuSoukoVnd
+      ];
       let orders = this.order_list.filter(row => {
         return (
           row.price.length > 0 && pass.indexOf(row.price[0].vendor_code) >= 0
         );
       });
 
-      // const Dai2BuCode = "LZS0080";
-      // const Dai2SoCode = "LZS0090";
-      const Dai2BuCode = "LZS0360";
-      const Dai2SoCode = "LZS0360";
+      const Dai2BuCode = "LZS0080";
+      const Dai2SoCode = "LZS0090";
+      const DuSoukoCode = "LZS0360";
       const Dai1BuCode = "LZS0060";
       const Dai3BuCode = "LZS0100";
       const Hukuchi1Code = "LZS0130";
@@ -212,7 +219,8 @@ export default {
         [Dai2SoVnd]: Dai2SoCode,
         [Dai1BuVnd]: Dai1BuCode,
         [Dai3BuVnd]: Dai3BuCode,
-        [Hukuchi1Vnd]: Hukuchi1Code
+        [Hukuchi1Vnd]: Hukuchi1Code,
+        [DuSoukoVnd]: DuSoukoCode
       };
       let csv = "";
       let file = orders.forEach(row => {

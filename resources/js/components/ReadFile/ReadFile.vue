@@ -83,7 +83,7 @@ export default {
         const parse = require("csv-parse/lib/es5/sync");
         let csv = parse(res);
 
-        let colNum = 0;
+        let colNum = csv[0].length;
 
         if (csv.length <= 1) {
           alert("データ行数が足りていません");
@@ -127,6 +127,7 @@ export default {
               this.mode = "hatyu_entry";
               break;
             default:
+              console.log(csv);
               console.log(colNum);
           }
         }

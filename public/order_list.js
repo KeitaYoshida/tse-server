@@ -310,18 +310,18 @@ dayjs__WEBPACK_IMPORTED_MODULE_1___default.a.locale("ja");
       var Dai1BuVnd = "k0076";
       var Dai3BuVnd = "k0078";
       var Hukuchi1Vnd = "k0097";
-      var pass = [Dai2BuVnd, Dai2SoVnd, Dai1BuVnd, Dai3BuVnd, Hukuchi1Vnd];
+      var DuSoukoVnd = "k0112";
+      var pass = [Dai2BuVnd, Dai2SoVnd, Dai1BuVnd, Dai3BuVnd, Hukuchi1Vnd, DuSoukoVnd];
       var orders = this.order_list.filter(function (row) {
         return row.price.length > 0 && pass.indexOf(row.price[0].vendor_code) >= 0;
-      }); // const Dai2BuCode = "LZS0080";
-      // const Dai2SoCode = "LZS0090";
-
-      var Dai2BuCode = "LZS0360";
-      var Dai2SoCode = "LZS0360";
+      });
+      var Dai2BuCode = "LZS0080";
+      var Dai2SoCode = "LZS0090";
+      var DuSoukoCode = "LZS0360";
       var Dai1BuCode = "LZS0060";
       var Dai3BuCode = "LZS0100";
       var Hukuchi1Code = "LZS0130";
-      var code = (_code = {}, _defineProperty(_code, Dai2BuVnd, Dai2BuCode), _defineProperty(_code, Dai2SoVnd, Dai2SoCode), _defineProperty(_code, Dai1BuVnd, Dai1BuCode), _defineProperty(_code, Dai3BuVnd, Dai3BuCode), _defineProperty(_code, Hukuchi1Vnd, Hukuchi1Code), _code);
+      var code = (_code = {}, _defineProperty(_code, Dai2BuVnd, Dai2BuCode), _defineProperty(_code, Dai2SoVnd, Dai2SoCode), _defineProperty(_code, Dai1BuVnd, Dai1BuCode), _defineProperty(_code, Dai3BuVnd, Dai3BuCode), _defineProperty(_code, Hukuchi1Vnd, Hukuchi1Code), _defineProperty(_code, DuSoukoVnd, DuSoukoCode), _code);
       var csv = "";
       var file = orders.forEach(function (row) {
         var vnd = row.price[0].vendor_code;
