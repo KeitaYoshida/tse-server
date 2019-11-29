@@ -214,6 +214,13 @@ let router = new Router({
                 requiresAuth: true
             },
         }, {
+            path: "/inv/his/merge/:date",
+            name: "inv_merge",
+            component: () => import( /* webpackChunkName: "inv_merge" */ "@/components/sumup/inv_history/merge.vue"),
+            meta: {
+                requiresAuth: true
+            },
+        }, {
             path: "/inv/his/working/:date",
             name: "inv_history_working",
             component: () => import( /* webpackChunkName: "inv_history_working" */ "@/components/sumup/inv_history/working.vue"),

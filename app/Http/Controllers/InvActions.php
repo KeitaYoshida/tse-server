@@ -188,4 +188,14 @@ class InvActions extends Controller
     $invFixHis = new InvFixHistory;
     return $invFixHis->where('inv_date', $inv_date)->with(['user', 'inv_item'])->orderBy('inv_fix_his_id', 'desc')->get();
   }
+
+  public function MergeInvDate(Request $req, $inv_date)
+  {
+    $invList = new InvList;
+    $item = new Item;
+    $invList->where('inv_date', $inv_date)->update(['merge_flg' => 1]);
+    foreach ($req->all() as $val) {
+      $item->where('item_id', $val['item_id'])->increment('last_num', $val['increment']);
+    }
+  }
 }

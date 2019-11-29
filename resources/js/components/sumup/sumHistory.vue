@@ -76,7 +76,13 @@
               >調整履歴</v-btn>
             </v-flex>
             <v-flex xs3 pa-3>
-              <v-btn color="primary" outline block>差分データマージ</v-btn>
+              <v-btn
+                color="primary"
+                outline
+                block
+                @click="$router.push('/inv/his/merge/' + props.item.inv_date)"
+                :disabled="props.item.merge_flg!==0"
+              >差分データマージ</v-btn>
             </v-flex>
           </v-layout>
           <v-layout wrap v-if="etcData.length > 0">

@@ -188,6 +188,7 @@ Route::get("/db/inv/list/set/etc/price/{inv_id}/{price}", "InvActions@SetInvList
 Route::get("/db/inv/list/data/get/{inv_id}", "InvActions@GetInvListData");
 Route::get("/db/inv/his/history/worker/{inv_date}", "InvActions@GetInvHisWorkerHistory");
 Route::get("/db/inv/his/history/cheker/{inv_date}", "InvActions@GetInvHisChekerHistory");
+Route::post("/db/inv/merge/{inv_date}", "InvActions@MergeInvDate");
 
 Route::post('/db/file/xlsx', 'FileAction@XlsxToCsv');
 

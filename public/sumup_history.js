@@ -161,6 +161,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -903,7 +909,16 @@ var render = function() {
                                       attrs: {
                                         color: "primary",
                                         outline: "",
-                                        block: ""
+                                        block: "",
+                                        disabled: props.item.merge_flg !== 0
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.$router.push(
+                                            "/inv/his/merge/" +
+                                              props.item.inv_date
+                                          )
+                                        }
                                       }
                                     },
                                     [_vm._v("差分データマージ")]
@@ -1168,7 +1183,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  1683349817
+                  2755732114
                 )
               })
             : _vm._e()
